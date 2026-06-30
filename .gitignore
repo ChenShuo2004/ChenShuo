@@ -10,3 +10,5 @@ vite.err.log
 
 qa-*.png
 .chrome-*/
+
+.vercel
