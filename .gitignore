@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vite/
+.vercel/
+.npm-cache/
+
+*.log
+vite.out.log
+vite.err.log
+
+qa-*.png
+.chrome-*/
