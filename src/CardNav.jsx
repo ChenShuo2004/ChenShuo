@@ -23,6 +23,8 @@ const CardNav = ({
   buttonTextColor = "#f6f6f1",
   ctaLabel = "联系",
   ctaHref = "#contact",
+  secondaryCtaLabel,
+  secondaryCtaHref,
   onLinkClick,
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
@@ -166,6 +168,7 @@ const CardNav = ({
   };
 
   const ctaIsExternal = isExternalHref(ctaHref);
+  const secondaryCtaIsExternal = isExternalHref(secondaryCtaHref);
 
   return (
     <div className={`card-nav-container ${className}`}>
@@ -210,17 +213,32 @@ const CardNav = ({
             </span>
           </a>
 
-          <a
-            className="card-nav-cta-button"
-            href={ctaHref}
-            target={ctaIsExternal ? "_blank" : undefined}
-            rel={ctaIsExternal ? "noreferrer" : undefined}
-            onClick={(event) => handleLinkClick(event, ctaHref)}
-            style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
-          >
-            {ctaLabel}
-            <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
-          </a>
+          <div className="card-nav-actions">
+            {secondaryCtaLabel && secondaryCtaHref && (
+              <a
+                className="card-nav-cta-button card-nav-cta-button-secondary"
+                href={secondaryCtaHref}
+                target={secondaryCtaIsExternal ? "_blank" : undefined}
+                rel={secondaryCtaIsExternal ? "noreferrer" : undefined}
+                onClick={(event) => handleLinkClick(event, secondaryCtaHref)}
+                style={{ color: buttonBgColor }}
+              >
+                {secondaryCtaLabel}
+                <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
+              </a>
+            )}
+            <a
+              className="card-nav-cta-button"
+              href={ctaHref}
+              target={ctaIsExternal ? "_blank" : undefined}
+              rel={ctaIsExternal ? "noreferrer" : undefined}
+              onClick={(event) => handleLinkClick(event, ctaHref)}
+              style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
+            >
+              {ctaLabel}
+              <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
+            </a>
+          </div>
         </div>
 
         <div className="card-nav-content" aria-hidden={!isExpanded}>

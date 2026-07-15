@@ -39,9 +39,9 @@ const cardNavItems = [
   },
   {
     label: "项目",
-    bgColor: "#dcd9cf",
-    textColor: "#080909",
-    labelColor: "rgba(8, 9, 9, 0.72)",
+    bgColor: "#d8ecff",
+    textColor: "#081827",
+    labelColor: "rgba(8, 24, 39, 0.72)",
     shineColor: "#000000",
     links: [
       { label: "Web3 早期项目", href: "#projects", ariaLabel: "查看 Web3 早期项目" },
@@ -51,7 +51,7 @@ const cardNavItems = [
   },
   {
     label: "系统",
-    bgColor: "#8f2f34",
+    bgColor: "#0f5fb8",
     textColor: "#f6f6f1",
     labelColor: "rgba(246, 246, 241, 0.84)",
     links: [
@@ -77,9 +77,9 @@ const knowledgePageNavItems = [
   },
   {
     label: "网站",
-    bgColor: "#dcd9cf",
-    textColor: "#080909",
-    labelColor: "rgba(8, 9, 9, 0.72)",
+    bgColor: "#d8ecff",
+    textColor: "#081827",
+    labelColor: "rgba(8, 24, 39, 0.72)",
     shineColor: "#000000",
     links: [
       { label: "返回首页", href: "/", ariaLabel: "返回个人网站首页" },
@@ -89,7 +89,7 @@ const knowledgePageNavItems = [
   },
   {
     label: "系统",
-    bgColor: "#8f2f34",
+    bgColor: "#0f5fb8",
     textColor: "#f6f6f1",
     labelColor: "rgba(246, 246, 241, 0.84)",
     links: [
@@ -101,7 +101,7 @@ const knowledgePageNavItems = [
 
 const metrics = [
   { value: "AI", label: "连续创业者" },
-  { value: "7 位数", label: "Web3 早期项目收入" },
+  { value: "8 位数", label: "Web3 早期项目收入" },
   { value: "知识库", label: "信息差 / 知识整理" },
 ];
 
@@ -174,7 +174,7 @@ const projects = [
     tag: "商业闭环",
     image: "/assets/project-web3-generated.png",
     icon: Network,
-    metric: "7 位数收入",
+    metric: "8 位数收入",
     description:
       "从早期流量、社区共识到产品化转化，验证过一个项目从 0 到收入的完整链路。",
     details: ["早期流量验证", "社区共识组织", "收入闭环搭建"],
@@ -203,15 +203,36 @@ const projects = [
   },
 ];
 
+const tools = [
+  {
+    title: "AI 工具库",
+    description: "沉淀常用 AI 工具、工作流和提示词，把零散能力整理成可以复用的系统。",
+    href: knowledgeBaseUrl,
+    icon: Brain,
+  },
+  {
+    title: "产品实验室",
+    description: "记录正在验证的 AI 产品、SaaS 原型和自动化工具，方便快速迭代。",
+    href: "#projects",
+    icon: CubeFocus,
+  },
+  {
+    title: "商业化路径",
+    description: "把内容、流量、产品和成交链路拆成模块，帮助想法更快进入验证。",
+    href: "#strengths",
+    icon: Network,
+  },
+];
+
 const projectGalleryItems = projects.map((project) => ({
   image: project.image,
   text: project.title,
 }));
 
 const projectPixelConfigs = [
-  { variant: "pink", gap: 7, speed: 58, colors: "#f6f6f1,#9a3337,#6b8584" },
+  { variant: "blue", gap: 7, speed: 58, colors: "#f6f6f1,#2f7dff,#7ac8ff" },
   { variant: "blue", gap: 8, speed: 34, colors: "#f6f6f1,#7af7df,#4c6f9f" },
-  { variant: "yellow", gap: 6, speed: 28, colors: "#f6f6f1,#f0b464,#9a3337" },
+  { variant: "default", gap: 6, speed: 28, colors: "#f6f6f1,#38d9ff,#2f7dff" },
 ];
 
 const strengths = [
@@ -344,9 +365,9 @@ export function App() {
               sparkle
               waveAmplitude={1.15}
               cursorRadius={520}
-              gradientFrom="rgba(246, 246, 241, 0.42)"
-              gradientTo="rgba(154, 51, 55, 0.3)"
-              glowColor="rgba(246, 246, 241, 0.22)"
+              gradientFrom="rgba(124, 200, 255, 0.42)"
+              gradientTo="rgba(47, 125, 255, 0.34)"
+              glowColor="rgba(124, 200, 255, 0.24)"
             />
           </div>
           <div className="scan-layer" />
@@ -363,10 +384,12 @@ export function App() {
           brandMark="CS"
           brandLabel="CHEN SHUO"
           brandKicker="AI / CONTENT / PRODUCT"
-          baseColor="rgba(246, 246, 241, 0.93)"
-          menuColor="#080909"
-          buttonBgColor="#080909"
+          baseColor="rgba(216, 236, 255, 0.94)"
+          menuColor="#081827"
+          buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
+          secondaryCtaLabel="工具库"
+          secondaryCtaHref="#tools"
           ctaLabel="知识库介绍"
           ctaHref="/knowledge"
           onLinkClick={scrollToSection}
@@ -397,7 +420,7 @@ export function App() {
               <span>CHEN SHUO</span>
             </h1>
             <p className="hero-lede">
-              AI 连续创业者 / 国家一级写作专家（自封），Web3 早期项目曾实现 7 位数收入。
+              AI 连续创业者 / 国家一级写作专家（自封），Web3 早期项目曾实现 8 位数收入。
             </p>
             <p className="hero-subcopy">
               现在专注产品、知识库和信息结构，用信息差与知识整理建立普通人也能走进去的赚钱体系。
@@ -635,6 +658,38 @@ export function App() {
                 <h3>{strength.title}</h3>
                 <p>{strength.text}</p>
               </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="tools-section" id="tools">
+        <div className="section-heading compact">
+          <p className="section-kicker">TOOLS LIBRARY</p>
+          <h2>工具库入口：把好用的 AI 工具、产品实验和商业路径集中放在这里。</h2>
+        </div>
+        <div className="tools-grid" aria-label="工具库入口">
+          {tools.map((tool) => {
+            const Icon = tool.icon;
+            const isExternal = tool.href.startsWith("http");
+            return (
+              <a
+                className="tool-card"
+                href={tool.href}
+                key={tool.title}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noreferrer" : undefined}
+                onClick={(event) => {
+                  if (!isExternal && tool.href.startsWith("#")) {
+                    scrollToSection(event, tool.href);
+                  }
+                }}
+              >
+                <Icon size={30} weight="duotone" aria-hidden="true" />
+                <strong>{tool.title}</strong>
+                <span>{tool.description}</span>
+                <ArrowRight size={18} weight="bold" aria-hidden="true" />
+              </a>
             );
           })}
         </div>

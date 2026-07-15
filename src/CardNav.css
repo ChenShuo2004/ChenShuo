@@ -142,6 +142,13 @@
   white-space: nowrap;
 }
 
+.card-nav-actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
 .card-nav-cta-button {
   height: 48px;
   display: inline-flex;
@@ -158,6 +165,11 @@
   line-height: 1;
   cursor: pointer;
   transition: transform 180ms ease, background 180ms ease;
+}
+
+.card-nav-cta-button-secondary {
+  border: 1px solid rgba(8, 24, 39, 0.16);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .card-nav-cta-button:hover,
@@ -296,7 +308,7 @@
     display: none;
   }
 
-  .card-nav-cta-button {
+  .card-nav-actions {
     display: none;
   }
 
