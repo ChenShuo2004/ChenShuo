@@ -24,6 +24,7 @@ import TiltedCard from "./TiltedCard.jsx";
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productOneUrl = "https://guandan-beta.vercel.app";
+const productTwoUrl = "https://shiguang.love/products/guandan-trainer";
 
 const cardNavItems = [
   {
@@ -211,10 +212,16 @@ const tools = [
     icon: Brain,
   },
   {
-    title: "产品实验室",
-    description: "正在验证的 AI 产品、SaaS 原型和自动化工具，先从第一个可用产品开始。",
+    title: "掼蛋训练器 1",
+    description: "第一版掼蛋训练产品，用来快速验证玩法、训练流程和用户反馈。",
     href: productOneUrl,
     icon: CubeFocus,
+  },
+  {
+    title: "掼蛋训练器 2",
+    description: "第二版掼蛋训练产品，沉淀到时光产品页，方便用户了解和进入使用。",
+    href: productTwoUrl,
+    icon: StackSimple,
   },
   {
     title: "商业化路径",
