@@ -210,24 +210,28 @@ const tools = [
     description: "沉淀常用 AI 工具、工作流和提示词，把零散能力整理成可以复用的系统。",
     href: knowledgeBaseUrl,
     icon: Brain,
+    image: "/assets/tool-ai-library.png",
   },
   {
     title: "掼蛋训练器 1",
     description: "第一版掼蛋训练产品，用来快速验证玩法、训练流程和用户反馈。",
     href: productOneUrl,
     icon: CubeFocus,
+    image: "/assets/tool-guandan.png",
   },
   {
     title: "掼蛋训练器 2",
     description: "第二版掼蛋训练产品，沉淀到时光产品页，方便用户了解和进入使用。",
     href: productTwoUrl,
     icon: StackSimple,
+    image: "/assets/tool-guandan.png",
   },
   {
     title: "商业化路径",
     description: "把内容、流量、产品和成交链路拆成模块，帮助想法更快进入验证。",
     href: "/knowledge",
     icon: Network,
+    image: "/assets/tool-ziwei.png",
   },
 ];
 
@@ -364,10 +368,15 @@ function ToolCards() {
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noreferrer" : undefined}
           >
-            <Icon size={30} weight="duotone" aria-hidden="true" />
-            <strong>{tool.title}</strong>
-            <span>{tool.description}</span>
-            <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            <div className="tool-card-media">
+              <img src={tool.image} alt="" loading="lazy" />
+            </div>
+            <div className="tool-card-body">
+              <Icon size={28} weight="duotone" aria-hidden="true" />
+              <strong>{tool.title}</strong>
+              <span>{tool.description}</span>
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </div>
           </a>
         );
       })}
