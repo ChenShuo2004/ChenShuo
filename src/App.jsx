@@ -23,6 +23,7 @@ import TextCursor from "./TextCursor.jsx";
 import TiltedCard from "./TiltedCard.jsx";
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
+const productOneUrl = "https://guandan-beta.vercel.app";
 
 const cardNavItems = [
   {
@@ -99,15 +100,15 @@ const knowledgePageNavItems = [
 ];
 
 const metrics = [
-  { value: "04", label: "年生 / 休学创业" },
+  { value: "AI", label: "连续创业者" },
   { value: "7 位数", label: "Web3 早期项目收入" },
-  { value: "4", label: "AI / 内容 / 产品 / 信息结构" },
+  { value: "知识库", label: "信息差 / 知识整理" },
 ];
 
 const focusAreas = [
   "重新理解 AI 与人的工作方式",
   "把内容、产品和商业化做成系统",
-  "记录年轻创业者的真实搭建过程",
+  "用信息结构沉淀可复用的赚钱体系",
 ];
 
 const knowledgeOriginIntro = [
@@ -385,7 +386,7 @@ export function App() {
             <div className="episode-mark">
               <span>01</span>
               <i />
-              <span>04</span>
+              <span>AI</span>
             </div>
             <div className="eyebrow">
               <Sparkle size={17} weight="fill" aria-hidden="true" />
@@ -396,10 +397,10 @@ export function App() {
               <span>CHEN SHUO</span>
             </h1>
             <p className="hero-lede">
-              04 年生大学休学 AI 连续创业者，Web3 早期项目曾实现 7 位数收入。
+              AI 连续创业者 / 国家一级写作专家（自封），Web3 早期项目曾实现 7 位数收入。
             </p>
             <p className="hero-subcopy">
-              现在重新理解 AI、内容、产品和信息结构，记录一个年轻创业者如何搭建自己的系统。
+              现在专注产品、知识库和信息结构，用信息差与知识整理建立普通人也能走进去的赚钱体系。
             </p>
             <div className="hero-actions">
               <a className="primary-action" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
@@ -462,25 +463,33 @@ export function App() {
             <p className="section-kicker">PERSONAL PROFILE</p>
             <h2>从经历到系统，重新组织自己的能力与商业路径。</h2>
             <p>
-              我是陈硕，关注信息结构、产品系统与个人商业化。过去在 Web3 早期项目里验证过收入闭环，现在把注意力重新放回 AI、内容和产品本身。
+              我是陈硕，AI 连续创业者，国家一级写作专家（自封）。过去在 Web3 早期项目里验证过收入闭环，现在把产品、写作、知识库和信息结构组合成一套可持续的个人商业系统。
             </p>
             <div className="profile-facts">
               <div>
                 <span>身份</span>
-                <strong>大学休学 AI 连续创业者</strong>
+                <strong>AI 连续创业者 / 国家一级写作专家（自封）</strong>
               </div>
               <div>
-                <span>关注</span>
-                <strong>AI / 内容 / 产品 / 信息结构</strong>
+                <span>产品一</span>
+                <strong>
+                  <a href={productOneUrl} target="_blank" rel="noreferrer">
+                    guandan-beta.vercel.app
+                  </a>
+                </strong>
               </div>
               <div>
-                <span>目标</span>
-                <strong>搭建可复用的个人系统</strong>
+                <span>产品二</span>
+                <strong>聚顿革命 - 制作中</strong>
               </div>
             </div>
             <div className="profile-social-note">
-              <span>社交态度</span>
-              <strong>交个朋友，互相支持、共同成长。</strong>
+              <span>我的个人网站</span>
+              <strong>
+                <a href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
+                  everlightai.top
+                </a>
+              </strong>
             </div>
           </div>
         </div>
