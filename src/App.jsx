@@ -212,14 +212,14 @@ const tools = [
   },
   {
     title: "产品实验室",
-    description: "记录正在验证的 AI 产品、SaaS 原型和自动化工具，方便快速迭代。",
-    href: "#projects",
+    description: "正在验证的 AI 产品、SaaS 原型和自动化工具，先从第一个可用产品开始。",
+    href: productOneUrl,
     icon: CubeFocus,
   },
   {
     title: "商业化路径",
     description: "把内容、流量、产品和成交链路拆成模块，帮助想法更快进入验证。",
-    href: "#strengths",
+    href: "/knowledge",
     icon: Network,
   },
 ];
@@ -343,12 +343,72 @@ function KnowledgePage() {
   );
 }
 
+function ToolCards() {
+  return (
+    <div className="tools-grid" aria-label="工具库入口">
+      {tools.map((tool) => {
+        const Icon = tool.icon;
+        const isExternal = tool.href.startsWith("http");
+        return (
+          <a
+            className="tool-card"
+            href={tool.href}
+            key={tool.title}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noreferrer" : undefined}
+          >
+            <Icon size={30} weight="duotone" aria-hidden="true" />
+            <strong>{tool.title}</strong>
+            <span>{tool.description}</span>
+            <ArrowRight size={18} weight="bold" aria-hidden="true" />
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
+function ToolsPage() {
+  return (
+    <main className="site-shell tools-page-shell">
+      <section className="knowledge-page-top" id="top" aria-label="工具库页面导航">
+        <CardNav
+          className="poster-card-nav"
+          items={knowledgePageNavItems}
+          brandMark="CS"
+          brandLabel="CHEN SHUO"
+          brandKicker="TOOLS / AI / PRODUCT"
+          baseColor="rgba(216, 236, 255, 0.94)"
+          menuColor="#081827"
+          buttonBgColor="#071c33"
+          buttonTextColor="#f6f6f1"
+          ctaLabel="知识库介绍"
+          ctaHref="/knowledge"
+          onLinkClick={scrollToSection}
+        />
+      </section>
+      <section className="tools-section tools-page-section" id="tools">
+        <div className="section-heading compact">
+          <p className="section-kicker">TOOLS LIBRARY</p>
+          <h2>工具库：把好用的 AI 工具、产品实验和商业路径集中放在这里。</h2>
+        </div>
+        <ToolCards />
+      </section>
+    </main>
+  );
+}
+
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
   const isKnowledgePage = normalizedPath === "/knowledge";
+  const isToolsPage = normalizedPath === "/tools";
 
   if (isKnowledgePage) {
     return <KnowledgePage />;
+  }
+
+  if (isToolsPage) {
+    return <ToolsPage />;
   }
 
   return (
@@ -389,7 +449,7 @@ export function App() {
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
           secondaryCtaLabel="工具库"
-          secondaryCtaHref="#tools"
+          secondaryCtaHref="/tools"
           ctaLabel="知识库介绍"
           ctaHref="/knowledge"
           onLinkClick={scrollToSection}
@@ -658,38 +718,6 @@ export function App() {
                 <h3>{strength.title}</h3>
                 <p>{strength.text}</p>
               </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="tools-section" id="tools">
-        <div className="section-heading compact">
-          <p className="section-kicker">TOOLS LIBRARY</p>
-          <h2>工具库入口：把好用的 AI 工具、产品实验和商业路径集中放在这里。</h2>
-        </div>
-        <div className="tools-grid" aria-label="工具库入口">
-          {tools.map((tool) => {
-            const Icon = tool.icon;
-            const isExternal = tool.href.startsWith("http");
-            return (
-              <a
-                className="tool-card"
-                href={tool.href}
-                key={tool.title}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noreferrer" : undefined}
-                onClick={(event) => {
-                  if (!isExternal && tool.href.startsWith("#")) {
-                    scrollToSection(event, tool.href);
-                  }
-                }}
-              >
-                <Icon size={30} weight="duotone" aria-hidden="true" />
-                <strong>{tool.title}</strong>
-                <span>{tool.description}</span>
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
             );
           })}
         </div>
