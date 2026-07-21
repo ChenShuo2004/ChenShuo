@@ -317,21 +317,51 @@
     inset: 64px 0 0;
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
-    padding: 8px;
+    gap: 7px;
+    padding: 7px;
   }
 
   .nav-card {
-    min-height: 104px;
+    min-height: 92px;
     flex: 1 1 auto;
-    padding: 14px 16px;
+    gap: 10px;
+    padding: 12px 14px;
   }
 
   .nav-card-label {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .nav-card-link {
-    font-size: 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 420px) {
+  .card-nav-container {
+    width: calc(100vw - 24px);
+  }
+
+  .card-nav-top {
+    padding-inline: 10px;
+    gap: 10px;
+  }
+
+  .card-nav-logo-mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .card-nav-logo-copy strong {
+    font-size: 21px;
+  }
+
+  .hamburger-menu {
+    width: 42px;
+    height: 42px;
+  }
+
+  .nav-card {
+    min-height: 86px;
   }
 }
