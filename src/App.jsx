@@ -34,7 +34,7 @@ const cardNavItems = [
     textColor: "#f6f6f1",
     labelColor: "rgba(246, 246, 241, 0.82)",
     links: [
-      { label: "个人介绍", href: "#profile", ariaLabel: "查看个人介绍" },
+      { label: "个人介绍", href: "#top", ariaLabel: "查看个人介绍" },
       { label: "关键数据", href: "#top", ariaLabel: "查看关键数据" },
       { label: "联系入口", href: "#contact", ariaLabel: "前往联系入口" },
     ],
@@ -97,7 +97,7 @@ const knowledgePageNavItems = [
     labelColor: "rgba(246, 246, 241, 0.84)",
     links: [
       { label: "信息结构", href: "/#strengths", ariaLabel: "回到首页查看信息结构能力" },
-      { label: "个人介绍", href: "/#profile", ariaLabel: "回到首页查看个人介绍" },
+      { label: "个人介绍", href: "/#top", ariaLabel: "回到首页查看个人介绍" },
     ],
   },
 ];
@@ -512,17 +512,17 @@ export function App() {
             </div>
             <div className="eyebrow">
               <Sparkle size={17} weight="fill" aria-hidden="true" />
-              AI ENTREPRENEUR / SYSTEM BUILDER
+              PERSONAL PROFILE
             </div>
             <h1>
               陈硕
               <span>CHEN SHUO</span>
             </h1>
             <p className="hero-lede">
-              AI 连续创业者 / 国家一级写作专家（自封），Web3 早期项目曾实现 8 位数收入。
+              AI 连续创业者，用产品、内容和知识系统重新组织个人商业。
             </p>
             <p className="hero-subcopy">
-              现在专注产品、知识库和信息结构，用信息差与知识整理建立普通人也能走进去的赚钱体系。
+              我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。现在以「一个持续生长的知识产品空间」为核心，重新起航：把工具库、阅览室和知识底图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
             </p>
           </div>
 
@@ -548,24 +548,10 @@ export function App() {
           ))}
         </div>
 
-        <a className="scroll-cue" href="#profile" onClick={(event) => scrollToSection(event, "#profile")}>
+        <a className="scroll-cue" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
           <ArrowDown size={18} weight="bold" aria-hidden="true" />
           向下
         </a>
-      </section>
-
-      <section className="profile-section" id="profile">
-        <div className="section-grid">
-          <div className="profile-copy">
-            <p className="section-kicker">PERSONAL PROFILE</p>
-            <div className="profile-current-intro">
-              <h2>AI 连续创业者，用产品、内容和知识系统重新组织个人商业。</h2>
-              <p>
-                我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。现在以「一个持续生长的知识产品空间」为核心，重新起航：把工具库、阅览室和知识底图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
-              </p>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="projects-section" id="projects">
