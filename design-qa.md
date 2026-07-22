@@ -43,7 +43,7 @@ state: homepage top navigation knowledge CTA now opens the site-hosted knowledge
 - No P0/P1/P2 findings.
 
 **Required Fidelity Surfaces**
-- Homepage top navigation CTA now reads `知识库介绍`.
+- Homepage top navigation CTA now reads `知识地图`.
 - Homepage top navigation CTA links to `/knowledge` instead of the FlowUs external URL.
 - Homepage hero secondary knowledge CTA also links to `/knowledge`.
 - Real mouse click verification: clicking the homepage top navigation CTA navigated to `/knowledge`.
@@ -72,8 +72,8 @@ state: knowledge origin content moved out of the homepage and into a standalone 
 **Required Fidelity Surfaces**
 - Homepage `/` no longer renders `.knowledge-section`.
 - Homepage `/` no longer contains the text `关于这个知识库的起点`.
-- Homepage expanded navigation includes `知识库介绍` linking to `/knowledge`.
-- Real mouse click verification: clicking `知识库介绍` navigates from `/` to `/knowledge`.
+- Homepage expanded navigation includes `知识地图` linking to `/knowledge`.
+- Real mouse click verification: clicking `知识地图` navigates from `/` to `/knowledge`.
 - Knowledge page `/knowledge` renders one `.knowledge-section`, the framed title `《关于这个知识库的起点》`, and 7 chapter cards.
 - Knowledge page top CTA reads `打开知识库` and links to the FlowUs URL with `target="_blank"`.
 - Layout safety: desktop and mobile homepage and knowledge page states report `overflowX = false`.
@@ -233,34 +233,6 @@ state: advantages heading updated using React Bits `RotatingText` pattern
 - Reused existing `RotatingText` component in the advantages heading.
 - Added strength-specific rotating text styles and mobile-safe wrapping.
 - Switched the strengths animation to a fade/blur transition to avoid blank green-pill frames.
-- Verified production build with `npm.cmd run build`.
-
-final result: passed
-
----
-
-Profile assets replacement QA pass: 2026-06-30
-implementation screenshot path: D:/6.个人介绍网站/qa-profile-assets-desktop.png
-mobile screenshot path: D:/6.个人介绍网站/qa-profile-assets-mobile.png
-viewport: desktop 1440x1000, mobile 390x844
-state: profile section updated with user-provided avatar and social follow image
-
-**Findings**
-- No P0/P1/P2 findings.
-
-**Required Fidelity Surfaces**
-- Avatar image: `/assets/personal-avatar.jpg` renders complete with alt `陈硕个人头像`.
-- Social image: `/assets/social-follow-card.jpg` renders complete with alt `蓝V互关，交个朋友，互相支持、共同成长`.
-- Profile info: added `社交态度` note with `交个朋友，互相支持、共同成长。`
-- Desktop layout: avatar is 525x525 and social image is 525x295.
-- Mobile layout: avatar is 356x356 and social image is 356x200.
-- Layout safety: both tested viewports report `overflowX = false`.
-
-**Patches Made Since Previous QA Pass**
-- Added `public/assets/personal-avatar.jpg`.
-- Added `public/assets/social-follow-card.jpg`.
-- Replaced the profile portrait area with a portrait/social image stack.
-- Added profile social note content and responsive image styling.
 - Verified production build with `npm.cmd run build`.
 
 final result: passed

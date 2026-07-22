@@ -25,6 +25,7 @@ import TiltedCard from "./TiltedCard.jsx";
 const CircularGallery = lazy(() => import("./CircularGallery.jsx"));
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
+const productLibraryUrl = "https://aiyouwendu.com/products";
 const productOneUrl = "https://guandan-beta.vercel.app";
 const productTwoUrl = "https://shiguang.love/products/guandan-trainer";
 
@@ -61,7 +62,7 @@ const cardNavItems = [
       { label: "信息结构", href: "#strengths", ariaLabel: "查看信息结构能力" },
       { label: "产品系统", href: "#strengths", ariaLabel: "查看产品系统能力" },
       { label: "个人商业化", href: "#strengths", ariaLabel: "查看个人商业化能力" },
-      { label: "知识库介绍", href: "/knowledge", ariaLabel: "查看知识库介绍页面" },
+      { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
       { label: "公开知识库", href: knowledgeBaseUrl, ariaLabel: "打开陈硕的 FlowUs 知识库" },
     ],
   },
@@ -438,7 +439,7 @@ function ToolsPage() {
           menuColor="#081827"
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
-          ctaLabel="知识库介绍"
+          ctaLabel="知识地图"
           ctaHref="/knowledge"
           onLinkClick={scrollToSection}
         />
@@ -506,7 +507,7 @@ export function App() {
           buttonTextColor="#f6f6f1"
           secondaryCtaLabel="工具库"
           secondaryCtaHref="/tools"
-          ctaLabel="知识库介绍"
+          ctaLabel="知识地图"
           ctaHref="/knowledge"
           onLinkClick={scrollToSection}
         />
@@ -542,15 +543,15 @@ export function App() {
               现在专注产品、知识库和信息结构，用信息差与知识整理建立普通人也能走进去的赚钱体系。
             </p>
             <div className="hero-actions">
-              <a className="primary-action" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
-                查看项目
+              <a className="primary-action" href={productLibraryUrl} target="_blank" rel="noreferrer">
+                产品库
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
-              <a className="secondary-action" href="#contact" onClick={(event) => scrollToSection(event, "#contact")}>
-                联系合作
+              <a className="secondary-action" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
+                阅览室
               </a>
               <a className="secondary-action" href="/knowledge">
-                知识库介绍
+                知识地图
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
@@ -586,54 +587,30 @@ export function App() {
 
       <section className="profile-section" id="profile">
         <div className="section-grid">
-          <div className="portrait-stack">
-            <div className="portrait-wrap avatar-portrait">
-              <img src="/assets/personal-avatar.jpg" alt="陈硕个人头像" loading="lazy" decoding="async" />
-            </div>
-            <figure className="social-proof-card">
-              <img
-                src="/assets/social-follow-card.jpg"
-                alt="蓝V互关，交个朋友，互相支持、共同成长"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption>
-                <span>社交信息</span>
-                <strong>蓝V互关 / 交个朋友</strong>
-              </figcaption>
-            </figure>
-          </div>
           <div className="profile-copy">
             <p className="section-kicker">PERSONAL PROFILE</p>
-            <h2>从经历到系统，重新组织自己的能力与商业路径。</h2>
-            <p>
-              我是陈硕，AI 连续创业者，国家一级写作专家（自封）。过去在 Web3 早期项目里验证过收入闭环，现在把产品、写作、知识库和信息结构组合成一套可持续的个人商业系统。
-            </p>
-            <div className="profile-facts">
-              <div>
-                <span>身份</span>
-                <strong>AI 连续创业者 / 国家一级写作专家（自封）</strong>
-              </div>
-              <div>
-                <span>产品一</span>
-                <strong>
-                  <a href={productOneUrl} target="_blank" rel="noreferrer">
-                    guandan-beta.vercel.app
-                  </a>
-                </strong>
-              </div>
-              <div>
-                <span>产品二</span>
-                <strong>聚顿革命 - 制作中</strong>
-              </div>
-            </div>
-            <div className="profile-social-note">
-              <span>我的个人网站</span>
-              <strong>
-                <a href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
-                  everlightai.top
+            <div className="profile-current-intro">
+              <h2>AI 连续创业者，用产品、内容和知识系统重新组织个人商业。</h2>
+              <p>
+                我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。现在以「一个持续生长的知识产品空间」为核心，重新起航：把产品库、阅览室和知识地图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
+              </p>
+              <div className="profile-link-grid" aria-label="个人入口">
+                <a className="profile-link-card" href={productLibraryUrl} target="_blank" rel="noreferrer">
+                  <span>产品库</span>
+                  <strong>aiyouwendu.com/products</strong>
+                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
                 </a>
-              </strong>
+                <a className="profile-link-card" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
+                  <span>阅览室</span>
+                  <strong>FlowUs 知识阅览室</strong>
+                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
+                </a>
+                <a className="profile-link-card" href="/knowledge">
+                  <span>知识地图</span>
+                  <strong>从信息到执行的路径设计</strong>
+                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

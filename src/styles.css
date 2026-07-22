@@ -806,6 +806,12 @@ a {
   align-items: center;
 }
 
+.profile-section .section-grid {
+  grid-template-columns: 1fr;
+  width: min(100%, 1080px);
+  margin: 0 auto;
+}
+
 .portrait-stack {
   display: grid;
   gap: 16px;
@@ -908,6 +914,70 @@ a {
   line-height: 1.18;
   font-weight: 900;
   letter-spacing: 0;
+}
+
+.profile-current-intro h2 {
+  margin: 0;
+  max-width: 1020px;
+  font-family: var(--font-cn-serif);
+  font-size: 58px;
+  line-height: 1.18;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.profile-current-intro > p {
+  max-width: 960px;
+  margin: 28px 0 0;
+  color: rgba(238, 247, 243, 0.76);
+  font-family: var(--font-cn-serif);
+  font-size: 20px;
+  line-height: 1.95;
+  font-weight: 500;
+}
+
+.profile-link-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 42px;
+}
+
+.profile-link-card {
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  border: 1px solid rgba(124, 200, 255, 0.18);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgba(124, 200, 255, 0.08), rgba(255, 255, 255, 0.035));
+  padding: 22px;
+  color: var(--text);
+}
+
+.profile-link-card span {
+  color: var(--acid);
+  font-family: var(--font-condensed);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.profile-link-card strong {
+  color: var(--film-white);
+  font-family: var(--font-cn-serif);
+  font-size: 21px;
+  line-height: 1.42;
+  font-weight: 900;
+  word-break: break-word;
+}
+
+.profile-link-card svg {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  color: rgba(246, 246, 241, 0.66);
 }
 
 .profile-copy > p:not(.section-kicker) {
@@ -2000,7 +2070,8 @@ a {
   .project-detail-grid,
   .strength-grid,
   .tools-grid,
-  .profile-facts {
+  .profile-facts,
+  .profile-link-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2219,7 +2290,8 @@ a {
   }
 
   .hero-subcopy,
-  .profile-copy > p:not(.section-kicker) {
+  .profile-copy > p:not(.section-kicker),
+  .profile-current-intro > p {
     font-size: 17px;
   }
 
@@ -2228,7 +2300,8 @@ a {
   .project-detail-grid,
   .strength-grid,
   .tools-grid,
-  .profile-facts {
+  .profile-facts,
+  .profile-link-grid {
     grid-template-columns: 1fr;
   }
 
