@@ -188,9 +188,9 @@ state: project cards updated with generated theme images and in-page detail link
 - No P0/P1/P2 findings.
 
 **Generated Assets**
-- `/assets/project-web3-generated.png`
-- `/assets/project-ai-system-generated.png`
-- `/assets/project-content-engine-generated.png`
+- `/assets/project-web3-generated.jpg`
+- `/assets/project-ai-system-generated.jpg`
+- `/assets/project-content-engine-generated.jpg`
 
 **Required Fidelity Surfaces**
 - Project cards use generated theme images for `Web3 早期项目`, `AI 产品系统`, and `内容商业化引擎`.
@@ -249,16 +249,16 @@ state: profile section updated with user-provided avatar and social follow image
 - No P0/P1/P2 findings.
 
 **Required Fidelity Surfaces**
-- Avatar image: `/assets/personal-avatar.png` renders complete with alt `陈硕个人头像`.
-- Social image: `/assets/social-follow-card.png` renders complete with alt `蓝V互关，交个朋友，互相支持、共同成长`.
+- Avatar image: `/assets/personal-avatar.jpg` renders complete with alt `陈硕个人头像`.
+- Social image: `/assets/social-follow-card.jpg` renders complete with alt `蓝V互关，交个朋友，互相支持、共同成长`.
 - Profile info: added `社交态度` note with `交个朋友，互相支持、共同成长。`
 - Desktop layout: avatar is 525x525 and social image is 525x295.
 - Mobile layout: avatar is 356x356 and social image is 356x200.
 - Layout safety: both tested viewports report `overflowX = false`.
 
 **Patches Made Since Previous QA Pass**
-- Added `public/assets/personal-avatar.png`.
-- Added `public/assets/social-follow-card.png`.
+- Added `public/assets/personal-avatar.jpg`.
+- Added `public/assets/social-follow-card.jpg`.
 - Replaced the profile portrait area with a portrait/social image stack.
 - Added profile social note content and responsive image styling.
 - Verified production build with `npm.cmd run build`.

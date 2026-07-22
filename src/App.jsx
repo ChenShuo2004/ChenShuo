@@ -14,13 +14,15 @@ import {
   Strategy,
   UserCircle,
 } from "@phosphor-icons/react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import CardNav from "./CardNav.jsx";
-import CircularGallery from "./CircularGallery.jsx";
 import DotField from "./DotField.jsx";
 import PixelCard from "./PixelCard.jsx";
 import RotatingText from "./RotatingText.jsx";
 import TextCursor from "./TextCursor.jsx";
 import TiltedCard from "./TiltedCard.jsx";
+
+const CircularGallery = lazy(() => import("./CircularGallery.jsx"));
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productOneUrl = "https://guandan-beta.vercel.app";
@@ -173,7 +175,7 @@ const projects = [
     slug: "project-web3-detail",
     title: "Web3 早期项目",
     tag: "商业闭环",
-    image: "/assets/project-web3-generated.png",
+    image: "/assets/project-web3-generated.jpg",
     icon: Network,
     metric: "8 位数收入",
     description:
@@ -184,7 +186,7 @@ const projects = [
     slug: "project-ai-system-detail",
     title: "AI 产品系统",
     tag: "重新搭建",
-    image: "/assets/project-ai-system-generated.png",
+    image: "/assets/project-ai-system-generated.jpg",
     icon: CubeFocus,
     metric: "信息结构",
     description:
@@ -195,7 +197,7 @@ const projects = [
     slug: "project-content-engine-detail",
     title: "内容商业化引擎",
     tag: "个人系统",
-    image: "/assets/project-content-engine-generated.png",
+    image: "/assets/project-content-engine-generated.jpg",
     icon: ChartLineUp,
     metric: "内容 × 产品",
     description:
@@ -210,28 +212,28 @@ const tools = [
     description: "沉淀常用 AI 工具、工作流和提示词，把零散能力整理成可以复用的系统。",
     href: knowledgeBaseUrl,
     icon: Brain,
-    image: "/assets/tool-ai-library.png",
+    image: "/assets/tool-ai-library.jpg",
   },
   {
     title: "掼蛋训练器 1",
     description: "第一版掼蛋训练产品，用来快速验证玩法、训练流程和用户反馈。",
     href: productOneUrl,
     icon: CubeFocus,
-    image: "/assets/tool-guandan.png",
+    image: "/assets/tool-guandan.jpg",
   },
   {
     title: "掼蛋训练器 2",
     description: "第二版掼蛋训练产品，沉淀到时光产品页，方便用户了解和进入使用。",
     href: productTwoUrl,
     icon: StackSimple,
-    image: "/assets/tool-guandan.png",
+    image: "/assets/tool-guandan.jpg",
   },
   {
     title: "商业化路径",
     description: "把内容、流量、产品和成交链路拆成模块，帮助想法更快进入验证。",
     href: "/knowledge",
     icon: Network,
-    image: "/assets/tool-ziwei.png",
+    image: "/assets/tool-ziwei.jpg",
   },
 ];
 
@@ -272,6 +274,44 @@ const strengths = [
 function scrollToSection(event, href) {
   event.preventDefault();
   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+}
+
+function useNearViewport(rootMargin = "500px") {
+  const ref = useRef(null);
+  const [isNear, setIsNear] = useState(false);
+
+  useEffect(() => {
+    if (isNear || !ref.current) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [isNear, rootMargin]);
+
+  return [ref, isNear];
+}
+
+function DeferredCircularGallery(props) {
+  const [ref, isNear] = useNearViewport("700px");
+
+  return (
+    <div ref={ref} className="deferred-gallery-shell">
+      {isNear ? (
+        <Suspense fallback={<div className="gallery-placeholder" aria-hidden="true" />}>
+          <CircularGallery {...props} />
+        </Suspense>
+      ) : (
+        <div className="gallery-placeholder" aria-hidden="true" />
+      )}
+    </div>
+  );
 }
 
 function KnowledgeOriginSection() {
@@ -369,7 +409,7 @@ function ToolCards() {
             rel={isExternal ? "noreferrer" : undefined}
           >
             <div className="tool-card-media">
-              <img src={tool.image} alt="" loading="lazy" />
+              <img src={tool.image} alt="" loading="lazy" decoding="async" />
             </div>
             <div className="tool-card-body">
               <Icon size={28} weight="duotone" aria-hidden="true" />
@@ -431,7 +471,7 @@ export function App() {
     <main className="site-shell">
       <section className="hero hero-poster" id="top" aria-label="陈硕个人介绍">
         <div className="hero-media" aria-hidden="true">
-          <img src="/assets/hero-cinematic-reference.jpg" alt="" />
+          <img src="/assets/hero-cinematic-reference.jpg" alt="" fetchPriority="high" decoding="async" />
           <div className="hero-dot-field">
             <DotField
               dotRadius={2.2}
@@ -548,10 +588,15 @@ export function App() {
         <div className="section-grid">
           <div className="portrait-stack">
             <div className="portrait-wrap avatar-portrait">
-              <img src="/assets/personal-avatar.png" alt="陈硕个人头像" />
+              <img src="/assets/personal-avatar.jpg" alt="陈硕个人头像" loading="lazy" decoding="async" />
             </div>
             <figure className="social-proof-card">
-              <img src="/assets/social-follow-card.png" alt="蓝V互关，交个朋友，互相支持、共同成长" />
+              <img
+                src="/assets/social-follow-card.jpg"
+                alt="蓝V互关，交个朋友，互相支持、共同成长"
+                loading="lazy"
+                decoding="async"
+              />
               <figcaption>
                 <span>社交信息</span>
                 <strong>蓝V互关 / 交个朋友</strong>
@@ -602,7 +647,7 @@ export function App() {
 
         <div className="project-showcase">
           <div className="project-gallery-stage">
-            <CircularGallery
+            <DeferredCircularGallery
               items={projectGalleryItems}
               bend={2.8}
               textColor="#f6f6f1"
@@ -676,7 +721,7 @@ export function App() {
               return (
                 <article className="project-entry" id={project.slug} key={project.slug}>
                   <div className="project-entry-media">
-                    <img src={project.image} alt={`${project.title}主题配图`} />
+                    <img src={project.image} alt={`${project.title}主题配图`} loading="lazy" decoding="async" />
                   </div>
                   <div className="project-entry-copy">
                     <span className="project-entry-index">0{index + 1}</span>
