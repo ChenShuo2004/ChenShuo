@@ -26,8 +26,6 @@ const CircularGallery = lazy(() => import("./CircularGallery.jsx"));
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productLibraryUrl = "https://aiyouwendu.com/products";
-const productOneUrl = "https://guandan-beta.vercel.app";
-const productTwoUrl = "https://shiguang.love/products/guandan-trainer";
 
 const cardNavItems = [
   {
@@ -207,37 +205,6 @@ const projects = [
   },
 ];
 
-const tools = [
-  {
-    title: "AI 工具库",
-    description: "沉淀常用 AI 工具、工作流和提示词，把零散能力整理成可以复用的系统。",
-    href: knowledgeBaseUrl,
-    icon: Brain,
-    image: "/assets/tool-ai-library.jpg",
-  },
-  {
-    title: "掼蛋训练器 1",
-    description: "第一版掼蛋训练产品，用来快速验证玩法、训练流程和用户反馈。",
-    href: productOneUrl,
-    icon: CubeFocus,
-    image: "/assets/tool-guandan.jpg",
-  },
-  {
-    title: "掼蛋训练器 2",
-    description: "第二版掼蛋训练产品，沉淀到时光产品页，方便用户了解和进入使用。",
-    href: productTwoUrl,
-    icon: StackSimple,
-    image: "/assets/tool-guandan.jpg",
-  },
-  {
-    title: "商业化路径",
-    description: "把内容、流量、产品和成交链路拆成模块，帮助想法更快进入验证。",
-    href: "/knowledge",
-    icon: Network,
-    image: "/assets/tool-ziwei.jpg",
-  },
-];
-
 const projectGalleryItems = projects.map((project) => ({
   image: project.image,
   text: project.title,
@@ -395,78 +362,13 @@ function KnowledgePage() {
   );
 }
 
-function ToolCards() {
-  return (
-    <div className="tools-grid" aria-label="工具库入口">
-      {tools.map((tool) => {
-        const Icon = tool.icon;
-        const isExternal = tool.href.startsWith("http");
-        return (
-          <a
-            className="tool-card"
-            href={tool.href}
-            key={tool.title}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noreferrer" : undefined}
-          >
-            <div className="tool-card-media">
-              <img src={tool.image} alt="" loading="lazy" decoding="async" />
-            </div>
-            <div className="tool-card-body">
-              <Icon size={28} weight="duotone" aria-hidden="true" />
-              <strong>{tool.title}</strong>
-              <span>{tool.description}</span>
-              <ArrowRight size={18} weight="bold" aria-hidden="true" />
-            </div>
-          </a>
-        );
-      })}
-    </div>
-  );
-}
-
-function ToolsPage() {
-  return (
-    <main className="site-shell tools-page-shell">
-      <section className="knowledge-page-top" id="top" aria-label="工具库页面导航">
-        <CardNav
-          className="poster-card-nav"
-          items={knowledgePageNavItems}
-          brandMark="CS"
-          brandLabel="CHEN SHUO"
-          brandKicker="TOOLS / AI / PRODUCT"
-          baseColor="rgba(216, 236, 255, 0.94)"
-          menuColor="#081827"
-          buttonBgColor="#071c33"
-          buttonTextColor="#f6f6f1"
-          ctaLabel="知识地图"
-          ctaHref="/knowledge"
-          onLinkClick={scrollToSection}
-        />
-      </section>
-      <section className="tools-section tools-page-section" id="tools">
-        <div className="section-heading compact">
-          <p className="section-kicker">TOOLS LIBRARY</p>
-          <h2>工具库：把好用的 AI 工具、产品实验和商业路径集中放在这里。</h2>
-        </div>
-        <ToolCards />
-      </section>
-    </main>
-  );
-}
-
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
   const isKnowledgePage = normalizedPath === "/knowledge";
-  const isToolsPage = normalizedPath === "/tools";
-
   if (isKnowledgePage) {
     return <KnowledgePage />;
   }
 
-  if (isToolsPage) {
-    return <ToolsPage />;
-  }
 
   return (
     <main className="site-shell">
@@ -506,7 +408,7 @@ export function App() {
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
           secondaryCtaLabel="工具库"
-          secondaryCtaHref="/tools"
+          secondaryCtaHref={productLibraryUrl}
           ctaLabel="知识地图"
           ctaHref="/knowledge"
           onLinkClick={scrollToSection}

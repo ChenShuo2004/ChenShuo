@@ -787,7 +787,6 @@ a {
 .knowledge-section,
 .projects-section,
 .strengths-section,
-.tools-section,
 .contact-section {
   position: relative;
   padding-inline: 40px;
@@ -1797,104 +1796,6 @@ a {
   font-weight: 800;
 }
 
-.tools-section {
-  padding-top: 108px;
-  padding-bottom: 112px;
-  background:
-    linear-gradient(180deg, rgba(3, 16, 31, 0.96), rgba(5, 28, 54, 0.96)),
-    radial-gradient(circle at 78% 16%, rgba(47, 125, 255, 0.16), transparent 30%),
-    radial-gradient(circle at 16% 76%, rgba(56, 217, 255, 0.1), transparent 28%);
-}
-
-.tools-grid {
-  width: min(100%, var(--max));
-  margin: 34px auto 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.tool-card {
-  min-height: 420px;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  overflow: hidden;
-  border: 1px solid rgba(124, 200, 255, 0.18);
-  border-radius: 8px;
-  background:
-    linear-gradient(145deg, rgba(124, 200, 255, 0.09), transparent 46%),
-    rgba(255, 255, 255, 0.035);
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
-}
-
-.tool-card:hover,
-.tool-card:focus-visible {
-  transform: translateY(-4px);
-  border-color: rgba(124, 200, 255, 0.46);
-  background:
-    linear-gradient(145deg, rgba(47, 125, 255, 0.16), transparent 46%),
-    rgba(255, 255, 255, 0.052);
-  box-shadow: 0 18px 48px rgba(47, 125, 255, 0.16);
-  outline: none;
-}
-
-.tool-card-media {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: rgba(3, 16, 31, 0.72);
-}
-
-.tool-card-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 42%, rgba(3, 16, 31, 0.88));
-  pointer-events: none;
-}
-
-.tool-card-media img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  transition: transform 240ms ease;
-}
-
-.tool-card:hover .tool-card-media img,
-.tool-card:focus-visible .tool-card-media img {
-  transform: scale(1.035);
-}
-
-.tool-card-body {
-  display: grid;
-  align-content: start;
-  gap: 14px;
-  padding: 24px;
-}
-
-.tool-card-body svg {
-  color: var(--acid);
-}
-
-.tool-card-body strong {
-  color: var(--film-white);
-  font-family: var(--font-cn-serif);
-  font-size: 25px;
-  font-weight: 900;
-}
-
-.tool-card-body span {
-  color: rgba(238, 248, 255, 0.7);
-  font-family: var(--font-cn-serif);
-  font-size: 16px;
-  line-height: 1.9;
-}
-
-.tool-card-body > svg:last-child {
-  margin-top: auto;
-}
-
 .contact-section {
   min-height: 74vh;
   display: flex;
@@ -2069,7 +1970,6 @@ a {
   .project-grid,
   .project-detail-grid,
   .strength-grid,
-  .tools-grid,
   .profile-facts,
   .profile-link-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2087,7 +1987,6 @@ a {
   .knowledge-section,
   .projects-section,
   .strengths-section,
-  .tools-section,
   .contact-section {
     padding-inline: 26px;
   }
@@ -2299,7 +2198,6 @@ a {
   .project-grid,
   .project-detail-grid,
   .strength-grid,
-  .tools-grid,
   .profile-facts,
   .profile-link-grid {
     grid-template-columns: 1fr;
@@ -2397,7 +2295,6 @@ a {
   .knowledge-section,
   .projects-section,
   .strengths-section,
-  .tools-section,
   .contact-section {
     padding-inline: 16px;
     padding-top: 74px;
@@ -2542,17 +2439,8 @@ a {
   .knowledge-section,
   .projects-section,
   .strengths-section,
-  .tools-section,
   .contact-section {
     padding-inline: 12px;
-  }
-
-  .tool-card {
-    min-height: auto;
-  }
-
-  .tool-card-body {
-    padding: 20px;
   }
 }
 
