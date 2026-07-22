@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 
 import ShinyText from "./ShinyText.jsx";
@@ -26,6 +26,8 @@ const CardNav = ({
   secondaryCtaLabel,
   secondaryCtaHref,
   actionItems,
+  backHref,
+  backLabel = "返回",
   onLinkClick,
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
@@ -189,6 +191,20 @@ const CardNav = ({
         aria-label="主导航"
       >
         <div className="card-nav-top">
+          <div className="card-nav-left">
+            {backHref && (
+              <a
+                className="card-nav-back-button"
+                href={backHref}
+                aria-label={backLabel}
+                onClick={(event) => handleLinkClick(event, backHref)}
+                style={{ color: menuColor }}
+              >
+                <ArrowLeft size={19} weight="bold" aria-hidden="true" />
+                <span>{backLabel}</span>
+              </a>
+            )}
+
           <button
             type="button"
             className={`hamburger-menu ${isHamburgerOpen ? "open" : ""}`}
@@ -200,6 +216,7 @@ const CardNav = ({
             <span className="hamburger-line" />
             <span className="hamburger-line" />
           </button>
+          </div>
 
           <a className="logo-container" href="#top" onClick={(event) => handleLinkClick(event, "#top")}>
             {logo ? (
@@ -226,7 +243,7 @@ const CardNav = ({
           <div className="card-nav-actions">
             {navActionItems.map((item) => {
               const itemIsExternal = isExternalHref(item.href);
-              const isSecondary = item.variant === "secondary";
+              const isSecondary = item.variant !== "primary-dark";
               return (
               <a
                 className={`card-nav-cta-button ${isSecondary ? "card-nav-cta-button-secondary" : ""}`}

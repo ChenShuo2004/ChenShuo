@@ -353,6 +353,13 @@ function KnowledgePage() {
           menuColor="#080909"
           buttonBgColor="#080909"
           buttonTextColor="#f6f6f1"
+          backHref="/"
+          backLabel="返回首页"
+          actionItems={[
+            { label: "工具库", href: "/tools", variant: "secondary" },
+            { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
+            { label: "知识底图", href: "/knowledge", variant: "secondary" },
+          ]}
           ctaLabel="打开知识库"
           ctaHref={knowledgeBaseUrl}
           onLinkClick={scrollToSection}
@@ -377,6 +384,8 @@ function ToolsIntroPage() {
           menuColor="#081827"
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
+          backHref="/"
+          backLabel="返回首页"
           actionItems={[
             { label: "进入工具库", href: productLibraryUrl, variant: "primary" },
             { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
