@@ -663,13 +663,6 @@ a {
   line-height: 1.75;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 38px;
-}
-
 .primary-action {
   padding: 0 22px;
   color: #03101f;
@@ -933,50 +926,6 @@ a {
   font-size: 20px;
   line-height: 1.95;
   font-weight: 500;
-}
-
-.profile-link-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 42px;
-}
-
-.profile-link-card {
-  position: relative;
-  min-height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 18px;
-  border: 1px solid rgba(124, 200, 255, 0.18);
-  border-radius: 8px;
-  background: linear-gradient(145deg, rgba(124, 200, 255, 0.08), rgba(255, 255, 255, 0.035));
-  padding: 22px;
-  color: var(--text);
-}
-
-.profile-link-card span {
-  color: var(--acid);
-  font-family: var(--font-condensed);
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.profile-link-card strong {
-  color: var(--film-white);
-  font-family: var(--font-cn-serif);
-  font-size: 21px;
-  line-height: 1.42;
-  font-weight: 900;
-  word-break: break-word;
-}
-
-.profile-link-card svg {
-  position: absolute;
-  right: 22px;
-  top: 22px;
-  color: rgba(246, 246, 241, 0.66);
 }
 
 .profile-copy > p:not(.section-kicker) {
@@ -1970,8 +1919,7 @@ a {
   .project-grid,
   .project-detail-grid,
   .strength-grid,
-  .profile-facts,
-  .profile-link-grid {
+  .profile-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2124,18 +2072,6 @@ a {
     line-height: 1.72;
   }
 
-  .hero-actions {
-    gap: 10px;
-    margin-top: 30px;
-  }
-
-  .hero-actions .primary-action,
-  .hero-actions .secondary-action {
-    min-height: 54px;
-    padding-inline: 18px;
-    font-size: 16px;
-  }
-
   .poster-meta {
     display: none;
   }
@@ -2198,8 +2134,7 @@ a {
   .project-grid,
   .project-detail-grid,
   .strength-grid,
-  .profile-facts,
-  .profile-link-grid {
+  .profile-facts {
     grid-template-columns: 1fr;
   }
 
@@ -2424,15 +2359,6 @@ a {
   .metric-strip {
     width: calc(100vw - 24px);
     max-width: calc(100vw - 24px);
-  }
-
-  .hero-actions .primary-action,
-  .hero-actions .secondary-action {
-    flex: 1 1 calc(50% - 6px);
-  }
-
-  .hero-actions .secondary-action:last-child {
-    flex-basis: 100%;
   }
 
   .profile-section,

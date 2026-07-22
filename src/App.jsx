@@ -60,8 +60,9 @@ const cardNavItems = [
       { label: "信息结构", href: "#strengths", ariaLabel: "查看信息结构能力" },
       { label: "产品系统", href: "#strengths", ariaLabel: "查看产品系统能力" },
       { label: "个人商业化", href: "#strengths", ariaLabel: "查看个人商业化能力" },
-      { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
-      { label: "公开知识库", href: knowledgeBaseUrl, ariaLabel: "打开陈硕的 FlowUs 知识库" },
+      { label: "工具库", href: productLibraryUrl, ariaLabel: "打开有温度产品工具库" },
+      { label: "阅览室", href: knowledgeBaseUrl, ariaLabel: "打开 FlowUs 阅览室" },
+      { label: "知识底图", href: "/knowledge", ariaLabel: "查看知识底图页面" },
     ],
   },
 ];
@@ -407,10 +408,11 @@ export function App() {
           menuColor="#081827"
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
-          secondaryCtaLabel="工具库"
-          secondaryCtaHref={productLibraryUrl}
-          ctaLabel="知识地图"
-          ctaHref="/knowledge"
+          actionItems={[
+            { label: "工具库", href: productLibraryUrl, variant: "secondary" },
+            { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
+            { label: "知识底图", href: "/knowledge", variant: "primary" },
+          ]}
           onLinkClick={scrollToSection}
         />
 
@@ -444,19 +446,6 @@ export function App() {
             <p className="hero-subcopy">
               现在专注产品、知识库和信息结构，用信息差与知识整理建立普通人也能走进去的赚钱体系。
             </p>
-            <div className="hero-actions">
-              <a className="primary-action" href={productLibraryUrl} target="_blank" rel="noreferrer">
-                产品库
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a className="secondary-action" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
-                阅览室
-              </a>
-              <a className="secondary-action" href="/knowledge">
-                知识地图
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-            </div>
           </div>
 
           <aside className="poster-meta" aria-label="当前系统">
@@ -494,25 +483,8 @@ export function App() {
             <div className="profile-current-intro">
               <h2>AI 连续创业者，用产品、内容和知识系统重新组织个人商业。</h2>
               <p>
-                我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。现在以「一个持续生长的知识产品空间」为核心，重新起航：把产品库、阅览室和知识地图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
+                我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。现在以「一个持续生长的知识产品空间」为核心，重新起航：把工具库、阅览室和知识底图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
               </p>
-              <div className="profile-link-grid" aria-label="个人入口">
-                <a className="profile-link-card" href={productLibraryUrl} target="_blank" rel="noreferrer">
-                  <span>产品库</span>
-                  <strong>aiyouwendu.com/products</strong>
-                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
-                </a>
-                <a className="profile-link-card" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
-                  <span>阅览室</span>
-                  <strong>FlowUs 知识阅览室</strong>
-                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
-                </a>
-                <a className="profile-link-card" href="/knowledge">
-                  <span>知识地图</span>
-                  <strong>从信息到执行的路径设计</strong>
-                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
-                </a>
-              </div>
             </div>
           </div>
         </div>

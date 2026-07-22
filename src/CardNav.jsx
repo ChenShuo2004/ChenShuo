@@ -25,6 +25,7 @@ const CardNav = ({
   ctaHref = "#contact",
   secondaryCtaLabel,
   secondaryCtaHref,
+  actionItems,
   onLinkClick,
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
@@ -169,6 +170,15 @@ const CardNav = ({
 
   const ctaIsExternal = isExternalHref(ctaHref);
   const secondaryCtaIsExternal = isExternalHref(secondaryCtaHref);
+  const navActionItems =
+    actionItems && actionItems.length
+      ? actionItems
+      : [
+          secondaryCtaLabel && secondaryCtaHref
+            ? { label: secondaryCtaLabel, href: secondaryCtaHref, variant: "secondary" }
+            : null,
+          { label: ctaLabel, href: ctaHref, variant: "primary" },
+        ].filter(Boolean);
 
   return (
     <div className={`card-nav-container ${className}`}>
@@ -214,30 +224,28 @@ const CardNav = ({
           </a>
 
           <div className="card-nav-actions">
-            {secondaryCtaLabel && secondaryCtaHref && (
+            {navActionItems.map((item) => {
+              const itemIsExternal = isExternalHref(item.href);
+              const isSecondary = item.variant === "secondary";
+              return (
               <a
-                className="card-nav-cta-button card-nav-cta-button-secondary"
-                href={secondaryCtaHref}
-                target={secondaryCtaIsExternal ? "_blank" : undefined}
-                rel={secondaryCtaIsExternal ? "noreferrer" : undefined}
-                onClick={(event) => handleLinkClick(event, secondaryCtaHref)}
-                style={{ color: buttonBgColor }}
+                className={`card-nav-cta-button ${isSecondary ? "card-nav-cta-button-secondary" : ""}`}
+                href={item.href}
+                key={`${item.label}-${item.href}`}
+                target={itemIsExternal ? "_blank" : undefined}
+                rel={itemIsExternal ? "noreferrer" : undefined}
+                onClick={(event) => handleLinkClick(event, item.href)}
+                style={
+                  isSecondary
+                    ? { color: buttonBgColor }
+                    : { backgroundColor: buttonBgColor, color: buttonTextColor }
+                }
               >
-                {secondaryCtaLabel}
+                {item.label}
                 <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
               </a>
-            )}
-            <a
-              className="card-nav-cta-button"
-              href={ctaHref}
-              target={ctaIsExternal ? "_blank" : undefined}
-              rel={ctaIsExternal ? "noreferrer" : undefined}
-              onClick={(event) => handleLinkClick(event, ctaHref)}
-              style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
-            >
-              {ctaLabel}
-              <ArrowUpRight size={15} weight="bold" aria-hidden="true" />
-            </a>
+              );
+            })}
           </div>
         </div>
 
