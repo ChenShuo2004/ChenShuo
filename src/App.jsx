@@ -60,7 +60,7 @@ const cardNavItems = [
       { label: "信息结构", href: "#strengths", ariaLabel: "查看信息结构能力" },
       { label: "产品系统", href: "#strengths", ariaLabel: "查看产品系统能力" },
       { label: "个人商业化", href: "#strengths", ariaLabel: "查看个人商业化能力" },
-      { label: "工具库", href: productLibraryUrl, ariaLabel: "打开有温度产品工具库" },
+      { label: "工具库", href: "/tools", ariaLabel: "查看工具库说明" },
       { label: "阅览室", href: knowledgeBaseUrl, ariaLabel: "打开 FlowUs 阅览室" },
       { label: "知识底图", href: "/knowledge", ariaLabel: "查看知识底图页面" },
     ],
@@ -363,11 +363,80 @@ function KnowledgePage() {
   );
 }
 
+function ToolsIntroPage() {
+  return (
+    <main className="site-shell tools-intro-page">
+      <section className="knowledge-page-top" id="top" aria-label="工具库页面导航">
+        <CardNav
+          className="poster-card-nav"
+          items={knowledgePageNavItems}
+          brandMark="CS"
+          brandLabel="CHEN SHUO"
+          brandKicker="TOOLS / PRODUCT / LAB"
+          baseColor="rgba(216, 236, 255, 0.94)"
+          menuColor="#081827"
+          buttonBgColor="#071c33"
+          buttonTextColor="#f6f6f1"
+          actionItems={[
+            { label: "进入工具库", href: productLibraryUrl, variant: "primary" },
+            { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
+            { label: "知识底图", href: "/knowledge", variant: "secondary" },
+          ]}
+          onLinkClick={scrollToSection}
+        />
+      </section>
+
+      <section className="tools-intro-section">
+        <div className="tools-intro-inner">
+          <p className="section-kicker">TOOLS LIBRARY</p>
+          <h1>工具库不是作品陈列，而是一个持续生长的 AI 产品实验室。</h1>
+          <p>
+            这里会集中放我正在验证、已经上线和持续迭代的 AI 工具、小游戏、训练器与知识产品。你可以把它理解成一个入口：先看产品方向，再进入具体工具体验。
+          </p>
+
+          <div className="tools-intro-actions">
+            <a className="primary-action" href={productLibraryUrl} target="_blank" rel="noreferrer">
+              进入工具库
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+            <a className="secondary-action" href="/" >
+              返回首页
+            </a>
+          </div>
+
+          <div className="tools-intro-points" aria-label="工具库说明">
+            <article>
+              <span>01</span>
+              <strong>产品实验</strong>
+              <p>把想法快速做成可访问的页面，用真实使用反馈判断是否继续投入。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>AI 工作流</strong>
+              <p>沉淀能复用的提示词、流程和自动化能力，让工具从一次性项目变成系统。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>可商业化入口</strong>
+              <p>每个工具都服务于更具体的需求：学习、训练、测试、内容生产或转化。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
   const isKnowledgePage = normalizedPath === "/knowledge";
+  const isToolsPage = normalizedPath === "/tools";
   if (isKnowledgePage) {
     return <KnowledgePage />;
+  }
+
+  if (isToolsPage) {
+    return <ToolsIntroPage />;
   }
 
 
@@ -409,7 +478,7 @@ export function App() {
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
           actionItems={[
-            { label: "工具库", href: productLibraryUrl, variant: "secondary" },
+            { label: "工具库", href: "/tools", variant: "secondary" },
             { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
             { label: "知识底图", href: "/knowledge", variant: "primary" },
           ]}

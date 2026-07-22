@@ -1745,6 +1745,93 @@ a {
   font-weight: 800;
 }
 
+.tools-intro-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 76% 18%, rgba(47, 125, 255, 0.16), transparent 30%),
+    radial-gradient(circle at 18% 82%, rgba(56, 217, 255, 0.1), transparent 28%),
+    linear-gradient(180deg, #05070d 0%, #07182a 100%);
+}
+
+.tools-intro-section {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  padding: 88px 40px 118px;
+}
+
+.tools-intro-inner {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+}
+
+.tools-intro-inner h1 {
+  max-width: 1040px;
+  margin: 0;
+  color: var(--film-white);
+  font-family: var(--font-cn-serif);
+  font-size: clamp(46px, 6vw, 86px);
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.tools-intro-inner > p:not(.section-kicker) {
+  max-width: 840px;
+  margin: 28px 0 0;
+  color: rgba(238, 247, 243, 0.76);
+  font-family: var(--font-cn-serif);
+  font-size: 20px;
+  line-height: 1.9;
+}
+
+.tools-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.tools-intro-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 56px;
+}
+
+.tools-intro-points article {
+  min-height: 180px;
+  border: 1px solid rgba(124, 200, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  padding: 22px;
+}
+
+.tools-intro-points span {
+  display: block;
+  margin-bottom: 26px;
+  color: var(--acid);
+  font-family: var(--font-condensed);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.tools-intro-points strong {
+  display: block;
+  color: var(--film-white);
+  font-family: var(--font-cn-serif);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.tools-intro-points p {
+  margin: 12px 0 0;
+  color: rgba(238, 248, 255, 0.66);
+  font-family: var(--font-cn-serif);
+  font-size: 16px;
+  line-height: 1.78;
+}
+
 .contact-section {
   min-height: 74vh;
   display: flex;
@@ -2316,6 +2403,30 @@ a {
 
   .knowledge-origin-card-summary p {
     font-size: 24px;
+  }
+
+  .tools-intro-section {
+    min-height: 0;
+    padding: 74px 16px 82px;
+  }
+
+  .tools-intro-inner h1 {
+    font-size: clamp(34px, 9.2vw, 42px);
+    line-height: 1.16;
+  }
+
+  .tools-intro-inner > p:not(.section-kicker) {
+    font-size: 17px;
+    line-height: 1.78;
+  }
+
+  .tools-intro-actions {
+    display: grid;
+  }
+
+  .tools-intro-points {
+    grid-template-columns: 1fr;
+    margin-top: 34px;
   }
 
   .contact-inner {
