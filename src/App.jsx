@@ -172,31 +172,34 @@ const knowledgeOriginChapters = [
 
 const projects = [
   {
-    title: "Web3 早期项目",
-    tag: "商业闭环",
-    image: "/assets/project-web3-generated.jpg",
-    icon: Network,
-    metric: "8 位数收入",
-    description:
-      "从早期流量、社区共识到产品化转化，验证过一个项目从 0 到收入的完整链路。",
-  },
-  {
-    title: "AI 产品系统",
-    tag: "重新搭建",
+    title: "工具库",
+    tag: "产品实验室",
     image: "/assets/project-ai-system-generated.jpg",
     icon: CubeFocus,
-    metric: "信息结构",
+    metric: "AI 工具 / 产品库",
+    href: "/tools",
     description:
-      "围绕 AI、知识流、任务流和个人生产力，搭建可复用、可迭代的产品系统。",
+      "集中展示正在验证、已经上线和持续迭代的 AI 工具、训练器与知识产品。",
   },
   {
-    title: "内容商业化引擎",
-    tag: "个人系统",
+    title: "阅览室",
+    tag: "个人成长系统",
     image: "/assets/project-content-engine-generated.jpg",
-    icon: ChartLineUp,
-    metric: "内容 × 产品",
+    icon: Brain,
+    metric: "阅读 / 认知 / 行动",
+    href: "/reading",
     description:
-      "把经历、观点、选题、表达和转化连接起来，形成长期可积累的个人商业化路径。",
+      "把心理、认知和行动方法整理成入口，帮助把“知道”缩短到“做到”。",
+  },
+  {
+    title: "知识地图",
+    tag: "知识结构入口",
+    image: "/assets/project-web3-generated.jpg",
+    icon: Network,
+    metric: "知识库 / 信息结构",
+    href: "/knowledge",
+    description:
+      "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
   },
 ];
 
@@ -626,8 +629,8 @@ export function App() {
 
       <section className="projects-section" id="projects">
         <div className="section-heading">
-          <p className="section-kicker">SELECTED PROJECTS</p>
-          <h2>精选项目与正在形成的作品线。</h2>
+          <p className="section-kicker">PRODUCT LINES</p>
+          <h2>三条正在形成的作品线。</h2>
         </div>
 
         <div className="project-showcase">
@@ -656,7 +659,7 @@ export function App() {
               const pixelConfig = projectPixelConfigs[index % projectPixelConfigs.length];
               return (
                 <article className="project-detail-card-shell" key={project.title}>
-                  <a className="project-card-link" href="#contact" aria-label={`联系讨论${project.title}`} onClick={(event) => scrollToSection(event, "#contact")}>
+                  <a className="project-card-link" href={project.href} aria-label={`进入${project.title}`}>
                     <TiltedCard
                       imageSrc={project.image}
                       altText={`${project.title}视觉图`}
@@ -689,7 +692,7 @@ export function App() {
                             </div>
                             <strong>{project.metric}</strong>
                             <p>{project.description}</p>
-                            <span className="project-detail-tag">{project.tag} / 联系讨论</span>
+                            <span className="project-detail-tag">{project.tag} / 点击进入</span>
                           </div>
                         </PixelCard>
                       }
