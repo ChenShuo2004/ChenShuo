@@ -174,7 +174,7 @@ const projects = [
   {
     title: "工具库",
     tag: "产品实验室",
-    image: "/assets/project-ai-system-generated.jpg",
+    image: "/assets/product-line-tools.webp",
     icon: CubeFocus,
     metric: "AI 工具 / 产品库",
     href: "/tools",
@@ -184,7 +184,7 @@ const projects = [
   {
     title: "阅览室",
     tag: "个人成长系统",
-    image: "/assets/project-content-engine-generated.jpg",
+    image: "/assets/product-line-reading.webp",
     icon: Brain,
     metric: "阅读 / 认知 / 行动",
     href: "/reading",
@@ -194,7 +194,7 @@ const projects = [
   {
     title: "知识地图",
     tag: "知识结构入口",
-    image: "/assets/project-web3-generated.jpg",
+    image: "/assets/product-line-knowledge.webp",
     icon: Network,
     metric: "知识库 / 信息结构",
     href: "/knowledge",
