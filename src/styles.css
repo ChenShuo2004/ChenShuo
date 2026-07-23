@@ -1777,6 +1777,27 @@ a {
     linear-gradient(180deg, #05070d 0%, #07182a 100%);
 }
 
+.reading-intro-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 78% 14%, rgba(124, 200, 255, 0.15), transparent 30%),
+    radial-gradient(circle at 14% 78%, rgba(70, 178, 112, 0.12), transparent 30%),
+    linear-gradient(180deg, #111412 0%, #071827 100%);
+}
+
+.reading-intro-section .tools-intro-inner h1 {
+  max-width: 980px;
+}
+
+.reading-intro-section .tools-intro-points article:first-child {
+  background: rgba(55, 151, 86, 0.16);
+  border-color: rgba(107, 216, 144, 0.18);
+}
+
+.reading-intro-section .tools-intro-points article:first-child span {
+  color: #7ce3a0;
+}
+
 .tools-intro-section {
   min-height: calc(100vh - 120px);
   display: flex;

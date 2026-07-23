@@ -61,7 +61,7 @@ const cardNavItems = [
       { label: "产品系统", href: "#strengths", ariaLabel: "查看产品系统能力" },
       { label: "个人商业化", href: "#strengths", ariaLabel: "查看个人商业化能力" },
       { label: "工具库", href: "/tools", ariaLabel: "查看工具库说明" },
-      { label: "阅览室", href: knowledgeBaseUrl, ariaLabel: "打开 FlowUs 阅览室" },
+      { label: "阅览室", href: "/reading", ariaLabel: "查看阅览室说明" },
       { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
     ],
   },
@@ -357,7 +357,7 @@ function KnowledgePage() {
           backLabel="返回首页"
           actionItems={[
             { label: "工具库", href: "/tools", variant: "secondary" },
-            { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
+            { label: "阅览室", href: "/reading", variant: "secondary" },
             { label: "知识地图", href: "/knowledge", variant: "secondary" },
           ]}
           ctaLabel="打开知识库"
@@ -388,7 +388,7 @@ function ToolsIntroPage() {
           backLabel="返回首页"
           actionItems={[
             { label: "进入工具库", href: productLibraryUrl, variant: "primary" },
-            { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
+            { label: "阅览室", href: "/reading", variant: "secondary" },
             { label: "知识地图", href: "/knowledge", variant: "secondary" },
           ]}
           onLinkClick={scrollToSection}
@@ -436,16 +436,87 @@ function ToolsIntroPage() {
   );
 }
 
+function ReadingRoomPage() {
+  return (
+    <main className="site-shell reading-intro-page">
+      <section className="knowledge-page-top" id="top" aria-label="阅览室页面导航">
+        <CardNav
+          className="poster-card-nav"
+          items={knowledgePageNavItems}
+          brandMark="CS"
+          brandLabel="CHEN SHUO"
+          brandKicker="READING / GROWTH / SYSTEM"
+          baseColor="rgba(246, 246, 241, 0.93)"
+          menuColor="#081827"
+          buttonBgColor="#071c33"
+          buttonTextColor="#f6f6f1"
+          backHref="/"
+          backLabel="返回首页"
+          actionItems={[
+            { label: "工具库", href: "/tools", variant: "secondary" },
+            { label: "进入阅览室", href: knowledgeBaseUrl, variant: "secondary" },
+            { label: "知识地图", href: "/knowledge", variant: "secondary" },
+          ]}
+          onLinkClick={scrollToSection}
+        />
+      </section>
+
+      <section className="tools-intro-section reading-intro-section">
+        <div className="tools-intro-inner">
+          <p className="section-kicker">YOU WENDU READING ROOM</p>
+          <h1>有温度阅览室，是把“知道”缩短到“做到”的个人成长系统。</h1>
+          <p>
+            这里不是普通资料库，而是我整理给自己的长期阅读入口：从心理、认知到行动方法，帮助你理解自己、改变状态，并把学习变成可执行的下一步。
+          </p>
+
+          <div className="tools-intro-actions">
+            <a className="primary-action" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
+              进入阅览室
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+            <a className="secondary-action" href="/" >
+              返回首页
+            </a>
+          </div>
+
+          <div className="tools-intro-points" aria-label="阅览室说明">
+            <article>
+              <span>01</span>
+              <strong>从这里开始</strong>
+              <p>第一次进入时，先按推荐路径理解情绪、拖延、注意力、行动力和判断偏差。</p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>推荐与专题</strong>
+              <p>把值得反复阅读的主题整理成入口，减少信息过载，直接进入关键问题。</p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>个人成长系统</strong>
+              <p>用结构化阅读连接知识、练习和工具，让内容最终服务于行动和改变。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
   const isKnowledgePage = normalizedPath === "/knowledge";
   const isToolsPage = normalizedPath === "/tools";
+  const isReadingPage = normalizedPath === "/reading";
   if (isKnowledgePage) {
     return <KnowledgePage />;
   }
 
   if (isToolsPage) {
     return <ToolsIntroPage />;
+  }
+
+  if (isReadingPage) {
+    return <ReadingRoomPage />;
   }
 
 
@@ -488,7 +559,7 @@ export function App() {
           buttonTextColor="#f6f6f1"
           actionItems={[
             { label: "工具库", href: "/tools", variant: "secondary" },
-            { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
+            { label: "阅览室", href: "/reading", variant: "secondary" },
             { label: "知识地图", href: "/knowledge", variant: "primary" },
           ]}
           onLinkClick={scrollToSection}
