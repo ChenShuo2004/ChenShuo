@@ -14,7 +14,7 @@ import {
   Strategy,
   UserCircle,
 } from "@phosphor-icons/react";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { Component, lazy, Suspense, useEffect, useRef, useState } from "react";
 import CardNav from "./CardNav.jsx";
 import DotField from "./DotField.jsx";
 import PixelCard from "./PixelCard.jsx";
@@ -264,15 +264,40 @@ function useNearViewport(rootMargin = "500px") {
   return [ref, isNear];
 }
 
+class GalleryErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    console.warn("Circular gallery failed to load.", error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <div className="gallery-placeholder" aria-hidden="true" />;
+    }
+
+    return this.props.children;
+  }
+}
+
 function DeferredCircularGallery(props) {
   const [ref, isNear] = useNearViewport("700px");
 
   return (
     <div ref={ref} className="deferred-gallery-shell">
       {isNear ? (
-        <Suspense fallback={<div className="gallery-placeholder" aria-hidden="true" />}>
-          <CircularGallery {...props} />
-        </Suspense>
+        <GalleryErrorBoundary>
+          <Suspense fallback={<div className="gallery-placeholder" aria-hidden="true" />}>
+            <CircularGallery {...props} />
+          </Suspense>
+        </GalleryErrorBoundary>
       ) : (
         <div className="gallery-placeholder" aria-hidden="true" />
       )}
