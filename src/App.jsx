@@ -499,11 +499,215 @@ function ReadingRoomPage() {
   );
 }
 
+const adminRangeOptions = [
+  { label: "7D", value: "7d" },
+  { label: "30D", value: "30d" },
+  { label: "90D", value: "90d" },
+];
+
+function formatNumber(value) {
+  return new Intl.NumberFormat("zh-CN").format(value || 0);
+}
+
+function formatDay(value) {
+  if (!value) return "-";
+  return new Intl.DateTimeFormat("zh-CN", {
+    month: "2-digit",
+    day: "2-digit",
+    timeZone: "Asia/Shanghai",
+  }).format(new Date(value));
+}
+
+function getDimensionLabel(item, keys, fallback = "Direct / Unknown") {
+  const value = keys.map((key) => item[key]).find(Boolean);
+  return value || fallback;
+}
+
+function AdminPage() {
+  const [range, setRange] = useState("7d");
+  const [password, setPassword] = useState(() => localStorage.getItem("cs-admin-password") || "");
+  const [inputPassword, setInputPassword] = useState(password);
+  const [analytics, setAnalytics] = useState(null);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function loadAnalytics(nextRange = range, nextPassword = password) {
+    if (!nextPassword) return;
+
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch(`/api/admin-analytics?range=${nextRange}`, {
+        headers: {
+          "x-admin-password": nextPassword,
+        },
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "数据加载失败");
+      }
+
+      setAnalytics(data);
+      localStorage.setItem("cs-admin-password", nextPassword);
+    } catch (loadError) {
+      setAnalytics(null);
+      setError(loadError.message || "数据加载失败");
+      if (loadError.message?.includes("Invalid")) {
+        localStorage.removeItem("cs-admin-password");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    loadAnalytics(range, password);
+  }, [range, password]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    setPassword(inputPassword);
+    loadAnalytics(range, inputPassword);
+  }
+
+  const maxDailyPageviews = Math.max(...(analytics?.daily || []).map((item) => item.pageviews || 0), 1);
+
+  return (
+    <main className="admin-shell">
+      <section className="admin-panel">
+        <div className="admin-header">
+          <div>
+            <p className="admin-kicker">SITE ANALYTICS</p>
+            <h1>Admin PV</h1>
+            <span>Chen Shuo Personal Site</span>
+          </div>
+          <a href="/" className="admin-home-link">
+            Back Home
+          </a>
+        </div>
+
+        <form className="admin-login" onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={inputPassword}
+            onChange={(event) => setInputPassword(event.target.value)}
+            placeholder="Admin password"
+            autoComplete="current-password"
+          />
+          <button type="submit" disabled={isLoading || !inputPassword}>
+            {isLoading ? "Loading" : "View Data"}
+          </button>
+        </form>
+
+        {error && <p className="admin-error">{error}</p>}
+
+        {analytics && (
+          <div className="admin-dashboard">
+            <div className="admin-toolbar">
+              <div>
+                <strong>{analytics.since} - {analytics.until}</strong>
+                <span>Updated {new Date(analytics.updatedAt).toLocaleString("zh-CN")}</span>
+              </div>
+              <div className="admin-range-switch" aria-label="Select analytics range">
+                {adminRangeOptions.map((option) => (
+                  <button
+                    type="button"
+                    key={option.value}
+                    className={range === option.value ? "active" : ""}
+                    onClick={() => setRange(option.value)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="admin-metrics-grid">
+              <article>
+                <span>Today PV</span>
+                <strong>{formatNumber(analytics.today.pageviews)}</strong>
+              </article>
+              <article>
+                <span>Today Visitors</span>
+                <strong>{formatNumber(analytics.today.visitors)}</strong>
+              </article>
+              <article>
+                <span>Total PV</span>
+                <strong>{formatNumber(analytics.totals.pageviews)}</strong>
+              </article>
+              <article>
+                <span>Total Visitors</span>
+                <strong>{formatNumber(analytics.totals.visitors)}</strong>
+              </article>
+            </div>
+
+            <section className="admin-chart-panel">
+              <div className="admin-section-title">
+                <h2>Daily Traffic</h2>
+                <span>PV by day</span>
+              </div>
+              <div className="admin-bars">
+                {analytics.daily.map((item) => (
+                  <div className="admin-bar-item" key={item.timestamp}>
+                    <div className="admin-bar-track">
+                      <span style={{ height: `${Math.max(((item.pageviews || 0) / maxDailyPageviews) * 100, 4)}%` }} />
+                    </div>
+                    <strong>{formatNumber(item.pageviews)}</strong>
+                    <small>{formatDay(item.timestamp)}</small>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <div className="admin-lists-grid">
+              <AdminRankList title="Top Pages" rows={analytics.topPages} labelKeys={["requestPath", "route"]} />
+              <AdminRankList title="Referrers" rows={analytics.referrers} labelKeys={["referrerHostname"]} />
+              <AdminRankList title="Countries" rows={analytics.countries} labelKeys={["country"]} />
+              <AdminRankList title="Devices" rows={analytics.devices} labelKeys={["deviceType"]} />
+            </div>
+          </div>
+        )}
+      </section>
+    </main>
+  );
+}
+
+function AdminRankList({ title, rows, labelKeys }) {
+  return (
+    <section className="admin-list-panel">
+      <div className="admin-section-title">
+        <h2>{title}</h2>
+        <span>PV / Visitors</span>
+      </div>
+      <div className="admin-rank-list">
+        {rows?.length > 0 ? (
+          rows.map((item, index) => (
+            <article key={`${title}-${index}`}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{getDimensionLabel(item, labelKeys)}</strong>
+              <em>{formatNumber(item.pageviews)} / {formatNumber(item.visitors)}</em>
+            </article>
+          ))
+        ) : (
+          <p>No data yet</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
   const isKnowledgePage = normalizedPath === "/knowledge";
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
+  const isAdminPage = normalizedPath === "/admin";
+  if (isAdminPage) {
+    return <AdminPage />;
+  }
+
   if (isKnowledgePage) {
     return <KnowledgePage />;
   }

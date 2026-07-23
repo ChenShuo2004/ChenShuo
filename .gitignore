@@ -7,6 +7,9 @@ dist/
 *.log
 vite.out.log
 vite.err.log
+.env
+.env.local
+.env.*.local
 
 qa-*.png
 .chrome-*/
