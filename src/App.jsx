@@ -698,8 +698,37 @@ function AdminRankList({ title, rows, labelKeys }) {
   );
 }
 
+function usePageViewTracking(pathname) {
+  useEffect(() => {
+    if (pathname === "/admin") return undefined;
+
+    const payload = JSON.stringify({
+      path: pathname,
+      title: document.title,
+      referrer: document.referrer,
+    });
+
+    if (navigator.sendBeacon) {
+      const blob = new Blob([payload], { type: "application/json" });
+      navigator.sendBeacon("/api/track-view", blob);
+      return undefined;
+    }
+
+    fetch("/api/track-view", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+      keepalive: true,
+    }).catch(() => {});
+
+    return undefined;
+  }, [pathname]);
+}
+
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
+  usePageViewTracking(normalizedPath);
+
   const isKnowledgePage = normalizedPath === "/knowledge";
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
