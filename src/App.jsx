@@ -521,9 +521,14 @@ export function App() {
             <p className="hero-lede">
               AI 连续创业者，用产品、内容和知识系统重新组织个人商业。
             </p>
-            <p className="hero-subcopy">
-              我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。现在以「一个持续生长的知识产品空间」为核心，重新起航：把工具库、阅览室和知识底图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
-            </p>
+            <div className="hero-subcopy">
+              <p>
+                我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
+              </p>
+              <p>
+                现在以「一个持续生长的知识产品空间」为核心，重新起航：把工具库、阅览室和知识底图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
+              </p>
+            </div>
           </div>
 
           <aside className="poster-meta" aria-label="当前系统">

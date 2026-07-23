@@ -286,9 +286,9 @@ const CardNav = ({
                 />
               </div>
               <div className="nav-card-links">
-                {item.links?.map((link) => (
+                {item.links?.map((link, linkIndex) => (
                   <a
-                    key={link.href || link.label}
+                    key={`${link.label}-${link.href || linkIndex}`}
                     className="nav-card-link"
                     href={link.href}
                     aria-label={link.ariaLabel}
