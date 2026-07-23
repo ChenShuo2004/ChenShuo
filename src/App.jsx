@@ -2,7 +2,6 @@ import {
   ArrowDown,
   ArrowRight,
   Brain,
-  ChartLineUp,
   Compass,
   CubeFocus,
   EnvelopeSimple,
@@ -14,15 +13,13 @@ import {
   Strategy,
   UserCircle,
 } from "@phosphor-icons/react";
-import { Component, lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import CardNav from "./CardNav.jsx";
 import DotField from "./DotField.jsx";
 import PixelCard from "./PixelCard.jsx";
 import RotatingText from "./RotatingText.jsx";
 import TextCursor from "./TextCursor.jsx";
 import TiltedCard from "./TiltedCard.jsx";
-
-const CircularGallery = lazy(() => import("./CircularGallery.jsx"));
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productLibraryUrl = "https://aiyouwendu.com/products";
@@ -175,6 +172,7 @@ const projects = [
     title: "工具库",
     tag: "产品实验室",
     image: "/assets/product-line-tools.webp",
+    visualClass: "project-visual-tools",
     icon: CubeFocus,
     metric: "AI 工具 / 产品库",
     href: "/tools",
@@ -185,6 +183,7 @@ const projects = [
     title: "阅览室",
     tag: "个人成长系统",
     image: "/assets/product-line-reading.webp",
+    visualClass: "project-visual-reading",
     icon: Brain,
     metric: "阅读 / 认知 / 行动",
     href: "/reading",
@@ -195,6 +194,7 @@ const projects = [
     title: "知识地图",
     tag: "知识结构入口",
     image: "/assets/product-line-knowledge.webp",
+    visualClass: "project-visual-knowledge",
     icon: Network,
     metric: "知识库 / 信息结构",
     href: "/knowledge",
@@ -202,11 +202,6 @@ const projects = [
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
   },
 ];
-
-const projectGalleryItems = projects.map((project) => ({
-  image: project.image,
-  text: project.title,
-}));
 
 const projectPixelConfigs = [
   { variant: "blue", gap: 7, speed: 58, colors: "#f6f6f1,#2f7dff,#7ac8ff" },
@@ -240,69 +235,6 @@ const strengths = [
 function scrollToSection(event, href) {
   event.preventDefault();
   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-}
-
-function useNearViewport(rootMargin = "500px") {
-  const ref = useRef(null);
-  const [isNear, setIsNear] = useState(false);
-
-  useEffect(() => {
-    if (isNear || !ref.current) return undefined;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsNear(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin },
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [isNear, rootMargin]);
-
-  return [ref, isNear];
-}
-
-class GalleryErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error) {
-    console.warn("Circular gallery failed to load.", error);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <div className="gallery-placeholder" aria-hidden="true" />;
-    }
-
-    return this.props.children;
-  }
-}
-
-function DeferredCircularGallery(props) {
-  const [ref, isNear] = useNearViewport("700px");
-
-  return (
-    <div ref={ref} className="deferred-gallery-shell">
-      {isNear ? (
-        <GalleryErrorBoundary>
-          <Suspense fallback={<div className="gallery-placeholder" aria-hidden="true" />}>
-            <CircularGallery {...props} />
-          </Suspense>
-        </GalleryErrorBoundary>
-      ) : (
-        <div className="gallery-placeholder" aria-hidden="true" />
-      )}
-    </div>
-  );
 }
 
 function KnowledgeOriginSection() {
@@ -892,25 +824,6 @@ export function App() {
         </div>
 
         <div className="project-showcase">
-          <div className="project-gallery-stage">
-            <DeferredCircularGallery
-              items={projectGalleryItems}
-              bend={2.8}
-              textColor="#f6f6f1"
-              borderRadius={0.035}
-              scrollSpeed={1.65}
-              scrollEase={0.045}
-              font={'900 34px "Noto Serif SC"'}
-            />
-            <div className="gallery-frame-lines" aria-hidden="true">
-              <span />
-              <span />
-            </div>
-            <div className="gallery-caption" aria-hidden="true">
-              DRAG / SCROLL
-            </div>
-          </div>
-
           <div className="project-detail-grid">
             {projects.map((project, index) => {
               const Icon = project.icon;
@@ -931,7 +844,7 @@ export function App() {
                       showMobileWarning={false}
                       showTooltip={false}
                       displayOverlayContent
-                      className="project-tilted-card"
+                      className={`project-tilted-card ${project.visualClass}`}
                       overlayContent={
                         <PixelCard
                           className="project-detail-card"
