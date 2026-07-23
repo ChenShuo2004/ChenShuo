@@ -172,7 +172,6 @@ const knowledgeOriginChapters = [
 
 const projects = [
   {
-    slug: "project-web3-detail",
     title: "Web3 早期项目",
     tag: "商业闭环",
     image: "/assets/project-web3-generated.jpg",
@@ -180,10 +179,8 @@ const projects = [
     metric: "8 位数收入",
     description:
       "从早期流量、社区共识到产品化转化，验证过一个项目从 0 到收入的完整链路。",
-    details: ["早期流量验证", "社区共识组织", "收入闭环搭建"],
   },
   {
-    slug: "project-ai-system-detail",
     title: "AI 产品系统",
     tag: "重新搭建",
     image: "/assets/project-ai-system-generated.jpg",
@@ -191,10 +188,8 @@ const projects = [
     metric: "信息结构",
     description:
       "围绕 AI、知识流、任务流和个人生产力，搭建可复用、可迭代的产品系统。",
-    details: ["AI 工作流重组", "知识与任务结构化", "可复用产品模块"],
   },
   {
-    slug: "project-content-engine-detail",
     title: "内容商业化引擎",
     tag: "个人系统",
     image: "/assets/project-content-engine-generated.jpg",
@@ -202,7 +197,6 @@ const projects = [
     metric: "内容 × 产品",
     description:
       "把经历、观点、选题、表达和转化连接起来，形成长期可积累的个人商业化路径。",
-    details: ["内容选题资产化", "信任链路设计", "产品与成交连接"],
   },
 ];
 
@@ -662,7 +656,7 @@ export function App() {
               const pixelConfig = projectPixelConfigs[index % projectPixelConfigs.length];
               return (
                 <article className="project-detail-card-shell" key={project.title}>
-                  <a className="project-card-link" href={`#${project.slug}`} aria-label={`查看${project.title}详情`}>
+                  <a className="project-card-link" href="#contact" aria-label={`联系讨论${project.title}`} onClick={(event) => scrollToSection(event, "#contact")}>
                     <TiltedCard
                       imageSrc={project.image}
                       altText={`${project.title}视觉图`}
@@ -695,43 +689,12 @@ export function App() {
                             </div>
                             <strong>{project.metric}</strong>
                             <p>{project.description}</p>
-                            <span className="project-detail-tag">{project.tag} / 点击进入</span>
+                            <span className="project-detail-tag">{project.tag} / 联系讨论</span>
                           </div>
                         </PixelCard>
                       }
                     />
                   </a>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="project-entry-list" aria-label="项目详情">
-            {projects.map((project, index) => {
-              const Icon = project.icon;
-              return (
-                <article className="project-entry" id={project.slug} key={project.slug}>
-                  <div className="project-entry-media">
-                    <img src={project.image} alt={`${project.title}主题配图`} loading="lazy" decoding="async" />
-                  </div>
-                  <div className="project-entry-copy">
-                    <span className="project-entry-index">0{index + 1}</span>
-                    <div className="project-entry-title">
-                      <Icon size={28} weight="duotone" aria-hidden="true" />
-                      <h3>{project.title}</h3>
-                    </div>
-                    <strong>{project.metric}</strong>
-                    <p>{project.description}</p>
-                    <ul>
-                      {project.details.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                    <a href="#contact" onClick={(event) => scrollToSection(event, "#contact")}>
-                      联系讨论
-                      <ArrowRight size={16} weight="bold" aria-hidden="true" />
-                    </a>
-                  </div>
                 </article>
               );
             })}
