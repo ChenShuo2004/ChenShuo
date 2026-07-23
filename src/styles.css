@@ -624,28 +624,6 @@ a {
   font-weight: 700;
 }
 
-.poster-metrics {
-  position: absolute;
-  left: max(40px, calc((100vw - var(--max)) / 2));
-  right: max(40px, calc((100vw - var(--max)) / 2));
-  bottom: 42px;
-  width: auto;
-}
-
-.poster-metrics .metric {
-  min-height: 96px;
-  border-color: rgba(246, 246, 241, 0.14);
-  background: rgba(246, 246, 241, 0.08);
-}
-
-.poster-metrics .metric strong {
-  color: var(--film-white);
-}
-
-.poster-metrics .metric span {
-  color: rgba(246, 246, 241, 0.62);
-}
-
 .hero-copy {
   max-width: 1080px;
 }
@@ -2352,36 +2330,6 @@ a {
     display: none;
   }
 
-  .poster-metrics {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    width: calc(100vw - 32px);
-    max-width: calc(100vw - 32px);
-    margin-inline: auto;
-  }
-
-  .poster-metrics.metric-strip {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-  }
-
-  .poster-metrics .metric {
-    min-height: 108px;
-    padding: 16px 12px;
-  }
-
-  .poster-metrics .metric strong {
-    font-size: clamp(28px, 8.2vw, 34px);
-  }
-
-  .poster-metrics .metric span {
-    margin-top: 8px;
-    font-size: 12px;
-    line-height: 1.45;
-  }
-
   .hero-copy,
   .hero-lede,
   .hero-subcopy,
@@ -2653,7 +2601,6 @@ a {
   }
 
   .hero-stage,
-  .poster-metrics,
   .hero-copy,
   .hero-lede,
   .hero-subcopy,
@@ -2685,9 +2632,6 @@ a {
     font-size: 22px;
   }
 
-  .poster-metrics .metric {
-    padding-inline: 10px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

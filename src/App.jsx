@@ -99,12 +99,6 @@ const knowledgePageNavItems = [
   },
 ];
 
-const metrics = [
-  { value: "AI", label: "连续创业者" },
-  { value: "8 位数", label: "Web3 早期项目收入" },
-  { value: "知识库", label: "信息差 / 知识整理" },
-];
-
 const focusAreas = [
   "重新理解 AI 与人的工作方式",
   "把内容、产品和商业化做成系统",
@@ -800,15 +794,6 @@ export function App() {
               ))}
             </div>
           </aside>
-        </div>
-
-        <div className="metric-strip poster-metrics" aria-label="关键数据">
-          {metrics.map((metric) => (
-            <div className="metric" key={metric.label}>
-              <strong>{metric.value}</strong>
-              <span>{metric.label}</span>
-            </div>
-          ))}
         </div>
 
         <a className="scroll-cue" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
