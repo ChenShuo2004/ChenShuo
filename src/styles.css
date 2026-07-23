@@ -2196,7 +2196,6 @@ a {
   }
 
   .project-grid,
-  .project-detail-grid,
   .strength-grid,
   .profile-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
