@@ -62,7 +62,7 @@ const cardNavItems = [
       { label: "个人商业化", href: "#strengths", ariaLabel: "查看个人商业化能力" },
       { label: "工具库", href: "/tools", ariaLabel: "查看工具库说明" },
       { label: "阅览室", href: knowledgeBaseUrl, ariaLabel: "打开 FlowUs 阅览室" },
-      { label: "知识底图", href: "/knowledge", ariaLabel: "查看知识底图页面" },
+      { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
     ],
   },
 ];
@@ -358,7 +358,7 @@ function KnowledgePage() {
           actionItems={[
             { label: "工具库", href: "/tools", variant: "secondary" },
             { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
-            { label: "知识底图", href: "/knowledge", variant: "secondary" },
+            { label: "知识地图", href: "/knowledge", variant: "secondary" },
           ]}
           ctaLabel="打开知识库"
           ctaHref={knowledgeBaseUrl}
@@ -389,7 +389,7 @@ function ToolsIntroPage() {
           actionItems={[
             { label: "进入工具库", href: productLibraryUrl, variant: "primary" },
             { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
-            { label: "知识底图", href: "/knowledge", variant: "secondary" },
+            { label: "知识地图", href: "/knowledge", variant: "secondary" },
           ]}
           onLinkClick={scrollToSection}
         />
@@ -489,7 +489,7 @@ export function App() {
           actionItems={[
             { label: "工具库", href: "/tools", variant: "secondary" },
             { label: "阅览室", href: knowledgeBaseUrl, variant: "secondary" },
-            { label: "知识底图", href: "/knowledge", variant: "primary" },
+            { label: "知识地图", href: "/knowledge", variant: "primary" },
           ]}
           onLinkClick={scrollToSection}
         />
