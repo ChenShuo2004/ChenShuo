@@ -562,6 +562,16 @@ a {
   font-weight: 800;
 }
 
+.hero-poster .poster-copy .hero-subcopy .hero-highlight {
+  position: relative;
+  padding: 14px 16px;
+  color: rgba(246, 246, 241, 0.96);
+  border: 1px solid rgba(124, 200, 255, 0.34);
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(47, 125, 255, 0.22), rgba(246, 246, 241, 0.06));
+  box-shadow: inset 0 1px 0 rgba(246, 246, 241, 0.1), 0 18px 54px rgba(0, 0, 0, 0.18);
+}
+
 .hero-poster .poster-copy .primary-action {
   color: var(--film-white);
   background: var(--film-red);

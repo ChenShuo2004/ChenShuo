@@ -99,12 +99,6 @@ const knowledgePageNavItems = [
   },
 ];
 
-const focusAreas = [
-  "重新理解 AI 与人的工作方式",
-  "把内容、产品和商业化做成系统",
-  "用信息结构沉淀可复用的赚钱体系",
-];
-
 const knowledgeOriginIntro = [
   "这个知识库的诞生，并不是来自“我想做一个整理工具”，而是来自一个更真实、也更长期存在的问题：",
   "在信息爆炸的时代，我们每天都在接触新的内容、新的工具、新的观点。但奇怪的是，信息越多，人反而越容易停在原地。",
@@ -770,30 +764,15 @@ export function App() {
               陈硕
               <span>CHEN SHUO</span>
             </h1>
-            <p className="hero-lede">
-              AI 连续创业者，用产品、内容和知识系统重新组织个人商业。
-            </p>
             <div className="hero-subcopy">
               <p>
                 我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
               </p>
-              <p>
+              <p className="hero-highlight">
                 现在以「一个持续生长的知识产品空间」为核心，重新起航：把工具库、阅览室和知识底图连接起来，让想法、工具和方法可以被持续沉淀、复用和商业化。
               </p>
             </div>
           </div>
-
-          <aside className="poster-meta" aria-label="当前系统">
-            <p>AI SYSTEM BUILDER</p>
-            <div className="poster-meta-list">
-              {focusAreas.map((item, index) => (
-                <div className="poster-meta-item" key={item}>
-                  <span>0{index + 1}</span>
-                  <strong>{item}</strong>
-                </div>
-              ))}
-            </div>
-          </aside>
         </div>
 
         <a className="scroll-cue" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
