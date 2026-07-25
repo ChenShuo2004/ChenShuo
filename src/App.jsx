@@ -768,7 +768,7 @@ export function App() {
 
           <aside className="hero-project-lines" id="projects" aria-label="作品线">
             <p className="section-kicker">PRODUCT LINES</p>
-            <h2>正在形成的作品线</h2>
+            <h2>知识产品空间</h2>
             <div className="hero-project-list">
               {projects.map((project, index) => {
                 const Icon = project.icon;

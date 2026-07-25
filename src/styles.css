@@ -573,12 +573,12 @@ a {
 }
 
 .hero-project-lines {
-  align-self: start;
+  align-self: center;
   display: grid;
-  gap: 9px;
+  gap: 8px;
   margin-top: 0;
-  padding: 12px;
-  transform: translateY(clamp(-72px, -8vh, -44px));
+  padding: 10px;
+  transform: translateY(clamp(-50px, -6vh, -28px));
   border: 1px solid rgba(246, 246, 241, 0.14);
   border-radius: 8px;
   background: linear-gradient(180deg, rgba(5, 14, 26, 0.72), rgba(5, 7, 13, 0.5));
@@ -590,21 +590,21 @@ a {
   margin: -4px 0 0;
   color: var(--film-white);
   font-family: var(--font-cn-serif);
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.32;
   font-weight: 900;
 }
 
 .hero-project-list {
   display: grid;
-  gap: 8px;
+  gap: 7px;
 }
 
 .hero-project-item {
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr);
   gap: 10px;
-  padding: 10px;
+  padding: 9px 10px;
   color: inherit;
   border: 1px solid rgba(246, 246, 241, 0.12);
   border-radius: 8px;
@@ -666,7 +666,7 @@ a {
 .hero-project-item p {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   margin-top: 5px;
   overflow: hidden;
   color: rgba(246, 246, 241, 0.58);
