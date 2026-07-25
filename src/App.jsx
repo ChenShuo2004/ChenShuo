@@ -16,10 +16,8 @@ import {
 import { useEffect, useState } from "react";
 import CardNav from "./CardNav.jsx";
 import DotField from "./DotField.jsx";
-import PixelCard from "./PixelCard.jsx";
 import RotatingText from "./RotatingText.jsx";
 import TextCursor from "./TextCursor.jsx";
-import TiltedCard from "./TiltedCard.jsx";
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productLibraryUrl = "https://aiyouwendu.com/products";
@@ -189,12 +187,6 @@ const projects = [
     description:
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
   },
-];
-
-const projectPixelConfigs = [
-  { variant: "blue", gap: 7, speed: 58, colors: "#f6f6f1,#2f7dff,#7ac8ff" },
-  { variant: "blue", gap: 8, speed: 34, colors: "#f6f6f1,#7af7df,#4c6f9f" },
-  { variant: "default", gap: 6, speed: 28, colors: "#f6f6f1,#38d9ff,#2f7dff" },
 ];
 
 const strengths = [
@@ -773,71 +765,35 @@ export function App() {
               </p>
             </div>
           </div>
+
+          <aside className="hero-project-lines" id="projects" aria-label="作品线">
+            <p className="section-kicker">PRODUCT LINES</p>
+            <h2>正在形成的作品线</h2>
+            <div className="hero-project-list">
+              {projects.map((project, index) => {
+                const Icon = project.icon;
+                return (
+                  <a className="hero-project-item" href={project.href} key={project.title}>
+                    <span className="hero-project-index">0{index + 1}</span>
+                    <div>
+                      <strong>
+                        <Icon size={18} weight="duotone" aria-hidden="true" />
+                        {project.title}
+                      </strong>
+                      <em>{project.metric}</em>
+                      <p>{project.description}</p>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </aside>
         </div>
 
         <a className="scroll-cue" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
           <ArrowDown size={18} weight="bold" aria-hidden="true" />
           向下
         </a>
-      </section>
-
-      <section className="projects-section" id="projects">
-        <div className="section-heading">
-          <p className="section-kicker">PRODUCT LINES</p>
-          <h2>三条正在形成的作品线。</h2>
-        </div>
-
-        <div className="project-showcase">
-          <div className="project-detail-grid">
-            {projects.map((project, index) => {
-              const Icon = project.icon;
-              const pixelConfig = projectPixelConfigs[index % projectPixelConfigs.length];
-              return (
-                <article className="project-detail-card-shell" key={project.title}>
-                  <a className="project-card-link" href={project.href} aria-label={`进入${project.title}`}>
-                    <TiltedCard
-                      imageSrc={project.image}
-                      altText={`${project.title}视觉图`}
-                      captionText={project.title}
-                      containerHeight="clamp(340px, 27vw, 410px)"
-                      containerWidth="100%"
-                      imageHeight="100%"
-                      imageWidth="100%"
-                      rotateAmplitude={8}
-                      scaleOnHover={1.035}
-                      showMobileWarning={false}
-                      showTooltip={false}
-                      displayOverlayContent
-                      className={`project-tilted-card ${project.visualClass}`}
-                      overlayContent={
-                        <PixelCard
-                          className="project-detail-card"
-                          ariaLabel={`${project.title}项目卡片`}
-                          variant={pixelConfig.variant}
-                          gap={pixelConfig.gap}
-                          speed={pixelConfig.speed}
-                          colors={pixelConfig.colors}
-                          noFocus
-                        >
-                          <div className="project-detail-content">
-                            <span className="project-detail-index">0{index + 1}</span>
-                            <div className="project-detail-title">
-                              <Icon size={25} weight="duotone" aria-hidden="true" />
-                              <h3>{project.title}</h3>
-                            </div>
-                            <strong>{project.metric}</strong>
-                            <p>{project.description}</p>
-                            <span className="project-detail-tag">{project.tag} / 点击进入</span>
-                          </div>
-                        </PixelCard>
-                      }
-                    />
-                  </a>
-                </article>
-              );
-            })}
-          </div>
-        </div>
       </section>
 
       <section className="strengths-section" id="strengths">
