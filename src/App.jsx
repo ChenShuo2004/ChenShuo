@@ -724,11 +724,7 @@ export function App() {
           menuColor="#081827"
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
-          actionItems={[
-            { label: "工具库", href: "/tools", variant: "secondary" },
-            { label: "阅览室", href: "/reading", variant: "secondary" },
-            { label: "知识地图", href: "/knowledge", variant: "primary" },
-          ]}
+          actionItems={[]}
           onLinkClick={scrollToSection}
         />
 

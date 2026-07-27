@@ -173,7 +173,7 @@ const CardNav = ({
   const ctaIsExternal = isExternalHref(ctaHref);
   const secondaryCtaIsExternal = isExternalHref(secondaryCtaHref);
   const navActionItems =
-    actionItems && actionItems.length
+    actionItems !== undefined
       ? actionItems
       : [
           secondaryCtaLabel && secondaryCtaHref
