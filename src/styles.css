@@ -3696,6 +3696,100 @@ a {
   background: #ffcf4a;
 }
 
+.reading-intro-section .tools-intro-actions {
+  width: min(760px, 100%);
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.reading-intro-section .tools-intro-actions .primary-action {
+  position: relative;
+  min-width: 226px;
+  min-height: 66px;
+  padding: 0 26px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #ff6a8d 0 50%, #ffcf4a 50% 100%);
+  box-shadow:
+    7px 7px 0 rgba(3, 24, 58, 0.34),
+    0 0 0 0 rgba(255, 234, 117, 0.72);
+  font-size: 19px;
+  animation:
+    readingCtaPop 620ms steps(5, end) 120ms both,
+    readingCtaPulse 1500ms steps(2, end) 920ms infinite;
+}
+
+.reading-intro-section .tools-intro-actions .primary-action::before {
+  content: "";
+  position: absolute;
+  inset: 9px auto auto 12px;
+  width: 8px;
+  height: 8px;
+  background: #fff8d8;
+  box-shadow:
+    12px 0 0 #fff8d8,
+    0 12px 0 #fff8d8;
+}
+
+.reading-intro-section .tools-intro-actions .primary-action:hover {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    9px 9px 0 rgba(3, 24, 58, 0.36),
+    0 0 0 6px rgba(255, 234, 117, 0.28);
+}
+
+.reading-intro-section .tools-intro-actions .primary-action svg {
+  width: 21px;
+  height: 21px;
+}
+
+.reading-intro-section .tools-intro-actions .secondary-action {
+  min-height: 48px;
+}
+
+@media (min-width: 761px) {
+  .reading-intro-section .tools-intro-actions .secondary-action {
+    order: 1;
+  }
+
+  .reading-intro-section .tools-intro-actions .primary-action {
+    order: 2;
+  }
+}
+
+@keyframes readingCtaPop {
+  0% {
+    opacity: 0;
+    transform: translate(28px, 18px) scale(0.86);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-4px, -4px) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes readingCtaPulse {
+  0%,
+  100% {
+    box-shadow:
+      7px 7px 0 rgba(3, 24, 58, 0.34),
+      0 0 0 0 rgba(255, 234, 117, 0.72);
+  }
+
+  50% {
+    box-shadow:
+      7px 7px 0 rgba(3, 24, 58, 0.34),
+      0 0 0 7px rgba(255, 234, 117, 0.22);
+  }
+}
+
 .tools-intro-points {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 22px;
@@ -3899,10 +3993,20 @@ a {
     display: grid;
   }
 
+  .reading-intro-section .tools-intro-actions {
+    justify-content: stretch;
+  }
+
   .knowledge-title-link,
   .tools-intro-actions .primary-action,
   .tools-intro-actions .secondary-action {
     width: 100%;
+  }
+
+  .reading-intro-section .tools-intro-actions .primary-action {
+    min-width: 0;
+    min-height: 60px;
+    font-size: 17px;
   }
 
   .reading-hero-title {
