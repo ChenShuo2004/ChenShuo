@@ -1,11 +1,11 @@
 # Supabase analytics setup
 
-The analytics table and RLS configuration are already applied to the Supabase project `yukiseojjwzwuygsfebe` in `ap-southeast-1`.
+The analytics table and RLS configuration are already applied to the existing Supabase project `team-manage` (`qtixjaeoclfxtuyacaur`) in `ap-southeast-1`.
 
 Set these server-side environment variables in Vercel (and locally when running API functions):
 
 ```text
-SUPABASE_URL=https://yukiseojjwzwuygsfebe.supabase.co
+SUPABASE_URL=https://qtixjaeoclfxtuyacaur.supabase.co
 SUPABASE_SECRET_KEY=<Supabase Secret key>
 ```
 
