@@ -2753,6 +2753,8 @@ a {
   --pixel-field-dark: #139178;
   --pixel-ink: #07377e;
   --pixel-cream: #ffea75;
+  --pixel-title: #fff7bf;
+  --pixel-title-edge: #06265f;
   --pixel-gold: #f4b145;
   --pixel-shadow: #a05b22;
   --pixel-pink: #ef3d6d;
@@ -2915,22 +2917,27 @@ a {
 }
 
 .hero-poster .poster-copy h1 {
-  color: var(--pixel-cream);
+  color: var(--pixel-title);
   font-family: var(--font-pixel-cn);
-  font-size: clamp(58px, 8.6vw, 132px);
-  line-height: 1.18;
+  font-size: clamp(48px, 5.6vw, 70px);
+  line-height: 1.08;
+  -webkit-text-stroke: 2px var(--pixel-title-edge);
+  paint-order: stroke fill;
   text-shadow:
-    0 10px 0 var(--pixel-gold),
-    0 18px 0 var(--pixel-shadow),
-    8px 22px 0 rgba(3, 24, 58, 0.28);
+    4px 4px 0 var(--pixel-title-edge),
+    8px 8px 0 rgba(3, 24, 58, 0.4);
 }
 
 .hero-poster .poster-copy h1 span {
-  margin-top: 34px;
-  color: var(--pixel-cream);
+  margin-top: 20px;
+  color: var(--pixel-title);
   font-family: var(--font-pixel-en);
-  font-size: clamp(24px, 3.8vw, 58px);
-  line-height: 1.25;
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.45;
+  -webkit-text-stroke: 0;
+  text-shadow:
+    3px 3px 0 var(--pixel-title-edge),
+    6px 6px 0 rgba(3, 24, 58, 0.34);
 }
 
 .hero-poster .poster-copy .hero-subcopy {
@@ -3094,11 +3101,11 @@ a {
   }
 
   .hero-poster .poster-copy h1 {
-    font-size: clamp(42px, 11vw, 82px);
+    font-size: clamp(40px, 10vw, 58px);
   }
 
   .hero-poster .poster-copy h1 span {
-    font-size: clamp(18px, 5.4vw, 36px);
+    font-size: clamp(14px, 4vw, 18px);
   }
 
   .hero-poster .episode-mark {
@@ -3126,9 +3133,8 @@ a {
 
   .hero-poster .poster-copy h1 {
     text-shadow:
-      0 6px 0 var(--pixel-gold),
-      0 11px 0 var(--pixel-shadow),
-      5px 14px 0 rgba(3, 24, 58, 0.28);
+      3px 3px 0 var(--pixel-title-edge),
+      6px 6px 0 rgba(3, 24, 58, 0.36);
   }
 
   .hero-poster .poster-copy .hero-subcopy {
