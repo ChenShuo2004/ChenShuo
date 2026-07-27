@@ -2962,12 +2962,22 @@ a {
 }
 
 .hero-poster .poster-copy .hero-subcopy .hero-highlight {
+  display: grid;
+  gap: 7px;
   padding: 12px 0 0;
   border: 0;
   border-top: 4px solid rgba(7, 55, 126, 0.28);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.hero-poster .poster-copy .hero-subcopy .hero-highlight span {
+  display: block;
+}
+
+.hero-poster .poster-copy .hero-subcopy .hero-highlight span:first-child {
+  font-size: 1.08em;
 }
 
 .hero-poster .hero-project-lines {
