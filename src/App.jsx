@@ -47,35 +47,35 @@ const cardNavItems = [
 
 const knowledgePageNavItems = [
   {
-    label: "知识库",
+    label: "当前页",
     bgColor: "#090a0a",
     textColor: "#f6f6f1",
     labelColor: "rgba(246, 246, 241, 0.82)",
     links: [
-      { label: "起点介绍", href: "#knowledge-origin", ariaLabel: "查看知识库起点介绍" },
-      { label: "打开 FlowUs", href: knowledgeBaseUrl, ariaLabel: "打开陈硕的 FlowUs 知识库" },
-    ],
-  },
-  {
-    label: "网站",
-    bgColor: "#d8ecff",
-    textColor: "#081827",
-    labelColor: "rgba(8, 24, 39, 0.72)",
-    shineColor: "#000000",
-    links: [
       { label: "返回首页", href: "/", ariaLabel: "返回个人网站首页" },
-      { label: "精选项目", href: "/#projects", ariaLabel: "回到首页查看精选项目" },
       { label: "联系入口", href: "/#contact", ariaLabel: "回到首页联系陈硕" },
     ],
   },
   {
-    label: "系统",
+    label: "核心入口",
     bgColor: "#0f5fb8",
     textColor: "#f6f6f1",
     labelColor: "rgba(246, 246, 241, 0.84)",
     links: [
-      { label: "信息结构", href: "/#strengths", ariaLabel: "回到首页查看信息结构能力" },
-      { label: "个人介绍", href: "/#top", ariaLabel: "回到首页查看个人介绍" },
+      { label: "工具库", href: "/tools", ariaLabel: "查看工具库说明" },
+      { label: "阅览室", href: "/reading", ariaLabel: "查看阅览室说明" },
+      { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
+    ],
+  },
+  {
+    label: "外部入口",
+    bgColor: "#ffea75",
+    textColor: "#081827",
+    labelColor: "rgba(8, 24, 39, 0.72)",
+    shineColor: "#000000",
+    links: [
+      { label: "打开知识库", href: knowledgeBaseUrl, ariaLabel: "打开陈硕的 FlowUs 知识库" },
+      { label: "进入产品库", href: productLibraryUrl, ariaLabel: "打开产品库" },
     ],
   },
 ];
@@ -272,11 +272,7 @@ function KnowledgePage() {
           buttonTextColor="#f6f6f1"
           backHref="/"
           backLabel="返回首页"
-          actionItems={[
-            { label: "工具库", href: "/tools", variant: "secondary" },
-            { label: "阅览室", href: "/reading", variant: "secondary" },
-            { label: "知识地图", href: "/knowledge", variant: "secondary" },
-          ]}
+          actionItems={[]}
           ctaLabel="打开知识库"
           ctaHref={knowledgeBaseUrl}
           onLinkClick={scrollToSection}
@@ -303,11 +299,7 @@ function ToolsIntroPage() {
           buttonTextColor="#f6f6f1"
           backHref="/"
           backLabel="返回首页"
-          actionItems={[
-            { label: "进入工具库", href: productLibraryUrl, variant: "primary" },
-            { label: "阅览室", href: "/reading", variant: "secondary" },
-            { label: "知识地图", href: "/knowledge", variant: "secondary" },
-          ]}
+          actionItems={[]}
           onLinkClick={scrollToSection}
         />
       </section>
@@ -369,11 +361,7 @@ function ReadingRoomPage() {
           buttonTextColor="#f6f6f1"
           backHref="/"
           backLabel="返回首页"
-          actionItems={[
-            { label: "工具库", href: "/tools", variant: "secondary" },
-            { label: "进入阅览室", href: knowledgeBaseUrl, variant: "secondary" },
-            { label: "知识地图", href: "/knowledge", variant: "secondary" },
-          ]}
+          actionItems={[]}
           onLinkClick={scrollToSection}
         />
       </section>
