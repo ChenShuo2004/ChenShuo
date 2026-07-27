@@ -14,8 +14,8 @@ export function toDateString(date) {
 }
 
 function addDays(dateString, amount) {
-  const date = new Date(`${dateString}T00:00:00${shanghaiOffset}`);
-  date.setUTCDate(date.getUTCDate() + amount);
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day + amount));
   return date.toISOString().slice(0, 10);
 }
 
