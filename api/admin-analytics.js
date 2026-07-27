@@ -21,7 +21,9 @@ export default async function handler(request, response) {
 
   try {
     const range = typeof request.query.range === "string" ? request.query.range : "7d";
-    const summary = await getAnalyticsSummary(range);
+    const from = typeof request.query.from === "string" ? request.query.from : undefined;
+    const to = typeof request.query.to === "string" ? request.query.to : undefined;
+    const summary = await getAnalyticsSummary(range, from, to);
     return response.status(200).json(summary);
   } catch (error) {
     return response.status(502).json({

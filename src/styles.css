@@ -2022,6 +2022,7 @@ a {
   justify-content: space-between;
   gap: 18px;
   padding: 18px;
+  flex-wrap: wrap;
 }
 
 .admin-toolbar strong,
@@ -2061,9 +2062,35 @@ a {
   background: #f4f7f2;
 }
 
+.admin-date-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(244, 247, 242, 0.56);
+  font-size: 13px;
+}
+
+.admin-date-filter input {
+  min-height: 34px;
+  padding: 0 8px;
+  border: 1px solid rgba(244, 247, 242, 0.14);
+  border-radius: 6px;
+  color: #f7faf4;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.admin-date-filter button {
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 6px;
+  color: #07100b;
+  background: #f4f7f2;
+  font-weight: 700;
+}
+
 .admin-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -2127,7 +2154,7 @@ a {
 .admin-bar-item {
   min-width: 38px;
   display: grid;
-  grid-template-rows: 160px auto auto;
+  grid-template-rows: 160px auto auto auto;
   gap: 8px;
   text-align: center;
 }
@@ -2152,6 +2179,12 @@ a {
 .admin-bar-item strong {
   color: #f7faf4;
   font-size: 13px;
+}
+
+.admin-bar-item em {
+  color: #77d69c;
+  font-size: 10px;
+  font-style: normal;
 }
 
 .admin-bar-item small {
@@ -2661,6 +2694,16 @@ a {
     width: 100%;
   }
 
+  .admin-date-filter {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .admin-date-filter input {
+    flex: 1;
+    min-width: 0;
+  }
+
   .admin-range-switch button {
     flex: 1;
   }
@@ -2675,7 +2718,7 @@ a {
   }
 
   .admin-bar-item {
-    grid-template-rows: 132px auto auto;
+    grid-template-rows: 132px auto auto auto;
   }
 
   .admin-bar-track {

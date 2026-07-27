@@ -1,9 +1,10 @@
 import {
   getDeviceType,
+  normalizeCampaign,
   normalizePath,
   normalizeReferrer,
-  recordPageView,
-  toDateString,
+  normalizeSource,
+  recordAnalyticsEvent,
 } from "./_analytics-store.js";
 
 async function readBody(request) {
@@ -37,14 +38,23 @@ export default async function handler(request, response) {
       return response.status(204).end();
     }
 
-    await recordPageView({
+    const eventType = body.eventType === "click" ? "click" : "pageview";
+    const referrer = normalizeReferrer(body.referrer);
+    await recordAnalyticsEvent({
+      event_type: eventType,
       path,
       title: typeof body.title === "string" ? body.title.slice(0, 180) : "",
-      referrer: normalizeReferrer(body.referrer),
+      referrer,
+      source: normalizeSource(body.source, referrer),
+      medium: normalizeCampaign(body.medium),
+      campaign: normalizeCampaign(body.campaign),
+      content: normalizeCampaign(body.content),
+      event_name: normalizeCampaign(body.eventName),
+      target_url: typeof body.targetUrl === "string" ? body.targetUrl.slice(0, 500) : "",
+      visitor_id: typeof body.visitorId === "string" ? body.visitorId.slice(0, 80) : "",
       country: request.headers["x-vercel-ip-country"] || "Unknown",
-      deviceType: getDeviceType(userAgent),
-      day: toDateString(new Date()),
-      createdAt: new Date().toISOString(),
+      device_type: getDeviceType(userAgent),
+      created_at: new Date().toISOString(),
     });
 
     return response.status(204).end();

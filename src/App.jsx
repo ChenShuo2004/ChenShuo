@@ -416,9 +416,9 @@ function ReadingRoomPage() {
 }
 
 const adminRangeOptions = [
+  { label: "1D", value: "1d" },
   { label: "7D", value: "7d" },
   { label: "30D", value: "30d" },
-  { label: "90D", value: "90d" },
 ];
 
 function formatNumber(value) {
@@ -441,20 +441,24 @@ function getDimensionLabel(item, keys, fallback = "Direct / Unknown") {
 
 function AdminPage() {
   const [range, setRange] = useState("7d");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [password, setPassword] = useState(() => localStorage.getItem("cs-admin-password") || "");
   const [inputPassword, setInputPassword] = useState(password);
   const [analytics, setAnalytics] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  async function loadAnalytics(nextRange = range, nextPassword = password) {
+  async function loadAnalytics(nextRange = range, nextPassword = password, nextFrom = from, nextTo = to) {
     if (!nextPassword) return;
 
     setIsLoading(true);
     setError("");
 
     try {
-      const response = await fetch(`/api/admin-analytics?range=${nextRange}`, {
+      const params = new URLSearchParams({ range: nextRange });
+      if (nextFrom && nextTo) { params.set("from", nextFrom); params.set("to", nextTo); }
+      const response = await fetch(`/api/admin-analytics?${params.toString()}`, {
         headers: {
           "x-admin-password": nextPassword,
         },
@@ -479,13 +483,13 @@ function AdminPage() {
   }
 
   useEffect(() => {
-    loadAnalytics(range, password);
+    loadAnalytics(range, password, from, to);
   }, [range, password]);
 
   function handleSubmit(event) {
     event.preventDefault();
     setPassword(inputPassword);
-    loadAnalytics(range, inputPassword);
+    loadAnalytics(range, inputPassword, from, to);
   }
 
   const maxDailyPageviews = Math.max(...(analytics?.daily || []).map((item) => item.pageviews || 0), 1);
@@ -538,6 +542,12 @@ function AdminPage() {
                   </button>
                 ))}
               </div>
+              <div className="admin-date-filter">
+                <input type="date" value={from} onChange={(event) => setFrom(event.target.value)} aria-label="开始日期" />
+                <span>至</span>
+                <input type="date" value={to} onChange={(event) => setTo(event.target.value)} aria-label="结束日期" />
+                <button type="button" onClick={() => loadAnalytics("custom", password, from, to)} disabled={!from || !to || isLoading}>查询</button>
+              </div>
             </div>
 
             <div className="admin-metrics-grid">
@@ -557,12 +567,16 @@ function AdminPage() {
                 <span>Total Visitors</span>
                 <strong>{formatNumber(analytics.totals.visitors)}</strong>
               </article>
+              <article>
+                <span>Total Clicks</span>
+                <strong>{formatNumber(analytics.totals.clicks)}</strong>
+              </article>
             </div>
 
             <section className="admin-chart-panel">
               <div className="admin-section-title">
                 <h2>Daily Traffic</h2>
-                <span>PV by day</span>
+                <span>PV / Clicks by day</span>
               </div>
               <div className="admin-bars">
                 {analytics.daily.map((item) => (
@@ -571,6 +585,7 @@ function AdminPage() {
                       <span style={{ height: `${Math.max(((item.pageviews || 0) / maxDailyPageviews) * 100, 4)}%` }} />
                     </div>
                     <strong>{formatNumber(item.pageviews)}</strong>
+                    <em>{formatNumber(item.clicks)} clicks</em>
                     <small>{formatDay(item.timestamp)}</small>
                   </div>
                 ))}
@@ -580,6 +595,8 @@ function AdminPage() {
             <div className="admin-lists-grid">
               <AdminRankList title="Top Pages" rows={analytics.topPages} labelKeys={["requestPath", "route"]} />
               <AdminRankList title="Referrers" rows={analytics.referrers} labelKeys={["referrerHostname"]} />
+              <AdminRankList title="Sources" rows={analytics.sources} labelKeys={["source"]} />
+              <AdminRankList title="Click Events" rows={analytics.clickEvents} labelKeys={["eventName"]} />
               <AdminRankList title="Countries" rows={analytics.countries} labelKeys={["country"]} />
               <AdminRankList title="Devices" rows={analytics.devices} labelKeys={["deviceType"]} />
             </div>
@@ -595,7 +612,7 @@ function AdminRankList({ title, rows, labelKeys }) {
     <section className="admin-list-panel">
       <div className="admin-section-title">
         <h2>{title}</h2>
-        <span>PV / Visitors</span>
+        <span>PV / Clicks / Visitors</span>
       </div>
       <div className="admin-rank-list">
         {rows?.length > 0 ? (
@@ -603,7 +620,7 @@ function AdminRankList({ title, rows, labelKeys }) {
             <article key={`${title}-${index}`}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <strong>{getDimensionLabel(item, labelKeys)}</strong>
-              <em>{formatNumber(item.pageviews)} / {formatNumber(item.visitors)}</em>
+              <em>{formatNumber(item.pageviews)} / {formatNumber(item.clicks)} / {formatNumber(item.visitors)}</em>
             </article>
           ))
         ) : (
@@ -614,36 +631,58 @@ function AdminRankList({ title, rows, labelKeys }) {
   );
 }
 
+function getAnalyticsContext() {
+  const params = new URLSearchParams(window.location.search);
+  const stored = JSON.parse(localStorage.getItem("cs-analytics-context") || "{}");
+  const context = {
+    source: params.get("utm_source") || stored.source || "direct",
+    medium: params.get("utm_medium") || stored.medium || "",
+    campaign: params.get("utm_campaign") || stored.campaign || "",
+    content: params.get("utm_content") || stored.content || "",
+  };
+  localStorage.setItem("cs-analytics-context", JSON.stringify(context));
+  if (!localStorage.getItem("cs-analytics-visitor")) {
+    const visitorId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    localStorage.setItem("cs-analytics-visitor", visitorId);
+  }
+  return { ...context, visitorId: localStorage.getItem("cs-analytics-visitor") };
+}
+
+function sendAnalyticsEvent(event) {
+  const payload = JSON.stringify({ ...event, ...getAnalyticsContext() });
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon("/api/track-view", new Blob([payload], { type: "application/json" }));
+    return;
+  }
+  fetch("/api/track-view", { method: "POST", headers: { "Content-Type": "application/json" }, body: payload, keepalive: true }).catch(() => {});
+}
+
 function usePageViewTracking(pathname) {
   useEffect(() => {
     if (pathname === "/admin") return undefined;
-
-    const payload = JSON.stringify({
-      path: pathname,
-      title: document.title,
-      referrer: document.referrer,
-    });
-
-    if (navigator.sendBeacon) {
-      const blob = new Blob([payload], { type: "application/json" });
-      navigator.sendBeacon("/api/track-view", blob);
-      return undefined;
-    }
-
-    fetch("/api/track-view", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: payload,
-      keepalive: true,
-    }).catch(() => {});
-
+    sendAnalyticsEvent({ eventType: "pageview", path: pathname, title: document.title, referrer: document.referrer });
     return undefined;
   }, [pathname]);
+}
+
+function useClickTracking() {
+  useEffect(() => {
+    function handleClick(event) {
+      const target = event.target.closest?.("a,button");
+      if (!target || target.closest(".admin-shell")) return;
+      const href = target instanceof HTMLAnchorElement ? target.href : "";
+      const eventName = target.dataset.analyticsClick || target.getAttribute("aria-label") || target.textContent?.trim().slice(0, 80) || "unknown";
+      sendAnalyticsEvent({ eventType: "click", eventName, targetUrl: href, path: window.location.pathname, title: document.title, referrer: document.referrer });
+    }
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
+  }, []);
 }
 
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
   usePageViewTracking(normalizedPath);
+  useClickTracking();
 
   const isKnowledgePage = normalizedPath === "/knowledge";
   const isToolsPage = normalizedPath === "/tools";
