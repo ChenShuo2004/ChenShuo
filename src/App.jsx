@@ -369,7 +369,11 @@ function ReadingRoomPage() {
       <section className="tools-intro-section reading-intro-section">
         <div className="tools-intro-inner">
           <p className="section-kicker">YOU WENDU READING ROOM</p>
-          <h1>有温度阅览室，是把“知道”缩短到“做到”的个人成长系统。</h1>
+          <h1 className="reading-hero-title">
+            <span>有温度阅览室</span>
+            <span>把“知道”缩短到“做到”</span>
+            <small>个人成长系统</small>
+          </h1>
           <p>
             这里不是普通资料库，而是我整理给自己的长期阅读入口：从心理、认知到行动方法，帮助你理解自己、改变状态，并把学习变成可执行的下一步。
           </p>
