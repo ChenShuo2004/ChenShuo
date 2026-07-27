@@ -3615,27 +3615,33 @@ a {
     8px 8px 0 rgba(3, 24, 58, 0.36);
 }
 
+.tools-hero-title,
 .reading-hero-title {
   display: grid;
   gap: 8px;
   max-width: 860px !important;
 }
 
+.tools-hero-title span,
+.tools-hero-title small,
 .reading-hero-title span,
 .reading-hero-title small {
   display: block;
 }
 
+.tools-hero-title span:first-child,
 .reading-hero-title span:first-child {
   font-size: 0.92em;
 }
 
+.tools-hero-title span:nth-child(2),
 .reading-hero-title span:nth-child(2) {
   max-width: 780px;
   font-size: 0.78em;
   line-height: 1.18;
 }
 
+.tools-hero-title small,
 .reading-hero-title small {
   width: fit-content;
   margin-top: 4px;
@@ -3649,6 +3655,14 @@ a {
   line-height: 1;
   -webkit-text-stroke: 0;
   text-shadow: none;
+}
+
+.tools-hero-title span:nth-child(2) {
+  max-width: 860px;
+}
+
+.tools-hero-title small {
+  background: #78d6d0;
 }
 
 .tools-intro-inner > p:not(.section-kicker),
@@ -3694,6 +3708,58 @@ a {
 
 .tools-intro-actions .secondary-action {
   background: #ffcf4a;
+}
+
+.tools-intro-page .tools-intro-actions {
+  width: min(760px, 100%);
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.tools-intro-page .tools-intro-actions .primary-action {
+  position: relative;
+  min-width: 226px;
+  min-height: 66px;
+  padding: 0 26px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #78d6d0 0 50%, #ffcf4a 50% 100%);
+  box-shadow:
+    7px 7px 0 rgba(3, 24, 58, 0.34),
+    0 0 0 0 rgba(120, 214, 208, 0.72);
+  font-size: 19px;
+  animation:
+    toolsCtaPop 620ms steps(5, end) 120ms both,
+    toolsCtaPulse 1500ms steps(2, end) 920ms infinite;
+}
+
+.tools-intro-page .tools-intro-actions .primary-action::before {
+  content: "";
+  position: absolute;
+  inset: 9px auto auto 12px;
+  width: 8px;
+  height: 8px;
+  background: #fff8d8;
+  box-shadow:
+    12px 0 0 #fff8d8,
+    0 12px 0 #fff8d8;
+}
+
+.tools-intro-page .tools-intro-actions .primary-action:hover {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    9px 9px 0 rgba(3, 24, 58, 0.36),
+    0 0 0 6px rgba(120, 214, 208, 0.28);
+}
+
+.tools-intro-page .tools-intro-actions .primary-action svg {
+  width: 21px;
+  height: 21px;
+}
+
+.tools-intro-page .tools-intro-actions .secondary-action {
+  min-height: 48px;
 }
 
 .reading-intro-section .tools-intro-actions {
@@ -3749,12 +3815,46 @@ a {
 }
 
 @media (min-width: 761px) {
+  .tools-intro-page .tools-intro-actions .secondary-action,
   .reading-intro-section .tools-intro-actions .secondary-action {
     order: 1;
   }
 
+  .tools-intro-page .tools-intro-actions .primary-action,
   .reading-intro-section .tools-intro-actions .primary-action {
     order: 2;
+  }
+}
+
+@keyframes toolsCtaPop {
+  0% {
+    opacity: 0;
+    transform: translate(28px, 18px) scale(0.86);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-4px, -4px) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes toolsCtaPulse {
+  0%,
+  100% {
+    box-shadow:
+      7px 7px 0 rgba(3, 24, 58, 0.34),
+      0 0 0 0 rgba(120, 214, 208, 0.72);
+  }
+
+  50% {
+    box-shadow:
+      7px 7px 0 rgba(3, 24, 58, 0.34),
+      0 0 0 7px rgba(120, 214, 208, 0.22);
   }
 }
 
@@ -3960,10 +4060,12 @@ a {
     font-size: clamp(34px, 9vw, 56px);
   }
 
+  .tools-hero-title,
   .reading-hero-title {
     max-width: 680px !important;
   }
 
+  .tools-hero-title span:nth-child(2),
   .reading-hero-title span:nth-child(2) {
     max-width: 620px;
   }
@@ -3993,6 +4095,7 @@ a {
     display: grid;
   }
 
+  .tools-intro-page .tools-intro-actions,
   .reading-intro-section .tools-intro-actions {
     justify-content: stretch;
   }
@@ -4003,21 +4106,25 @@ a {
     width: 100%;
   }
 
+  .tools-intro-page .tools-intro-actions .primary-action,
   .reading-intro-section .tools-intro-actions .primary-action {
     min-width: 0;
     min-height: 60px;
     font-size: 17px;
   }
 
+  .tools-hero-title,
   .reading-hero-title {
     gap: 7px;
   }
 
+  .tools-hero-title span:nth-child(2),
   .reading-hero-title span:nth-child(2) {
     font-size: 0.72em;
     line-height: 1.25;
   }
 
+  .tools-hero-title small,
   .reading-hero-title small {
     font-size: 0.44em;
   }

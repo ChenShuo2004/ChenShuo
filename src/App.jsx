@@ -307,7 +307,11 @@ function ToolsIntroPage() {
       <section className="tools-intro-section">
         <div className="tools-intro-inner">
           <p className="section-kicker">TOOLS LIBRARY</p>
-          <h1>工具库不是作品陈列，而是一个持续生长的 AI 产品实验室。</h1>
+          <h1 className="tools-hero-title">
+            <span>工具库不是作品陈列</span>
+            <span>持续生长的 AI 产品实验室</span>
+            <small>验证 / 上线 / 迭代</small>
+          </h1>
           <p>
             这里会集中放我正在验证、已经上线和持续迭代的 AI 工具、小游戏、训练器与知识产品。你可以把它理解成一个入口：先看产品方向，再进入具体工具体验。
           </p>
