@@ -2877,10 +2877,11 @@ a {
 }
 
 .hero-poster .poster-copy {
-  justify-self: center;
+  justify-self: end;
   align-self: center;
-  width: min(100%, 1040px);
-  text-align: center;
+  width: min(42vw, 560px);
+  margin-right: clamp(20px, 4.5vw, 90px);
+  text-align: left;
 }
 
 .hero-poster .episode-mark {
@@ -2909,7 +2910,7 @@ a {
 }
 
 .hero-poster .poster-copy .eyebrow {
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 18px;
   color: var(--pixel-cream);
   font-family: var(--font-pixel-en);
@@ -2941,9 +2942,9 @@ a {
 }
 
 .hero-poster .poster-copy .hero-subcopy {
-  max-width: 780px;
-  margin: 54px auto 0;
-  padding: 18px 22px;
+  max-width: 700px;
+  margin: 46px 0 0;
+  padding: 22px 26px;
   border: 4px solid var(--pixel-ink);
   border-radius: 0;
   background: rgba(255, 234, 117, 0.92);
@@ -2956,9 +2957,9 @@ a {
 .hero-poster .poster-copy .hero-subcopy .hero-highlight {
   color: var(--pixel-ink);
   font-family: var(--font-pixel-cn);
-  font-size: clamp(15px, 1.2vw, 20px);
+  font-size: clamp(18px, 1.55vw, 24px);
   font-weight: 400;
-  line-height: 1.68;
+  line-height: 1.72;
 }
 
 .hero-poster .poster-copy .hero-subcopy .hero-highlight {
@@ -3104,6 +3105,22 @@ a {
     width: 100%;
     max-width: 100%;
     padding-top: 118px;
+  }
+
+  .hero-poster .poster-copy {
+    justify-self: center;
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .hero-poster .poster-copy .eyebrow {
+    justify-content: center;
+  }
+
+  .hero-poster .poster-copy .hero-subcopy {
+    max-width: 100%;
+    margin: 42px auto 0;
   }
 
   .hero-poster .hero-project-list {
