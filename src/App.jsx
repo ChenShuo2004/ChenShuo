@@ -30,20 +30,6 @@ const cardNavItems = [
     labelColor: "rgba(246, 246, 241, 0.82)",
     links: [
       { label: "个人介绍", href: "#top", ariaLabel: "查看个人介绍" },
-      { label: "关键数据", href: "#top", ariaLabel: "查看关键数据" },
-      { label: "联系入口", href: "#contact", ariaLabel: "前往联系入口" },
-    ],
-  },
-  {
-    label: "项目",
-    bgColor: "#d8ecff",
-    textColor: "#081827",
-    labelColor: "rgba(8, 24, 39, 0.72)",
-    shineColor: "#000000",
-    links: [
-      { label: "Web3 早期项目", href: "#projects", ariaLabel: "查看 Web3 早期项目" },
-      { label: "AI 产品系统", href: "#projects", ariaLabel: "查看 AI 产品系统" },
-      { label: "内容商业化引擎", href: "#projects", ariaLabel: "查看内容商业化引擎" },
     ],
   },
   {
@@ -52,9 +38,6 @@ const cardNavItems = [
     textColor: "#f6f6f1",
     labelColor: "rgba(246, 246, 241, 0.84)",
     links: [
-      { label: "信息结构", href: "#strengths", ariaLabel: "查看信息结构能力" },
-      { label: "产品系统", href: "#strengths", ariaLabel: "查看产品系统能力" },
-      { label: "个人商业化", href: "#strengths", ariaLabel: "查看个人商业化能力" },
       { label: "工具库", href: "/tools", ariaLabel: "查看工具库说明" },
       { label: "阅览室", href: "/reading", ariaLabel: "查看阅览室说明" },
       { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
