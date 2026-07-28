@@ -2970,7 +2970,7 @@ a {
 .hero-poster .poster-copy h1 {
   grid-column: 1;
   margin-top: 0;
-  color: var(--pixel-title);
+  color: #02c6ed;
   font-family: var(--font-pixel-cn);
   font-size: clamp(48px, 5.6vw, 70px);
   line-height: 1.08;
@@ -2983,7 +2983,7 @@ a {
 
 .hero-poster .poster-copy h1 span {
   margin-top: 20px;
-  color: var(--pixel-title);
+  color: #02c6ed;
   font-family: var(--font-pixel-en);
   font-size: clamp(16px, 1.6vw, 20px);
   line-height: 1.45;
@@ -3007,7 +3007,7 @@ a {
   background: rgba(255, 234, 117, 0.92);
   box-shadow: 8px 8px 0 rgba(3, 24, 58, 0.28);
   backdrop-filter: none;
-  transform: none;
+  transform: translate(-28px, -8px);
 }
 
 .hero-poster .poster-copy .hero-subcopy p,
@@ -3514,6 +3514,7 @@ a {
     width: auto;
     max-width: 100%;
     margin: 42px auto 0;
+    transform: none;
   }
 
   .hero-poster .hero-project-list {
