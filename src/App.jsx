@@ -872,6 +872,10 @@ export function App() {
             </h2>
           </div>
           <div className="contact-actions">
+            <div className="contact-wechat" aria-label="微信号">
+              <span>微信号</span>
+              <strong>Chen18005977213</strong>
+            </div>
             <a href="mailto:pdqqqylqxx00321@gmail.com" className="primary-action">
               <EnvelopeSimple size={18} weight="bold" aria-hidden="true" />
               pdqqqylqxx00321@gmail.com

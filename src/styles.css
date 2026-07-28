@@ -3371,6 +3371,28 @@ a {
   padding: 28px;
 }
 
+.contact-wechat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 58px;
+  padding: 0 18px;
+  color: var(--pixel-ink);
+  border: 3px solid var(--pixel-ink);
+  background: #fff8d8;
+  box-shadow: 5px 5px 0 rgba(3, 24, 58, 0.24);
+  font-family: var(--font-pixel-cn);
+  font-size: 16px;
+}
+
+.contact-wechat strong {
+  font-family: var(--font-pixel-en);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+}
+
 .contact-section .section-kicker {
   margin-bottom: 22px;
   color: var(--pixel-ink);
