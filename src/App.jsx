@@ -770,6 +770,10 @@ export function App() {
               陈硕
               <span>CHEN SHUO</span>
             </h1>
+            <div className="hero-wechat-chip" aria-label="微信号">
+              <span>微信号</span>
+              <strong>Chen18005977213</strong>
+            </div>
             <div className="hero-subcopy">
               <p>
                 我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。

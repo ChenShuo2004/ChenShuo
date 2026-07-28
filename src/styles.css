@@ -2993,9 +2993,35 @@ a {
     6px 6px 0 rgba(3, 24, 58, 0.34);
 }
 
+.hero-wechat-chip {
+  grid-column: 1;
+  width: fit-content;
+  margin-top: 18px;
+  padding: 8px 12px 7px;
+  color: var(--pixel-ink);
+  border: 3px solid var(--pixel-ink);
+  background: rgba(120, 214, 208, 0.96);
+  box-shadow: 5px 5px 0 rgba(3, 24, 58, 0.24);
+  font-family: var(--font-pixel-cn);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.hero-wechat-chip span {
+  margin-right: 10px;
+  color: rgba(7, 55, 126, 0.78);
+}
+
+.hero-wechat-chip strong {
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
 .hero-poster .poster-copy .hero-subcopy {
   grid-column: 2;
-  grid-row: 1 / span 3;
+  grid-row: 1 / span 4;
   align-self: center;
   left: auto;
   width: 100%;
@@ -3505,6 +3531,10 @@ a {
 
   .hero-poster .poster-copy .eyebrow {
     justify-content: center;
+  }
+
+  .hero-wechat-chip {
+    margin-inline: auto;
   }
 
   .hero-poster .poster-copy .hero-subcopy {
