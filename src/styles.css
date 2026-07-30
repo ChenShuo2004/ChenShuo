@@ -4691,6 +4691,84 @@ a {
   }
 }
 
+/* Interactive pixel feedback */
+.hero-community-label,
+.hero-project-item,
+.community-back-link,
+.community-price-card a,
+.primary-action,
+.secondary-action,
+.tools-intro-actions a,
+.knowledge-title-link,
+.community-benefit-grid article,
+.tools-intro-points article,
+.knowledge-origin-card,
+.knowledge-origin-card-summary {
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 160ms steps(2, end),
+    box-shadow 160ms steps(2, end),
+    background-color 160ms steps(2, end),
+    border-color 160ms steps(2, end);
+}
+
+.hero-community-label,
+.community-back-link,
+.community-price-card a,
+.primary-action,
+.secondary-action,
+.tools-intro-actions a,
+.knowledge-title-link {
+  cursor: pointer;
+}
+
+.hero-community-label:hover,
+.community-back-link:hover,
+.community-price-card a:hover,
+.primary-action:hover,
+.secondary-action:hover,
+.tools-intro-actions a:hover,
+.knowledge-title-link:hover,
+.community-benefit-grid article:hover,
+.tools-intro-points article:hover,
+.knowledge-origin-card:hover,
+.knowledge-origin-card-summary:hover {
+  transform: translate(-2px, -3px);
+  box-shadow: 10px 10px 0 rgba(3, 24, 58, 0.4);
+}
+
+.hero-project-item:hover {
+  transform: translate(-3px, -4px);
+}
+
+.hero-community-label:active,
+.hero-project-item:active,
+.community-back-link:active,
+.community-price-card a:active,
+.primary-action:active,
+.secondary-action:active,
+.tools-intro-actions a:active,
+.knowledge-title-link:active,
+.community-benefit-grid article:active,
+.tools-intro-points article:active,
+.knowledge-origin-card:active,
+.knowledge-origin-card-summary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 rgba(3, 24, 58, 0.28);
+}
+
+.hero-community-label:focus-visible,
+.hero-project-item:focus-visible,
+.community-back-link:focus-visible,
+.community-price-card a:focus-visible,
+.primary-action:focus-visible,
+.secondary-action:focus-visible,
+.tools-intro-actions a:focus-visible,
+.knowledge-title-link:focus-visible {
+  outline: 3px solid var(--pixel-cream);
+  outline-offset: 4px;
+}
+
 @media (max-width: 980px) {
   .tools-intro-points,
   .knowledge-origin-grid {
