@@ -415,6 +415,97 @@ function ReadingRoomPage() {
   );
 }
 
+function CommunityPage() {
+  const communityBenefits = [
+    {
+      index: "01",
+      title: "同频交流",
+      text: "和正在做 AI 产品、内容与独立项目的人交流，减少一个人摸索的时间。",
+    },
+    {
+      index: "02",
+      title: "每周主题",
+      text: "围绕 AI 工具、产品验证、信息结构与个人商业化，持续拆解真实问题。",
+    },
+    {
+      index: "03",
+      title: "实践资料",
+      text: "获得可复用的提示词、工作流、信息源与案例，把想法推进到行动。",
+    },
+    {
+      index: "04",
+      title: "项目反馈",
+      text: "带着你的产品、内容或工作流来讨论，获得来自真实实践者的反馈。",
+    },
+  ];
+
+  return (
+    <main className="site-shell community-page">
+      <section className="knowledge-page-top" id="top" aria-label="加入社群页面导航">
+        <CardNav
+          className="poster-card-nav"
+          items={knowledgePageNavItems}
+          brandMark="CS"
+          brandLabel="CHEN SHUO"
+          brandKicker="COMMUNITY / PRACTICE / GROWTH"
+          baseColor="rgba(246, 246, 241, 0.93)"
+          menuColor="#081827"
+          buttonBgColor="#071c33"
+          buttonTextColor="#f6f0cf"
+          backHref="/"
+          backLabel="返回首页"
+          actionItems={[]}
+          ctaLabel="添加微信咨询"
+          ctaHref="/#top"
+          onLinkClick={scrollToSection}
+        />
+      </section>
+
+      <section className="community-intro-section">
+        <div className="community-intro-inner">
+          <div className="community-copy">
+            <p className="section-kicker">CHEN SHUO COMMUNITY</p>
+            <h1>加入社群</h1>
+            <p className="community-lede">
+              一个围绕 AI、产品、内容与个人商业化的实践型社群。
+              <br />
+              不追求热闹，专注于持续推进真实项目。
+            </p>
+            <a className="community-back-link" href="/#top">
+              回到首页了解我
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+          </div>
+
+          <aside className="community-price-card" aria-label="社群价格">
+            <span>COMMUNITY ACCESS</span>
+            <strong>¥99</strong>
+            <p>社群准入</p>
+            <small>先了解，再决定是否加入</small>
+            <a href="/#top">添加微信咨询</a>
+          </aside>
+        </div>
+
+        <div className="community-benefit-frame">
+          <div className="community-benefit-heading">
+            <span>YOU WILL GET</span>
+            <strong>你可以得到什么</strong>
+          </div>
+          <div className="community-benefit-grid">
+            {communityBenefits.map((benefit) => (
+              <article key={benefit.index}>
+                <span>{benefit.index}</span>
+                <h2>{benefit.title}</h2>
+                <p>{benefit.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 const adminRangeOptions = [
   { label: "1D", value: "1d" },
   { label: "7D", value: "7d" },
@@ -687,6 +778,7 @@ export function App() {
   const isKnowledgePage = normalizedPath === "/knowledge";
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
+  const isCommunityPage = normalizedPath === "/community";
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
     return <AdminPage />;
@@ -702,6 +794,10 @@ export function App() {
 
   if (isReadingPage) {
     return <ReadingRoomPage />;
+  }
+
+  if (isCommunityPage) {
+    return <CommunityPage />;
   }
 
 
@@ -770,7 +866,9 @@ export function App() {
               陈硕
               <span>CHEN SHUO</span>
             </h1>
-            <div className="hero-community-label">加入社群</div>
+            <a className="hero-community-label" href="/community">
+              加入社群
+            </a>
             <div className="hero-wechat-chip" aria-label="微信号">
               <span>添加下方微信号</span>
               <strong>Chen18005977213</strong>
