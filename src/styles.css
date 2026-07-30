@@ -2922,12 +2922,12 @@ a {
 
 .hero-poster .poster-copy {
   display: grid;
-  grid-template-columns: minmax(220px, 0.55fr) minmax(470px, 1.05fr) minmax(360px, 0.8fr);
-  column-gap: clamp(18px, 2vw, 22px);
+  grid-template-columns: minmax(300px, 0.8fr) minmax(470px, 1.1fr);
+  column-gap: clamp(24px, 3vw, 36px);
   row-gap: 0;
   justify-self: center;
   align-self: start;
-  width: min(1180px, 100%);
+  width: min(1060px, 100%);
   margin-right: 0;
   text-align: left;
 }

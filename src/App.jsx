@@ -7,7 +7,6 @@ import {
   EnvelopeSimple,
   Lightning,
   Network,
-  Newspaper,
   Play,
   Sparkle,
   StackSimple,
@@ -22,7 +21,6 @@ import TextCursor from "./TextCursor.jsx";
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productLibraryUrl = "https://aiyouwendu.com/products";
-const personalBlogUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
 
 const cardNavItems = [
   {
@@ -173,13 +171,6 @@ const projects = [
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
   },
 ];
-
-const personalThinking = {
-  title: "我的社群",
-  metric: "BLOG / 思考 / 实践",
-  href: personalBlogUrl,
-  description: "记录我的思考、实践与持续构建中的产品，把零散经验整理成可复用的内容。",
-};
 
 const strengths = [
   {
@@ -795,22 +786,6 @@ export function App() {
               </p>
             </div>
 
-            <a
-              className="hero-thinking-card"
-              href={personalThinking.href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span className="hero-thinking-index">04</span>
-              <div>
-                <strong>
-                  <Newspaper size={18} weight="duotone" aria-hidden="true" />
-                  {personalThinking.title}
-                </strong>
-                <em>{personalThinking.metric}</em>
-                <p>{personalThinking.description}</p>
-              </div>
-            </a>
           </div>
 
           <aside className="hero-project-lines" id="projects" aria-label="作品线">
