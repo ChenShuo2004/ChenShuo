@@ -172,19 +172,14 @@ const projects = [
     description:
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
   },
-  {
-    title: "个人思考",
-    tag: "个人内容空间",
-    image: "/assets/product-line-reading.webp",
-    visualClass: "project-visual-blog",
-    icon: Newspaper,
-    metric: "BLOG / 思考 / 实践",
-    href: personalBlogUrl,
-    external: true,
-    description:
-      "记录我的思考、实践与持续构建中的产品，把零散经验整理成可复用的内容。",
-  },
 ];
+
+const personalThinking = {
+  title: "个人思考",
+  metric: "BLOG / 思考 / 实践",
+  href: personalBlogUrl,
+  description: "记录我的思考、实践与持续构建中的产品，把零散经验整理成可复用的内容。",
+};
 
 const strengths = [
   {
@@ -798,13 +793,35 @@ export function App() {
                 <span>让想法、工具和方法持续沉淀、复用，并走向商业化。</span>
               </p>
             </div>
+
+            <a
+              className="hero-thinking-card"
+              href={personalThinking.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="hero-thinking-index">04</span>
+              <div>
+                <strong>
+                  <Newspaper size={18} weight="duotone" aria-hidden="true" />
+                  {personalThinking.title}
+                </strong>
+                <em>{personalThinking.metric}</em>
+                <p>{personalThinking.description}</p>
+              </div>
+            </a>
           </div>
 
           <aside className="hero-project-lines" id="projects" aria-label="作品线">
             <p className="section-kicker">PRODUCT LINES</p>
             <h2>知识产品空间</h2>
-            <div className="hero-project-list">
-              {projects.map((project, index) => {
+            <div className="hero-system-frame">
+              <div className="hero-system-heading">
+                <span>CORE SYSTEM</span>
+                <strong>知识产品空间</strong>
+              </div>
+              <div className="hero-project-list">
+                {projects.map((project, index) => {
                 const Icon = project.icon;
                 return (
                   <a
@@ -825,7 +842,8 @@ export function App() {
                     </div>
                   </a>
                 );
-              })}
+                })}
+              </div>
             </div>
           </aside>
         </div>
