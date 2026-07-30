@@ -3085,8 +3085,8 @@ a {
 }
 
 .hero-poster .hero-project-list {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .hero-poster .hero-project-item {
@@ -3120,6 +3120,12 @@ a {
 .hero-poster .hero-project-item:nth-child(3) {
   --card-accent: #ff6a8d;
   --card-pill: #ffcf4a;
+  --card-pill-text: #07377e;
+}
+
+.hero-poster .hero-project-item:nth-child(4) {
+  --card-accent: #ffcf4a;
+  --card-pill: #78d6d0;
   --card-pill-text: #07377e;
 }
 

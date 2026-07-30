@@ -7,6 +7,7 @@ import {
   EnvelopeSimple,
   Lightning,
   Network,
+  Newspaper,
   Play,
   Sparkle,
   StackSimple,
@@ -21,6 +22,7 @@ import TextCursor from "./TextCursor.jsx";
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productLibraryUrl = "https://aiyouwendu.com/products";
+const personalBlogUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
 
 const cardNavItems = [
   {
@@ -147,6 +149,18 @@ const projects = [
     href: "/tools",
     description:
       "集中展示正在验证、已经上线和持续迭代的 AI 工具、训练器与知识产品。",
+  },
+  {
+    title: "个人 Blog",
+    tag: "个人内容空间",
+    image: "/assets/product-line-reading.webp",
+    visualClass: "project-visual-blog",
+    icon: Newspaper,
+    metric: "BLOG / 思考 / 实践",
+    href: personalBlogUrl,
+    external: true,
+    description:
+      "记录我的思考、实践与持续构建中的产品，把零散经验整理成可复用的内容。",
   },
   {
     title: "阅览室",
@@ -793,7 +807,13 @@ export function App() {
               {projects.map((project, index) => {
                 const Icon = project.icon;
                 return (
-                  <a className="hero-project-item" href={project.href} key={project.title}>
+                  <a
+                    className="hero-project-item"
+                    href={project.href}
+                    key={project.title}
+                    target={project.external ? "_blank" : undefined}
+                    rel={project.external ? "noreferrer" : undefined}
+                  >
                     <span className="hero-project-index">0{index + 1}</span>
                     <div>
                       <strong>
