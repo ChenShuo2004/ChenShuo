@@ -483,6 +483,10 @@ function CommunityPage() {
             <p>社群准入</p>
             <small>先了解，再决定是否加入</small>
             <a href="/#top">添加微信咨询</a>
+            <div className="community-wechat" aria-label="社群微信号">
+              <span>微信号</span>
+              <strong>Chen18005977213</strong>
+            </div>
           </aside>
         </div>
 
@@ -869,10 +873,6 @@ export function App() {
             <a className="hero-community-label" href="/community">
               加入社群
             </a>
-            <div className="hero-wechat-chip" aria-label="微信号">
-              <span>添加下方微信号</span>
-              <strong>Chen18005977213</strong>
-            </div>
             <div className="hero-subcopy">
               <p>
                 我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
