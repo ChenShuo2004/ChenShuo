@@ -816,10 +816,6 @@ export function App() {
             <p className="section-kicker">PRODUCT LINES</p>
             <h2>知识产品空间</h2>
             <div className="hero-system-frame">
-              <div className="hero-system-heading">
-                <span>CORE SYSTEM</span>
-                <strong>知识产品空间</strong>
-              </div>
               <div className="hero-project-list">
                 {projects.map((project, index) => {
                 const Icon = project.icon;

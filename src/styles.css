@@ -3199,9 +3199,25 @@ a {
   backdrop-filter: none;
 }
 
-.hero-poster .hero-project-lines .section-kicker,
-.hero-poster .hero-project-lines h2 {
+.hero-poster .hero-project-lines .section-kicker {
   display: none;
+}
+
+.hero-poster .hero-project-lines h2 {
+  display: block;
+  justify-self: center;
+  width: fit-content;
+  margin: 0 auto 18px;
+  padding: 10px 24px 8px;
+  color: var(--pixel-ink);
+  border: 4px solid var(--pixel-ink);
+  background: var(--pixel-cream);
+  box-shadow: 7px 7px 0 rgba(3, 24, 58, 0.34);
+  font-family: var(--font-pixel-cn);
+  font-size: clamp(30px, 3.8vw, 50px);
+  line-height: 1.1;
+  font-weight: 400;
+  text-shadow: 3px 3px 0 rgba(7, 55, 126, 0.14);
 }
 
 .hero-poster .hero-system-frame {
