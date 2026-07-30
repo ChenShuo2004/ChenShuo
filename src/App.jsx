@@ -151,18 +151,6 @@ const projects = [
       "集中展示正在验证、已经上线和持续迭代的 AI 工具、训练器与知识产品。",
   },
   {
-    title: "个人 Blog",
-    tag: "个人内容空间",
-    image: "/assets/product-line-reading.webp",
-    visualClass: "project-visual-blog",
-    icon: Newspaper,
-    metric: "BLOG / 思考 / 实践",
-    href: personalBlogUrl,
-    external: true,
-    description:
-      "记录我的思考、实践与持续构建中的产品，把零散经验整理成可复用的内容。",
-  },
-  {
     title: "阅览室",
     tag: "个人成长系统",
     image: "/assets/product-line-reading.webp",
@@ -183,6 +171,18 @@ const projects = [
     href: "/knowledge",
     description:
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
+  },
+  {
+    title: "个人思考",
+    tag: "个人内容空间",
+    image: "/assets/product-line-reading.webp",
+    visualClass: "project-visual-blog",
+    icon: Newspaper,
+    metric: "BLOG / 思考 / 实践",
+    href: personalBlogUrl,
+    external: true,
+    description:
+      "记录我的思考、实践与持续构建中的产品，把零散经验整理成可复用的内容。",
   },
 ];
 

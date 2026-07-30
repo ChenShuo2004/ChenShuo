@@ -3085,8 +3085,8 @@ a {
 }
 
 .hero-poster .hero-project-list {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
 }
 
 .hero-poster .hero-project-item {
@@ -3124,6 +3124,7 @@ a {
 }
 
 .hero-poster .hero-project-item:nth-child(4) {
+  grid-column: 2;
   --card-accent: #ffcf4a;
   --card-pill: #78d6d0;
   --card-pill-text: #07377e;
@@ -3555,6 +3556,10 @@ a {
 
   .hero-poster .hero-project-list {
     grid-template-columns: 1fr;
+  }
+
+  .hero-poster .hero-project-item:nth-child(4) {
+    grid-column: auto;
   }
 
   .hero-poster .poster-copy h1 {
