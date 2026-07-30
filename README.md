@@ -2,6 +2,7 @@
 
 > 一个持续生长的个人商业系统：把经历、内容、工具和知识，连接成可以被看见、理解并持续复用的产品空间。
 
+[![Live Site](https://img.shields.io/badge/Live%20Site-everlightai.top-0f5fb8?style=flat-square&logo=vercel&logoColor=white)](https://everlightai.top/)
 [![Repository](https://img.shields.io/badge/Repository-GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ChenShuo2004/ChenShuo)
 [![React](https://img.shields.io/badge/React-19-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vite.dev/)
@@ -26,17 +27,17 @@
 
 | 产品线 | 解决的问题 | 入口 |
 | --- | --- | --- |
-| **工具库** | 把 AI 想法快速做成可体验、可验证的产品 | [`/tools`](#页面结构) |
-| **阅览室** | 把心理、认知与行动方法整理成阅读路径 | [`/reading`](#页面结构) |
-| **知识地图** | 把分散信息组织成可理解、可执行的结构 | [`/knowledge`](#页面结构) |
+| **工具库** | 把 AI 想法快速做成可体验、可验证的产品 | [打开工具库](https://everlightai.top/tools) |
+| **阅览室** | 把心理、认知与行动方法整理成阅读路径 | [打开阅览室](https://everlightai.top/reading) |
+| **知识地图** | 把分散信息组织成可理解、可执行的结构 | [打开知识地图](https://everlightai.top/knowledge) |
 
 ## 页面结构
 
-- `/` — 个人主页：定位、产品线、能力与联系方式
-- `/tools` — AI 工具与产品实验室介绍
-- `/reading` — “有温度阅览室”入口
-- `/knowledge` — 知识库起点与信息结构说明
-- `/community` — AI、产品、内容与个人商业化实践社群
+- [`/`](https://everlightai.top/) — 个人主页：定位、产品线、能力与联系方式
+- [`/tools`](https://everlightai.top/tools) — AI 工具与产品实验室介绍
+- [`/reading`](https://everlightai.top/reading) — “有温度阅览室”入口
+- [`/knowledge`](https://everlightai.top/knowledge) — 知识库起点与信息结构说明
+- [`/community`](https://everlightai.top/community) — AI、产品、内容与个人商业化实践社群
 - `/admin` — 私有数据分析面板
 
 ## 技术栈
