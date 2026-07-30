@@ -3770,6 +3770,29 @@ a {
     margin-top: 36px;
     padding: 14px;
   }
+
+  .hero-poster .hero-project-lines {
+    width: 100%;
+  }
+
+  .hero-poster .hero-project-lines h2 {
+    margin-bottom: 14px;
+    padding: 8px 16px 7px;
+    font-size: clamp(26px, 8vw, 34px);
+  }
+
+  .hero-poster .hero-system-frame {
+    padding: 10px 10px 14px;
+  }
+
+  .hero-poster .hero-project-list {
+    gap: 16px;
+  }
+
+  .hero-poster .hero-project-item {
+    min-height: 196px;
+    padding-inline: 12px;
+  }
 }
 
 /* Pixel camp theme for secondary pages */
