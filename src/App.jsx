@@ -175,7 +175,7 @@ const projects = [
 ];
 
 const personalThinking = {
-  title: "个人思考",
+  title: "我的社群",
   metric: "BLOG / 思考 / 实践",
   href: personalBlogUrl,
   description: "记录我的思考、实践与持续构建中的产品，把零散经验整理成可复用的内容。",
