@@ -779,8 +779,9 @@ export function App() {
               陈硕
               <span>CHEN SHUO</span>
             </h1>
+            <div className="hero-community-label">加入社群</div>
             <div className="hero-wechat-chip" aria-label="微信号">
-              <span>微信号</span>
+              <span>添加下方微信号</span>
               <strong>Chen18005977213</strong>
             </div>
             <div className="hero-subcopy">

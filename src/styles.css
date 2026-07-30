@@ -2993,6 +2993,20 @@ a {
     6px 6px 0 rgba(3, 24, 58, 0.34);
 }
 
+.hero-community-label {
+  grid-column: 1;
+  width: fit-content;
+  margin-top: 18px;
+  padding: 6px 12px 5px;
+  color: var(--pixel-ink);
+  border: 3px solid var(--pixel-ink);
+  background: #ffcf4a;
+  box-shadow: 5px 5px 0 rgba(3, 24, 58, 0.24);
+  font-family: var(--font-pixel-cn);
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1;
+}
+
 .hero-wechat-chip {
   grid-column: 1;
   width: fit-content;
@@ -3699,6 +3713,10 @@ a {
   }
 
   .hero-wechat-chip {
+    margin-inline: auto;
+  }
+
+  .hero-community-label {
     margin-inline: auto;
   }
 
