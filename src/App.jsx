@@ -549,6 +549,15 @@ function SalesHubPage() {
         <aside className="sales-markup-card"><p className="section-kicker">MARKUP PREVIEW</p><h3>售价预览器</h3><p>以供应价 ¥100 为例，快速估算你的展示售价。</p><label htmlFor="markup-input">加价比例 <strong>{markup}%</strong></label><input id="markup-input" type="range" min="0" max="100" value={markup} onChange={(event) => setMarkup(event.target.value)} onInput={(event) => setMarkup(event.target.value)} /><div className="sales-price-preview"><span>展示售价</span><strong>¥{previewPrice}</strong></div></aside>
       </section>
 
+      <section className="sales-safety-section">
+        <div className="sales-section-heading"><p className="section-kicker">BALANCE / DELIVERY / SAFETY</p><h2>让自动发货稳定跑起来</h2><p>中转链路不是只把商品导入就结束，余额、库存、密钥和网络选择都会影响最终交付。</p></div>
+        <div className="sales-safety-grid">
+          <article className="sales-safety-card sales-safety-card-teal"><span>01 / TOP UP</span><h3>支持的充值网络</h3><div className="sales-network-list"><strong>USDT-Polygon</strong><strong>USDT-BSC</strong><strong>USDT-TRC20</strong></div><p>转账前确认网络和页面显示金额，到账较慢时可手动检查订单状态。</p></article>
+          <article className="sales-safety-card sales-safety-card-yellow"><span>02 / MUST KEEP</span><h3>三件事不要改</h3><ul><li>商户 ID 与商户密钥</li><li>商品共享代码</li><li>远程对接参数</li></ul><p>密钥只放在后台配置中，不要公开截图或发给无关人员。</p></article>
+          <article className="sales-safety-card sales-safety-card-pink"><span>03 / DEBUG</span><h3>下单不发货先查这里</h3><ul><li>供应站余额是否足够</li><li>远程库存是否充足</li><li>自动发货是否开启</li></ul><p>先用一件商品做测试订单，确认卡密能回传、状态能自动更新。</p></article>
+        </div>
+      </section>
+
       <section className="sales-final-cta"><p className="section-kicker">NEXT ACTION</p><h2>先把第一件商品接上。</h2><p>你可以先用 demo 里的结构验证销售路径，再把真实商品 API 接到商品目录。</p><div><a className="primary-action" href="https://chirou.ai/" target="_blank" rel="noreferrer">进入供应站 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a><a className="secondary-action" href="/">回到个人网站</a></div></section>
     </main>
   );
