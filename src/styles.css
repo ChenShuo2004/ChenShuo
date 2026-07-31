@@ -3007,6 +3007,23 @@ a {
   line-height: 1;
 }
 
+.hero-entry-actions {
+  display: flex;
+  grid-column: 1;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.hero-entry-actions .hero-community-label {
+  margin-top: 0;
+}
+
+.hero-entry-actions .hero-sales-label {
+  background: #78d6d0;
+}
+
 .hero-community-definition {
   grid-column: 1;
   margin: 10px 0 0;
@@ -3728,6 +3745,10 @@ a {
 
   .hero-community-label {
     margin-inline: auto;
+  }
+
+  .hero-entry-actions {
+    justify-content: center;
   }
 
   .hero-poster .poster-copy .hero-subcopy {
