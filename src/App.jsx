@@ -988,7 +988,7 @@ export function App() {
           menuColor="#081827"
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
-          actionItems={[]}
+          actionItems={[{ label: "代充业务", href: "/sales-hub", variant: "primary-dark" }]}
           onLinkClick={scrollToSection}
         />
 
@@ -1019,9 +1019,6 @@ export function App() {
             <div className="hero-entry-actions" aria-label="主要入口">
               <a className="hero-community-label" href="/community">
                 加入社群
-              </a>
-              <a className="hero-community-label hero-sales-label" href="/sales-hub">
-                销售中转
               </a>
             </div>
             <p className="hero-community-definition">下一代的 AI 共创社群</p>
