@@ -80,6 +80,30 @@ const knowledgePageNavItems = [
   },
 ];
 
+const salesHubNavItems = [
+  {
+    label: "当前页面",
+    bgColor: "#090a0a",
+    textColor: "#f6f6f1",
+    labelColor: "rgba(246, 246, 241, 0.82)",
+    links: [
+      { label: "返回首页", href: "/", ariaLabel: "返回个人网站首页" },
+      { label: "销售中转", href: "#sales-hub", ariaLabel: "查看销售中转页面" },
+    ],
+  },
+  {
+    label: "快速入口",
+    bgColor: "#0f5fb8",
+    textColor: "#f6f6f1",
+    labelColor: "rgba(246, 246, 241, 0.84)",
+    links: [
+      { label: "商品目录", href: "#catalog", ariaLabel: "查看商品目录" },
+      { label: "对接流程", href: "#how-it-works", ariaLabel: "查看对接流程" },
+      { label: "对接教程", href: "https://web3chirou.com/usage-docs/tutorial-faka-docking.html", ariaLabel: "打开完整对接教程" },
+    ],
+  },
+];
+
 const knowledgeOriginIntro = [
   "这个知识库的诞生，并不是来自“我想做一个整理工具”，而是来自一个更真实、也更长期存在的问题：",
   "在信息爆炸的时代，我们每天都在接触新的内容、新的工具、新的观点。但奇怪的是，信息越多，人反而越容易停在原地。",
@@ -171,6 +195,17 @@ const projects = [
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
   },
 ];
+
+projects.unshift({
+  title: "销售中转",
+  tag: "远程商品 / 自动发货",
+  image: "/assets/product-line-tools.webp",
+  visualClass: "project-visual-sales",
+  icon: Lightning,
+  metric: "API 中转 / 商品销售",
+  href: "/sales-hub",
+  description: "把远程商品接进自己的销售路径，统一展示、加价、下单与自动发货。",
+});
 
 const strengths = [
   {
@@ -411,6 +446,110 @@ function ReadingRoomPage() {
           </div>
         </div>
       </section>
+    </main>
+  );
+}
+
+function CopyableEndpoint({ label, value }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copyValue() {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <div className="sales-endpoint-row">
+      <div>
+        <span>{label}</span>
+        <code>{value}</code>
+      </div>
+      <button type="button" onClick={copyValue}>{copied ? "已复制" : "复制"}</button>
+    </div>
+  );
+}
+
+function SalesHubPage() {
+  const [markup, setMarkup] = useState("20");
+  const previewPrice = (100 * (1 + Number(markup || 0) / 100)).toFixed(2);
+
+  return (
+    <main className="site-shell sales-hub-page" id="sales-hub">
+      <section className="knowledge-page-top sales-hub-top" id="top" aria-label="销售中转页面导航">
+        <CardNav
+          className="poster-card-nav"
+          items={salesHubNavItems}
+          brandMark="CS"
+          brandLabel="CHEN SHUO"
+          brandKicker="SALES / API / AUTOMATION"
+          baseColor="rgba(246, 246, 241, 0.94)"
+          menuColor="#081827"
+          buttonBgColor="#071c33"
+          buttonTextColor="#f6f6f1"
+          backHref="/"
+          backLabel="返回首页"
+          actionItems={[]}
+          ctaLabel="打开供应站"
+          ctaHref="https://chirou.ai/"
+          onLinkClick={scrollToSection}
+        />
+      </section>
+
+      <section className="sales-hero-section">
+        <div className="sales-hero-grid">
+          <div className="sales-hero-copy">
+            <p className="section-kicker">SALES HUB / REMOTE FULFILLMENT</p>
+            <h1>把商品接进来，<span>自动卖出去。</span></h1>
+            <p className="sales-hero-lede">销售中转是一个轻量的远程商品入口：你负责展示、定价和获客，供应站负责库存、采购与自动发货。</p>
+            <div className="sales-hero-actions">
+              <a className="primary-action" href="#catalog">查看可接入商品 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
+              <a className="secondary-action" href="https://web3chirou.com/usage-docs/tutorial-faka-docking.html" target="_blank" rel="noreferrer">阅读完整教程</a>
+            </div>
+            <div className="sales-proof-row">
+              <span><strong>01</strong> 远程拉取</span>
+              <span><strong>02</strong> 自动下单</span>
+              <span><strong>03</strong> 返回卡密</span>
+            </div>
+          </div>
+          <aside className="sales-hero-art" aria-label="销售中转流程示意">
+            <div className="sales-art-label">LIVE ROUTE</div>
+            <div className="sales-art-node sales-art-node-store"><span>你的店铺</span><strong>展示 / 收款</strong></div>
+            <div className="sales-art-line"><i /></div>
+            <div className="sales-art-node sales-art-node-api"><span>API 中转</span><strong>自动采购</strong></div>
+            <div className="sales-art-line sales-art-line-back"><i /></div>
+            <div className="sales-art-node sales-art-node-stock"><span>供应站</span><strong>库存 / 发货</strong></div>
+            <div className="sales-art-stamp">AUTO<br />DELIVERY</div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="sales-catalog-section" id="catalog">
+        <div className="sales-section-heading"><p className="section-kicker">PRODUCT CATALOG</p><h2>先选一个能卖的入口</h2><p>下面是 demo 商品卡。接入真实接口后，这里可以替换成远程商品、库存和实时价格。</p></div>
+        <div className="sales-catalog-grid">
+          <article className="sales-product-card sales-product-card-blue"><div className="sales-product-visual"><span>AI</span><i>PRO</i></div><p className="sales-product-tag">DIGITAL ACCESS</p><h3>AI 工具订阅</h3><p>适合做成低门槛、高复购的数字商品入口。</p><footer><strong>¥ 100 起</strong><span>可同步库存</span></footer></article>
+          <article className="sales-product-card sales-product-card-pink"><div className="sales-product-visual"><span>API</span><i>KEY</i></div><p className="sales-product-tag">TOKEN / API</p><h3>模型 API 资源</h3><p>把复杂的 API 资源包装成清晰可购买的套餐。</p><footer><strong>¥ 50 起</strong><span>自动发货</span></footer></article>
+          <article className="sales-product-card sales-product-card-yellow"><div className="sales-product-visual"><span>PLUS</span><i>∞</i></div><p className="sales-product-tag">ACCOUNT / PLAN</p><h3>账号与续费服务</h3><p>适合搭配你的内容、社群和工具库做长期销售。</p><footer><strong>¥ 30 起</strong><span>远程采购</span></footer></article>
+        </div>
+      </section>
+
+      <section className="sales-workflow-section" id="how-it-works">
+        <div className="sales-section-heading sales-section-heading-light"><p className="section-kicker">HOW IT WORKS</p><h2>四步，把中转跑起来</h2><p>按教程完成一次配置，之后用户下单就会自动走完整链路。</p></div>
+        <div className="sales-workflow-grid">
+          {[['01', '注册供应站', '打开 chirou.ai，注册账号并进入个人中心。'], ['02', '配置远程店铺', '在你的发卡网站新增店铺，填入商户 ID 与密钥。'], ['03', '拉取与加价', '开启同步价格、同步库存，并设置固定或百分比加价。'], ['04', '充值并测试', '使用 USDT 充值余额，完成一次测试下单和自动发货验证。']].map(([index, title, text]) => <article key={index}><span>{index}</span><h3>{title}</h3><p>{text}</p></article>)}
+        </div>
+      </section>
+
+      <section className="sales-config-section" id="config">
+        <div className="sales-config-copy"><p className="section-kicker">READY TO CONNECT</p><h2>把关键配置放在手边</h2><p>根地址要填写供应站首页，不要填到具体接口路径。新版与旧版 SharedStock 接口都兼容。</p><CopyableEndpoint label="店铺根地址" value="https://chirou.ai/" /><CopyableEndpoint label="新版接口前缀" value="https://chirou.ai/shared/" /><CopyableEndpoint label="旧版兼容前缀" value="https://chirou.ai/plugin/SharedStock/api/" /></div>
+        <aside className="sales-markup-card"><p className="section-kicker">MARKUP PREVIEW</p><h3>售价预览器</h3><p>以供应价 ¥100 为例，快速估算你的展示售价。</p><label htmlFor="markup-input">加价比例 <strong>{markup}%</strong></label><input id="markup-input" type="range" min="0" max="100" value={markup} onChange={(event) => setMarkup(event.target.value)} onInput={(event) => setMarkup(event.target.value)} /><div className="sales-price-preview"><span>展示售价</span><strong>¥{previewPrice}</strong></div></aside>
+      </section>
+
+      <section className="sales-final-cta"><p className="section-kicker">NEXT ACTION</p><h2>先把第一件商品接上。</h2><p>你可以先用 demo 里的结构验证销售路径，再把真实商品 API 接到商品目录。</p><div><a className="primary-action" href="https://chirou.ai/" target="_blank" rel="noreferrer">进入供应站 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a><a className="secondary-action" href="/">回到个人网站</a></div></section>
     </main>
   );
 }
@@ -811,6 +950,7 @@ export function App() {
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
   const isCommunityPage = normalizedPath === "/community";
+  const isSalesHubPage = normalizedPath === "/sales-hub";
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
     return <AdminPage />;
@@ -830,6 +970,10 @@ export function App() {
 
   if (isCommunityPage) {
     return <CommunityPage />;
+  }
+
+  if (isSalesHubPage) {
+    return <SalesHubPage />;
   }
 
 
