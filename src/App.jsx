@@ -80,6 +80,30 @@ const knowledgePageNavItems = [
   },
 ];
 
+const salesHubNavItems = [
+  {
+    label: "当前页面",
+    bgColor: "#090a0a",
+    textColor: "#f6f6f1",
+    labelColor: "rgba(246, 246, 241, 0.82)",
+    links: [
+      { label: "返回首页", href: "/", ariaLabel: "返回个人网站首页" },
+      { label: "销售中转", href: "#sales-hub", ariaLabel: "查看销售中转页面" },
+    ],
+  },
+  {
+    label: "快速入口",
+    bgColor: "#0f5fb8",
+    textColor: "#f6f6f1",
+    labelColor: "rgba(246, 246, 241, 0.84)",
+    links: [
+      { label: "商品目录", href: "#catalog", ariaLabel: "查看商品目录" },
+      { label: "对接流程", href: "#how-it-works", ariaLabel: "查看对接流程" },
+      { label: "对接教程", href: "https://web3chirou.com/usage-docs/tutorial-faka-docking.html", ariaLabel: "打开完整对接教程" },
+    ],
+  },
+];
+
 const knowledgeOriginIntro = [
   "这个知识库的诞生，并不是来自“我想做一个整理工具”，而是来自一个更真实、也更长期存在的问题：",
   "在信息爆炸的时代，我们每天都在接触新的内容、新的工具、新的观点。但奇怪的是，信息越多，人反而越容易停在原地。",
@@ -415,30 +439,96 @@ function ReadingRoomPage() {
   );
 }
 
-function CommunityPage() {
-  const communityBenefits = [
-    {
-      index: "01",
-      title: "同频交流",
-      text: "和正在做 AI 产品、内容与独立项目的人交流，减少一个人摸索的时间。",
-    },
-    {
-      index: "02",
-      title: "每周主题",
-      text: "围绕 AI 工具、产品验证、信息结构与个人商业化，持续拆解真实问题。",
-    },
-    {
-      index: "03",
-      title: "实践资料",
-      text: "获得可复用的提示词、工作流、信息源与案例，把想法推进到行动。",
-    },
-    {
-      index: "04",
-      title: "项目反馈",
-      text: "带着你的产品、内容或工作流来讨论，获得来自真实实践者的反馈。",
-    },
+function CopyableEndpoint({ label, value }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copyValue() {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  return (
+    <div className="sales-endpoint-row">
+      <div>
+        <span>{label}</span>
+        <code>{value}</code>
+      </div>
+      <button type="button" onClick={copyValue}>{copied ? "已复制" : "复制"}</button>
+    </div>
+  );
+}
+
+function SalesHubPage() {
+  const [wechatCopied, setWechatCopied] = useState(false);
+  const products = [
+    { name: "ChatGPT Plus 1个月开通", price: "178.00", oldPrice: "199.00", badge: "Plus", accent: "green", note: "支付成功后添加微信，确认开通信息。" },
+    { name: "GPT 5X 开通", price: "758.00", oldPrice: "798.00", badge: "5X", accent: "cyan", note: "支付成功后添加微信，确认开通信息。" },
+    { name: "GPT 20X 开通", price: "1399.00", oldPrice: "", badge: "20X", accent: "purple", note: "支付成功后添加微信，确认开通信息。" },
+    { name: "X Premium 蓝V开通", price: "210.00", oldPrice: "", badge: "Premium", accent: "blue", note: "Premium与Premium+共4规格，添加微信咨询。" },
   ];
 
+  const scrollToPurchase = (event) => {
+    event.preventDefault();
+    document.querySelector("#wechat-purchase")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <main className="site-shell sales-store-page" id="sales-hub">
+      <section className="knowledge-page-top sales-store-top" id="top" aria-label="商品销售页面导航">
+        <CardNav
+          className="poster-card-nav"
+          items={[{ label: "商品列表", href: "#products", ariaLabel: "查看商品列表" }, { label: "购买方式", href: "#wechat-purchase", ariaLabel: "查看购买方式" }]}
+          brandMark="CS"
+          brandLabel="CHEN SHUO"
+          brandKicker="AI ACCESS / DIGITAL GOODS"
+          baseColor="rgba(246, 246, 241, 0.94)"
+          menuColor="#081827"
+          buttonBgColor="#071c33"
+          buttonTextColor="#f6f6f1"
+          backHref="/"
+          backLabel="返回首页"
+          actionItems={[]}
+          ctaLabel="添加微信"
+          ctaHref="#wechat-purchase"
+          onLinkClick={scrollToSection}
+        />
+      </section>
+
+      <section className="sales-store-hero">
+        <div>
+          <p className="section-kicker">DIGITAL GOODS / SIMPLE PURCHASE</p>
+          <h1>需要什么，<span>直接问我。</span></h1>
+          <p>商品价格已经列好，选择商品后添加微信确认即可。没有复杂流程，先沟通，再购买。</p>
+        </div>
+        <a className="sales-wechat-pill" href="#wechat-purchase" onClick={scrollToPurchase}><span>微信购买</span><strong>Chen18005977213</strong><ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
+      </section>
+
+      <section className="sales-products-section" id="products">
+        <div className="sales-store-heading"><p className="section-kicker">AVAILABLE NOW</p><h2>现在可以购买的商品</h2><p>价格以页面展示为准，库存和具体开通方式请添加微信确认。</p></div>
+        <div className="sales-store-grid">
+          {products.map((product) => (
+            <article className={`sales-store-card sales-store-card-${product.accent}`} key={product.name}>
+              <div className="sales-store-image" aria-hidden="true"><span className="sales-store-orbit" /><strong>{product.badge}</strong><small>{product.accent === "blue" ? "X" : "GPT"}</small></div>
+              <div className="sales-store-card-body"><p className="sales-store-category">分类 · 数字服务</p><h3>{product.name}</h3><div className="sales-store-badges"><span>添加微信</span><span>购买前咨询</span></div><p className="sales-store-note">{product.note}</p><div className="sales-store-price"><div><span>价格</span><strong>¥ {product.price} CNY</strong>{product.oldPrice && <del>¥ {product.oldPrice} CNY</del>}</div><a href="#wechat-purchase" onClick={scrollToPurchase} aria-label={`购买${product.name}`}>购买 <ArrowRight size={15} weight="bold" aria-hidden="true" /></a></div></div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="sales-purchase-section" id="wechat-purchase">
+        <div><p className="section-kicker">HOW TO BUY</p><h2>添加微信，向我购买</h2><p>告诉我你要购买的商品名称，我会确认库存、开通方式和付款信息。</p></div>
+        <div className="sales-purchase-contact"><span>微信号</span><strong>Chen18005977213</strong><button type="button" onClick={async () => { try { await navigator.clipboard.writeText("Chen18005977213"); setWechatCopied(true); window.setTimeout(() => setWechatCopied(false), 1800); } catch {} }}>{wechatCopied ? "已复制" : "复制微信号"}</button></div>
+      </section>
+    </main>
+  );
+}
+
+function CommunityPage() {
   return (
     <main className="site-shell community-page">
       <section className="knowledge-page-top" id="top" aria-label="加入社群页面导航">
@@ -490,20 +580,71 @@ function CommunityPage() {
           </aside>
         </div>
 
-        <div className="community-benefit-frame">
-          <div className="community-benefit-heading">
-            <span>YOU WILL GET</span>
-            <strong>你可以得到什么</strong>
-          </div>
-          <div className="community-benefit-grid">
-            {communityBenefits.map((benefit) => (
-              <article key={benefit.index}>
-                <span>{benefit.index}</span>
-                <h2>{benefit.title}</h2>
-                <p>{benefit.text}</p>
-              </article>
-            ))}
-          </div>
+        <div className="community-story-grid">
+          <article className="community-story-card community-story-card-wide">
+            <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
+            <h2>我想做一个属于下一代的 AI 共创社群</h2>
+            <p>这个社群暂定价格是 <strong>99 元一年</strong>。但这 99 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
+            <p>我希望用它筛选出一批愿意认真介绍自己、愿意真正参与、愿意长期使用 AI 做事情的人。这里不追求热闹，更不想成为一个每天刷几百条消息、最后所有人都设置免打扰的微信群。</p>
+            <p>我更想做一个属于 00 后、10 后，以及未来更多年轻人的 AI 共创空间。我们可以讨论 AI、产品、内容、创业和个人成长，也可以把自己真正遇到的问题拿出来。</p>
+          </article>
+
+          <article className="community-story-card">
+            <p className="community-story-kicker">OPEN PRACTICE</p>
+            <h2>真实复盘</h2>
+            <p>我会公开自己的每月复盘：做了什么、做错了什么、哪些项目失败了、最近在为什么事情焦虑，以及我对产品、内容、团队和创业的新理解。</p>
+          </article>
+
+          <article className="community-story-card">
+            <p className="community-story-kicker">MONTHLY THEME WEEK</p>
+            <h2>主题周，不止聊天</h2>
+            <p>每个月围绕一个主题一起研究 AI 编程、个人软件工厂、自动化工作流、知识库、内容创作、AI 产品或出海实践。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-wide community-story-card-teal">
+            <p className="community-story-kicker">FROM DISCUSSION TO KNOWLEDGE</p>
+            <h2>把讨论沉淀成可以使用的东西</h2>
+            <p>主题不会只停留在聊天。我们会整理资料、提出问题、完成实践任务、分享案例，最后把有价值的内容沉淀进知识库。每一位成员都可以向我提问，具有代表性的问题，我会集中拆解，并整理成其他人也能使用的答案。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-wide">
+            <p className="community-story-kicker">CO-CREATE THE FUTURE</p>
+            <h2>从成员，到共创者</h2>
+            <p>社群成员可以免费使用我面向社群开放的自研产品，优先参加新产品内测，提出功能建议，参与产品共创。未来，真正持续行动、持续分享、愿意承担责任的人，也可能成为项目合作者、主题发起人，或者一起做出新的产品。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-warning">
+            <p className="community-story-kicker">NO EMPTY PROMISES</p>
+            <h2>有些事情，提前说清楚</h2>
+            <ul>
+              <li>不保证你能赚到钱</li>
+              <li>不保证你能拿到资源</li>
+              <li>不保证你能认识所谓的大佬</li>
+              <li>不保证加入之后，人生就会发生变化</li>
+            </ul>
+            <p>我唯一希望保证的，是这里不会只剩下空话。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-apply">
+            <p className="community-story-kicker">APPLICATION &amp; REVIEW</p>
+            <h2>我们看重什么</h2>
+            <p>每一个申请加入的人，都需要填写申请表并经过审核。我们更看重：</p>
+            <ul>
+              <li>你是否真诚</li>
+              <li>你是否正在行动</li>
+              <li>你是否愿意分享</li>
+              <li>你是否尊重其他成员</li>
+              <li>你是否愿意长期参与，而不是只来索取资源</li>
+            </ul>
+          </article>
+
+          <article className="community-story-card community-story-card-wide community-story-card-final">
+            <p className="community-story-kicker">A LONG-TERM COMMUNITY</p>
+            <h2>不是围观时代，而是和这个时代共舞</h2>
+            <p>广告、骚扰、批量加人、卖课引流、搬运内部内容，以及任何诱导未成年人消费或参与高风险项目的行为，都会被直接清退。</p>
+            <p>我最终想做的，是全国最有行动力的年轻人 AI 社群。人数多不应该是它唯一的意义。更重要的是，几年之后回头看，我们能发现一批年轻人在这里认识、成长、合作，一起做出了一些真实存在的东西。</p>
+            <p><strong>我希望能和一群同样相信 AI、相信创造、也相信长期主义的人，一起往前走。</strong></p>
+          </article>
         </div>
       </section>
     </main>
@@ -783,6 +924,7 @@ export function App() {
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
   const isCommunityPage = normalizedPath === "/community";
+  const isSalesHubPage = normalizedPath === "/sales-hub";
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
     return <AdminPage />;
@@ -802,6 +944,10 @@ export function App() {
 
   if (isCommunityPage) {
     return <CommunityPage />;
+  }
+
+  if (isSalesHubPage) {
+    return <SalesHubPage />;
   }
 
 
@@ -842,7 +988,7 @@ export function App() {
           menuColor="#081827"
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
-          actionItems={[]}
+          actionItems={[{ label: "代充业务", href: "/sales-hub", variant: "primary-dark" }]}
           onLinkClick={scrollToSection}
         />
 
@@ -870,9 +1016,12 @@ export function App() {
               陈硕
               <span>CHEN SHUO</span>
             </h1>
-            <a className="hero-community-label" href="/community">
-              加入社群
-            </a>
+            <div className="hero-entry-actions" aria-label="主要入口">
+              <a className="hero-community-label" href="/community">
+                加入社群
+              </a>
+            </div>
+            <p className="hero-community-definition">下一代的 AI 共创社群</p>
             <div className="hero-subcopy">
               <p>
                 我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。

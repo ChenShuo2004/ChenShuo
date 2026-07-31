@@ -12,6 +12,8 @@ For the pixel camp homepage style, keep the hero name smaller and highly readabl
 
 For the pixel camp homepage layout, keep the large name block on the left and the intro copy panel on the right on desktop. Keep the hero content high enough that the three core entry cards are visible in the first viewport.
 
+For the homepage navigation, expose “代充业务” as the primary right-side navigation action linking directly to `/sales-hub`; keep the hero area focused on the “加入社群” entry.
+
 ## Durable Content Preferences
 
 Do not position Chen Shuo as "04 大学生", "04 年生", or "大学休学" on the personal website. Use the current positioning: AI 连续创业者 / 国家一级写作专家（自封）, focused on products, knowledge base, information structure, and using information gaps plus knowledge organization to build monetizable systems.
