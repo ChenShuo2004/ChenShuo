@@ -416,29 +416,6 @@ function ReadingRoomPage() {
 }
 
 function CommunityPage() {
-  const communityBenefits = [
-    {
-      index: "01",
-      title: "同频交流",
-      text: "和正在做 AI 产品、内容与独立项目的人交流，减少一个人摸索的时间。",
-    },
-    {
-      index: "02",
-      title: "每周主题",
-      text: "围绕 AI 工具、产品验证、信息结构与个人商业化，持续拆解真实问题。",
-    },
-    {
-      index: "03",
-      title: "实践资料",
-      text: "获得可复用的提示词、工作流、信息源与案例，把想法推进到行动。",
-    },
-    {
-      index: "04",
-      title: "项目反馈",
-      text: "带着你的产品、内容或工作流来讨论，获得来自真实实践者的反馈。",
-    },
-  ];
-
   return (
     <main className="site-shell community-page">
       <section className="knowledge-page-top" id="top" aria-label="加入社群页面导航">
@@ -488,22 +465,6 @@ function CommunityPage() {
               <strong>Chen18005977213</strong>
             </div>
           </aside>
-        </div>
-
-        <div className="community-benefit-frame">
-          <div className="community-benefit-heading">
-            <span>YOU WILL GET</span>
-            <strong>你可以得到什么</strong>
-          </div>
-          <div className="community-benefit-grid">
-            {communityBenefits.map((benefit) => (
-              <article key={benefit.index}>
-                <span>{benefit.index}</span>
-                <h2>{benefit.title}</h2>
-                <p>{benefit.text}</p>
-              </article>
-            ))}
-          </div>
         </div>
 
         <div className="community-story-grid">
