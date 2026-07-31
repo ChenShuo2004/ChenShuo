@@ -475,18 +475,28 @@ function CopyableEndpoint({ label, value }) {
 }
 
 function SalesHubPage() {
-  const [markup, setMarkup] = useState("20");
-  const previewPrice = (100 * (1 + Number(markup || 0) / 100)).toFixed(2);
+  const [wechatCopied, setWechatCopied] = useState(false);
+  const products = [
+    { name: "ChatGPT Plus 1个月开通", price: "178.00", oldPrice: "199.00", badge: "Plus", accent: "green", note: "支付成功后添加微信，确认开通信息。" },
+    { name: "GPT 5X 开通", price: "758.00", oldPrice: "798.00", badge: "5X", accent: "cyan", note: "支付成功后添加微信，确认开通信息。" },
+    { name: "GPT 20X 开通", price: "1399.00", oldPrice: "", badge: "20X", accent: "purple", note: "支付成功后添加微信，确认开通信息。" },
+    { name: "X Premium 蓝V开通", price: "210.00", oldPrice: "", badge: "Premium", accent: "blue", note: "Premium与Premium+共4规格，添加微信咨询。" },
+  ];
+
+  const scrollToPurchase = (event) => {
+    event.preventDefault();
+    document.querySelector("#wechat-purchase")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
-    <main className="site-shell sales-hub-page" id="sales-hub">
-      <section className="knowledge-page-top sales-hub-top" id="top" aria-label="销售中转页面导航">
+    <main className="site-shell sales-store-page" id="sales-hub">
+      <section className="knowledge-page-top sales-store-top" id="top" aria-label="商品销售页面导航">
         <CardNav
           className="poster-card-nav"
-          items={salesHubNavItems}
+          items={[{ label: "商品列表", href: "#products", ariaLabel: "查看商品列表" }, { label: "购买方式", href: "#wechat-purchase", ariaLabel: "查看购买方式" }]}
           brandMark="CS"
           brandLabel="CHEN SHUO"
-          brandKicker="SALES / API / AUTOMATION"
+          brandKicker="AI ACCESS / DIGITAL GOODS"
           baseColor="rgba(246, 246, 241, 0.94)"
           menuColor="#081827"
           buttonBgColor="#071c33"
@@ -494,71 +504,37 @@ function SalesHubPage() {
           backHref="/"
           backLabel="返回首页"
           actionItems={[]}
-          ctaLabel="打开供应站"
-          ctaHref="https://chirou.ai/"
+          ctaLabel="添加微信"
+          ctaHref="#wechat-purchase"
           onLinkClick={scrollToSection}
         />
       </section>
 
-      <section className="sales-hero-section">
-        <div className="sales-hero-grid">
-          <div className="sales-hero-copy">
-            <p className="section-kicker">SALES HUB / REMOTE FULFILLMENT</p>
-            <h1>把商品接进来，<span>自动卖出去。</span></h1>
-            <p className="sales-hero-lede">销售中转是一个轻量的远程商品入口：你负责展示、定价和获客，供应站负责库存、采购与自动发货。</p>
-            <div className="sales-hero-actions">
-              <a className="primary-action" href="#catalog">查看可接入商品 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-              <a className="secondary-action" href="https://web3chirou.com/usage-docs/tutorial-faka-docking.html" target="_blank" rel="noreferrer">阅读完整教程</a>
-            </div>
-            <div className="sales-proof-row">
-              <span><strong>01</strong> 远程拉取</span>
-              <span><strong>02</strong> 自动下单</span>
-              <span><strong>03</strong> 返回卡密</span>
-            </div>
-          </div>
-          <aside className="sales-hero-art" aria-label="销售中转流程示意">
-            <div className="sales-art-label">LIVE ROUTE</div>
-            <div className="sales-art-node sales-art-node-store"><span>你的店铺</span><strong>展示 / 收款</strong></div>
-            <div className="sales-art-line"><i /></div>
-            <div className="sales-art-node sales-art-node-api"><span>API 中转</span><strong>自动采购</strong></div>
-            <div className="sales-art-line sales-art-line-back"><i /></div>
-            <div className="sales-art-node sales-art-node-stock"><span>供应站</span><strong>库存 / 发货</strong></div>
-            <div className="sales-art-stamp">AUTO<br />DELIVERY</div>
-          </aside>
+      <section className="sales-store-hero">
+        <div>
+          <p className="section-kicker">DIGITAL GOODS / SIMPLE PURCHASE</p>
+          <h1>需要什么，<span>直接问我。</span></h1>
+          <p>商品价格已经列好，选择商品后添加微信确认即可。没有复杂流程，先沟通，再购买。</p>
+        </div>
+        <a className="sales-wechat-pill" href="#wechat-purchase" onClick={scrollToPurchase}><span>微信购买</span><strong>Chen18005977213</strong><ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
+      </section>
+
+      <section className="sales-products-section" id="products">
+        <div className="sales-store-heading"><p className="section-kicker">AVAILABLE NOW</p><h2>现在可以购买的商品</h2><p>价格以页面展示为准，库存和具体开通方式请添加微信确认。</p></div>
+        <div className="sales-store-grid">
+          {products.map((product) => (
+            <article className={`sales-store-card sales-store-card-${product.accent}`} key={product.name}>
+              <div className="sales-store-image" aria-hidden="true"><span className="sales-store-orbit" /><strong>{product.badge}</strong><small>{product.accent === "blue" ? "X" : "GPT"}</small></div>
+              <div className="sales-store-card-body"><p className="sales-store-category">分类 · 数字服务</p><h3>{product.name}</h3><div className="sales-store-badges"><span>添加微信</span><span>购买前咨询</span></div><p className="sales-store-note">{product.note}</p><div className="sales-store-price"><div><span>价格</span><strong>¥ {product.price} CNY</strong>{product.oldPrice && <del>¥ {product.oldPrice} CNY</del>}</div><a href="#wechat-purchase" onClick={scrollToPurchase} aria-label={`购买${product.name}`}>购买 <ArrowRight size={15} weight="bold" aria-hidden="true" /></a></div></div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <section className="sales-catalog-section" id="catalog">
-        <div className="sales-section-heading"><p className="section-kicker">PRODUCT CATALOG</p><h2>先选一个能卖的入口</h2><p>下面是 demo 商品卡。接入真实接口后，这里可以替换成远程商品、库存和实时价格。</p></div>
-        <div className="sales-catalog-grid">
-          <article className="sales-product-card sales-product-card-blue"><div className="sales-product-visual"><span>AI</span><i>PRO</i></div><p className="sales-product-tag">DIGITAL ACCESS</p><h3>AI 工具订阅</h3><p>适合做成低门槛、高复购的数字商品入口。</p><footer><strong>¥ 100 起</strong><span>可同步库存</span></footer></article>
-          <article className="sales-product-card sales-product-card-pink"><div className="sales-product-visual"><span>API</span><i>KEY</i></div><p className="sales-product-tag">TOKEN / API</p><h3>模型 API 资源</h3><p>把复杂的 API 资源包装成清晰可购买的套餐。</p><footer><strong>¥ 50 起</strong><span>自动发货</span></footer></article>
-          <article className="sales-product-card sales-product-card-yellow"><div className="sales-product-visual"><span>PLUS</span><i>∞</i></div><p className="sales-product-tag">ACCOUNT / PLAN</p><h3>账号与续费服务</h3><p>适合搭配你的内容、社群和工具库做长期销售。</p><footer><strong>¥ 30 起</strong><span>远程采购</span></footer></article>
-        </div>
+      <section className="sales-purchase-section" id="wechat-purchase">
+        <div><p className="section-kicker">HOW TO BUY</p><h2>添加微信，向我购买</h2><p>告诉我你要购买的商品名称，我会确认库存、开通方式和付款信息。</p></div>
+        <div className="sales-purchase-contact"><span>微信号</span><strong>Chen18005977213</strong><button type="button" onClick={async () => { try { await navigator.clipboard.writeText("Chen18005977213"); setWechatCopied(true); window.setTimeout(() => setWechatCopied(false), 1800); } catch {} }}>{wechatCopied ? "已复制" : "复制微信号"}</button></div>
       </section>
-
-      <section className="sales-workflow-section" id="how-it-works">
-        <div className="sales-section-heading sales-section-heading-light"><p className="section-kicker">HOW IT WORKS</p><h2>四步，把中转跑起来</h2><p>按教程完成一次配置，之后用户下单就会自动走完整链路。</p></div>
-        <div className="sales-workflow-grid">
-          {[['01', '注册供应站', '打开 chirou.ai，注册账号并进入个人中心。'], ['02', '配置远程店铺', '在你的发卡网站新增店铺，填入商户 ID 与密钥。'], ['03', '拉取与加价', '开启同步价格、同步库存，并设置固定或百分比加价。'], ['04', '充值并测试', '使用 USDT 充值余额，完成一次测试下单和自动发货验证。']].map(([index, title, text]) => <article key={index}><span>{index}</span><h3>{title}</h3><p>{text}</p></article>)}
-        </div>
-      </section>
-
-      <section className="sales-config-section" id="config">
-        <div className="sales-config-copy"><p className="section-kicker">READY TO CONNECT</p><h2>把关键配置放在手边</h2><p>根地址要填写供应站首页，不要填到具体接口路径。新版与旧版 SharedStock 接口都兼容。</p><CopyableEndpoint label="店铺根地址" value="https://chirou.ai/" /><CopyableEndpoint label="新版接口前缀" value="https://chirou.ai/shared/" /><CopyableEndpoint label="旧版兼容前缀" value="https://chirou.ai/plugin/SharedStock/api/" /></div>
-        <aside className="sales-markup-card"><p className="section-kicker">MARKUP PREVIEW</p><h3>售价预览器</h3><p>以供应价 ¥100 为例，快速估算你的展示售价。</p><label htmlFor="markup-input">加价比例 <strong>{markup}%</strong></label><input id="markup-input" type="range" min="0" max="100" value={markup} onChange={(event) => setMarkup(event.target.value)} onInput={(event) => setMarkup(event.target.value)} /><div className="sales-price-preview"><span>展示售价</span><strong>¥{previewPrice}</strong></div></aside>
-      </section>
-
-      <section className="sales-safety-section">
-        <div className="sales-section-heading"><p className="section-kicker">BALANCE / DELIVERY / SAFETY</p><h2>让自动发货稳定跑起来</h2><p>中转链路不是只把商品导入就结束，余额、库存、密钥和网络选择都会影响最终交付。</p></div>
-        <div className="sales-safety-grid">
-          <article className="sales-safety-card sales-safety-card-teal"><span>01 / TOP UP</span><h3>支持的充值网络</h3><div className="sales-network-list"><strong>USDT-Polygon</strong><strong>USDT-BSC</strong><strong>USDT-TRC20</strong></div><p>转账前确认网络和页面显示金额，到账较慢时可手动检查订单状态。</p></article>
-          <article className="sales-safety-card sales-safety-card-yellow"><span>02 / MUST KEEP</span><h3>三件事不要改</h3><ul><li>商户 ID 与商户密钥</li><li>商品共享代码</li><li>远程对接参数</li></ul><p>密钥只放在后台配置中，不要公开截图或发给无关人员。</p></article>
-          <article className="sales-safety-card sales-safety-card-pink"><span>03 / DEBUG</span><h3>下单不发货先查这里</h3><ul><li>供应站余额是否足够</li><li>远程库存是否充足</li><li>自动发货是否开启</li></ul><p>先用一件商品做测试订单，确认卡密能回传、状态能自动更新。</p></article>
-        </div>
-      </section>
-
-      <section className="sales-final-cta"><p className="section-kicker">NEXT ACTION</p><h2>先把第一件商品接上。</h2><p>你可以先用 demo 里的结构验证销售路径，再把真实商品 API 接到商品目录。</p><div><a className="primary-action" href="https://chirou.ai/" target="_blank" rel="noreferrer">进入供应站 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a><a className="secondary-action" href="/">回到个人网站</a></div></section>
     </main>
   );
 }
