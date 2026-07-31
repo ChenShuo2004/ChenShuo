@@ -505,6 +505,73 @@ function CommunityPage() {
             ))}
           </div>
         </div>
+
+        <div className="community-story-grid">
+          <article className="community-story-card community-story-card-wide">
+            <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
+            <h2>我想做一个属于下一代的 AI 共创社群</h2>
+            <p>这个社群暂定价格是 <strong>99 元一年</strong>。但这 99 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
+            <p>我希望用它筛选出一批愿意认真介绍自己、愿意真正参与、愿意长期使用 AI 做事情的人。这里不追求热闹，更不想成为一个每天刷几百条消息、最后所有人都设置免打扰的微信群。</p>
+            <p>我更想做一个属于 00 后、10 后，以及未来更多年轻人的 AI 共创空间。我们可以讨论 AI、产品、内容、创业和个人成长，也可以把自己真正遇到的问题拿出来。</p>
+          </article>
+
+          <article className="community-story-card">
+            <p className="community-story-kicker">OPEN PRACTICE</p>
+            <h2>真实复盘</h2>
+            <p>我会公开自己的每月复盘：做了什么、做错了什么、哪些项目失败了、最近在为什么事情焦虑，以及我对产品、内容、团队和创业的新理解。</p>
+          </article>
+
+          <article className="community-story-card">
+            <p className="community-story-kicker">MONTHLY THEME WEEK</p>
+            <h2>主题周，不止聊天</h2>
+            <p>每个月围绕一个主题一起研究 AI 编程、个人软件工厂、自动化工作流、知识库、内容创作、AI 产品或出海实践。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-wide community-story-card-teal">
+            <p className="community-story-kicker">FROM DISCUSSION TO KNOWLEDGE</p>
+            <h2>把讨论沉淀成可以使用的东西</h2>
+            <p>主题不会只停留在聊天。我们会整理资料、提出问题、完成实践任务、分享案例，最后把有价值的内容沉淀进知识库。每一位成员都可以向我提问，具有代表性的问题，我会集中拆解，并整理成其他人也能使用的答案。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-wide">
+            <p className="community-story-kicker">CO-CREATE THE FUTURE</p>
+            <h2>从成员，到共创者</h2>
+            <p>社群成员可以免费使用我面向社群开放的自研产品，优先参加新产品内测，提出功能建议，参与产品共创。未来，真正持续行动、持续分享、愿意承担责任的人，也可能成为项目合作者、主题发起人，或者一起做出新的产品。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-warning">
+            <p className="community-story-kicker">NO EMPTY PROMISES</p>
+            <h2>有些事情，提前说清楚</h2>
+            <ul>
+              <li>不保证你能赚到钱</li>
+              <li>不保证你能拿到资源</li>
+              <li>不保证你能认识所谓的大佬</li>
+              <li>不保证加入之后，人生就会发生变化</li>
+            </ul>
+            <p>我唯一希望保证的，是这里不会只剩下空话。</p>
+          </article>
+
+          <article className="community-story-card community-story-card-apply">
+            <p className="community-story-kicker">APPLICATION &amp; REVIEW</p>
+            <h2>我们看重什么</h2>
+            <p>每一个申请加入的人，都需要填写申请表并经过审核。我们更看重：</p>
+            <ul>
+              <li>你是否真诚</li>
+              <li>你是否正在行动</li>
+              <li>你是否愿意分享</li>
+              <li>你是否尊重其他成员</li>
+              <li>你是否愿意长期参与，而不是只来索取资源</li>
+            </ul>
+          </article>
+
+          <article className="community-story-card community-story-card-wide community-story-card-final">
+            <p className="community-story-kicker">A LONG-TERM COMMUNITY</p>
+            <h2>不是围观时代，而是和这个时代共舞</h2>
+            <p>广告、骚扰、批量加人、卖课引流、搬运内部内容，以及任何诱导未成年人消费或参与高风险项目的行为，都会被直接清退。</p>
+            <p>我最终想做的，是全国最有行动力的年轻人 AI 社群。人数多不应该是它唯一的意义。更重要的是，几年之后回头看，我们能发现一批年轻人在这里认识、成长、合作，一起做出了一些真实存在的东西。</p>
+            <p><strong>我希望能和一群同样相信 AI、相信创造、也相信长期主义的人，一起往前走。</strong></p>
+          </article>
+        </div>
       </section>
     </main>
   );
@@ -873,6 +940,7 @@ export function App() {
             <a className="hero-community-label" href="/community">
               加入社群
             </a>
+            <p className="hero-community-definition">下一代的 AI 共创社群</p>
             <div className="hero-subcopy">
               <p>
                 我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。

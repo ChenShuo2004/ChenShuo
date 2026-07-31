@@ -3007,6 +3007,16 @@ a {
   line-height: 1;
 }
 
+.hero-community-definition {
+  grid-column: 1;
+  margin: 10px 0 0;
+  color: var(--pixel-cream);
+  font-family: var(--font-pixel-cn);
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
 .hero-wechat-chip {
   grid-column: 1;
   width: fit-content;
@@ -4688,6 +4698,117 @@ a {
 
   .community-benefit-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+.community-story-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 38px;
+}
+
+.community-story-card {
+  min-height: 250px;
+  padding: 34px 28px 28px;
+  color: var(--pixel-ink);
+  border: 4px solid var(--pixel-ink);
+  background:
+    linear-gradient(180deg, var(--card-accent, var(--pixel-cream)) 0 36px, transparent 36px),
+    linear-gradient(180deg, #fff8d8 0%, #f6f0cf 100%);
+  box-shadow: 7px 7px 0 rgba(3, 24, 58, 0.3);
+}
+
+.community-story-card-wide {
+  grid-column: span 2;
+}
+
+.community-story-card-teal { --card-accent: #78d6d0; }
+.community-story-card-warning { --card-accent: #ff6a8d; }
+.community-story-card-apply { --card-accent: #ffcf4a; }
+.community-story-card-final { --card-accent: #78d6d0; }
+
+.community-story-kicker {
+  color: var(--pixel-ink);
+  font-family: var(--font-pixel-en);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.community-story-card h2 {
+  margin-top: 18px;
+  color: var(--pixel-ink);
+  font-family: var(--font-pixel-cn);
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 1.2;
+  font-weight: 400;
+  text-shadow: 3px 3px 0 rgba(7, 55, 126, 0.12);
+}
+
+.community-story-card p,
+.community-story-card li {
+  color: rgba(7, 55, 126, 0.86);
+  font-family: var(--font-pixel-cn);
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 600;
+}
+
+.community-story-card > p:not(.community-story-kicker),
+.community-story-card ul {
+  margin-top: 16px;
+}
+
+.community-story-card strong {
+  color: var(--pixel-ink);
+}
+
+.community-story-card ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.community-story-card li {
+  padding: 8px 12px;
+  border: 3px solid rgba(7, 55, 126, 0.2);
+  background: rgba(255, 234, 117, 0.5);
+}
+
+.community-story-card-warning li {
+  background: rgba(255, 106, 141, 0.18);
+}
+
+@media (max-width: 980px) {
+  .community-story-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .community-story-card-wide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .community-story-grid {
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .community-story-card {
+    min-height: 0;
+    padding: 28px 18px 22px;
+  }
+
+  .community-story-card h2 {
+    font-size: 28px;
+  }
+
+  .community-story-card p,
+  .community-story-card li {
+    font-size: 15px;
+    line-height: 1.7;
   }
 }
 
