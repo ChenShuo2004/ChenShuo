@@ -196,17 +196,6 @@ const projects = [
   },
 ];
 
-projects.unshift({
-  title: "销售中转",
-  tag: "远程商品 / 自动发货",
-  image: "/assets/product-line-tools.webp",
-  visualClass: "project-visual-sales",
-  icon: Lightning,
-  metric: "API 中转 / 商品销售",
-  href: "/sales-hub",
-  description: "把远程商品接进自己的销售路径，统一展示、加价、下单与自动发货。",
-});
-
 const strengths = [
   {
     icon: Compass,
