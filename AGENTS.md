@@ -14,6 +14,8 @@ For the pixel camp homepage layout, keep the large name block on the left and th
 
 For the homepage navigation, expose “代充业务” as the primary right-side navigation action linking directly to `/sales-hub`; keep the hero area focused on the “加入社群” entry.
 
+For the hero intro panel, use the provided portrait as a particle reveal: particles should gather from the left on load and lightly respond to pointer movement, while keeping the panel copy readable and respecting reduced-motion preferences.
+
 ## Durable Content Preferences
 
 Do not position Chen Shuo as "04 大学生", "04 年生", or "大学休学" on the personal website. Use the current positioning: AI 连续创业者 / 国家一级写作专家（自封）, focused on products, knowledge base, information structure, and using information gaps plus knowledge organization to build monetizable systems.

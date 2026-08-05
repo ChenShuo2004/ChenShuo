@@ -1,0 +1,51 @@
+.particle-portrait {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 3px solid var(--pixel-ink);
+  background: #042b63;
+  box-shadow: 5px 5px 0 rgba(3, 24, 58, 0.24);
+  isolation: isolate;
+}
+
+.particle-portrait::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(rgba(120, 214, 208, 0.22) 1px, transparent 1px) 0 0 / 12px 12px,
+    linear-gradient(90deg, rgba(120, 214, 208, 0.22) 1px, transparent 1px) 0 0 / 12px 12px;
+}
+
+.particle-portrait img,
+.particle-portrait canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.particle-portrait img {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center 18%;
+  opacity: 0.16;
+  filter: saturate(1.04) contrast(1.04);
+}
+
+.particle-portrait canvas {
+  z-index: 1;
+  image-rendering: pixelated;
+}
+
+@media (max-width: 520px) {
+  .particle-portrait {
+    width: 68px;
+    height: 68px;
+  }
+}

@@ -16,6 +16,7 @@ import {
 import { useEffect, useState } from "react";
 import CardNav from "./CardNav.jsx";
 import DotField from "./DotField.jsx";
+import ParticlePortrait from "./ParticlePortrait.jsx";
 import RotatingText from "./RotatingText.jsx";
 import TextCursor from "./TextCursor.jsx";
 
@@ -1068,7 +1069,7 @@ export function App() {
             <p className="hero-community-definition">下一代的 AI 共创社群</p>
             <div className="hero-subcopy">
               <div className="hero-subcopy-head">
-                <img className="hero-subcopy-avatar" src="/assets/chen-shuo-portrait.png" alt="陈硕头像" />
+                <ParticlePortrait src="/assets/chen-shuo-portrait.png" alt="陈硕头像" />
                 <p>
                   我是一名 AI 连续创业者，也是“国家一级写作专家”（自封）。现在专注做产品、知识库和信息结构。
                 </p>
