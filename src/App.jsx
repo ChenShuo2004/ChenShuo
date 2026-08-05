@@ -43,6 +43,17 @@ const cardNavItems = [
       { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
     ],
   },
+  {
+    label: "记录",
+    bgColor: "#ff6a8d",
+    textColor: "#081827",
+    labelColor: "rgba(8, 24, 39, 0.76)",
+    shineColor: "#ffffff",
+    links: [
+      { label: "公开建造", href: "#signal", ariaLabel: "查看公开建造记录" },
+      { label: "合作联系", href: "#contact", ariaLabel: "查看合作联系入口" },
+    ],
+  },
 ];
 
 const knowledgePageNavItems = [
@@ -657,6 +668,39 @@ const adminRangeOptions = [
   { label: "30D", value: "30d" },
 ];
 
+const contentSignals = [
+  {
+    index: "01",
+    label: "写 / WRITE",
+    title: "把复杂问题写成能走的路径",
+    text: "记录 AI 产品、信息结构与个人商业化的实践，把经历沉淀成别人能理解、能复用的内容。",
+    href: "/knowledge",
+    action: "进入知识地图",
+    icon: StackSimple,
+    accent: "pink",
+  },
+  {
+    index: "02",
+    label: "做 / BUILD",
+    title: "把想法做成可访问的东西",
+    text: "工具库里放正在验证、已经上线和持续迭代的 AI 工具，让想法尽快遇到真实反馈。",
+    href: "/tools",
+    action: "查看工具库",
+    icon: Lightning,
+    accent: "teal",
+  },
+  {
+    index: "03",
+    label: "读 / READ",
+    title: "把知道缩短到做到",
+    text: "阅览室整理阅读、认知与行动入口，减少信息过载，直接进入下一步。",
+    href: "/reading",
+    action: "进入阅览室",
+    icon: Brain,
+    accent: "yellow",
+  },
+];
+
 function formatNumber(value) {
   return new Intl.NumberFormat("zh-CN").format(value || 0);
 }
@@ -1023,14 +1067,21 @@ export function App() {
             </div>
             <p className="hero-community-definition">下一代的 AI 共创社群</p>
             <div className="hero-subcopy">
-              <p>
-                我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
-              </p>
+              <div className="hero-subcopy-head">
+                <img className="hero-subcopy-avatar" src="/assets/chen-shuo-portrait.png" alt="陈硕头像" />
+                <p>
+                  我是一名 AI 连续创业者，也是“国家一级写作专家”（自封）。现在专注做产品、知识库和信息结构。
+                </p>
+              </div>
               <p className="hero-highlight">
-                <span>现在以「一个持续生长的知识产品空间」为核心，重新起航。</span>
-                <span>把工具库、阅览室和知识底图连接起来。</span>
-                <span>让想法、工具和方法持续沉淀、复用，并走向商业化。</span>
+                <span>把信息差、内容资产和工具，整理成可复用、可变现的系统。</span>
+                <span>在公开建造中，持续写、持续做、持续复盘。</span>
               </p>
+              <div className="hero-status-strip" aria-label="当前状态">
+                <span>IN PUBLIC</span>
+                <span>AI / PRODUCT / STRUCTURE</span>
+                <span>OPEN TO COLLAB</span>
+              </div>
             </div>
 
           </div>
@@ -1106,6 +1157,38 @@ export function App() {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      <section className="signal-section" id="signal">
+        <div className="signal-inner">
+          <div className="signal-heading">
+            <p className="section-kicker">IN PUBLIC / CURRENT SIGNAL</p>
+            <h2>边做边写，把经验变成可复用的入口。</h2>
+            <p>
+              这是一个还在生长中的个人工作台：写下思考，做出产品，再把有效的方法整理成下一次可以直接使用的结构。
+            </p>
+          </div>
+          <div className="signal-grid">
+            {contentSignals.map((signal) => {
+              const Icon = signal.icon;
+              return (
+                <a className={`signal-card signal-card-${signal.accent}`} href={signal.href} key={signal.index}>
+                  <div className="signal-card-top">
+                    <span>{signal.index}</span>
+                    <Icon size={27} weight="duotone" aria-hidden="true" />
+                  </div>
+                  <p className="signal-card-label">{signal.label}</p>
+                  <h3>{signal.title}</h3>
+                  <p className="signal-card-text">{signal.text}</p>
+                  <span className="signal-card-action">
+                    {signal.action}
+                    <ArrowRight size={17} weight="bold" aria-hidden="true" />
+                  </span>
+                </a>
+              );
+            })}
+          </div>
         </div>
       </section>
 
