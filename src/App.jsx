@@ -1066,17 +1066,18 @@ export function App() {
                 加入社群
               </a>
             </div>
-            <p className="hero-community-definition">下一代的 AI 共创社群</p>
+            <p className="hero-community-definition">打造全国最大的 AI 社群</p>
             <div className="hero-subcopy">
               <div className="hero-subcopy-head">
                 <ParticlePortrait src="/assets/chen-shuo-portrait.png" alt="陈硕头像" />
                 <p>
-                  我是一名 AI 连续创业者，也是“国家一级写作专家”（自封）。现在专注做产品、知识库和信息结构。
+                  我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
                 </p>
               </div>
               <p className="hero-highlight">
-                <span>把信息差、内容资产和工具，整理成可复用、可变现的系统。</span>
-                <span>在公开建造中，持续写、持续做、持续复盘。</span>
+                <span>现在以「一个持续生长的知识产品空间」为核心，重新起航。</span>
+                <span>把工具库、阅览室和知识底图连接起来。</span>
+                <span>让想法、工具和方法持续沉淀、复用，并走向商业化。</span>
               </p>
               <div className="hero-status-strip" aria-label="当前状态">
                 <span>IN PUBLIC</span>

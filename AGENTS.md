@@ -19,3 +19,5 @@ For the hero intro panel, use the provided portrait as a particle reveal: partic
 ## Durable Content Preferences
 
 Do not position Chen Shuo as "04 大学生", "04 年生", or "大学休学" on the personal website. Use the current positioning: AI 连续创业者 / 国家一级写作专家（自封）, focused on products, knowledge base, information structure, and using information gaps plus knowledge organization to build monetizable systems.
+
+首页个人介绍尽量保留原来的创业经历与“一个持续生长的知识产品空间”主线，社群定位以“打造全国最大的 AI 社群”为核心。
