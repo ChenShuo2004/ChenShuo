@@ -12,6 +12,7 @@ import {
   UserCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
+import EvilEye from "./EvilEye.jsx";
 import RotatingText from "./RotatingText.jsx";
 
 const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
@@ -861,6 +862,18 @@ export function App() {
         </div>
 
         <EditorialSiteHeader inHero activeKey="home" sectionLabel="AI / CONTENT / PRODUCT" />
+
+        <div className="editorial-hero-eye" aria-hidden="true">
+          <EvilEye
+            eyeColor="#FF744C"
+            intensity={1.25}
+            glowIntensity={0.28}
+            scale={0.78}
+            noiseScale={1.05}
+            flameSpeed={0.85}
+            backgroundColor="#F4F0E8"
+          />
+        </div>
 
         <div className="editorial-hero-inner">
           <div className="editorial-hero-copy">
