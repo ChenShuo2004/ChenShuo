@@ -5415,6 +5415,71 @@ a {
   pointer-events: none;
 }
 
+.editorial-hero-eye {
+  position: absolute;
+  top: clamp(92px, 14vh, 164px);
+  right: clamp(17%, 20vw, 25%);
+  z-index: 0;
+  width: clamp(150px, 18vw, 290px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  transform: translate3d(16px, 12px, 0) scale(0.72) rotate(-8deg);
+  animation: editorialHeroEyeIn 1100ms cubic-bezier(0.2, 0.8, 0.2, 1) 260ms forwards;
+}
+
+.editorial-hero-eye::before {
+  position: absolute;
+  inset: 17%;
+  z-index: 1;
+  content: "";
+  border: 1px solid rgba(255, 116, 76, 0.3);
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: editorialHeroEyeRing 5s ease-in-out infinite;
+}
+
+.editorial-hero-eye .evil-eye-container {
+  position: absolute;
+  inset: 0;
+}
+
+.editorial-hero-eye canvas {
+  opacity: 0.76;
+}
+
+@keyframes editorialHeroEyeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(16px, 12px, 0) scale(0.72) rotate(-8deg);
+  }
+
+  65% {
+    opacity: 0.9;
+    transform: translate3d(0, 0, 0) scale(1.04) rotate(1deg);
+  }
+
+  100% {
+    opacity: 0.78;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes editorialHeroEyeRing {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 0.72;
+  }
+}
+
 .editorial-hero-guides {
   inset: 0;
   z-index: 0;
@@ -7410,5 +7475,323 @@ body {
 
   .site-shell > .strengths-section .strength-card h3 {
     margin-top: 38px;
+  }
+}
+
+@media (max-width: 900px) {
+  .editorial-hero-eye {
+    top: 14%;
+    right: 5%;
+    width: clamp(126px, 30vw, 210px);
+  }
+}
+
+@media (max-width: 700px) {
+  .editorial-hero-eye {
+    top: 11%;
+    right: -2%;
+    width: 154px;
+    opacity: 0.58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorial-hero-eye,
+  .editorial-hero-eye::before {
+    animation: none;
+  }
+
+  .editorial-hero-eye {
+    opacity: 0.78;
+    transform: none;
+  }
+}
+
+/* Public platform signal board */
+.platform-signal-section {
+  padding: 106px clamp(24px, 5vw, 92px) 112px;
+  color: var(--editorial-ink);
+  border-top: 1px solid var(--editorial-line);
+  background: var(--editorial-paper-deep, var(--editorial-paper));
+}
+
+.platform-signal-inner {
+  width: min(100%, 1660px);
+  margin-inline: auto;
+}
+
+.platform-signal-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.52fr);
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 48px;
+}
+
+.platform-signal-heading .section-kicker {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--editorial-accent);
+  font-family: var(--editorial-mono);
+  font-size: 12px;
+  letter-spacing: 0.11em;
+}
+
+.platform-signal-heading h2 {
+  margin: 0;
+  color: var(--editorial-ink);
+  font-family: var(--editorial-display);
+  font-size: clamp(48px, 6vw, 94px);
+  font-weight: 600;
+  letter-spacing: -0.08em;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+
+.platform-signal-heading > p:last-child {
+  max-width: 430px;
+  margin: 0 0 4px;
+  color: var(--editorial-muted);
+  font-family: var(--font-cn-serif);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.platform-signal-grid {
+  border-top: 1px solid var(--editorial-ink);
+  border-left: 1px solid var(--editorial-ink);
+}
+
+.platform-signal-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.75fr) 30px;
+  align-items: center;
+  gap: clamp(18px, 4vw, 72px);
+  min-height: 138px;
+  padding: 22px 24px;
+  color: var(--editorial-ink);
+  border-right: 1px solid var(--editorial-ink);
+  border-bottom: 1px solid var(--editorial-ink);
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.platform-signal-row:hover,
+.platform-signal-row:focus-visible {
+  color: var(--editorial-paper);
+  background: var(--editorial-ink);
+}
+
+.platform-signal-identity {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 18px;
+}
+
+.platform-signal-icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--editorial-ink);
+  border: 1px solid var(--editorial-ink);
+}
+
+.platform-signal-identity > div {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.platform-signal-identity p {
+  margin: 0 0 2px;
+  color: var(--editorial-accent);
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.platform-signal-identity strong {
+  overflow: hidden;
+  color: inherit;
+  font-family: var(--font-cn-serif);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.platform-signal-identity small {
+  overflow: hidden;
+  color: var(--editorial-muted);
+  font-family: var(--editorial-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.platform-signal-data {
+  display: grid;
+  grid-template-columns: minmax(124px, 1fr) minmax(110px, 0.7fr) auto;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.platform-signal-data > strong {
+  overflow: hidden;
+  color: inherit;
+  font-family: var(--editorial-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.platform-signal-bars {
+  display: flex;
+  align-items: end;
+  justify-content: flex-start;
+  gap: 5px;
+  height: 34px;
+}
+
+.platform-signal-bars span {
+  display: block;
+  width: 7px;
+  height: var(--signal-bar-height);
+  min-height: 7px;
+  background: var(--editorial-accent);
+}
+
+.platform-signal-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--editorial-muted);
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.platform-signal-status span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--editorial-accent);
+}
+
+.platform-signal-arrow {
+  justify-self: end;
+  color: var(--editorial-ink);
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.platform-signal-row:hover .platform-signal-arrow,
+.platform-signal-row:focus-visible .platform-signal-arrow {
+  color: var(--editorial-accent);
+  transform: translate(3px, -3px);
+}
+
+.platform-signal-row:hover .platform-signal-icon,
+.platform-signal-row:focus-visible .platform-signal-icon {
+  color: var(--editorial-paper);
+  border-color: rgba(244, 240, 232, 0.66);
+}
+
+.platform-signal-row:hover .platform-signal-identity small,
+.platform-signal-row:focus-visible .platform-signal-identity small,
+.platform-signal-row:hover .platform-signal-status,
+.platform-signal-row:focus-visible .platform-signal-status {
+  color: rgba(244, 240, 232, 0.66);
+}
+
+.platform-signal-note {
+  margin: 18px 0 0;
+  color: var(--editorial-muted);
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 980px) {
+  .platform-signal-row {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr) 30px;
+    gap: 22px;
+  }
+
+  .platform-signal-data {
+    grid-template-columns: minmax(112px, 1fr) minmax(94px, 0.72fr) auto;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .platform-signal-section {
+    padding: 76px 20px 84px;
+  }
+
+  .platform-signal-heading {
+    display: block;
+    margin-bottom: 34px;
+  }
+
+  .platform-signal-heading h2 {
+    margin-top: 15px;
+    font-size: clamp(44px, 13vw, 72px);
+    white-space: normal;
+  }
+
+  .platform-signal-heading > p:last-child {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  .platform-signal-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 22px 16px;
+    min-height: 0;
+    padding: 22px 16px 24px;
+  }
+
+  .platform-signal-identity {
+    grid-column: 1 / -1;
+  }
+
+  .platform-signal-data {
+    grid-column: 1 / 2;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
+  }
+
+  .platform-signal-data > strong {
+    font-size: 12px;
+  }
+
+  .platform-signal-status {
+    display: none;
+  }
+
+  .platform-signal-arrow {
+    grid-column: 2 / 3;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .platform-signal-note {
+    font-size: 9px;
+    line-height: 1.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .platform-signal-row,
+  .platform-signal-arrow {
+    transition: none;
   }
 }

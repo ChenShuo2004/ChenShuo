@@ -34,6 +34,46 @@ final result: passed
 
 ---
 
+Platform signal board QA pass: 2026-08-06
+source visual truth path: C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-0b6a4f91-cc56-4fee-bbc2-7ed0ddb51182.png
+comparison image path: D:/coding/1.个人blog/audit/2026-08-06-platform-signal/comparison-source-implementation.jpg
+implementation screenshot path: D:/coding/1.个人blog/audit/2026-08-06-platform-signal/implementation-desktop.png
+mobile screenshot path: D:/coding/1.个人blog/audit/2026-08-06-platform-signal/implementation-mobile.png
+viewport: desktop 1280x720 CSS px, mobile 390x844 CSS px
+source pixels: 1001x802; implementation pixels: 1280x720 desktop and 390x844 mobile; device scale factor: 1; no density normalization required
+state: homepage platform signal board rendered with GitHub public API data loaded
+
+**Findings**
+- No P0/P1/P2 findings.
+- The implementation intentionally keeps the reference's warm paper canvas, serif display heading, coral metadata, thin rules, and rising data bars while reducing the list to the three platforms requested by the user.
+
+**Open Questions**
+- The user's X handle was not present in the brief or public GitHub profile. The X row currently links to `https://x.com/`, and the single `xProfileUrl` constant in `src/App.jsx` is ready for the exact profile URL when provided.
+
+**Required Fidelity Surfaces**
+- Fonts and typography: the existing Cormorant Garamond / Noto Serif SC / Oswald editorial system is reused; heading, metadata, stat labels, and row hierarchy remain consistent with the reference.
+- Spacing and layout rhythm: desktop rows are equal-height bordered bands with aligned identity, data, status, and arrow columns; mobile rows stack without clipping. Desktop `scrollWidth` is 1265 at a 1280 viewport; mobile `scrollWidth` is 375 at a 390 viewport.
+- Colors and visual tokens: the board uses the existing `#f4f0e8` paper, `#191817` ink, and `#ff744c` coral tokens; hover/focus states invert the row without changing the system.
+- Image quality and asset fidelity: no new raster assets were needed; X, Feishu, and GitHub use the existing Phosphor icon library instead of approximated artwork. The supplied halftone portrait remains unchanged.
+- Copy and content: Feishu links to the supplied wiki URL, GitHub links to `ChenShuo2004`, and GitHub shows the live public values `11 repos · 6 followers` with a fallback. The homepage contact knowledge-base link and `/knowledge` page now use Feishu; no old FlowUs links remain.
+
+**Primary Interactions Tested**
+- Platform rows expose working external `href`, `target="_blank"`, and `rel="noreferrer"` values for X, Feishu, and GitHub.
+- `/knowledge` contains three Feishu links and zero FlowUs links.
+- `npm.cmd run build` passes.
+- Fresh homepage console check reports no error logs.
+- Desktop and mobile states render with no horizontal overflow.
+
+**Comparison History**
+- Initial source/implementation comparison found no actionable P0/P1/P2 differences; no visual fix iteration was required after the captured desktop and mobile evidence.
+
+**Follow-up Polish**
+- Replace `xProfileUrl` with the user's exact X profile URL and optionally add a verified follower snapshot once the handle is confirmed.
+
+final result: passed
+
+---
+
 Full-site Sac editorial unification QA pass: 2026-08-06
 implementation screenshot path: local in-app browser captures from the fresh final preview tab
 reference source: https://sac-ai.com/ and https://github.com/Sac-Y/sac-ai.com

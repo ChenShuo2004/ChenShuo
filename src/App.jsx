@@ -1,17 +1,30 @@
 import {
   ArrowDown,
   ArrowRight,
+  ArrowUpRight,
+  BookOpenText,
   Brain,
   CubeFocus,
   EnvelopeSimple,
+  GithubLogo,
   Network,
+  XLogo,
   UserCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import RotatingText from "./RotatingText.jsx";
 
-const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
+const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
+const githubProfileUrl = "https://github.com/ChenShuo2004";
+const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
+// The X handle was not included in the brief, so keep this single line easy to replace.
+const xProfileUrl = "https://x.com/";
 const productLibraryUrl = "https://aiyouwendu.com/products";
+
+const fallbackGithubStats = {
+  value: "11 repos · 6 followers",
+  bars: [5, 7, 8, 9, 11, 12, 14],
+};
 
 const editorialNavItems = [
   { key: "home", label: "首页", english: "ABOUT", href: "/#top" },
@@ -143,6 +156,119 @@ function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT 
         <ArrowRight size={17} weight="bold" aria-hidden="true" />
       </a>
     </header>
+  );
+}
+
+function PlatformSignalsSection() {
+  const [githubStats, setGithubStats] = useState(fallbackGithubStats);
+
+  useEffect(() => {
+    let isCurrent = true;
+
+    fetch(githubApiUrl, { headers: { Accept: "application/vnd.github+json" } })
+      .then((response) => {
+        if (!response.ok) throw new Error("GitHub stats unavailable");
+        return response.json();
+      })
+      .then((profile) => {
+        if (!isCurrent) return;
+        const repos = Number.isFinite(profile.public_repos) ? profile.public_repos : 11;
+        const followers = Number.isFinite(profile.followers) ? profile.followers : 6;
+        const activity = Math.min(16, Math.max(6, Math.round(Math.log10(repos + followers + 1) * 6)));
+
+        setGithubStats({
+          value: `${repos} repos · ${followers} followers`,
+          bars: [5, 7, 8, 9, 11, 12, activity],
+        });
+      })
+      .catch(() => undefined);
+
+    return () => {
+      isCurrent = false;
+    };
+  }, []);
+
+  const signals = [
+    {
+      key: "x",
+      label: "X / TWITTER",
+      name: "X 内容入口",
+      detail: "AI / 产品 / build log",
+      value: "持续更新",
+      status: "LIVE",
+      icon: XLogo,
+      href: xProfileUrl,
+      bars: [5, 7, 8, 10, 12, 13, 15],
+    },
+    {
+      key: "feishu",
+      label: "FEISHU / WIKI",
+      name: "飞书知识库",
+      detail: "路径 / 模块 / 行动",
+      value: "持续生长",
+      status: "OPEN",
+      icon: BookOpenText,
+      href: knowledgeBaseUrl,
+      bars: [4, 5, 7, 8, 10, 11, 13],
+    },
+    {
+      key: "github",
+      label: "GITHUB / OPEN SOURCE",
+      name: "@ChenShuo2004",
+      detail: "公开项目 / 产品实验",
+      value: githubStats.value,
+      status: "LIVE",
+      icon: GithubLogo,
+      href: githubProfileUrl,
+      bars: githubStats.bars,
+    },
+  ];
+
+  return (
+    <section className="platform-signal-section" id="platforms" aria-label="全平台信号台">
+      <div className="platform-signal-inner">
+        <div className="platform-signal-heading">
+          <p className="section-kicker">NETWORK / SIGNALS</p>
+          <h2>全平台信号台</h2>
+          <p>内容、知识库和开源项目，保持在同一条公开轨道上。</p>
+        </div>
+
+        <div className="platform-signal-grid">
+          {signals.map((signal) => {
+            const Icon = signal.icon;
+
+            return (
+              <a
+                className={`platform-signal-row platform-signal-row-${signal.key}`}
+                href={signal.href}
+                key={signal.key}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className="platform-signal-identity">
+                  <span className="platform-signal-icon"><Icon size={28} weight="regular" aria-hidden="true" /></span>
+                  <div>
+                    <p>{signal.label}</p>
+                    <strong>{signal.name}</strong>
+                    <small>{signal.detail}</small>
+                  </div>
+                </div>
+                <div className="platform-signal-data">
+                  <strong>{signal.value}</strong>
+                  <div className="platform-signal-bars" aria-hidden="true">
+                    {signal.bars.map((bar, index) => <span key={`${signal.key}-${index}`} style={{ "--signal-bar-height": `${bar * 3}px` }} />)}
+                  </div>
+                  <small className="platform-signal-status"><span />{signal.status}</small>
+                </div>
+                <ArrowUpRight className="platform-signal-arrow" size={22} weight="bold" aria-hidden="true" />
+              </a>
+            );
+          })}
+        </div>
+
+        <p className="platform-signal-note">DATA // GITHUB PUBLIC API · X / FEISHU // OPEN ENTRY</p>
+      </div>
+    </section>
   );
 }
 
@@ -803,6 +929,8 @@ export function App() {
           </div>
         </div>
       </section>
+
+      <PlatformSignalsSection />
 
       <section className="contact-section" id="contact">
         <div className="contact-inner">
