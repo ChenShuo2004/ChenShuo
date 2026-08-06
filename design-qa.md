@@ -34,6 +34,33 @@ final result: passed
 
 ---
 
+Sac-inspired editorial homepage QA pass: 2026-08-06
+implementation screenshot path: local in-app browser, desktop 1816x819 and mobile 390x844
+reference image path: C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-1e03d951-e260-4177-89b4-151f048b472f.png
+state: homepage hero rebuilt as a warm editorial layout with the supplied halftone portrait; 代充业务 page and route removed
+
+**Findings**
+- No P0/P1/P2 findings.
+
+**Required Fidelity Surfaces**
+- Warm off-white canvas, thin guide lines, large serif KAI wordmark, coral community kicker, two outline actions, and oversized right-side portrait match the supplied Sac reference composition.
+- Founder positioning remains visible: AI 连续创业者、知识产品空间、工具与方法商业化。
+- `查看内容` scrolls to the product-line section and `加入社群` links to `/community`.
+- `/sales-hub` is no longer handled by a sales page component or route.
+- Desktop screenshot checked at 1816x819; mobile screenshot checked at 390x844.
+- Layout safety: desktop and mobile states report no horizontal overflow; supplied halftone portrait loads successfully.
+
+**Patches Made Since Previous QA Pass**
+- Added `public/assets/chen-shuo-halftone.png` from the user-provided portrait.
+- Replaced the homepage CardNav/pixel hero with the Sac-inspired editorial hero in `src/App.jsx` and `src/styles.css`.
+- Removed `SalesHubPage`, its route, navigation data, and copy helper from `src/App.jsx`.
+- Updated `AGENTS.md` with the durable editorial hero and removed-sales-page preferences.
+- Verified production build with `cmd.exe /d /c npm run build`.
+
+final result: passed
+
+---
+
 Homepage knowledge CTA destination QA pass: 2026-06-30
 implementation screenshot path: D:/6.个人介绍网站/qa-knowledge-cta-to-intro.png
 viewport: desktop 1440x1000

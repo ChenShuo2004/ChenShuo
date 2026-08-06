@@ -8,13 +8,15 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## Durable Prototype Design Preferences
 
-For the pixel camp homepage style, keep the hero name smaller and highly readable: desktop Chinese title should resolve around 70px, English subtitle around 20px, using a light title fill with a dark pixel outline/shadow instead of low-contrast yellow/orange layering.
+For the homepage editorial style, use a warm off-white Sac-inspired layout with a large serif KAI wordmark, restrained typography, thin guide lines, and a coral accent.
 
-For the pixel camp homepage layout, keep the large name block on the left and the intro copy panel on the right on desktop. Keep the hero content high enough that the three core entry cards are visible in the first viewport.
+For the homepage editorial layout, keep the founder copy and two outline actions on the left, with the provided halftone portrait large on the right; keep the first viewport focused on this introduction.
 
 For the homepage navigation, do not expose a right-side business CTA; keep the hero area focused on the “加入社群” entry.
 
-For the hero intro panel, use the provided portrait as a particle reveal: particles should gather from the left on load and lightly respond to pointer movement, while keeping the panel copy readable and respecting reduced-motion preferences.
+For the hero visual, use the provided halftone portrait as the source image and keep motion subtle, optional, and respectful of reduced-motion preferences.
+
+The 代充业务 page and its `/sales-hub` route should remain deleted; do not restore or expose that business flow from the homepage.
 
 ## Durable Content Preferences
 

@@ -7,55 +7,17 @@ import {
   EnvelopeSimple,
   Lightning,
   Network,
-  Play,
-  Sparkle,
   StackSimple,
   Strategy,
   UserCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import CardNav from "./CardNav.jsx";
-import DotField from "./DotField.jsx";
-import ParticlePortrait from "./ParticlePortrait.jsx";
 import RotatingText from "./RotatingText.jsx";
 import TextCursor from "./TextCursor.jsx";
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productLibraryUrl = "https://aiyouwendu.com/products";
-
-const cardNavItems = [
-  {
-    label: "经历",
-    bgColor: "#090a0a",
-    textColor: "#f6f6f1",
-    labelColor: "rgba(246, 246, 241, 0.82)",
-    links: [
-      { label: "个人介绍", href: "#top", ariaLabel: "查看个人介绍" },
-    ],
-  },
-  {
-    label: "系统",
-    bgColor: "#0f5fb8",
-    textColor: "#f6f6f1",
-    labelColor: "rgba(246, 246, 241, 0.84)",
-    links: [
-      { label: "工具库", href: "/tools", ariaLabel: "查看工具库说明" },
-      { label: "阅览室", href: "/reading", ariaLabel: "查看阅览室说明" },
-      { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
-    ],
-  },
-  {
-    label: "记录",
-    bgColor: "#ff6a8d",
-    textColor: "#081827",
-    labelColor: "rgba(8, 24, 39, 0.76)",
-    shineColor: "#ffffff",
-    links: [
-      { label: "公开建造", href: "#signal", ariaLabel: "查看公开建造记录" },
-      { label: "合作联系", href: "#contact", ariaLabel: "查看合作联系入口" },
-    ],
-  },
-];
 
 const knowledgePageNavItems = [
   {
@@ -88,30 +50,6 @@ const knowledgePageNavItems = [
     links: [
       { label: "打开知识库", href: knowledgeBaseUrl, ariaLabel: "打开陈硕的 FlowUs 知识库" },
       { label: "进入产品库", href: productLibraryUrl, ariaLabel: "打开产品库" },
-    ],
-  },
-];
-
-const salesHubNavItems = [
-  {
-    label: "当前页面",
-    bgColor: "#090a0a",
-    textColor: "#f6f6f1",
-    labelColor: "rgba(246, 246, 241, 0.82)",
-    links: [
-      { label: "返回首页", href: "/", ariaLabel: "返回个人网站首页" },
-      { label: "销售中转", href: "#sales-hub", ariaLabel: "查看销售中转页面" },
-    ],
-  },
-  {
-    label: "快速入口",
-    bgColor: "#0f5fb8",
-    textColor: "#f6f6f1",
-    labelColor: "rgba(246, 246, 241, 0.84)",
-    links: [
-      { label: "商品目录", href: "#catalog", ariaLabel: "查看商品目录" },
-      { label: "对接流程", href: "#how-it-works", ariaLabel: "查看对接流程" },
-      { label: "对接教程", href: "https://web3chirou.com/usage-docs/tutorial-faka-docking.html", ariaLabel: "打开完整对接教程" },
     ],
   },
 ];
@@ -446,95 +384,6 @@ function ReadingRoomPage() {
             </article>
           </div>
         </div>
-      </section>
-    </main>
-  );
-}
-
-function CopyableEndpoint({ label, value }) {
-  const [copied, setCopied] = useState(false);
-
-  async function copyValue() {
-    try {
-      await navigator.clipboard.writeText(value);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1600);
-    } catch {
-      setCopied(false);
-    }
-  }
-
-  return (
-    <div className="sales-endpoint-row">
-      <div>
-        <span>{label}</span>
-        <code>{value}</code>
-      </div>
-      <button type="button" onClick={copyValue}>{copied ? "已复制" : "复制"}</button>
-    </div>
-  );
-}
-
-function SalesHubPage() {
-  const [wechatCopied, setWechatCopied] = useState(false);
-  const products = [
-    { name: "ChatGPT Plus 1个月开通", price: "178.00", oldPrice: "199.00", badge: "Plus", accent: "green", note: "支付成功后添加微信，确认开通信息。" },
-    { name: "GPT 5X 开通", price: "758.00", oldPrice: "798.00", badge: "5X", accent: "cyan", note: "支付成功后添加微信，确认开通信息。" },
-    { name: "GPT 20X 开通", price: "1399.00", oldPrice: "", badge: "20X", accent: "purple", note: "支付成功后添加微信，确认开通信息。" },
-    { name: "X Premium 蓝V开通", price: "210.00", oldPrice: "", badge: "Premium", accent: "blue", note: "Premium与Premium+共4规格，添加微信咨询。" },
-  ];
-
-  const scrollToPurchase = (event) => {
-    event.preventDefault();
-    document.querySelector("#wechat-purchase")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <main className="site-shell sales-store-page" id="sales-hub">
-      <section className="knowledge-page-top sales-store-top" id="top" aria-label="商品销售页面导航">
-        <CardNav
-          className="poster-card-nav"
-          items={[{ label: "商品列表", href: "#products", ariaLabel: "查看商品列表" }, { label: "购买方式", href: "#wechat-purchase", ariaLabel: "查看购买方式" }]}
-          brandMark="CS"
-          brandLabel="CHEN SHUO"
-          brandKicker="AI ACCESS / DIGITAL GOODS"
-          baseColor="rgba(246, 246, 241, 0.94)"
-          menuColor="#081827"
-          buttonBgColor="#071c33"
-          buttonTextColor="#f6f6f1"
-          backHref="/"
-          backLabel="返回首页"
-          actionItems={[]}
-          ctaLabel="添加微信"
-          ctaHref="#wechat-purchase"
-          onLinkClick={scrollToSection}
-        />
-      </section>
-
-      <section className="sales-store-hero">
-        <div>
-          <p className="section-kicker">DIGITAL GOODS / SIMPLE PURCHASE</p>
-          <h1>需要什么，<span>直接问我。</span></h1>
-          <p>商品价格已经列好，选择商品后添加微信确认即可。没有复杂流程，先沟通，再购买。</p>
-        </div>
-        <a className="sales-wechat-pill" href="#wechat-purchase" onClick={scrollToPurchase}><span>微信购买</span><strong>Chen18005977213</strong><ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-      </section>
-
-      <section className="sales-products-section" id="products">
-        <div className="sales-store-heading"><p className="section-kicker">AVAILABLE NOW</p><h2>现在可以购买的商品</h2><p>价格以页面展示为准，库存和具体开通方式请添加微信确认。</p></div>
-        <div className="sales-store-grid">
-          {products.map((product) => (
-            <article className={`sales-store-card sales-store-card-${product.accent}`} key={product.name}>
-              <div className="sales-store-image" aria-hidden="true"><span className="sales-store-orbit" /><strong>{product.badge}</strong><small>{product.accent === "blue" ? "X" : "GPT"}</small></div>
-              <div className="sales-store-card-body"><p className="sales-store-category">分类 · 数字服务</p><h3>{product.name}</h3><div className="sales-store-badges"><span>添加微信</span><span>购买前咨询</span></div><p className="sales-store-note">{product.note}</p><div className="sales-store-price"><div><span>价格</span><strong>¥ {product.price} CNY</strong>{product.oldPrice && <del>¥ {product.oldPrice} CNY</del>}</div><a href="#wechat-purchase" onClick={scrollToPurchase} aria-label={`购买${product.name}`}>购买 <ArrowRight size={15} weight="bold" aria-hidden="true" /></a></div></div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="sales-purchase-section" id="wechat-purchase">
-        <div><p className="section-kicker">HOW TO BUY</p><h2>添加微信，向我购买</h2><p>告诉我你要购买的商品名称，我会确认库存、开通方式和付款信息。</p></div>
-        <div className="sales-purchase-contact"><span>微信号</span><strong>Chen18005977213</strong><button type="button" onClick={async () => { try { await navigator.clipboard.writeText("Chen18005977213"); setWechatCopied(true); window.setTimeout(() => setWechatCopied(false), 1800); } catch {} }}>{wechatCopied ? "已复制" : "复制微信号"}</button></div>
       </section>
     </main>
   );
@@ -969,7 +818,6 @@ export function App() {
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
   const isCommunityPage = normalizedPath === "/community";
-  const isSalesHubPage = normalizedPath === "/sales-hub";
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
     return <AdminPage />;
@@ -991,139 +839,88 @@ export function App() {
     return <CommunityPage />;
   }
 
-  if (isSalesHubPage) {
-    return <SalesHubPage />;
-  }
-
-
   return (
     <main className="site-shell">
-      <section className="hero hero-poster" id="top" aria-label="陈硕个人介绍">
-        <div className="hero-media" aria-hidden="true">
-          <img src="/assets/hero-cinematic-reference.jpg" alt="" fetchPriority="high" decoding="async" />
-          <div className="hero-dot-field">
-            <DotField
-              dotRadius={2.2}
-              dotSpacing={17}
-              bulgeStrength={72}
-              glowRadius={210}
-              sparkle
-              waveAmplitude={1.15}
-              cursorRadius={520}
-              gradientFrom="rgba(124, 200, 255, 0.42)"
-              gradientTo="rgba(47, 125, 255, 0.34)"
-              glowColor="rgba(124, 200, 255, 0.24)"
-            />
-          </div>
-          <div className="scan-layer" />
-          <div className="motion-field">
-            <span />
-            <span />
-            <span />
-          </div>
+      <section className="hero editorial-hero" id="top" aria-label="陈硕个人介绍">
+        <div className="editorial-hero-guides" aria-hidden="true">
+          <span className="editorial-guide editorial-guide-left" />
+          <span className="editorial-guide editorial-guide-center" />
+          <span className="editorial-guide editorial-guide-right" />
         </div>
 
-        <CardNav
-          className="poster-card-nav"
-          items={cardNavItems}
-          brandMark="CS"
-          brandLabel="CHEN SHUO"
-          brandKicker="AI / CONTENT / PRODUCT"
-          baseColor="rgba(216, 236, 255, 0.94)"
-          menuColor="#081827"
-          buttonBgColor="#071c33"
-          buttonTextColor="#f6f6f1"
-          actionItems={[]}
-          onLinkClick={scrollToSection}
-        />
+        <header className="editorial-hero-header">
+          <a className="editorial-brand" href="#top">
+            <strong>KAI</strong>
+            <span>CHEN SHUO</span>
+          </a>
+        </header>
 
-        <div className="hero-stage">
-          <aside className="poster-rail" aria-label="首屏侧边信息">
-            <span className="rail-title">CHENSHUO · EPISODE 01</span>
-            <a className="rail-play" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
-              <Play size={24} weight="fill" aria-hidden="true" />
-              <span>PLAY</span>
-            </a>
-            <span className="rail-caption">AI / PRODUCT / SYSTEM</span>
-          </aside>
-
-          <div className="poster-copy">
-            <div className="episode-mark">
-              <span>01</span>
-              <i />
-              <span>AI</span>
-            </div>
-            <div className="eyebrow">
-              <Sparkle size={17} weight="fill" aria-hidden="true" />
-              PERSONAL PROFILE
-            </div>
-            <h1>
-              陈硕
-              <span>CHEN SHUO</span>
-            </h1>
-            <div className="hero-entry-actions" aria-label="主要入口">
-              <a className="hero-community-label" href="/community">
+        <div className="editorial-hero-inner">
+          <div className="editorial-hero-copy">
+            <h1>KAI</h1>
+            <p className="editorial-kicker"><span aria-hidden="true" />打造全国最大的 AI 社群</p>
+            <p className="editorial-lede">
+              一个持续生长的知识产品空间
+              <span>把想法、工具和方法，沉淀成可复用、可商业化的系统。</span>
+            </p>
+            <p className="editorial-bio">
+              我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
+            </p>
+            <div className="editorial-actions" aria-label="主要入口">
+              <a href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
+                查看内容
+                <ArrowRight size={18} weight="bold" aria-hidden="true" />
+              </a>
+              <a href="/community">
                 加入社群
+                <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
-            <p className="hero-community-definition">打造全国最大的 AI 社群</p>
-            <div className="hero-subcopy">
-              <div className="hero-subcopy-head">
-                <ParticlePortrait src="/assets/chen-shuo-portrait.png" alt="陈硕头像" />
-                <p>
-                  我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
-                </p>
-              </div>
-              <p className="hero-highlight">
-                <span>现在以「一个持续生长的知识产品空间」为核心，重新起航。</span>
-                <span>把工具库、阅览室和知识底图连接起来。</span>
-                <span>让想法、工具和方法持续沉淀、复用，并走向商业化。</span>
-              </p>
-              <div className="hero-status-strip" aria-label="当前状态">
-                <span>IN PUBLIC</span>
-                <span>AI / PRODUCT / STRUCTURE</span>
-                <span>OPEN TO COLLAB</span>
-              </div>
-            </div>
-
           </div>
 
-          <aside className="hero-project-lines" id="projects" aria-label="作品线">
-            <p className="section-kicker">PRODUCT LINES</p>
-            <h2>知识产品空间</h2>
-            <div className="hero-system-frame">
-              <div className="hero-project-list">
-                {projects.map((project, index) => {
-                const Icon = project.icon;
-                return (
-                  <a
-                    className="hero-project-item"
-                    href={project.href}
-                    key={project.title}
-                    target={project.external ? "_blank" : undefined}
-                    rel={project.external ? "noreferrer" : undefined}
-                  >
-                    <span className="hero-project-index">0{index + 1}</span>
-                    <div>
-                      <strong>
-                        <Icon size={18} weight="duotone" aria-hidden="true" />
-                        {project.title}
-                      </strong>
-                      <em>{project.metric}</em>
-                      <p>{project.description}</p>
-                    </div>
-                  </a>
-                );
-                })}
-              </div>
-            </div>
-          </aside>
+          <figure className="editorial-portrait">
+            <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" fetchPriority="high" decoding="async" />
+          </figure>
         </div>
 
-        <a className="scroll-cue" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
-          <ArrowDown size={18} weight="bold" aria-hidden="true" />
-          向下
+        <a className="editorial-scroll" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
+          <span>SCROLL TO EXPLORE</span>
+          <ArrowDown size={17} weight="bold" aria-hidden="true" />
         </a>
+      </section>
+
+      <section className="editorial-projects-section" id="projects" aria-label="知识产品空间">
+        <div className="editorial-projects-heading">
+          <p className="section-kicker">PRODUCT LINES</p>
+          <h2>知识产品空间</h2>
+          <p>工具库、阅览室和知识地图，连接成一个持续生长的工作台。</p>
+        </div>
+        <div className="hero-system-frame">
+          <div className="hero-project-list">
+            {projects.map((project, index) => {
+              const Icon = project.icon;
+              return (
+                <a
+                  className="hero-project-item"
+                  href={project.href}
+                  key={project.title}
+                  target={project.external ? "_blank" : undefined}
+                  rel={project.external ? "noreferrer" : undefined}
+                >
+                  <span className="hero-project-index">0{index + 1}</span>
+                  <div>
+                    <strong>
+                      <Icon size={18} weight="duotone" aria-hidden="true" />
+                      {project.title}
+                    </strong>
+                    <em>{project.metric}</em>
+                    <p>{project.description}</p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
       </section>
 
       <section className="strengths-section" id="strengths">
