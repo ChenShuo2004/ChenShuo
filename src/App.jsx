@@ -118,7 +118,7 @@ function scrollToSection(event, href) {
   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
 }
 
-function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "加入社群", actionHref = "/community", inHero = false }) {
+function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "愿景", actionHref = "/community", inHero = false }) {
   return (
     <header className={`editorial-site-header ${inHero ? "editorial-site-header-hero" : ""}`}>
       <a className="editorial-site-brand" href="/" aria-label="返回陈硕个人网站首页">
