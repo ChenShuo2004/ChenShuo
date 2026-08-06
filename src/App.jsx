@@ -1033,7 +1033,7 @@ export function App() {
           menuColor="#081827"
           buttonBgColor="#071c33"
           buttonTextColor="#f6f6f1"
-          actionItems={[{ label: "代充业务", href: "/sales-hub", variant: "primary-dark" }]}
+          actionItems={[]}
           onLinkClick={scrollToSection}
         />
 

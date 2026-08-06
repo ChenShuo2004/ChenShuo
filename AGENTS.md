@@ -12,7 +12,7 @@ For the pixel camp homepage style, keep the hero name smaller and highly readabl
 
 For the pixel camp homepage layout, keep the large name block on the left and the intro copy panel on the right on desktop. Keep the hero content high enough that the three core entry cards are visible in the first viewport.
 
-For the homepage navigation, expose “代充业务” as the primary right-side navigation action linking directly to `/sales-hub`; keep the hero area focused on the “加入社群” entry.
+For the homepage navigation, do not expose a right-side business CTA; keep the hero area focused on the “加入社群” entry.
 
 For the hero intro panel, use the provided portrait as a particle reveal: particles should gather from the left on load and lightly respond to pointer movement, while keeping the panel copy readable and respecting reduced-motion preferences.
 
