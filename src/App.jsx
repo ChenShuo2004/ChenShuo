@@ -413,15 +413,32 @@ function PlatformSignalsSection() {
       pageHref: "/github",
       bars: githubStats.bars,
     },
+    {
+      key: "community",
+      label: "COMMUNITY / AI",
+      name: "全国 AI 社群",
+      detail: "AI / 内容 / 产品",
+      value: "9.9 元 / 年",
+      status: "OPEN",
+      icon: UserCircle,
+      href: "/community",
+      pageHref: "/community",
+      bars: [4, 6, 7, 9, 11, 12, 14],
+    },
   ];
 
   return (
     <section className="platform-signal-section" id="platforms" aria-label="全平台信号台">
       <div className="platform-signal-inner">
         <div className="platform-signal-heading">
-          <p className="section-kicker">NETWORK / SIGNALS</p>
-          <h2>全平台信号台</h2>
-          <p>内容、知识库和开源项目，保持在同一条公开轨道上。</p>
+          <div className="platform-signal-heading-title">
+            <p className="section-kicker">NETWORK / SIGNALS</p>
+            <h2>全平台信号台</h2>
+          </div>
+          <div className="platform-signal-heading-side">
+            <span>LIVE / OPEN</span>
+            <p>内容、知识库、开源项目和 AI 社群，保持在同一条公开轨道上。</p>
+          </div>
         </div>
 
         <div className="platform-signal-grid">
@@ -1142,44 +1159,77 @@ export function App() {
 
       <section className="contact-section" id="contact">
         <div className="contact-inner">
-          <div className="contact-copy">
-            <p className="section-kicker">CONTACT</p>
-            <h2>
-              把个人经历，做成一个能被
-              <RotatingText
-                texts={["看见", "理解"]}
-                mainClassName="contact-rotating-text"
-                splitLevelClassName="contact-rotating-word"
-                elementLevelClassName="contact-rotating-char"
-                animatePresenceMode="sync"
-                staggerFrom="last"
-                initial={{ y: "110%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: "-120%", opacity: 0 }}
-                staggerDuration={0.022}
-                transition={{ type: "spring", damping: 30, stiffness: 420 }}
-                rotationInterval={2200}
-              />
-              、能持续生长的系统。
-            </h2>
+          <div className="contact-hero">
+            <p className="section-kicker">GET IN TOUCH / 联系</p>
+            <h2>Let's talk.</h2>
+            <p className="contact-lede">聊聊 AI、内容，或者一起搞点事情。</p>
+            <p className="contact-availability">
+              <span aria-hidden="true" />
+              当前开放合作 · Available
+            </p>
           </div>
-          <div className="contact-actions">
-            <div className="contact-wechat" aria-label="微信号">
-              <span>微信号</span>
-              <strong>Chen18005977213</strong>
+
+          <div className="contact-marquee" aria-hidden="true">
+            <div className="contact-marquee-track">
+              <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
+              <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
             </div>
-            <a href="mailto:pdqqqylqxx00321@gmail.com" className="primary-action">
-              <EnvelopeSimple size={18} weight="bold" aria-hidden="true" />
-              pdqqqylqxx00321@gmail.com
+          </div>
+
+          <div className="contact-grid" aria-label="联系陈硕">
+            <a href="mailto:pdqqqylqxx00321@gmail.com" className="contact-channel">
+              <span className="contact-channel-top">
+                <span className="contact-channel-label">EMAIL</span>
+                <EnvelopeSimple size={18} weight="regular" aria-hidden="true" />
+              </span>
+              <strong>pdqqqylqxx00321@gmail.com</strong>
+              <span className="contact-channel-meta">
+                直接邮件联系
+                <ArrowRight size={18} weight="regular" aria-hidden="true" />
+              </span>
             </a>
-            <a href="#top" className="secondary-action" onClick={(event) => scrollToSection(event, "#top")}>
-              <UserCircle size={18} weight="bold" aria-hidden="true" />
-              回到顶部
+
+            <a href={xProfileUrl} className="contact-channel" target="_blank" rel="noreferrer">
+              <span className="contact-channel-top">
+                <span className="contact-channel-label">X / TWITTER</span>
+                <XLogo size={18} weight="regular" aria-hidden="true" />
+              </span>
+              <strong>通过 X 交流</strong>
+              <span className="contact-channel-meta">
+                公开动态 / DM
+                <ArrowRight size={18} weight="regular" aria-hidden="true" />
+              </span>
             </a>
-            <a href={knowledgeBaseUrl} className="secondary-action" target="_blank" rel="noreferrer">
-              <Brain size={18} weight="bold" aria-hidden="true" />
-              打开知识库
+
+            <a href={knowledgeBaseUrl} className="contact-channel" target="_blank" rel="noreferrer">
+              <span className="contact-channel-top">
+                <span className="contact-channel-label">KNOWLEDGE BASE</span>
+                <Brain size={18} weight="regular" aria-hidden="true" />
+              </span>
+              <strong>打开知识库</strong>
+              <span className="contact-channel-meta">
+                Feishu / Structure
+                <ArrowRight size={18} weight="regular" aria-hidden="true" />
+              </span>
             </a>
+
+            <a href="/community#community-contact" className="contact-channel">
+              <span className="contact-channel-top">
+                <span className="contact-channel-label">WECHAT / 社群</span>
+                <UserCircle size={18} weight="regular" aria-hidden="true" />
+              </span>
+              <strong>Chen18005977213</strong>
+              <span className="contact-channel-meta">
+                微信咨询 / 加入社群
+                <ArrowRight size={18} weight="regular" aria-hidden="true" />
+              </span>
+            </a>
+          </div>
+
+          <div className="contact-footer-line">
+            <span>CHEN SHUO / KAI</span>
+            <a href="#top" onClick={(event) => scrollToSection(event, "#top")}>回到顶部 ↑</a>
+            <span>AI · CONTENT · PRODUCT</span>
           </div>
         </div>
       </section>

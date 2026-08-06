@@ -8969,3 +8969,254 @@ body {
     transition: none;
   }
 }
+/* Platform signal side rail */
+.platform-signal-section {
+  position: relative;
+  padding: clamp(86px, 8vw, 140px) clamp(20px, 2.7vw, 48px) clamp(92px, 8vw, 128px);
+  background: var(--editorial-paper);
+}
+
+.platform-signal-section::before {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  border-left: 1px solid var(--editorial-line-soft);
+  content: "";
+  pointer-events: none;
+}
+
+.platform-signal-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  column-gap: clamp(36px, 7vw, 126px);
+  width: min(100%, 1660px);
+  margin-left: auto;
+}
+
+.platform-signal-heading,
+.platform-signal-grid,
+.platform-signal-note {
+  grid-column: 2;
+}
+
+.platform-signal-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 0.55fr);
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.platform-signal-heading-title {
+  min-width: 0;
+}
+
+.platform-signal-heading .section-kicker {
+  grid-column: auto;
+  margin: 0 0 14px;
+}
+
+.platform-signal-heading h2 {
+  font-size: clamp(42px, 4.4vw, 72px);
+  line-height: 0.92;
+}
+
+.platform-signal-heading-side {
+  display: grid;
+  align-self: end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.platform-signal-heading-side > span {
+  justify-self: end;
+  color: var(--editorial-accent);
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.platform-signal-heading-side > p {
+  max-width: 280px;
+  margin: 0 0 2px auto;
+  color: var(--editorial-muted);
+  font-family: var(--font-cn-serif);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.platform-signal-grid {
+  border-top: 1px solid var(--editorial-ink);
+  border-left: 0;
+}
+
+.platform-signal-row {
+  grid-template-columns: 48px minmax(0, 1fr) minmax(82px, auto) 74px 48px 18px;
+  gap: 14px;
+  min-height: 82px;
+  padding: 14px 0;
+  border-right: 0;
+}
+
+.platform-signal-identity,
+.platform-signal-data {
+  display: contents;
+}
+
+.platform-signal-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: var(--editorial-paper);
+  border: 0;
+  border-radius: 9px;
+  background: var(--editorial-ink);
+}
+
+.platform-signal-row-x .platform-signal-icon {
+  background: var(--editorial-ink);
+}
+
+.platform-signal-row-feishu .platform-signal-icon {
+  background: #47a9dc;
+}
+
+.platform-signal-row-github .platform-signal-icon {
+  background: #77736b;
+}
+
+.platform-signal-row-community .platform-signal-icon {
+  background: var(--editorial-accent);
+}
+
+.platform-signal-identity > div {
+  display: grid;
+  grid-column: 2;
+  align-self: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.platform-signal-identity p {
+  margin: 0;
+  font-size: 9px;
+}
+
+.platform-signal-identity strong {
+  font-size: 17px;
+}
+
+.platform-signal-identity small {
+  font-size: 10px;
+}
+
+.platform-signal-data > strong {
+  grid-column: 3;
+  align-self: center;
+  font-size: 11px;
+}
+
+.platform-signal-bars {
+  grid-column: 4;
+  align-self: center;
+  height: 28px;
+  gap: 4px;
+}
+
+.platform-signal-bars span {
+  width: 6px;
+}
+
+.platform-signal-status {
+  grid-column: 5;
+  justify-self: end;
+  align-self: center;
+  font-size: 9px;
+}
+
+.platform-signal-arrow {
+  grid-column: 6;
+  align-self: center;
+}
+
+.platform-signal-note {
+  margin-top: 16px;
+}
+
+@media (max-width: 980px) {
+  .platform-signal-section::before {
+    display: none;
+  }
+
+  .platform-signal-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .platform-signal-heading,
+  .platform-signal-grid,
+  .platform-signal-note {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 700px) {
+  .platform-signal-section {
+    padding: 76px 20px 84px;
+  }
+
+  .platform-signal-heading {
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  .platform-signal-heading h2 {
+    margin-top: 12px;
+    font-size: clamp(44px, 13vw, 72px);
+    white-space: nowrap;
+  }
+
+  .platform-signal-heading-side {
+    margin-top: 20px;
+  }
+
+  .platform-signal-heading-side > span {
+    justify-self: start;
+  }
+
+  .platform-signal-heading-side > p {
+    max-width: none;
+    margin-left: 0;
+    font-size: 14px;
+  }
+
+  .platform-signal-row {
+    grid-template-columns: 46px minmax(0, 1fr) 18px;
+    gap: 12px;
+    min-height: 76px;
+  }
+
+  .platform-signal-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  .platform-signal-identity > div {
+    grid-column: 2;
+  }
+
+  .platform-signal-identity strong {
+    font-size: 16px;
+  }
+
+  .platform-signal-identity small,
+  .platform-signal-data > strong,
+  .platform-signal-bars,
+  .platform-signal-status {
+    display: none;
+  }
+
+  .platform-signal-arrow {
+    grid-column: 3;
+  }
+}

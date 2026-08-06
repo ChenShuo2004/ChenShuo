@@ -27,3 +27,4 @@ Do not position Chen Shuo as "04 大学生", "04 年生", or "大学休学" on t
 首页个人介绍尽量保留原来的创业经历与“一个持续生长的知识产品空间”主线，社群定位以“打造全国最大的 AI 社群”为核心。
 
 For the full site, use one shared Sac-inspired editorial system: warm paper canvas, black serif display type, coral metadata labels, thin rules, numbered specs, square outline actions, and one shared header. Detail pages should keep the same system while adding a clear reading hierarchy: title, metadata, long-form content grid, and return path.
+- 全平台信号台在桌面端应作为右侧紧凑信息栏呈现，使用清晰可见的平台图标和薄线列表，不再占据整屏宽度。
