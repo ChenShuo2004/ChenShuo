@@ -12,46 +12,17 @@ import {
   UserCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import CardNav from "./CardNav.jsx";
 import RotatingText from "./RotatingText.jsx";
-import TextCursor from "./TextCursor.jsx";
 
 const knowledgeBaseUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 
-const knowledgePageNavItems = [
-  {
-    label: "当前页",
-    bgColor: "#090a0a",
-    textColor: "#f6f6f1",
-    labelColor: "rgba(246, 246, 241, 0.82)",
-    links: [
-      { label: "返回首页", href: "/", ariaLabel: "返回个人网站首页" },
-      { label: "联系入口", href: "/#contact", ariaLabel: "回到首页联系陈硕" },
-    ],
-  },
-  {
-    label: "核心入口",
-    bgColor: "#0f5fb8",
-    textColor: "#f6f6f1",
-    labelColor: "rgba(246, 246, 241, 0.84)",
-    links: [
-      { label: "工具库", href: "/tools", ariaLabel: "查看工具库说明" },
-      { label: "阅览室", href: "/reading", ariaLabel: "查看阅览室说明" },
-      { label: "知识地图", href: "/knowledge", ariaLabel: "查看知识地图页面" },
-    ],
-  },
-  {
-    label: "外部入口",
-    bgColor: "#ffea75",
-    textColor: "#081827",
-    labelColor: "rgba(8, 24, 39, 0.72)",
-    shineColor: "#000000",
-    links: [
-      { label: "打开知识库", href: knowledgeBaseUrl, ariaLabel: "打开陈硕的 FlowUs 知识库" },
-      { label: "进入产品库", href: productLibraryUrl, ariaLabel: "打开产品库" },
-    ],
-  },
+const editorialNavItems = [
+  { key: "home", label: "首页", english: "ABOUT", href: "/#top" },
+  { key: "tools", label: "工具库", english: "BUILD", href: "/tools" },
+  { key: "reading", label: "阅览室", english: "READ", href: "/reading" },
+  { key: "knowledge", label: "知识地图", english: "WRITE", href: "/knowledge" },
+  { key: "community", label: "社群", english: "COMMUNITY", href: "/community" },
 ];
 
 const knowledgeOriginIntro = [
@@ -174,22 +145,40 @@ function scrollToSection(event, href) {
   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
 }
 
+function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "加入社群", actionHref = "/community", inHero = false }) {
+  return (
+    <header className={`editorial-site-header ${inHero ? "editorial-site-header-hero" : ""}`}>
+      <a className="editorial-site-brand" href="/" aria-label="返回陈硕个人网站首页">
+        <span className="editorial-site-brand-mark">CS</span>
+        <span className="editorial-site-brand-copy">
+          <strong>CHEN SHUO</strong>
+          <small>{sectionLabel}</small>
+        </span>
+      </a>
+
+      <nav className="editorial-site-nav" aria-label="站点导航">
+        {editorialNavItems.map((item) => (
+          <a className={activeKey === item.key ? "active" : ""} href={item.href} key={item.key}>
+            <span>{item.label}</span>
+            <small>{item.english}</small>
+          </a>
+        ))}
+      </nav>
+
+      <a className="editorial-site-action" href={actionHref} target={actionHref.startsWith("http") ? "_blank" : undefined} rel={actionHref.startsWith("http") ? "noreferrer" : undefined}>
+        {actionLabel}
+        <ArrowRight size={17} weight="bold" aria-hidden="true" />
+      </a>
+    </header>
+  );
+}
+
 function KnowledgeOriginSection() {
   return (
-    <section className="knowledge-section" id="knowledge-origin">
+    <section className="knowledge-section editorial-article-section" id="knowledge-origin">
       <div className="knowledge-inner">
         <div className="knowledge-title-frame">
-          <div className="knowledge-title-cursor" aria-hidden="true">
-            <TextCursor
-              text="起点"
-              spacing={72}
-              followMouseDirection
-              randomFloat
-              exitDuration={0.34}
-              removalInterval={24}
-              maxPoints={9}
-            />
-          </div>
+          <span className="editorial-index-stamp">ORIGIN / 001</span>
           <p className="section-kicker">KNOWLEDGE BASE ORIGIN</p>
           <h2>《关于这个知识库的起点》</h2>
           <div className="knowledge-title-copy">
@@ -232,185 +221,142 @@ function KnowledgeOriginSection() {
 
 function KnowledgePage() {
   return (
-    <main className="site-shell knowledge-page-shell">
-      <section className="knowledge-page-top" id="top" aria-label="知识库页面导航">
-        <CardNav
-          className="poster-card-nav"
-          items={knowledgePageNavItems}
-          brandMark="CS"
-          brandLabel="CHEN SHUO"
-          brandKicker="KNOWLEDGE / STRUCTURE"
-          baseColor="rgba(246, 246, 241, 0.93)"
-          menuColor="#080909"
-          buttonBgColor="#080909"
-          buttonTextColor="#f6f6f1"
-          backHref="/"
-          backLabel="返回首页"
-          actionItems={[]}
-          ctaLabel="打开知识库"
-          ctaHref={knowledgeBaseUrl}
-          onLinkClick={scrollToSection}
-        />
+    <main className="site-shell editorial-page editorial-knowledge-page">
+      <EditorialSiteHeader activeKey="knowledge" sectionLabel="KNOWLEDGE / STRUCTURE" actionLabel="打开知识库" actionHref={knowledgeBaseUrl} />
+      <section className="editorial-detail-hero editorial-knowledge-hero" id="top" aria-label="知识地图页面介绍">
+        <div className="editorial-detail-copy">
+          <p className="editorial-page-kicker"><span>01</span> KNOWLEDGE MAP / ORIGIN</p>
+          <h1>知识地图<span>把信息变成可执行的路径。</span></h1>
+          <p className="editorial-detail-description">
+            这里不是资料仓库，而是一个持续生长的结构外脑：把分散的内容、工具和观点，重新组织成可以理解、可以行动的路径。
+          </p>
+          <div className="editorial-detail-actions">
+            <a className="editorial-outline-action editorial-outline-action-fill" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
+              打开 FlowUs 知识库
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+            <a className="editorial-outline-action" href="/#projects">
+              返回产品空间
+            </a>
+          </div>
+        </div>
+        <aside className="editorial-spec-sheet" aria-label="知识地图规格信息">
+          <p>SPEC.001</p>
+          <dl>
+            <div><dt>FOCUS</dt><dd>信息结构 / 知识产品</dd></div>
+            <div><dt>FORMAT</dt><dd>路径 / 模块 / 行动</dd></div>
+            <div><dt>VALUE</dt><dd>从看过到可以使用</dd></div>
+            <div><dt>STATUS</dt><dd>持续生长中</dd></div>
+          </dl>
+          <span className="editorial-spec-foot">ID // CHEN SHUO / 2026</span>
+        </aside>
       </section>
       <KnowledgeOriginSection />
     </main>
   );
 }
 
-function ToolsIntroPage() {
+function EditorialCollectionPage({
+  activeKey,
+  pageClass,
+  sectionLabel,
+  kicker,
+  pageNumber,
+  title,
+  subtitle,
+  small,
+  description,
+  actionLabel,
+  actionHref,
+  points,
+}) {
   return (
-    <main className="site-shell tools-intro-page">
-      <section className="knowledge-page-top" id="top" aria-label="工具库页面导航">
-        <CardNav
-          className="poster-card-nav"
-          items={knowledgePageNavItems}
-          brandMark="CS"
-          brandLabel="CHEN SHUO"
-          brandKicker="TOOLS / PRODUCT / LAB"
-          baseColor="rgba(216, 236, 255, 0.94)"
-          menuColor="#081827"
-          buttonBgColor="#071c33"
-          buttonTextColor="#f6f6f1"
-          backHref="/"
-          backLabel="返回首页"
-          actionItems={[]}
-          onLinkClick={scrollToSection}
-        />
-      </section>
-
-      <section className="tools-intro-section">
-        <div className="tools-intro-inner">
-          <p className="section-kicker">TOOLS LIBRARY</p>
-          <h1 className="tools-hero-title">
-            <span>工具库不是作品陈列</span>
-            <span>持续生长的 AI 产品实验室</span>
-            <small>验证 / 上线 / 迭代</small>
+    <main className={`site-shell editorial-page editorial-collection-page ${pageClass}`}>
+      <EditorialSiteHeader activeKey={activeKey} sectionLabel={sectionLabel} actionLabel={actionLabel} actionHref={actionHref} />
+      <section className="editorial-detail-hero editorial-collection-hero" id="top" aria-label={`${title}页面介绍`}>
+        <div className="editorial-detail-copy">
+          <p className="editorial-page-kicker"><span>{pageNumber}</span> {kicker}</p>
+          <h1>
+            <span>{title}</span>
+            <span>{subtitle}</span>
+            <small>{small}</small>
           </h1>
-          <p>
-            这里会集中放我正在验证、已经上线和持续迭代的 AI 工具、小游戏、训练器与知识产品。你可以把它理解成一个入口：先看产品方向，再进入具体工具体验。
-          </p>
-
-          <div className="tools-intro-actions">
-            <a className="primary-action" href={productLibraryUrl} target="_blank" rel="noreferrer">
-              进入工具库
+          <p className="editorial-detail-description">{description}</p>
+          <div className="editorial-detail-actions">
+            <a className="editorial-outline-action editorial-outline-action-fill" href={actionHref} target={actionHref.startsWith("http") ? "_blank" : undefined} rel={actionHref.startsWith("http") ? "noreferrer" : undefined}>
+              {actionLabel}
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
-            <a className="secondary-action" href="/" >
-              返回首页
-            </a>
-          </div>
-
-          <div className="tools-intro-points" aria-label="工具库说明">
-            <article>
-              <span>01</span>
-              <strong>产品实验</strong>
-              <p>把想法快速做成可访问的页面，用真实使用反馈判断是否继续投入。</p>
-            </article>
-            <article>
-              <span>02</span>
-              <strong>AI 工作流</strong>
-              <p>沉淀能复用的提示词、流程和自动化能力，让工具从一次性项目变成系统。</p>
-            </article>
-            <article>
-              <span>03</span>
-              <strong>可商业化入口</strong>
-              <p>每个工具都服务于更具体的需求：学习、训练、测试、内容生产或转化。</p>
-            </article>
+            <a className="editorial-outline-action" href="/#projects">返回产品空间</a>
           </div>
         </div>
+        <aside className="editorial-spec-sheet" aria-label={`${title}页面规格信息`}>
+          <p>SPEC.{pageNumber}</p>
+          <dl>
+            {points.map((point, index) => (
+              <div key={point.title}>
+                <dt>0{index + 1}</dt>
+                <dd><strong>{point.title}</strong><span>{point.text}</span></dd>
+              </div>
+            ))}
+          </dl>
+          <span className="editorial-spec-foot">ID // CHEN SHUO / 2026</span>
+        </aside>
       </section>
     </main>
+  );
+}
+
+function ToolsIntroPage() {
+  return (
+    <EditorialCollectionPage
+      activeKey="tools"
+      pageClass="editorial-tools-page"
+      sectionLabel="TOOLS / PRODUCT / LAB"
+      kicker="TOOLS LIBRARY / PRODUCT LAB"
+      pageNumber="02"
+      title="工具库不是作品陈列"
+      subtitle="持续生长的 AI 产品实验室"
+      small="验证 / 上线 / 迭代"
+      description="这里会集中放我正在验证、已经上线和持续迭代的 AI 工具、小游戏、训练器与知识产品。先看产品方向，再进入具体工具体验。"
+      actionLabel="进入工具库"
+      actionHref={productLibraryUrl}
+      points={[
+        { title: "产品实验", text: "把想法快速做成可访问的页面，用真实使用反馈判断是否继续投入。" },
+        { title: "AI 工作流", text: "沉淀能复用的提示词、流程和自动化能力，让工具从一次性项目变成系统。" },
+        { title: "可商业化入口", text: "每个工具都服务于学习、训练、测试、内容生产或转化等具体需求。" },
+      ]}
+    />
   );
 }
 
 function ReadingRoomPage() {
   return (
-    <main className="site-shell reading-intro-page">
-      <section className="knowledge-page-top" id="top" aria-label="阅览室页面导航">
-        <CardNav
-          className="poster-card-nav"
-          items={knowledgePageNavItems}
-          brandMark="CS"
-          brandLabel="CHEN SHUO"
-          brandKicker="READING / GROWTH / SYSTEM"
-          baseColor="rgba(246, 246, 241, 0.93)"
-          menuColor="#081827"
-          buttonBgColor="#071c33"
-          buttonTextColor="#f6f6f1"
-          backHref="/"
-          backLabel="返回首页"
-          actionItems={[]}
-          onLinkClick={scrollToSection}
-        />
-      </section>
-
-      <section className="tools-intro-section reading-intro-section">
-        <div className="tools-intro-inner">
-          <p className="section-kicker">YOU WENDU READING ROOM</p>
-          <h1 className="reading-hero-title">
-            <span>有温度阅览室</span>
-            <span>把“知道”缩短到“做到”</span>
-            <small>个人成长系统</small>
-          </h1>
-          <p>
-            这里不是普通资料库，而是我整理给自己的长期阅读入口：从心理、认知到行动方法，帮助你理解自己、改变状态，并把学习变成可执行的下一步。
-          </p>
-
-          <div className="tools-intro-actions">
-            <a className="primary-action" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
-              进入阅览室
-              <ArrowRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-            <a className="secondary-action" href="/" >
-              返回首页
-            </a>
-          </div>
-
-          <div className="tools-intro-points" aria-label="阅览室说明">
-            <article>
-              <span>01</span>
-              <strong>从这里开始</strong>
-              <p>第一次进入时，先按推荐路径理解情绪、拖延、注意力、行动力和判断偏差。</p>
-            </article>
-            <article>
-              <span>02</span>
-              <strong>推荐与专题</strong>
-              <p>把值得反复阅读的主题整理成入口，减少信息过载，直接进入关键问题。</p>
-            </article>
-            <article>
-              <span>03</span>
-              <strong>个人成长系统</strong>
-              <p>用结构化阅读连接知识、练习和工具，让内容最终服务于行动和改变。</p>
-            </article>
-          </div>
-        </div>
-      </section>
-    </main>
+    <EditorialCollectionPage
+      activeKey="reading"
+      pageClass="editorial-reading-page"
+      sectionLabel="READING / GROWTH / SYSTEM"
+      kicker="YOU WENDU / READING ROOM"
+      pageNumber="03"
+      title="有温度阅览室"
+      subtitle="把“知道”缩短到“做到”"
+      small="个人成长系统"
+      description="这里不是普通资料库，而是我整理给自己的长期阅读入口：从心理、认知到行动方法，帮助你理解自己、改变状态，并把学习变成可执行的下一步。"
+      actionLabel="进入阅览室"
+      actionHref={knowledgeBaseUrl}
+      points={[
+        { title: "从这里开始", text: "按推荐路径理解情绪、拖延、注意力、行动力和判断偏差。" },
+        { title: "推荐与专题", text: "把值得反复阅读的主题整理成入口，减少信息过载，直接进入关键问题。" },
+        { title: "个人成长系统", text: "用结构化阅读连接知识、练习和工具，让内容最终服务于行动和改变。" },
+      ]}
+    />
   );
 }
 
 function CommunityPage() {
   return (
-    <main className="site-shell community-page">
-      <section className="knowledge-page-top" id="top" aria-label="加入社群页面导航">
-        <CardNav
-          className="poster-card-nav"
-          items={knowledgePageNavItems}
-          brandMark="CS"
-          brandLabel="CHEN SHUO"
-          brandKicker="COMMUNITY / PRACTICE / GROWTH"
-          baseColor="rgba(246, 246, 241, 0.93)"
-          menuColor="#081827"
-          buttonBgColor="#071c33"
-          buttonTextColor="#f6f0cf"
-          backHref="/"
-          backLabel="返回首页"
-          actionItems={[]}
-          ctaLabel="添加微信咨询"
-          ctaHref="/#top"
-          onLinkClick={scrollToSection}
-        />
-      </section>
+    <main className="site-shell editorial-page editorial-community-page community-page">
+      <EditorialSiteHeader activeKey="community" sectionLabel="COMMUNITY / PRACTICE / GROWTH" actionLabel="添加微信咨询" actionHref="#community-contact" />
 
       <section className="community-intro-section">
         <div className="community-intro-inner">
@@ -428,7 +374,7 @@ function CommunityPage() {
             </a>
           </div>
 
-          <aside className="community-price-card" aria-label="社群价格">
+          <aside className="community-price-card" id="community-contact" aria-label="社群价格">
             <span>COMMUNITY ACCESS</span>
             <strong>¥99</strong>
             <p>社群准入</p>
@@ -848,12 +794,7 @@ export function App() {
           <span className="editorial-guide editorial-guide-right" />
         </div>
 
-        <header className="editorial-hero-header">
-          <a className="editorial-brand" href="#top">
-            <strong>KAI</strong>
-            <span>CHEN SHUO</span>
-          </a>
-        </header>
+        <EditorialSiteHeader inHero activeKey="home" sectionLabel="AI / CONTENT / PRODUCT" />
 
         <div className="editorial-hero-inner">
           <div className="editorial-hero-copy">

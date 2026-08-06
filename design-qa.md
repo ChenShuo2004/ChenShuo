@@ -34,6 +34,35 @@ final result: passed
 
 ---
 
+Full-site Sac editorial unification QA pass: 2026-08-06
+implementation screenshot path: local in-app browser captures from the fresh final preview tab
+reference source: https://sac-ai.com/ and https://github.com/Sac-Y/sac-ai.com
+viewport: desktop 1280x900, mobile 390x844
+state: shared editorial shell and detail-page system applied to the homepage, tools, reading room, knowledge map, and community routes
+
+**Findings**
+- No P0/P1/P2 findings.
+
+**Required Fidelity Surfaces**
+- Shared header: all five routes use the same CS mark, bilingual navigation, active-section marker, and outline action.
+- Editorial language: warm paper canvas, black serif display type, coral section labels, thin rules, numbered metadata, and square/outline actions are consistent across home and details.
+- Detail hierarchy: tools, reading room, knowledge map, and community pages each use a title hero, specification panel or access panel, clear actions, and responsive content sections.
+- Knowledge detail: the origin section keeps a long-form reading rhythm with a large title, two-column copy, numbered content blocks, and a quote treatment.
+- Layout safety: desktop and mobile checks report no horizontal overflow on all five routes.
+- Interaction safety: home content CTA reaches the product-lines section; header links preserve route or external knowledge-base destinations; community CTA reaches the contact card.
+- Fresh preview console: no runtime errors were reported after the final reload.
+
+**Patches Made Since Previous QA Pass**
+- Replaced the old route-specific pixel navigation with a reusable editorial header.
+- Rebuilt tools, reading room, knowledge map, and community detail shells around one Sac-inspired information hierarchy.
+- Unified the homepage strengths, signal, and contact sections with the same paper, rule, serif, and coral system.
+- Added mobile-safe header wrapping, type scaling, action sizing, and content grids.
+- Verified production build with `npm run build`.
+
+final result: passed
+
+---
+
 Knowledge product heading QA pass: 2026-08-06
 state: “知识产品空间” adjusted to a single line in the product-lines section
 viewport: desktop 1280px and mobile 390x844
