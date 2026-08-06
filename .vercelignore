@@ -1,0 +1,11 @@
+# Local dependency and build caches
+.npm-cache/
+node_modules/
+dist/
+.vite/
+.vercel/
+
+# Local QA artifacts and runtime logs
+audit/
+design-qa.md
+*.log
