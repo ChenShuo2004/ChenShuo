@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import EvilEye from "./EvilEye.jsx";
 
 const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
+const readingRoomUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const githubProfileUrl = "https://github.com/ChenShuo2004";
 const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
 const githubEventsApiUrl = "https://api.github.com/users/ChenShuo2004/events/public?per_page=10";
@@ -42,7 +43,7 @@ const fallbackGithubActivity = [
 const editorialNavItems = [
   { key: "home", label: "首页", english: "ABOUT", href: "/#top" },
   { key: "tools", label: "工具库", english: "BUILD", href: "/tools" },
-  { key: "reading", label: "阅览室", english: "READ", href: "/reading" },
+  { key: "reading", label: "阅览室", english: "READ", href: readingRoomUrl },
   { key: "knowledge", label: "知识地图", english: "WRITE", href: "/knowledge" },
   { key: "community", label: "社群", english: "COMMUNITY", href: "/community" },
 ];
@@ -122,7 +123,8 @@ const projects = [
     visualClass: "project-visual-reading",
     icon: Brain,
     metric: "阅读 / 认知 / 行动",
-    href: "/reading",
+    href: readingRoomUrl,
+    external: true,
     description:
       "把心理、认知和行动方法整理成入口，帮助把“知道”缩短到“做到”。",
   },
@@ -157,7 +159,13 @@ function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT 
 
       <nav className="editorial-site-nav" aria-label="站点导航">
         {editorialNavItems.map((item) => (
-          <a className={activeKey === item.key ? "active" : ""} href={item.href} key={item.key}>
+          <a
+            className={activeKey === item.key ? "active" : ""}
+            href={item.href}
+            key={item.key}
+            target={item.href.startsWith("http") ? "_blank" : undefined}
+            rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+          >
             <span>{item.label}</span>
             <small>{item.english}</small>
           </a>
@@ -707,7 +715,7 @@ function ReadingRoomPage() {
       small="个人成长系统"
       description="这里不是普通资料库，而是我整理给自己的长期阅读入口：从心理、认知到行动方法，帮助你理解自己、改变状态，并把学习变成可执行的下一步。"
       actionLabel="进入阅览室"
-      actionHref={knowledgeBaseUrl}
+      actionHref={readingRoomUrl}
       points={[
         { title: "从这里开始", text: "按推荐路径理解情绪、拖延、注意力、行动力和判断偏差。" },
         { title: "推荐与专题", text: "把值得反复阅读的主题整理成入口，减少信息过载，直接进入关键问题。" },
