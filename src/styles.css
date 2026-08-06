@@ -6555,12 +6555,11 @@ body {
   display: none;
 }
 
-.editorial-community-page .community-intro-inner {
+.editorial-community-page .community-access-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-  padding-bottom: 84px;
-  border-bottom: 1px solid var(--editorial-line);
+  grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.7fr);
+  gap: clamp(44px, 8vw, 150px);
+  align-items: end;
 }
 
 .editorial-community-page .community-copy {
@@ -6716,13 +6715,9 @@ body {
   padding: 84px 0 130px;
 }
 
-.editorial-community-page .community-access-inner {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .editorial-community-page .community-access-section .community-price-card {
   width: min(100%, 460px);
+  justify-self: end;
 }
 
 .editorial-community-page .community-story-grid {
@@ -7247,6 +7242,11 @@ body {
     grid-template-columns: minmax(0, 1fr) minmax(270px, 0.65fr);
     gap: 42px;
   }
+
+  .editorial-community-page .community-access-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 0.65fr);
+    gap: 42px;
+  }
 }
 
 @media (max-width: 700px) {
@@ -7430,7 +7430,7 @@ body {
     padding: 68px 0 84px;
   }
 
-  .editorial-community-page .community-intro-inner,
+  .editorial-community-page .community-access-inner,
   .site-shell > .contact-section .contact-inner {
     display: flex;
     flex-direction: column;

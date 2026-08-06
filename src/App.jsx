@@ -723,23 +723,6 @@ function CommunityPage() {
       <EditorialSiteHeader activeKey="community" sectionLabel="COMMUNITY / PRACTICE / GROWTH" actionLabel="添加微信咨询" actionHref="#community-contact" />
 
       <section className="community-intro-section">
-        <div className="community-intro-inner">
-          <div className="community-copy">
-            <p className="section-kicker">CHEN SHUO COMMUNITY</p>
-            <h1>加入社群</h1>
-            <p className="community-lede">
-              一个围绕 AI、产品、内容与个人商业化的实践型社群。
-              <br />
-              不追求热闹，专注于持续推进真实项目。
-            </p>
-            <a className="community-back-link" href="/#top">
-              回到首页了解我
-              <ArrowRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-          </div>
-
-        </div>
-
         <div className="community-story-grid">
           <article className="community-story-card community-story-card-wide">
             <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
@@ -810,6 +793,19 @@ function CommunityPage() {
 
       <section className="community-access-section" id="community-contact" aria-label="社群早鸟价与咨询">
         <div className="community-access-inner">
+          <div className="community-copy">
+            <p className="section-kicker">CHEN SHUO COMMUNITY</p>
+            <h1>加入社群</h1>
+            <p className="community-lede">
+              一个围绕 AI、产品、内容与个人商业化的实践型社群。
+              <br />
+              不追求热闹，专注于持续推进真实项目。
+            </p>
+            <a className="community-back-link" href="/#top">
+              回到首页了解我
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+          </div>
           <aside className="community-price-card" aria-label="社群早鸟价">
             <span>COMMUNITY ACCESS / EARLY BIRD</span>
             <strong>¥9.9</strong>
