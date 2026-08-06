@@ -29,3 +29,5 @@ Do not position Chen Shuo as "04 大学生", "04 年生", or "大学休学" on t
 For the full site, use one shared Sac-inspired editorial system: warm paper canvas, black serif display type, coral metadata labels, thin rules, numbered specs, square outline actions, and one shared header. Detail pages should keep the same system while adding a clear reading hierarchy: title, metadata, long-form content grid, and return path.
 - 全平台信号台在桌面端应作为右侧紧凑信息栏呈现，使用清晰可见的平台图标和薄线列表，不再占据整屏宽度。
 - About me 模块延续参考稿：左侧使用大号英文标题、三段当前定位文案和带技术规格标记的肖像框，右侧保留紧凑的全平台信号栏。
+- 知识地图只呈现信息结构与路径入口；“关于这个知识库的起点”等长文内容放在独立的知识库页面，不在知识地图页下方展示。
+- 社群的收费与准入卡放在全部社群说明之后，并明确标注早鸟价。

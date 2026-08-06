@@ -6542,7 +6542,7 @@ body {
 .editorial-community-page .community-intro-section {
   width: min(calc(100% - 96px), 1660px);
   margin-inline: auto;
-  padding: 82px 0 130px;
+  padding: 82px 0 0;
   background: transparent;
 }
 
@@ -6557,8 +6557,8 @@ body {
 
 .editorial-community-page .community-intro-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(300px, 0.7fr);
-  gap: clamp(44px, 8vw, 150px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
   padding-bottom: 84px;
   border-bottom: 1px solid var(--editorial-line);
 }
@@ -6708,6 +6708,21 @@ body {
   font-family: var(--editorial-mono);
   font-size: 15px;
   letter-spacing: 0.03em;
+}
+
+.editorial-community-page .community-access-section {
+  width: min(calc(100% - 96px), 1660px);
+  margin-inline: auto;
+  padding: 84px 0 130px;
+}
+
+.editorial-community-page .community-access-inner {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editorial-community-page .community-access-section .community-price-card {
+  width: min(100%, 460px);
 }
 
 .editorial-community-page .community-story-grid {
@@ -7196,6 +7211,7 @@ body {
   .editorial-site-header,
   .editorial-detail-hero,
   .editorial-community-page .community-intro-section,
+  .editorial-community-page .community-access-section,
   .editorial-article-section .knowledge-inner {
     width: min(calc(100% - 48px), 1660px);
   }
@@ -7227,8 +7243,7 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .site-shell > .contact-section .contact-inner,
-  .editorial-community-page .community-intro-inner {
+  .site-shell > .contact-section .contact-inner {
     grid-template-columns: minmax(0, 1fr) minmax(270px, 0.65fr);
     gap: 42px;
   }
@@ -7238,6 +7253,7 @@ body {
   .editorial-site-header,
   .editorial-detail-hero,
   .editorial-community-page .community-intro-section,
+  .editorial-community-page .community-access-section,
   .editorial-article-section .knowledge-inner {
     width: min(calc(100% - 40px), 1660px);
   }
@@ -7407,6 +7423,10 @@ body {
   }
 
   .editorial-community-page .community-intro-section {
+    padding: 68px 0 0;
+  }
+
+  .editorial-community-page .community-access-section {
     padding: 68px 0 84px;
   }
 

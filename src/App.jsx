@@ -515,7 +515,7 @@ function KnowledgeOriginSection() {
             ))}
           </div>
           <a className="knowledge-title-link" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
-            打开 FlowUs 知识库
+            打开飞书知识库
             <ArrowRight size={18} weight="bold" aria-hidden="true" />
           </a>
         </div>
@@ -550,21 +550,21 @@ function KnowledgeOriginSection() {
 function KnowledgePage() {
   return (
     <main className="site-shell editorial-page editorial-knowledge-page">
-      <EditorialSiteHeader activeKey="knowledge" sectionLabel="KNOWLEDGE / STRUCTURE" actionLabel="打开知识库" actionHref={knowledgeBaseUrl} />
+      <EditorialSiteHeader activeKey="knowledge" sectionLabel="KNOWLEDGE / STRUCTURE" actionLabel="打开飞书知识库" actionHref={knowledgeBaseUrl} />
       <section className="editorial-detail-hero editorial-knowledge-hero" id="top" aria-label="知识地图页面介绍">
         <div className="editorial-detail-copy">
           <p className="editorial-page-kicker"><span>01</span> KNOWLEDGE MAP / ORIGIN</p>
-          <h1>知识地图<span>把信息变成可执行的路径。</span></h1>
+          <h1>知识地图</h1>
           <p className="editorial-detail-description">
             这里不是资料仓库，而是一个持续生长的结构外脑：把分散的内容、工具和观点，重新组织成可以理解、可以行动的路径。
           </p>
           <div className="editorial-detail-actions">
             <a className="editorial-outline-action editorial-outline-action-fill" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
-              打开 FlowUs 知识库
+              打开飞书知识库
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
-            <a className="editorial-outline-action" href="/#projects">
-              返回产品空间
+            <a className="editorial-outline-action" href="/knowledge-base">
+              查看知识库起点
             </a>
           </div>
         </div>
@@ -575,6 +575,42 @@ function KnowledgePage() {
             <div><dt>FORMAT</dt><dd>路径 / 模块 / 行动</dd></div>
             <div><dt>VALUE</dt><dd>从看过到可以使用</dd></div>
             <div><dt>STATUS</dt><dd>持续生长中</dd></div>
+          </dl>
+          <span className="editorial-spec-foot">ID // CHEN SHUO / 2026</span>
+        </aside>
+      </section>
+    </main>
+  );
+}
+
+function KnowledgeBasePage() {
+  return (
+    <main className="site-shell editorial-page editorial-knowledge-base-page">
+      <EditorialSiteHeader activeKey="knowledge" sectionLabel="KNOWLEDGE BASE / ORIGIN" actionLabel="打开飞书知识库" actionHref={knowledgeBaseUrl} />
+      <section className="editorial-detail-hero editorial-knowledge-hero" id="top" aria-label="知识库页面介绍">
+        <div className="editorial-detail-copy">
+          <p className="editorial-page-kicker"><span>01</span> KNOWLEDGE BASE / ORIGIN</p>
+          <h1>知识库</h1>
+          <p className="editorial-detail-description">
+            这是把正在使用的内容、工具和判断路径持续沉淀下来的结构外脑。先了解它从哪里开始，再进入完整知识库。
+          </p>
+          <div className="editorial-detail-actions">
+            <a className="editorial-outline-action editorial-outline-action-fill" href={knowledgeBaseUrl} target="_blank" rel="noreferrer">
+              打开飞书知识库
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+            <a className="editorial-outline-action" href="/knowledge">
+              返回知识地图
+            </a>
+          </div>
+        </div>
+        <aside className="editorial-spec-sheet" aria-label="知识库规格信息">
+          <p>SPEC.002</p>
+          <dl>
+            <div><dt>FOCUS</dt><dd>结构化沉淀 / 可复用</dd></div>
+            <div><dt>FORMAT</dt><dd>起点 / 章节 / 路径</dd></div>
+            <div><dt>VALUE</dt><dd>从阅读到执行</dd></div>
+            <div><dt>STATUS</dt><dd>持续维护中</dd></div>
           </dl>
           <span className="editorial-spec-foot">ID // CHEN SHUO / 2026</span>
         </aside>
@@ -643,7 +679,7 @@ function ToolsIntroPage() {
       sectionLabel="TOOLS / PRODUCT / LAB"
       kicker="TOOLS LIBRARY / PRODUCT LAB"
       pageNumber="02"
-      title="工具库不是作品陈列"
+      title="工具库"
       subtitle="持续生长的 AI 产品实验室"
       small="验证 / 上线 / 迭代"
       description="这里会集中放我正在验证、已经上线和持续迭代的 AI 工具、小游戏、训练器与知识产品。先看产品方向，再进入具体工具体验。"
@@ -702,24 +738,13 @@ function CommunityPage() {
             </a>
           </div>
 
-          <aside className="community-price-card" id="community-contact" aria-label="社群价格">
-            <span>COMMUNITY ACCESS</span>
-            <strong>¥9.9</strong>
-            <p>社群准入</p>
-            <small>先了解，再决定是否加入</small>
-            <a href="/#top">添加微信咨询</a>
-            <div className="community-wechat" aria-label="社群微信号">
-              <span>微信号</span>
-              <strong>Chen18005977213</strong>
-            </div>
-          </aside>
         </div>
 
         <div className="community-story-grid">
           <article className="community-story-card community-story-card-wide">
             <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
             <h2>我想做一个属于下一代的 AI 共创社群</h2>
-            <p>这个社群暂定价格是 <strong>9.9 元一年</strong>。但这 9.9 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
+            <p>社群早鸟价暂定为 <strong>9.9 元 / 年</strong>。但这 9.9 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
             <p>我希望用它筛选出一批愿意认真介绍自己、愿意真正参与、愿意长期使用 AI 做事情的人。这里不追求热闹，更不想成为一个每天刷几百条消息、最后所有人都设置免打扰的微信群。</p>
             <p>我更想做一个属于 00 后、10 后，以及未来更多年轻人的 AI 共创空间。我们可以讨论 AI、产品、内容、创业和个人成长，也可以把自己真正遇到的问题拿出来。</p>
           </article>
@@ -780,6 +805,22 @@ function CommunityPage() {
             <p>我最终想做的，是全国最有行动力的年轻人 AI 社群。人数多不应该是它唯一的意义。更重要的是，几年之后回头看，我们能发现一批年轻人在这里认识、成长、合作，一起做出了一些真实存在的东西。</p>
             <p><strong>我希望能和一群同样相信 AI、相信创造、也相信长期主义的人，一起往前走。</strong></p>
           </article>
+        </div>
+      </section>
+
+      <section className="community-access-section" id="community-contact" aria-label="社群早鸟价与咨询">
+        <div className="community-access-inner">
+          <aside className="community-price-card" aria-label="社群早鸟价">
+            <span>COMMUNITY ACCESS / EARLY BIRD</span>
+            <strong>¥9.9</strong>
+            <p>早鸟价 · 社群准入</p>
+            <small>早鸟阶段开放，先了解，再决定是否加入</small>
+            <a href="/#top">添加微信咨询</a>
+            <div className="community-wechat" aria-label="社群微信号">
+              <span>微信号</span>
+              <strong>Chen18005977213</strong>
+            </div>
+          </aside>
         </div>
       </section>
     </main>
@@ -1056,6 +1097,7 @@ export function App() {
   useClickTracking();
 
   const isKnowledgePage = normalizedPath === "/knowledge";
+  const isKnowledgeBasePage = normalizedPath === "/knowledge-base";
   const isGithubPage = normalizedPath === "/github";
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
@@ -1063,6 +1105,10 @@ export function App() {
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
     return <AdminPage />;
+  }
+
+  if (isKnowledgeBasePage) {
+    return <KnowledgeBasePage />;
   }
 
   if (isKnowledgePage) {
