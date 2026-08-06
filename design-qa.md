@@ -34,6 +34,50 @@ final result: passed
 
 ---
 
+GitHub Build page QA pass: 2026-08-06
+source visual truth path: C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-d29c774c-4608-4527-9472-537adc3610a7.png
+comparison image path: D:/coding/1.个人blog/audit/2026-08-06-github-build/comparison-source-implementation.jpg
+implementation screenshot path: D:/coding/1.个人blog/audit/2026-08-06-github-build/implementation-desktop.png
+mobile screenshot path: D:/coding/1.个人blog/audit/2026-08-06-github-build/implementation-mobile.png
+viewport: desktop 1280x720 CSS px, mobile 390x844 CSS px
+source pixels: 1735x803; implementation pixels: 1265x712 desktop and 375x812 mobile; device scale factor: 1; browser captures exclude the visible scrollbar, so raw screenshot width is smaller than the CSS viewport
+state: `/github` route with the shared editorial header, GitHub profile stats loaded, commit rail, build terminal, queue, progress axis, and external CTA visible
+
+**Findings**
+- No actionable P0/P1/P2 findings.
+- The shared site header adds a navigation band above the reference artwork; this is intentional so the new page remains part of the site's common editorial system. The Build composition, terminal, commit rail, queue, and progress axis remain the first content block.
+
+**Required Fidelity Surfaces**
+- Fonts and typography: the page reuses the existing Cormorant Garamond / Noto Serif SC / Oswald editorial stack. `Build` uses the large serif display treatment; commit hashes, terminal logs, axis labels, and metadata use the compact mono treatment with restrained letter spacing.
+- Spacing and layout rhythm: the desktop composition uses a left copy column and right build stage; the terminal overlaps the stage at the same upper-right relationship as the source. Mobile switches to a stacked copy/stage layout, keeping the commit rail and terminal inside a 390px CSS viewport with `scrollWidth = 375` and no horizontal overflow.
+- Colors and visual tokens: warm paper `#f4f0e8`, ink `#191817`, muted guide lines, and coral `#ff744c` are shared with the existing Sac-inspired site system. The terminal border, nodes, progress fill, and CTA underline use the same token family.
+- Image quality and asset fidelity: no raster art was required for this reference. GitHub, branch, arrow, and plus marks use the existing Phosphor icon library; no custom SVG or placeholder image was introduced.
+- Copy and content: the page exposes `创 — BUILD`, `Build`, `公开建造中 · 持续开源`, a real `ChenShuo2004` GitHub CTA, a commit/build visualization, and live profile metrics. The profile API returned `11` public repositories, `6` followers, and `3` following during QA; the commit rail keeps a stable visual fallback when the public events API has no recent push event.
+
+**Primary Interactions Tested**
+- Header action, hero CTA, and metrics CTA resolve to `https://github.com/ChenShuo2004` with `target="_blank"` and `rel="noreferrer"`.
+- Homepage GitHub signal row resolves internally to `/github`, while the dedicated page retains the external GitHub destination.
+- `/github` renders four commit rows, the terminal progress state, queue labels, axis labels, and live metric values.
+- Desktop and mobile states report no horizontal overflow; the mobile metrics switch to a two-column grid.
+- Local page console check filtered to `127.0.0.1` returned no errors. `npm.cmd run build` passes.
+
+**Comparison History**
+- Initial source/implementation comparison was captured as a single side-by-side composite at `audit/2026-08-06-github-build/comparison-source-implementation.jpg`.
+- The first comparison found no actionable P0/P1/P2 mismatch, so no visual correction iteration was required after the final desktop and mobile captures.
+
+**Open Questions**
+- The source mock intentionally omits the site's shared header; the implementation keeps it because the project instruction requires one shared editorial navigation system. If the desired GitHub page should be completely standalone, the header can be hidden in a later content decision.
+
+**Implementation Checklist**
+- [x] Added the `/github` route and dedicated Build composition.
+- [x] Connected GitHub profile and public events APIs with stable fallback content.
+- [x] Routed the homepage GitHub signal row to the new page.
+- [x] Verified desktop, mobile, CTA destinations, console, and production build.
+
+final result: passed
+
+---
+
 Platform signal board QA pass: 2026-08-06
 source visual truth path: C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-0b6a4f91-cc56-4fee-bbc2-7ed0ddb51182.png
 comparison image path: D:/coding/1.个人blog/audit/2026-08-06-platform-signal/comparison-source-implementation.jpg

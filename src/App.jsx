@@ -6,26 +6,38 @@ import {
   Brain,
   CubeFocus,
   EnvelopeSimple,
+  GitBranch,
   GithubLogo,
   Network,
+  Plus,
   XLogo,
   UserCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import EvilEye from "./EvilEye.jsx";
-import RotatingText from "./RotatingText.jsx";
 
 const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
 const githubProfileUrl = "https://github.com/ChenShuo2004";
 const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
+const githubEventsApiUrl = "https://api.github.com/users/ChenShuo2004/events/public?per_page=10";
 // The X handle was not included in the brief, so keep this single line easy to replace.
 const xProfileUrl = "https://x.com/";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 
 const fallbackGithubStats = {
   value: "11 repos · 6 followers",
+  repos: 11,
+  followers: 6,
+  following: 3,
   bars: [5, 7, 8, 9, 11, 12, 14],
 };
+
+const fallbackGithubActivity = [
+  { sha: "a1b2c3d", message: "feat: init product system" },
+  { sha: "d4e5f6a", message: "feat: knowledge graph" },
+  { sha: "f7a8b9c", message: "feat: content model" },
+  { sha: "HEAD", message: "build: in public", current: true },
+];
 
 const editorialNavItems = [
   { key: "home", label: "首页", english: "ABOUT", href: "/#top" },
@@ -160,6 +172,183 @@ function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT 
   );
 }
 
+function GithubBuildPage() {
+  const [githubStats, setGithubStats] = useState(fallbackGithubStats);
+  const [githubActivity, setGithubActivity] = useState(fallbackGithubActivity);
+
+  useEffect(() => {
+    let isCurrent = true;
+
+    Promise.allSettled([
+      fetch(githubApiUrl, { headers: { Accept: "application/vnd.github+json" } }).then((response) => {
+        if (!response.ok) throw new Error("GitHub profile unavailable");
+        return response.json();
+      }),
+      fetch(githubEventsApiUrl, { headers: { Accept: "application/vnd.github+json" } }).then((response) => {
+        if (!response.ok) throw new Error("GitHub events unavailable");
+        return response.json();
+      }),
+    ])
+      .then(([profileResult, eventsResult]) => {
+        if (!isCurrent) return;
+
+        const profile = profileResult.status === "fulfilled" ? profileResult.value : {};
+        const events = eventsResult.status === "fulfilled" && Array.isArray(eventsResult.value) ? eventsResult.value : [];
+        const repos = Number.isFinite(profile.public_repos) ? profile.public_repos : fallbackGithubStats.repos;
+        const followers = Number.isFinite(profile.followers) ? profile.followers : fallbackGithubStats.followers;
+        const following = Number.isFinite(profile.following) ? profile.following : fallbackGithubStats.following;
+        const activity = Math.min(16, Math.max(6, Math.round(Math.log10(repos + followers + 1) * 6)));
+        const commits = events
+          .filter((event) => event.type === "PushEvent")
+          .flatMap((event) => event.payload?.commits || [])
+          .filter((commit) => commit?.sha && commit?.message)
+          .slice(0, 3)
+          .map((commit) => ({
+            sha: commit.sha.slice(0, 7),
+            message: commit.message.split("\n")[0],
+          }))
+          .reverse();
+
+        setGithubStats({
+          value: `${repos} repos · ${followers} followers`,
+          repos,
+          followers,
+          following,
+          bars: [5, 7, 8, 9, 11, 12, activity],
+        });
+
+        if (commits.length > 0) {
+          setGithubActivity([...commits, { sha: "HEAD", message: "build: in public", current: true }]);
+        }
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, []);
+
+  return (
+    <main className="site-shell editorial-page editorial-github-page">
+      <EditorialSiteHeader activeKey="home" sectionLabel="GITHUB / OPEN SOURCE" actionLabel="打开 GitHub" actionHref={githubProfileUrl} />
+
+      <section className="github-build-hero" id="top" aria-label="GitHub 公开建造页面">
+        <div className="github-build-guides" aria-hidden="true">
+          <span className="github-build-guide github-build-guide-left" />
+          <span className="github-build-guide github-build-guide-center" />
+          <span className="github-build-guide github-build-guide-right" />
+          <span className="github-build-guide-mark github-build-guide-mark-top" />
+          <span className="github-build-guide-mark github-build-guide-mark-bottom" />
+        </div>
+
+        <div className="github-build-copy">
+          <p className="github-build-kicker"><span>创</span> — BUILD</p>
+          <h1>Build</h1>
+          <p className="github-build-status"><span />公开建造中 <b>·</b> 持续开源</p>
+          <a className="github-build-link" href={githubProfileUrl} target="_blank" rel="noreferrer">
+            关注我的 GitHub
+            <GithubLogo size={20} weight="fill" aria-hidden="true" />
+            <ArrowRight size={18} weight="bold" aria-hidden="true" />
+          </a>
+        </div>
+
+        <div className="github-build-stage" aria-label="GitHub build activity">
+          <div className="github-build-commit-rail">
+            <div className="github-build-branch-label"><GitBranch size={15} weight="regular" aria-hidden="true" /> main ——</div>
+            <div className="github-build-commit-list">
+              {githubActivity.map((commit) => (
+                <div className={`github-build-commit ${commit.current ? "is-current" : ""}`} key={`${commit.sha}-${commit.message}`}>
+                  <span className="github-build-commit-node" />
+                  <code>{commit.sha}</code>
+                  <span>{commit.message}</span>
+                </div>
+              ))}
+              <span className="github-build-commit-ghost" />
+              <span className="github-build-commit-ghost github-build-commit-ghost-last" />
+            </div>
+          </div>
+
+          <Plus className="github-build-plus" size={22} weight="regular" aria-hidden="true" />
+
+          <div className="github-build-terminal" aria-label="Build terminal">
+            <div className="github-build-terminal-bar" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="github-build-terminal-body">
+              <p className="github-build-terminal-command">$ sac build --in-public</p>
+              <p><time>10:12:01</time> checking workspace</p>
+              <p><time>10:12:02</time> loading modules</p>
+              <p><time>10:12:03</time> resolving dependencies</p>
+              <p><time>10:12:05</time> generating</p>
+              <span className="github-build-terminal-caret" aria-hidden="true" />
+              <div className="github-build-terminal-progress">
+                <span>v0.1.0&nbsp; · &nbsp;compiling...</span>
+                <div><i /></div>
+                <strong>55%</strong>
+              </div>
+            </div>
+          </div>
+
+          <div className="github-build-queue">
+            <span className="github-build-queue-label">queued</span>
+            <div className="github-build-queue-list">
+              <GitBranch size={29} weight="regular" aria-hidden="true" />
+              <div>
+                <span><i />Sac skill</span>
+                <span><i />HyperFrames</span>
+                <span><i />crosspost</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="github-build-axis" aria-hidden="true">
+            <div className="github-build-axis-caption">
+              <span>build area</span>
+              <strong>960 × 540</strong>
+            </div>
+            <div className="github-build-axis-line">
+              {[0, 240, 480, 720, 960].map((mark) => (
+                <span key={mark} style={{ "--axis-position": `${(mark / 960) * 100}%` }}>
+                  <i />
+                  <b>{mark}</b>
+                </span>
+              ))}
+            </div>
+            <div className="github-build-axis-progress">
+              <span>progress</span>
+              <strong>55%</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="github-build-metrics" aria-label="GitHub 公开数据">
+        <div className="github-build-metric">
+          <span>PUBLIC REPOSITORIES</span>
+          <strong>{githubStats.repos}</strong>
+          <small>公开仓库</small>
+        </div>
+        <div className="github-build-metric">
+          <span>FOLLOWERS</span>
+          <strong>{githubStats.followers}</strong>
+          <small>关注者</small>
+        </div>
+        <div className="github-build-metric">
+          <span>FOLLOWING</span>
+          <strong>{githubStats.following}</strong>
+          <small>正在关注</small>
+        </div>
+        <a className="github-build-metric github-build-metric-link" href={githubProfileUrl} target="_blank" rel="noreferrer">
+          <span>OPEN SOURCE / LOG</span>
+          <strong><GithubLogo size={26} weight="fill" aria-hidden="true" /> @ChenShuo2004</strong>
+          <small>查看完整 GitHub 主页 <ArrowUpRight size={15} weight="bold" aria-hidden="true" /></small>
+        </a>
+      </section>
+    </main>
+  );
+}
+
 function PlatformSignalsSection() {
   const [githubStats, setGithubStats] = useState(fallbackGithubStats);
 
@@ -221,6 +410,7 @@ function PlatformSignalsSection() {
       status: "LIVE",
       icon: GithubLogo,
       href: githubProfileUrl,
+      pageHref: "/github",
       bars: githubStats.bars,
     },
   ];
@@ -241,10 +431,10 @@ function PlatformSignalsSection() {
             return (
               <a
                 className={`platform-signal-row platform-signal-row-${signal.key}`}
-                href={signal.href}
+                href={signal.pageHref || signal.href}
                 key={signal.key}
-                target="_blank"
-                rel="noreferrer"
+                target={signal.pageHref ? undefined : "_blank"}
+                rel={signal.pageHref ? undefined : "noreferrer"}
               >
                 <div className="platform-signal-identity">
                   <span className="platform-signal-icon"><Icon size={28} weight="regular" aria-hidden="true" /></span>
@@ -828,6 +1018,7 @@ export function App() {
   useClickTracking();
 
   const isKnowledgePage = normalizedPath === "/knowledge";
+  const isGithubPage = normalizedPath === "/github";
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
   const isCommunityPage = normalizedPath === "/community";
@@ -838,6 +1029,10 @@ export function App() {
 
   if (isKnowledgePage) {
     return <KnowledgePage />;
+  }
+
+  if (isGithubPage) {
+    return <GithubBuildPage />;
   }
 
   if (isToolsPage) {
