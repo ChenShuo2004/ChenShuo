@@ -55,7 +55,7 @@ state: shared editorial shell and detail-page system applied to the homepage, to
 **Patches Made Since Previous QA Pass**
 - Replaced the old route-specific pixel navigation with a reusable editorial header.
 - Rebuilt tools, reading room, knowledge map, and community detail shells around one Sac-inspired information hierarchy.
-- Unified the homepage strengths, signal, and contact sections with the same paper, rule, serif, and coral system.
+- Removed the homepage strengths and current-signal sections per the latest content direction; the contact section remains in the shared system.
 - Added mobile-safe header wrapping, type scaling, action sizing, and content grids.
 - Verified production build with `npm run build`.
 

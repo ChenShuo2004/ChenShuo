@@ -2,13 +2,9 @@ import {
   ArrowDown,
   ArrowRight,
   Brain,
-  Compass,
   CubeFocus,
   EnvelopeSimple,
-  Lightning,
   Network,
-  StackSimple,
-  Strategy,
   UserCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
@@ -114,29 +110,6 @@ const projects = [
     href: "/knowledge",
     description:
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
-  },
-];
-
-const strengths = [
-  {
-    icon: Compass,
-    title: "信息结构",
-    text: "能把复杂经历、想法和资源拆成清晰模块，变成别人能理解、能行动的系统。",
-  },
-  {
-    icon: Strategy,
-    title: "产品系统",
-    text: "关注从需求、交互、反馈到商业结果的完整链路，而不是只做单点功能。",
-  },
-  {
-    icon: Lightning,
-    title: "快速验证",
-    text: "习惯用低成本方式测试方向，把不确定性拆成可观察、可复盘的小实验。",
-  },
-  {
-    icon: StackSimple,
-    title: "个人商业化",
-    text: "把内容、信任、产品和成交连接在一起，长期沉淀属于自己的商业资产。",
   },
 ];
 
@@ -462,39 +435,6 @@ const adminRangeOptions = [
   { label: "1D", value: "1d" },
   { label: "7D", value: "7d" },
   { label: "30D", value: "30d" },
-];
-
-const contentSignals = [
-  {
-    index: "01",
-    label: "写 / WRITE",
-    title: "把复杂问题写成能走的路径",
-    text: "记录 AI 产品、信息结构与个人商业化的实践，把经历沉淀成别人能理解、能复用的内容。",
-    href: "/knowledge",
-    action: "进入知识地图",
-    icon: StackSimple,
-    accent: "pink",
-  },
-  {
-    index: "02",
-    label: "做 / BUILD",
-    title: "把想法做成可访问的东西",
-    text: "工具库里放正在验证、已经上线和持续迭代的 AI 工具，让想法尽快遇到真实反馈。",
-    href: "/tools",
-    action: "查看工具库",
-    icon: Lightning,
-    accent: "teal",
-  },
-  {
-    index: "03",
-    label: "读 / READ",
-    title: "把知道缩短到做到",
-    text: "阅览室整理阅读、认知与行动入口，减少信息过载，直接进入下一步。",
-    href: "/reading",
-    action: "进入阅览室",
-    icon: Brain,
-    accent: "yellow",
-  },
 ];
 
 function formatNumber(value) {
@@ -857,74 +797,6 @@ export function App() {
                     <em>{project.metric}</em>
                     <p>{project.description}</p>
                   </div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="strengths-section" id="strengths">
-        <div className="section-heading compact">
-          <p className="section-kicker">ADVANTAGES</p>
-          <h2 className="strength-heading-title">
-            我擅长把
-            <RotatingText
-              texts={["模糊机会", "复杂信息", "内容资产", "商业线索"]}
-              mainClassName="strength-rotating-text"
-              splitLevelClassName="strength-rotating-word"
-              elementLevelClassName="strength-rotating-char"
-              animatePresenceMode="sync"
-              staggerFrom="last"
-              initial={{ opacity: 0, filter: "blur(8px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, filter: "blur(8px)" }}
-              staggerDuration={0.018}
-              transition={{ type: "spring", damping: 30, stiffness: 420 }}
-              rotationInterval={1900}
-            />
-            变成可推进的结构。
-          </h2>
-        </div>
-        <div className="strength-grid">
-          {strengths.map((strength) => {
-            const Icon = strength.icon;
-            return (
-              <article className="strength-card" key={strength.title}>
-                <Icon size={30} weight="duotone" aria-hidden="true" />
-                <h3>{strength.title}</h3>
-                <p>{strength.text}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="signal-section" id="signal">
-        <div className="signal-inner">
-          <div className="signal-heading">
-            <p className="section-kicker">IN PUBLIC / CURRENT SIGNAL</p>
-            <h2>边做边写，把经验变成可复用的入口。</h2>
-            <p>
-              这是一个还在生长中的个人工作台：写下思考，做出产品，再把有效的方法整理成下一次可以直接使用的结构。
-            </p>
-          </div>
-          <div className="signal-grid">
-            {contentSignals.map((signal) => {
-              const Icon = signal.icon;
-              return (
-                <a className={`signal-card signal-card-${signal.accent}`} href={signal.href} key={signal.index}>
-                  <div className="signal-card-top">
-                    <span>{signal.index}</span>
-                    <Icon size={27} weight="duotone" aria-hidden="true" />
-                  </div>
-                  <p className="signal-card-label">{signal.label}</p>
-                  <h3>{signal.title}</h3>
-                  <p className="signal-card-text">{signal.text}</p>
-                  <span className="signal-card-action">
-                    {signal.action}
-                    <ArrowRight size={17} weight="bold" aria-hidden="true" />
-                  </span>
                 </a>
               );
             })}
