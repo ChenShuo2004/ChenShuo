@@ -349,7 +349,7 @@ function CommunityPage() {
 
           <aside className="community-price-card" id="community-contact" aria-label="社群价格">
             <span>COMMUNITY ACCESS</span>
-            <strong>¥99</strong>
+            <strong>¥9.9</strong>
             <p>社群准入</p>
             <small>先了解，再决定是否加入</small>
             <a href="/#top">添加微信咨询</a>
@@ -364,7 +364,7 @@ function CommunityPage() {
           <article className="community-story-card community-story-card-wide">
             <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
             <h2>我想做一个属于下一代的 AI 共创社群</h2>
-            <p>这个社群暂定价格是 <strong>99 元一年</strong>。但这 99 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
+            <p>这个社群暂定价格是 <strong>9.9 元一年</strong>。但这 9.9 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
             <p>我希望用它筛选出一批愿意认真介绍自己、愿意真正参与、愿意长期使用 AI 做事情的人。这里不追求热闹，更不想成为一个每天刷几百条消息、最后所有人都设置免打扰的微信群。</p>
             <p>我更想做一个属于 00 后、10 后，以及未来更多年轻人的 AI 共创空间。我们可以讨论 AI、产品、内容、创业和个人成长，也可以把自己真正遇到的问题拿出来。</p>
           </article>
