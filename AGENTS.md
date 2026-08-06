@@ -12,6 +12,8 @@ For the homepage editorial style, use a warm off-white Sac-inspired layout with 
 
 For the homepage editorial layout, keep the founder copy and two outline actions on the left, with the provided halftone portrait large on the right; keep the first viewport focused on this introduction.
 
+For the product-lines section, keep the “知识产品空间” heading on one line at desktop widths, scaling it down before allowing the editorial grid to break.
+
 For the homepage navigation, do not expose a right-side business CTA; keep the hero area focused on the “加入社群” entry.
 
 For the hero visual, use the provided halftone portrait as the source image and keep motion subtle, optional, and respectful of reduced-motion preferences.

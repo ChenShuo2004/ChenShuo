@@ -5650,7 +5650,7 @@ a {
 
 .editorial-projects-heading {
   display: grid;
-  grid-template-columns: minmax(240px, 0.65fr) minmax(0, 1fr);
+  grid-template-columns: minmax(360px, 0.85fr) minmax(0, 1fr);
   align-items: end;
   gap: 34px;
 }
@@ -5665,10 +5665,11 @@ a {
 .editorial-projects-heading h2 {
   margin: 0;
   font-family: var(--font-editorial-serif);
-  font-size: clamp(52px, 7vw, 106px);
+  font-size: clamp(48px, 5.5vw, 92px);
   font-weight: 600;
   line-height: 0.86;
   letter-spacing: -0.07em;
+  white-space: nowrap;
 }
 
 .editorial-projects-heading > p:last-child {
@@ -5860,7 +5861,7 @@ a {
 
   .editorial-projects-heading h2 {
     margin-top: 14px;
-    font-size: clamp(54px, 16vw, 84px);
+    font-size: clamp(42px, 12vw, 64px);
   }
 
   .editorial-projects-heading > p:last-child {

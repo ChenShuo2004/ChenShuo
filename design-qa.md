@@ -34,6 +34,22 @@ final result: passed
 
 ---
 
+Knowledge product heading QA pass: 2026-08-06
+state: “知识产品空间” adjusted to a single line in the product-lines section
+viewport: desktop 1280px and mobile 390x844
+
+**Findings**
+- No P0/P1/P2 findings.
+
+**Required Fidelity Surfaces**
+- Desktop heading renders on one line beside the supporting description.
+- Mobile heading remains contained within the section width and does not create horizontal overflow.
+- Production build passed with `cmd.exe /d /c npm run build`.
+
+final result: passed
+
+---
+
 Sac-inspired editorial homepage QA pass: 2026-08-06
 implementation screenshot path: local in-app browser, desktop 1816x819 and mobile 390x844
 reference image path: C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-1e03d951-e260-4177-89b4-151f048b472f.png
