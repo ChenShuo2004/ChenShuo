@@ -137,10 +137,12 @@ void main() {
 
   outerBgGlow = pow(outerBgGlow + distanceMask, 0.5) * 0.15;
 
-  vec3 color = uEyeColor * uIntensity * clamp(max(innerRing + innerEye, outerEyeGlow + outerBgGlow) - pupil, 0.0, 3.0);
-  color += uBgColor;
+  float eyeEnergy = clamp(max(innerRing + innerEye, outerEyeGlow + outerBgGlow) - pupil, 0.0, 3.0);
+  float eyeMix = clamp(eyeEnergy * 2.0, 0.0, 1.0);
+  vec3 color = mix(uBgColor, uEyeColor * uIntensity, eyeMix);
+  float alpha = clamp(eyeEnergy * 1.15, 0.0, 1.0);
 
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(color, alpha);
 }
 `;
 

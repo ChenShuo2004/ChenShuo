@@ -430,6 +430,27 @@ function PlatformSignalsSection() {
   return (
     <section className="platform-signal-section" id="platforms" aria-label="全平台信号台">
       <div className="platform-signal-inner">
+        <div className="platform-signal-about">
+          <p className="platform-signal-about-kicker">ABOUT / AI MEDIA BUILDER</p>
+          <h2>About me</h2>
+          <div className="platform-signal-about-copy">
+            <p>我是陈硕，AI 连续创业者，也是“国家一级写作专家”（自封）。</p>
+            <p>现在以「一个持续生长的知识产品空间」为核心，重新起航。</p>
+            <p>把工具库、阅览室和知识地图连接起来，沉淀可复用、可商业化的系统。</p>
+          </div>
+
+          <figure className="platform-signal-about-portrait">
+            <span className="platform-about-mark platform-about-mark-top-left">AI MEDIA / BUILDER</span>
+            <span className="platform-about-mark platform-about-mark-top-right">ID // KAI</span>
+            <span className="platform-about-mark platform-about-mark-bottom-left">FOCUS / CONTENT · PRODUCT · KNOWLEDGE</span>
+            <span className="platform-about-mark platform-about-mark-bottom-right">EST. 2023</span>
+            <span className="platform-about-cross platform-about-cross-top-left" aria-hidden="true" />
+            <span className="platform-about-cross platform-about-cross-top-right" aria-hidden="true" />
+            <span className="platform-about-cross platform-about-cross-bottom-left" aria-hidden="true" />
+            <span className="platform-about-cross platform-about-cross-bottom-right" aria-hidden="true" />
+            <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" loading="lazy" decoding="async" />
+          </figure>
+        </div>
         <div className="platform-signal-heading">
           <div className="platform-signal-heading-title">
             <p className="section-kicker">NETWORK / SIGNALS</p>
