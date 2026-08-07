@@ -153,9 +153,43 @@ function scrollToSection(event, href) {
   document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
 }
 
+function useEditorialReveal() {
+  useEffect(() => {
+    const revealElements = Array.from(document.querySelectorAll(".editorial-reveal"));
+    if (revealElements.length === 0) return undefined;
+
+    revealElements.forEach((element) => {
+      const delay = Number(element.getAttribute("data-reveal-delay") || 0);
+      if (Number.isFinite(delay) && delay > 0) {
+        element.style.setProperty("--editorial-reveal-delay", `${delay}ms`);
+      }
+    });
+
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      revealElements.forEach((element) => element.classList.add("is-visible"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px" },
+    );
+
+    revealElements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
+}
+
 function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "加入社群", actionHref = "/community", inHero = false }) {
   return (
-    <header className={`editorial-site-header ${inHero ? "editorial-site-header-hero" : ""}`}>
+    <header className={`editorial-site-header editorial-reveal ${inHero ? "editorial-site-header-hero" : ""}`}>
       <a className="editorial-site-brand" href="/" aria-label="返回陈硕个人网站首页">
         <span className="editorial-site-brand-mark">CS</span>
         <span className="editorial-site-brand-copy">
@@ -255,7 +289,7 @@ function GithubBuildPage() {
           <span className="github-build-guide-mark github-build-guide-mark-bottom" />
         </div>
 
-        <div className="github-build-copy">
+        <div className="github-build-copy editorial-reveal" data-reveal-delay="80">
           <p className="github-build-kicker"><span>创</span> — BUILD</p>
           <h1>Build</h1>
           <p className="github-build-status"><span />公开建造中 <b>·</b> 持续开源</p>
@@ -266,7 +300,7 @@ function GithubBuildPage() {
           </a>
         </div>
 
-        <div className="github-build-stage" aria-label="GitHub build activity">
+        <div className="github-build-stage editorial-reveal" data-reveal-delay="160" aria-label="GitHub build activity">
           <div className="github-build-commit-rail">
             <div className="github-build-branch-label"><GitBranch size={15} weight="regular" aria-hidden="true" /> main ——</div>
             <div className="github-build-commit-list">
@@ -338,7 +372,7 @@ function GithubBuildPage() {
         </div>
       </section>
 
-      <section className="github-build-metrics" aria-label="GitHub 公开数据">
+      <section className="github-build-metrics editorial-reveal" data-reveal-delay="100" aria-label="GitHub 公开数据">
         <div className="github-build-metric">
           <span>PUBLIC REPOSITORIES</span>
           <strong>{githubStats.repos}</strong>
@@ -445,7 +479,7 @@ function PlatformSignalsSection() {
   return (
     <section className="platform-signal-section" id="platforms" aria-label="全平台信号台">
       <div className="platform-signal-inner">
-        <div className="platform-signal-about">
+        <div className="platform-signal-about editorial-reveal" data-reveal-delay="60">
           <p className="platform-signal-about-kicker">ABOUT / AI MEDIA BUILDER</p>
           <h2>About me</h2>
           <div className="platform-signal-about-copy">
@@ -466,7 +500,7 @@ function PlatformSignalsSection() {
             <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" loading="lazy" decoding="async" />
           </figure>
         </div>
-        <div className="platform-signal-heading">
+        <div className="platform-signal-heading editorial-reveal" data-reveal-delay="100">
           <div className="platform-signal-heading-title">
             <p className="section-kicker">NETWORK / SIGNALS</p>
             <h2>全平台信号台</h2>
@@ -478,12 +512,13 @@ function PlatformSignalsSection() {
         </div>
 
         <div className="platform-signal-grid">
-          {signals.map((signal) => {
+          {signals.map((signal, index) => {
             const Icon = signal.icon;
 
             return (
               <a
-                className={`platform-signal-row platform-signal-row-${signal.key}`}
+                className={`platform-signal-row platform-signal-row-${signal.key} editorial-reveal`}
+                data-reveal-delay={`${index * 80 + 140}`}
                 href={signal.pageHref || signal.href}
                 key={signal.key}
                 target={signal.pageHref ? undefined : "_blank"}
@@ -520,7 +555,7 @@ function KnowledgeOriginSection() {
   return (
     <section className="knowledge-section editorial-article-section" id="knowledge-origin">
       <div className="knowledge-inner">
-        <div className="knowledge-title-frame">
+        <div className="knowledge-title-frame editorial-reveal" data-reveal-delay="80">
           <span className="editorial-index-stamp">ORIGIN / 001</span>
           <p className="section-kicker">KNOWLEDGE BASE ORIGIN</p>
           <h2>《关于这个知识库的起点》</h2>
@@ -538,7 +573,8 @@ function KnowledgeOriginSection() {
         <div className="knowledge-origin-grid">
           {knowledgeOriginChapters.map((chapter) => (
             <article
-              className={`knowledge-origin-card ${chapter.isSummary ? "knowledge-origin-card-summary" : ""}`}
+              className={`knowledge-origin-card editorial-reveal ${chapter.isSummary ? "knowledge-origin-card-summary" : ""}`}
+              data-reveal-delay={`${Math.min(Number(chapter.index) * 70, 420)}`}
               key={chapter.index}
             >
               <span>{chapter.index}</span>
@@ -567,7 +603,7 @@ function KnowledgePage() {
     <main className="site-shell editorial-page editorial-knowledge-page">
       <EditorialSiteHeader activeKey="knowledge" sectionLabel="KNOWLEDGE / STRUCTURE" actionLabel="打开飞书知识库" actionHref={knowledgeBaseUrl} />
       <section className="editorial-detail-hero editorial-knowledge-hero" id="top" aria-label="知识地图页面介绍">
-        <div className="editorial-detail-copy">
+        <div className="editorial-detail-copy editorial-reveal" data-reveal-delay="80">
           <p className="editorial-page-kicker"><span>01</span> KNOWLEDGE MAP / ORIGIN</p>
           <h1>知识地图</h1>
           <p className="editorial-detail-description">
@@ -583,7 +619,7 @@ function KnowledgePage() {
             </a>
           </div>
         </div>
-        <aside className="editorial-spec-sheet" aria-label="知识地图规格信息">
+        <aside className="editorial-spec-sheet editorial-reveal" data-reveal-delay="180" aria-label="知识地图规格信息">
           <p>SPEC.001</p>
           <dl>
             <div><dt>FOCUS</dt><dd>信息结构 / 知识产品</dd></div>
@@ -603,7 +639,7 @@ function KnowledgeBasePage() {
     <main className="site-shell editorial-page editorial-knowledge-base-page">
       <EditorialSiteHeader activeKey="knowledge" sectionLabel="KNOWLEDGE BASE / ORIGIN" actionLabel="打开飞书知识库" actionHref={knowledgeBaseUrl} />
       <section className="editorial-detail-hero editorial-knowledge-hero" id="top" aria-label="知识库页面介绍">
-        <div className="editorial-detail-copy">
+        <div className="editorial-detail-copy editorial-reveal" data-reveal-delay="80">
           <p className="editorial-page-kicker"><span>01</span> KNOWLEDGE BASE / ORIGIN</p>
           <h1>知识库</h1>
           <p className="editorial-detail-description">
@@ -619,7 +655,7 @@ function KnowledgeBasePage() {
             </a>
           </div>
         </div>
-        <aside className="editorial-spec-sheet" aria-label="知识库规格信息">
+        <aside className="editorial-spec-sheet editorial-reveal" data-reveal-delay="180" aria-label="知识库规格信息">
           <p>SPEC.002</p>
           <dl>
             <div><dt>FOCUS</dt><dd>结构化沉淀 / 可复用</dd></div>
@@ -653,7 +689,7 @@ function EditorialCollectionPage({
     <main className={`site-shell editorial-page editorial-collection-page ${pageClass}`}>
       <EditorialSiteHeader activeKey={activeKey} sectionLabel={sectionLabel} actionLabel={actionLabel} actionHref={actionHref} />
       <section className="editorial-detail-hero editorial-collection-hero" id="top" aria-label={`${title}页面介绍`}>
-        <div className="editorial-detail-copy">
+        <div className="editorial-detail-copy editorial-reveal" data-reveal-delay="80">
           <p className="editorial-page-kicker"><span>{pageNumber}</span> {kicker}</p>
           <h1>
             <span>{title}</span>
@@ -669,7 +705,7 @@ function EditorialCollectionPage({
             <a className="editorial-outline-action" href="/#projects">返回产品空间</a>
           </div>
         </div>
-        <aside className="editorial-spec-sheet" aria-label={`${title}页面规格信息`}>
+        <aside className="editorial-spec-sheet editorial-reveal" data-reveal-delay="180" aria-label={`${title}页面规格信息`}>
           <p>SPEC.{pageNumber}</p>
           <dl>
             {points.map((point, index) => (
@@ -739,7 +775,7 @@ function CommunityPage() {
 
       <section className="community-intro-section">
         <div className="community-story-grid">
-          <article className="community-story-card community-story-card-wide">
+          <article className="community-story-card community-story-card-wide editorial-reveal" data-reveal-delay="60">
             <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
             <h2>我想做一个属于下一代的 AI 共创社群</h2>
             <p>社群早鸟价暂定为 <strong>9.9 元 / 年</strong>。但这 9.9 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
@@ -747,31 +783,31 @@ function CommunityPage() {
             <p>我更想做一个属于 00 后、10 后，以及未来更多年轻人的 AI 共创空间。我们可以讨论 AI、产品、内容、创业和个人成长，也可以把自己真正遇到的问题拿出来。</p>
           </article>
 
-          <article className="community-story-card">
+          <article className="community-story-card editorial-reveal" data-reveal-delay="130">
             <p className="community-story-kicker">OPEN PRACTICE</p>
             <h2>真实复盘</h2>
             <p>我会公开自己的每月复盘：做了什么、做错了什么、哪些项目失败了、最近在为什么事情焦虑，以及我对产品、内容、团队和创业的新理解。</p>
           </article>
 
-          <article className="community-story-card">
+          <article className="community-story-card editorial-reveal" data-reveal-delay="200">
             <p className="community-story-kicker">MONTHLY THEME WEEK</p>
             <h2>主题周，不止聊天</h2>
             <p>每个月围绕一个主题一起研究 AI 编程、个人软件工厂、自动化工作流、知识库、内容创作、AI 产品或出海实践。</p>
           </article>
 
-          <article className="community-story-card community-story-card-wide community-story-card-teal">
+          <article className="community-story-card community-story-card-wide community-story-card-teal editorial-reveal" data-reveal-delay="270">
             <p className="community-story-kicker">FROM DISCUSSION TO KNOWLEDGE</p>
             <h2>把讨论沉淀成可以使用的东西</h2>
             <p>主题不会只停留在聊天。我们会整理资料、提出问题、完成实践任务、分享案例，最后把有价值的内容沉淀进知识库。每一位成员都可以向我提问，具有代表性的问题，我会集中拆解，并整理成其他人也能使用的答案。</p>
           </article>
 
-          <article className="community-story-card community-story-card-wide">
+          <article className="community-story-card community-story-card-wide editorial-reveal" data-reveal-delay="340">
             <p className="community-story-kicker">CO-CREATE THE FUTURE</p>
             <h2>从成员，到共创者</h2>
             <p>社群成员可以免费使用我面向社群开放的自研产品，优先参加新产品内测，提出功能建议，参与产品共创。未来，真正持续行动、持续分享、愿意承担责任的人，也可能成为项目合作者、主题发起人，或者一起做出新的产品。</p>
           </article>
 
-          <article className="community-story-card community-story-card-warning">
+          <article className="community-story-card community-story-card-warning editorial-reveal" data-reveal-delay="410">
             <p className="community-story-kicker">NO EMPTY PROMISES</p>
             <h2>有些事情，提前说清楚</h2>
             <ul>
@@ -783,7 +819,7 @@ function CommunityPage() {
             <p>我唯一希望保证的，是这里不会只剩下空话。</p>
           </article>
 
-          <article className="community-story-card community-story-card-apply">
+          <article className="community-story-card community-story-card-apply editorial-reveal" data-reveal-delay="480">
             <p className="community-story-kicker">APPLICATION &amp; REVIEW</p>
             <h2>我们看重什么</h2>
             <p>每一个申请加入的人，都需要填写申请表并经过审核。我们更看重：</p>
@@ -796,7 +832,7 @@ function CommunityPage() {
             </ul>
           </article>
 
-          <article className="community-story-card community-story-card-wide community-story-card-final">
+          <article className="community-story-card community-story-card-wide community-story-card-final editorial-reveal" data-reveal-delay="550">
             <p className="community-story-kicker">A LONG-TERM COMMUNITY</p>
             <h2>不是围观时代，而是和这个时代共舞</h2>
             <p>广告、骚扰、批量加人、卖课引流、搬运内部内容，以及任何诱导未成年人消费或参与高风险项目的行为，都会被直接清退。</p>
@@ -807,7 +843,7 @@ function CommunityPage() {
       </section>
 
       <section className="community-access-section" id="community-contact" aria-label="社群早鸟价与咨询">
-        <div className="community-access-inner">
+        <div className="community-access-inner editorial-reveal" data-reveal-delay="100">
           <div className="community-copy">
             <p className="section-kicker">CHEN SHUO COMMUNITY</p>
             <h1>加入社群</h1>
@@ -1364,6 +1400,7 @@ export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
   usePageViewTracking(normalizedPath);
   useClickTracking();
+  useEditorialReveal();
 
   const isKnowledgePage = normalizedPath === "/knowledge";
   const isKnowledgeBasePage = normalizedPath === "/knowledge-base";
@@ -1425,16 +1462,16 @@ export function App() {
 
         <div className="editorial-hero-inner">
           <div className="editorial-hero-copy">
-            <h1>KAI</h1>
-            <p className="editorial-kicker"><span aria-hidden="true" />打造全国最大的 AI 社群</p>
-            <p className="editorial-lede">
+            <h1 className="editorial-reveal" data-reveal-delay="140">KAI</h1>
+            <p className="editorial-kicker editorial-reveal" data-reveal-delay="80"><span aria-hidden="true" />打造全国最大的 AI 社群</p>
+            <p className="editorial-lede editorial-reveal" data-reveal-delay="220">
               一个持续生长的知识产品空间
               <span>把想法、工具和方法，沉淀成可复用、可商业化的系统。</span>
             </p>
-            <p className="editorial-bio">
+            <p className="editorial-bio editorial-reveal" data-reveal-delay="290">
               我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
             </p>
-            <div className="editorial-actions" aria-label="主要入口">
+            <div className="editorial-actions editorial-reveal" data-reveal-delay="360" aria-label="主要入口">
               <a href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
                 查看内容
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
@@ -1446,19 +1483,19 @@ export function App() {
             </div>
           </div>
 
-          <figure className="editorial-portrait">
+          <figure className="editorial-portrait editorial-reveal" data-reveal-delay="200">
             <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" fetchPriority="high" decoding="async" />
           </figure>
         </div>
 
-        <a className="editorial-scroll" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
+        <a className="editorial-scroll editorial-reveal" data-reveal-delay="440" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
           <span>SCROLL TO EXPLORE</span>
           <ArrowDown size={17} weight="bold" aria-hidden="true" />
         </a>
       </section>
 
       <section className="editorial-projects-section" id="projects" aria-label="知识产品空间">
-        <div className="editorial-projects-heading">
+        <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
           <p className="section-kicker">PRODUCT LINES</p>
           <h2>知识产品空间</h2>
           <p>工具库、阅览室和知识地图，连接成一个持续生长的工作台。</p>
@@ -1469,7 +1506,8 @@ export function App() {
               const Icon = project.icon;
               return (
                 <a
-                  className="hero-project-item"
+                  className="hero-project-item editorial-reveal"
+                  data-reveal-delay={`${index * 80 + 120}`}
                   href={project.href}
                   key={project.title}
                   target={project.external ? "_blank" : undefined}
@@ -1495,7 +1533,7 @@ export function App() {
 
       <section className="contact-section" id="contact">
         <div className="contact-inner">
-          <div className="contact-hero">
+          <div className="contact-hero editorial-reveal" data-reveal-delay="60">
             <p className="section-kicker">GET IN TOUCH / 联系</p>
             <h2>Let's talk.</h2>
             <p className="contact-lede">聊聊 AI、内容，或者一起搞点事情。</p>
@@ -1505,7 +1543,7 @@ export function App() {
             </p>
           </div>
 
-          <div className="contact-marquee" aria-hidden="true">
+          <div className="contact-marquee editorial-reveal" data-reveal-delay="120" aria-hidden="true">
             <div className="contact-marquee-track">
               <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
               <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
@@ -1513,7 +1551,7 @@ export function App() {
           </div>
 
           <div className="contact-grid" aria-label="联系陈硕">
-            <a href="mailto:pdqqqylqxx00321@gmail.com" className="contact-channel">
+            <a href="mailto:pdqqqylqxx00321@gmail.com" className="contact-channel editorial-reveal" data-reveal-delay="180">
               <span className="contact-channel-top">
                 <span className="contact-channel-label">EMAIL</span>
                 <EnvelopeSimple size={18} weight="regular" aria-hidden="true" />
@@ -1525,7 +1563,7 @@ export function App() {
               </span>
             </a>
 
-            <a href={xProfileUrl} className="contact-channel" target="_blank" rel="noreferrer">
+            <a href={xProfileUrl} className="contact-channel editorial-reveal" data-reveal-delay="250" target="_blank" rel="noreferrer">
               <span className="contact-channel-top">
                 <span className="contact-channel-label">X / TWITTER</span>
                 <XLogo size={18} weight="regular" aria-hidden="true" />
@@ -1537,7 +1575,7 @@ export function App() {
               </span>
             </a>
 
-            <a href={knowledgeBaseUrl} className="contact-channel" target="_blank" rel="noreferrer">
+            <a href={knowledgeBaseUrl} className="contact-channel editorial-reveal" data-reveal-delay="320" target="_blank" rel="noreferrer">
               <span className="contact-channel-top">
                 <span className="contact-channel-label">KNOWLEDGE BASE</span>
                 <Brain size={18} weight="regular" aria-hidden="true" />
@@ -1549,7 +1587,7 @@ export function App() {
               </span>
             </a>
 
-            <a href="/community#community-contact" className="contact-channel">
+            <a href="/community#community-contact" className="contact-channel editorial-reveal" data-reveal-delay="390">
               <span className="contact-channel-top">
                 <span className="contact-channel-label">WECHAT / 社群</span>
                 <UserCircle size={18} weight="regular" aria-hidden="true" />
@@ -1562,7 +1600,7 @@ export function App() {
             </a>
           </div>
 
-          <div className="contact-footer-line">
+          <div className="contact-footer-line editorial-reveal" data-reveal-delay="460">
             <span>CHEN SHUO / KAI</span>
             <a href="#top" onClick={(event) => scrollToSection(event, "#top")}>回到顶部 ↑</a>
             <span>AI · CONTENT · PRODUCT</span>

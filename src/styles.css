@@ -10766,3 +10766,55 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Shared editorial entrance motion */
+html.editorial-motion-ready .editorial-reveal {
+  opacity: 0;
+  transform: translate3d(0, clamp(16px, 2vw, 24px), 0);
+  transition-delay: var(--editorial-reveal-delay, 0ms);
+  transition-duration: 680ms;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html.editorial-motion-ready .editorial-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Keep reveal transitions additive to existing editorial interactions. */
+.editorial-projects-section .hero-project-item.editorial-reveal,
+.editorial-article-section .knowledge-origin-card.editorial-reveal {
+  transition:
+    opacity 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 160ms steps(2, end);
+  transition-delay: var(--editorial-reveal-delay, 0ms);
+}
+
+.platform-signal-row.editorial-reveal,
+.site-shell > .contact-section .contact-channel.editorial-reveal {
+  transition:
+    opacity 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 680ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 180ms ease,
+    background-color 180ms ease;
+  transition-delay: var(--editorial-reveal-delay, 0ms);
+}
+
+@media (max-width: 700px) {
+  html.editorial-motion-ready .editorial-reveal {
+    transform: translate3d(0, 16px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.editorial-motion-ready .editorial-reveal,
+  html.editorial-motion-ready .editorial-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

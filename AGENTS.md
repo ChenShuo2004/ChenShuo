@@ -33,3 +33,7 @@ For the full site, use one shared Sac-inspired editorial system: warm paper canv
 - 社群的收费与准入卡放在全部社群说明之后，并明确标注早鸟价。
 - 社群页不保留独立的顶部介绍 Hero；“加入社群”介绍与早鸟价卡一起置于全部社群内容之后，作为最终咨询入口。
 - 阅览室的正式外部入口固定为 FlowUs：https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d；导航、产品卡和“进入阅览室”按钮均指向该地址。
+
+## Durable Motion Preference
+
+- 公开页面使用克制的一次性进入动效：首屏分段淡入，滚动进入视口时轻微上移并淡入；尊重 `prefers-reduced-motion`，`/admin` 不参与。
