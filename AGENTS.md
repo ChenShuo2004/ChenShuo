@@ -12,7 +12,7 @@ For the homepage editorial style, use a warm off-white Sac-inspired layout with 
 
 For the homepage editorial layout, keep the founder copy and two outline actions on the left, with the provided halftone portrait large on the right; keep the first viewport focused on this introduction.
 
-For the product-lines section, keep the “知识产品空间” heading on one line at desktop widths, scaling it down before allowing the editorial grid to break.
+For the product-lines section, position it as “社区的重要组成生态：共建ing”; let this longer heading wrap in a balanced way within the editorial grid instead of forcing a single line.
 
 For the homepage navigation, do not expose a right-side business CTA; keep the hero area focused on the “加入社区” entry.
 
@@ -25,6 +25,8 @@ The 代充业务 page and its `/sales-hub` route should remain deleted; do not r
 Do not position Chen Shuo as "04 大学生", "04 年生", or "大学休学" on the personal website. Use the current positioning: AI 连续创业者 / 国家一级写作专家（自封）, focused on products, knowledge base, information structure, and using information gaps plus knowledge organization to build monetizable systems.
 
 首页个人介绍尽量保留原来的创业经历与“一个持续生长的知识产品空间”主线，社区定位以“打造全国最大的 AI 社区”为核心。
+
+工具库、阅览室和知识地图是社区共建生态的组成部分，连接成一个持续生长的ai社区。
 
 For the full site, use one shared Sac-inspired editorial system: warm paper canvas, black serif display type, coral metadata labels, thin rules, numbered specs, square outline actions, and one shared header. Detail pages should keep the same system while adding a clear reading hierarchy: title, metadata, long-form content grid, and return path.
 - 全平台信号台在桌面端应作为右侧紧凑信息栏呈现，使用清晰可见的平台图标和薄线列表，不再占据整屏宽度。

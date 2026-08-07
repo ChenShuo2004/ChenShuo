@@ -5672,11 +5672,11 @@ a {
 .editorial-projects-heading h2 {
   margin: 0;
   font-family: var(--font-editorial-serif);
-  font-size: clamp(48px, 5.5vw, 92px);
+  font-size: clamp(48px, 4.6vw, 76px);
   font-weight: 600;
   line-height: 0.86;
   letter-spacing: -0.07em;
-  white-space: nowrap;
+  text-wrap: balance;
 }
 
 .editorial-projects-heading > p:last-child {
