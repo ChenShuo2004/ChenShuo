@@ -1,19 +1,26 @@
 import {
   ArrowDown,
+  ArrowClockwise,
   ArrowRight,
   ArrowUpRight,
   BookOpenText,
   Brain,
+  CalendarBlank,
+  ChartLineUp,
   CubeFocus,
+  CursorClick,
   EnvelopeSimple,
+  Eye,
   GitBranch,
   GithubLogo,
   Network,
   Plus,
+  UsersThree,
   XLogo,
   UserCircle,
+  WarningCircle,
 } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import EvilEye from "./EvilEye.jsx";
 
 const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
@@ -835,7 +842,22 @@ const adminRangeOptions = [
   { label: "1D", value: "1d" },
   { label: "7D", value: "7d" },
   { label: "30D", value: "30d" },
+  { label: "90D", value: "90d" },
 ];
+
+const adminPasswordStorageKey = "cs-admin-password";
+
+function readAdminPassword() {
+  if (typeof window === "undefined") return "";
+
+  try {
+    const storedPassword = window.sessionStorage.getItem(adminPasswordStorageKey) || "";
+    window.localStorage.removeItem(adminPasswordStorageKey);
+    return storedPassword;
+  } catch {
+    return "";
+  }
+}
 
 function formatNumber(value) {
   return new Intl.NumberFormat("zh-CN").format(value || 0);
@@ -850,6 +872,37 @@ function formatDay(value) {
   }).format(new Date(value));
 }
 
+function formatAdminDateTime(value) {
+  if (!value) return "-";
+  return new Intl.DateTimeFormat("zh-CN", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Shanghai",
+  }).format(new Date(value));
+}
+
+function formatAdminRange(range, since, until) {
+  const rangeLabels = {
+    "1d": "今天",
+    "7d": "近 7 天",
+    "30d": "近 30 天",
+    "90d": "近 90 天",
+  };
+
+  return rangeLabels[range] || `${since || "-"} — ${until || "-"}`;
+}
+
+function getAdminDateError(from, to) {
+  if (!from || !to) return "请选择开始和结束日期";
+  if (from > to) return "开始日期不能晚于结束日期";
+
+  const days = Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86400000) + 1;
+  if (days > 366) return "自定义区间最多支持 366 天";
+  return "";
+}
+
 function getDimensionLabel(item, keys, fallback = "Direct / Unknown") {
   const value = keys.map((key) => item[key]).find(Boolean);
   return value || fallback;
@@ -859,17 +912,26 @@ function AdminPage() {
   const [range, setRange] = useState("7d");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [password, setPassword] = useState(() => localStorage.getItem("cs-admin-password") || "");
-  const [inputPassword, setInputPassword] = useState(password);
+  const [password, setPassword] = useState(readAdminPassword);
+  const [inputPassword, setInputPassword] = useState("");
   const [analytics, setAnalytics] = useState(null);
   const [error, setError] = useState("");
+  const [dateError, setDateError] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedDayKey, setSelectedDayKey] = useState("");
+  const [lastQuery, setLastQuery] = useState({ range: "7d", from: "", to: "" });
+  const requestIdRef = useRef(0);
 
   async function loadAnalytics(nextRange = range, nextPassword = password, nextFrom = from, nextTo = to) {
-    if (!nextPassword) return;
+    if (!nextPassword?.trim()) return;
 
+    const requestId = requestIdRef.current + 1;
+    requestIdRef.current = requestId;
+    setLastQuery({ range: nextRange, from: nextFrom || "", to: nextTo || "" });
     setIsLoading(true);
     setError("");
+    setStatusMessage(analytics ? "正在更新数据…" : "正在连接分析数据…");
 
     try {
       const params = new URLSearchParams({ range: nextRange });
@@ -879,142 +941,291 @@ function AdminPage() {
           "x-admin-password": nextPassword,
         },
       });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
 
-      if (!response.ok) {
-        throw new Error(data.error || "数据加载失败");
+      if (
+        !response.ok ||
+        !data ||
+        typeof data !== "object" ||
+        typeof data.range !== "string" ||
+        typeof data.since !== "string" ||
+        typeof data.until !== "string" ||
+        !Array.isArray(data.daily) ||
+        !data.totals ||
+        !data.today
+      ) {
+        const loadError = new Error(data.error || "分析接口返回了无效数据");
+        loadError.status = response.status;
+        throw loadError;
       }
+
+      if (requestId !== requestIdRef.current) return;
 
       setAnalytics(data);
-      localStorage.setItem("cs-admin-password", nextPassword);
+      setPassword(nextPassword);
+      setSelectedDayKey(data.daily?.[data.daily.length - 1]?.timestamp || "");
+      setStatusMessage(`已更新 · ${formatAdminDateTime(data.updatedAt)}`);
+      try {
+        window.sessionStorage.setItem(adminPasswordStorageKey, nextPassword);
+      } catch {
+        // The analytics view still works when browser storage is unavailable.
+      }
     } catch (loadError) {
-      setAnalytics(null);
-      setError(loadError.message || "数据加载失败");
-      if (loadError.message?.includes("Invalid")) {
-        localStorage.removeItem("cs-admin-password");
+      if (requestId !== requestIdRef.current) return;
+
+      if (loadError.status === 401 || loadError.message?.includes("Invalid")) {
+        setAnalytics(null);
+        setPassword("");
+        setInputPassword("");
+        setStatusMessage("");
+        setError("密码不正确，请重新输入管理员密码");
+        try {
+          window.sessionStorage.removeItem(adminPasswordStorageKey);
+        } catch {
+          // Ignore storage cleanup failures.
+        }
+      } else {
+        setError(loadError.message || "数据加载失败");
+        setStatusMessage(analytics ? "上次数据仍然保留，可重试本次查询" : "暂时无法连接数据服务");
       }
     } finally {
-      setIsLoading(false);
+      if (requestId === requestIdRef.current) setIsLoading(false);
     }
   }
 
   useEffect(() => {
-    loadAnalytics(range, password, from, to);
-  }, [range, password]);
+    if (password) loadAnalytics("7d", password, "", "");
+    // Only restore an existing session once. Range changes are handled explicitly below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
-    setPassword(inputPassword);
-    loadAnalytics(range, inputPassword, from, to);
+    const nextPassword = inputPassword.trim();
+    if (!nextPassword || isLoading) return;
+    setPassword(nextPassword);
+    loadAnalytics("7d", nextPassword, "", "");
+  }
+
+  function handleRangeChange(nextRange) {
+    if (!password || isLoading) return;
+    setRange(nextRange);
+    setFrom("");
+    setTo("");
+    setDateError("");
+    loadAnalytics(nextRange, password, "", "");
+  }
+
+  function handleCustomQuery(event) {
+    event.preventDefault();
+    const nextDateError = getAdminDateError(from, to);
+    setDateError(nextDateError);
+    if (nextDateError || !password || isLoading) return;
+    setRange("custom");
+    loadAnalytics("custom", password, from, to);
+  }
+
+  function handleLogout() {
+    requestIdRef.current += 1;
+    setPassword("");
+    setInputPassword("");
+    setAnalytics(null);
+    setError("");
+    setDateError("");
+    setStatusMessage("");
+    setIsLoading(false);
+    try {
+      window.sessionStorage.removeItem(adminPasswordStorageKey);
+    } catch {
+      // Ignore storage cleanup failures.
+    }
   }
 
   const maxDailyPageviews = Math.max(...(analytics?.daily || []).map((item) => item.pageviews || 0), 1);
+  const selectedDaily = analytics?.daily?.find((item) => item.timestamp === selectedDayKey) || analytics?.daily?.[analytics.daily.length - 1] || null;
+  const retryQuery = () => loadAnalytics(lastQuery.range, password, lastQuery.from, lastQuery.to);
+  const metricItems = analytics ? [
+    { label: "今日访问", englishLabel: "TODAY / PAGEVIEWS", value: analytics.today?.pageviews, icon: Eye, tone: "accent" },
+    { label: "今日访客", englishLabel: "TODAY / VISITORS", value: analytics.today?.visitors, icon: UsersThree },
+    { label: "区间访问", englishLabel: "RANGE / PAGEVIEWS", value: analytics.totals?.pageviews, icon: ChartLineUp },
+    { label: "区间访客", englishLabel: "RANGE / VISITORS", value: analytics.totals?.visitors, icon: UserCircle },
+    { label: "区间点击", englishLabel: "RANGE / CLICKS", value: analytics.totals?.clicks, icon: CursorClick },
+  ] : [];
 
   return (
     <main className="admin-shell">
       <section className="admin-panel">
         <div className="admin-header">
           <div>
-            <p className="admin-kicker">SITE ANALYTICS</p>
-            <h1>Admin PV</h1>
-            <span>Chen Shuo Personal Site</span>
+            <p className="admin-kicker">CS / PRIVATE ANALYTICS</p>
+            <h1>站点分析</h1>
+            <span>Chen Shuo Personal Site <i /> admin workspace</span>
           </div>
-          <a href="/" className="admin-home-link">
-            Back Home
-          </a>
+          <div className="admin-header-actions">
+            {analytics && (
+              <div className={`admin-session-status ${isLoading ? "is-loading" : ""}`} aria-live="polite">
+                <span className="admin-status-dot" />
+                {isLoading ? "正在同步" : "已连接"}
+              </div>
+            )}
+            <a href="/" className="admin-home-link">
+              返回网站
+              <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+            </a>
+            {analytics && (
+              <button type="button" className="admin-logout-button" onClick={handleLogout}>
+                退出
+              </button>
+            )}
+          </div>
         </div>
 
-        <form className="admin-login" onSubmit={handleSubmit}>
-          <input
-            type="password"
-            value={inputPassword}
-            onChange={(event) => setInputPassword(event.target.value)}
-            placeholder="Admin password"
-            autoComplete="current-password"
-          />
-          <button type="submit" disabled={isLoading || !inputPassword}>
-            {isLoading ? "Loading" : "View Data"}
-          </button>
-        </form>
+        {!analytics && !password && (
+          <section className="admin-login-panel" aria-labelledby="admin-login-title">
+            <div className="admin-login-copy">
+              <p className="admin-section-kicker">PRIVATE ACCESS / 01</p>
+              <h2 id="admin-login-title">连接你的数据</h2>
+              <p>输入管理员密码，查看站点近期的访问、来源和点击信号。</p>
+            </div>
+            <form className="admin-login" onSubmit={handleSubmit}>
+              <label htmlFor="admin-password">管理员密码 <span>SESSION ONLY</span></label>
+              <div className="admin-login-row">
+                <input
+                  id="admin-password"
+                  type="password"
+                  value={inputPassword}
+                  onChange={(event) => setInputPassword(event.target.value)}
+                  placeholder="输入密码"
+                  autoComplete="current-password"
+                />
+                <button type="submit" disabled={isLoading || !inputPassword.trim()}>
+                  {isLoading ? "连接中" : "查看数据"}
+                  <ArrowRight size={17} weight="bold" aria-hidden="true" />
+                </button>
+              </div>
+              <p className="admin-form-note">密码只保留在当前浏览器会话中。</p>
+            </form>
+          </section>
+        )}
 
-        {error && <p className="admin-error">{error}</p>}
+        {!analytics && password && isLoading && <AdminDashboardSkeleton />}
+
+        {!analytics && password && !isLoading && error && (
+          <section className="admin-error-state" role="alert">
+            <WarningCircle size={22} weight="duotone" aria-hidden="true" />
+            <div>
+              <strong>暂时无法加载数据</strong>
+              <p>{error}</p>
+              <div className="admin-error-actions">
+                <button type="button" onClick={retryQuery}>重试</button>
+                <button type="button" className="admin-error-secondary" onClick={handleLogout}>重新登录</button>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {analytics && error && (
+          <div className="admin-error" role="alert">
+            <WarningCircle size={19} weight="duotone" aria-hidden="true" />
+            <span>{error}</span>
+            <button type="button" onClick={retryQuery} disabled={isLoading}>重试</button>
+          </div>
+        )}
 
         {analytics && (
           <div className="admin-dashboard">
-            <div className="admin-toolbar">
-              <div>
-                <strong>{analytics.since} - {analytics.until}</strong>
-                <span>Updated {new Date(analytics.updatedAt).toLocaleString("zh-CN")}</span>
+            <section className="admin-toolbar" aria-label="数据筛选">
+              <div className="admin-toolbar-intro">
+                <p className="admin-section-kicker">VIEW / {analytics.range === "custom" ? "CUSTOM" : analytics.range.toUpperCase()}</p>
+                <strong>{formatAdminRange(analytics.range, analytics.since, analytics.until)}</strong>
+                <span>{analytics.since} — {analytics.until} <i /> {statusMessage || `更新于 ${formatAdminDateTime(analytics.updatedAt)}`}</span>
               </div>
-              <div className="admin-range-switch" aria-label="Select analytics range">
+              <div className="admin-toolbar-controls">
+                <div className="admin-range-switch" role="group" aria-label="选择时间范围">
                 {adminRangeOptions.map((option) => (
                   <button
                     type="button"
                     key={option.value}
                     className={range === option.value ? "active" : ""}
-                    onClick={() => setRange(option.value)}
+                    onClick={() => handleRangeChange(option.value)}
+                    aria-pressed={range === option.value}
+                    disabled={isLoading}
                   >
                     {option.label}
                   </button>
                 ))}
+                </div>
+                <form className="admin-date-filter" onSubmit={handleCustomQuery}>
+                  <div className="admin-date-input">
+                    <CalendarBlank size={16} weight="bold" aria-hidden="true" />
+                    <input type="date" value={from} onChange={(event) => { setFrom(event.target.value); setDateError(""); }} aria-label="开始日期" />
+                  </div>
+                  <span className="admin-date-separator">至</span>
+                  <div className="admin-date-input">
+                    <CalendarBlank size={16} weight="bold" aria-hidden="true" />
+                    <input type="date" value={to} onChange={(event) => { setTo(event.target.value); setDateError(""); }} aria-label="结束日期" />
+                  </div>
+                  <button type="submit" disabled={!from || !to || isLoading}>查询</button>
+                </form>
+                <button type="button" className="admin-refresh-button" onClick={retryQuery} disabled={isLoading} aria-label="刷新数据">
+                  <ArrowClockwise className={isLoading ? "is-spinning" : ""} size={17} weight="bold" aria-hidden="true" />
+                  <span>{isLoading ? "更新中" : "刷新"}</span>
+                </button>
               </div>
-              <div className="admin-date-filter">
-                <input type="date" value={from} onChange={(event) => setFrom(event.target.value)} aria-label="开始日期" />
-                <span>至</span>
-                <input type="date" value={to} onChange={(event) => setTo(event.target.value)} aria-label="结束日期" />
-                <button type="button" onClick={() => loadAnalytics("custom", password, from, to)} disabled={!from || !to || isLoading}>查询</button>
-              </div>
-            </div>
+              {dateError && <p className="admin-date-error" role="alert">{dateError}</p>}
+            </section>
 
             <div className="admin-metrics-grid">
-              <article>
-                <span>Today PV</span>
-                <strong>{formatNumber(analytics.today.pageviews)}</strong>
-              </article>
-              <article>
-                <span>Today Visitors</span>
-                <strong>{formatNumber(analytics.today.visitors)}</strong>
-              </article>
-              <article>
-                <span>Total PV</span>
-                <strong>{formatNumber(analytics.totals.pageviews)}</strong>
-              </article>
-              <article>
-                <span>Total Visitors</span>
-                <strong>{formatNumber(analytics.totals.visitors)}</strong>
-              </article>
-              <article>
-                <span>Total Clicks</span>
-                <strong>{formatNumber(analytics.totals.clicks)}</strong>
-              </article>
+              {metricItems.map((item) => <AdminMetricCard key={item.englishLabel} {...item} />)}
             </div>
 
-            <section className="admin-chart-panel">
+            <section className="admin-chart-panel" aria-labelledby="admin-chart-title" aria-busy={isLoading}>
               <div className="admin-section-title">
-                <h2>Daily Traffic</h2>
-                <span>PV / Clicks by day</span>
-              </div>
-              <div className="admin-bars">
-                {analytics.daily.map((item) => (
-                  <div className="admin-bar-item" key={item.timestamp}>
-                    <div className="admin-bar-track">
-                      <span style={{ height: `${Math.max(((item.pageviews || 0) / maxDailyPageviews) * 100, 4)}%` }} />
-                    </div>
-                    <strong>{formatNumber(item.pageviews)}</strong>
-                    <em>{formatNumber(item.clicks)} clicks</em>
-                    <small>{formatDay(item.timestamp)}</small>
+                <div>
+                  <p className="admin-section-kicker">01 / TRAFFIC</p>
+                  <h2 id="admin-chart-title">每日流量</h2>
+                </div>
+                {selectedDaily && (
+                  <div className="admin-chart-readout" aria-live="polite">
+                    <span>{formatDay(selectedDaily.timestamp)} · SELECTED DAY</span>
+                    <strong>{formatNumber(selectedDaily.pageviews)} <small>PV</small></strong>
+                    <em>{formatNumber(selectedDaily.clicks)} clicks · {formatNumber(selectedDaily.visitors)} visitors</em>
                   </div>
-                ))}
+                )}
               </div>
+              {analytics.daily?.length > 0 ? (
+                <div className="admin-bars" role="group" aria-label="每日访问量">
+                  {analytics.daily.map((item) => {
+                    const isSelected = selectedDaily?.timestamp === item.timestamp;
+                    return (
+                      <button
+                        className={`admin-bar-item ${isSelected ? "selected" : ""}`}
+                        key={item.timestamp}
+                        type="button"
+                        aria-pressed={isSelected}
+                        aria-label={`${formatDay(item.timestamp)}，${formatNumber(item.pageviews)} PV，${formatNumber(item.clicks)} 次点击，${formatNumber(item.visitors)} 位访客`}
+                        onClick={() => setSelectedDayKey(item.timestamp)}
+                      >
+                        <span className="admin-bar-track">
+                          <span style={{ height: `${Math.max(((item.pageviews || 0) / maxDailyPageviews) * 100, 4)}%` }} />
+                        </span>
+                        <strong>{formatNumber(item.pageviews)}</strong>
+                        <em>{formatNumber(item.clicks)} clicks</em>
+                        <small>{formatDay(item.timestamp)}</small>
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : <AdminEmptyState label="当前时间范围内暂无流量数据" detail="有新的访问后，这里会显示每日趋势。" />}
             </section>
 
             <div className="admin-lists-grid">
-              <AdminRankList title="Top Pages" rows={analytics.topPages} labelKeys={["requestPath", "route"]} />
-              <AdminRankList title="Referrers" rows={analytics.referrers} labelKeys={["referrerHostname"]} />
-              <AdminRankList title="Sources" rows={analytics.sources} labelKeys={["source"]} />
-              <AdminRankList title="Click Events" rows={analytics.clickEvents} labelKeys={["eventName"]} />
-              <AdminRankList title="Countries" rows={analytics.countries} labelKeys={["country"]} />
-              <AdminRankList title="Devices" rows={analytics.devices} labelKeys={["deviceType"]} />
+              <AdminRankList title="热门页面" englishTitle="TOP PAGES" rows={analytics.topPages} labelKeys={["requestPath", "route"]} icon={BookOpenText} />
+              <AdminRankList title="来源网站" englishTitle="REFERRERS" rows={analytics.referrers} labelKeys={["referrerHostname"]} icon={ArrowUpRight} />
+              <AdminRankList title="渠道来源" englishTitle="SOURCES" rows={analytics.sources} labelKeys={["source"]} icon={Network} />
+              <AdminRankList title="点击事件" englishTitle="CLICK EVENTS" rows={analytics.clickEvents} labelKeys={["eventName"]} icon={CursorClick} />
+              <AdminRankList title="访问国家" englishTitle="COUNTRIES" rows={analytics.countries} labelKeys={["country"]} icon={UserCircle} />
+              <AdminRankList title="设备类型" englishTitle="DEVICES" rows={analytics.devices} labelKeys={["deviceType"]} icon={ChartLineUp} />
             </div>
           </div>
         )}
@@ -1023,26 +1234,80 @@ function AdminPage() {
   );
 }
 
-function AdminRankList({ title, rows, labelKeys }) {
+function AdminDashboardSkeleton() {
   return (
-    <section className="admin-list-panel">
-      <div className="admin-section-title">
-        <h2>{title}</h2>
-        <span>PV / Clicks / Visitors</span>
+    <div className="admin-dashboard admin-dashboard-skeleton" aria-busy="true" aria-label="正在加载分析数据">
+      <div className="admin-skeleton-toolbar"><span /><span /><span /></div>
+      <div className="admin-skeleton-metrics">
+        {Array.from({ length: 5 }, (_, index) => <span key={index} />)}
       </div>
-      <div className="admin-rank-list">
+      <div className="admin-skeleton-chart"><span /><span /><span /><span /><span /><span /><span /></div>
+      <div className="admin-skeleton-lists">
+        {Array.from({ length: 6 }, (_, index) => <span key={index} />)}
+      </div>
+    </div>
+  );
+}
+
+function AdminMetricCard({ label, englishLabel, value, icon: Icon, tone }) {
+  return (
+    <article className={`admin-metric-card ${tone ? `is-${tone}` : ""}`}>
+      <div className="admin-metric-label">
+        <span>{label}</span>
+        <Icon size={18} weight="duotone" aria-hidden="true" />
+      </div>
+      <small>{englishLabel}</small>
+      <strong>{formatNumber(value)}</strong>
+    </article>
+  );
+}
+
+function AdminEmptyState({ label, detail }) {
+  return (
+    <div className="admin-empty-state">
+      <span className="admin-empty-mark">—</span>
+      <div>
+        <strong>{label}</strong>
+        <p>{detail}</p>
+      </div>
+    </div>
+  );
+}
+
+function AdminRankList({ title, englishTitle, rows, labelKeys, icon: Icon }) {
+  return (
+    <section className="admin-list-panel" aria-labelledby={`admin-list-${englishTitle.toLowerCase().replaceAll(" ", "-")}`}>
+      <div className="admin-section-title">
+        <div className="admin-list-heading">
+          <Icon size={19} weight="duotone" aria-hidden="true" />
+          <div>
+            <p className="admin-section-kicker">{englishTitle}</p>
+            <h2 id={`admin-list-${englishTitle.toLowerCase().replaceAll(" ", "-")}`}>{title}</h2>
+          </div>
+        </div>
+        <span className="admin-list-legend">PV · 点击 · 访客</span>
+      </div>
+      <ol className="admin-rank-list">
         {rows?.length > 0 ? (
           rows.map((item, index) => (
-            <article key={`${title}-${index}`}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <strong>{getDimensionLabel(item, labelKeys)}</strong>
-              <em>{formatNumber(item.pageviews)} / {formatNumber(item.clicks)} / {formatNumber(item.visitors)}</em>
-            </article>
+            <li key={`${title}-${index}`}>
+              <span className="admin-rank-index">{String(index + 1).padStart(2, "0")}</span>
+              <div className="admin-rank-label">
+                <strong title={getDimensionLabel(item, labelKeys)}>{getDimensionLabel(item, labelKeys)}</strong>
+                <small>{formatNumber(item.pageviews)} PV · {formatNumber(item.clicks)} 点击 · {formatNumber(item.visitors)} 访客</small>
+              </div>
+            </li>
           ))
         ) : (
-          <p>No data yet</p>
+          <li className="admin-rank-empty">
+            <span className="admin-empty-mark">—</span>
+            <div>
+              <strong>暂无数据</strong>
+              <small>当前时间范围内还没有记录</small>
+            </div>
+          </li>
         )}
-      </div>
+      </ol>
     </section>
   );
 }
