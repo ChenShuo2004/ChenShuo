@@ -4458,7 +4458,6 @@ a {
 }
 
 .community-copy,
-.community-price-card,
 .community-benefit-frame {
   border: 4px solid var(--pixel-ink);
   box-shadow: 8px 8px 0 rgba(3, 24, 58, 0.34);
@@ -4505,8 +4504,7 @@ a {
   font-weight: 600;
 }
 
-.community-back-link,
-.community-price-card a {
+.community-back-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4520,55 +4518,6 @@ a {
   box-shadow: 5px 5px 0 rgba(3, 24, 58, 0.24);
   font-family: var(--font-pixel-cn);
   font-size: 16px;
-}
-
-.community-price-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 28px 24px 26px;
-  text-align: center;
-  background:
-    linear-gradient(180deg, #ff6a8d 0 40px, transparent 40px),
-    linear-gradient(180deg, #fff8d8 0%, #f6f0cf 100%);
-}
-
-.community-price-card > span {
-  color: var(--pixel-ink);
-  font-family: var(--font-pixel-en);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-}
-
-.community-price-card strong {
-  margin-top: 22px;
-  color: var(--pixel-ink);
-  font-family: var(--font-pixel-en);
-  font-size: clamp(64px, 7vw, 96px);
-  line-height: 0.9;
-  text-shadow: 5px 5px 0 rgba(7, 55, 126, 0.16);
-}
-
-.community-price-card p {
-  margin-top: 14px;
-  color: var(--pixel-ink);
-  font-family: var(--font-pixel-cn);
-  font-size: 22px;
-}
-
-.community-price-card small {
-  margin-top: 12px;
-  color: rgba(7, 55, 126, 0.78);
-  font-family: var(--font-pixel-cn);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.community-price-card a {
-  width: 100%;
-  margin-top: 24px;
-  background: #ffcf4a;
 }
 
 .community-wechat {
@@ -4680,10 +4629,6 @@ a {
 
   .community-intro-inner {
     grid-template-columns: 1fr;
-  }
-
-  .community-price-card {
-    min-height: 300px;
   }
 
   .community-benefit-grid {
@@ -4837,7 +4782,6 @@ a {
 .hero-community-label,
 .hero-project-item,
 .community-back-link,
-.community-price-card a,
 .primary-action,
 .secondary-action,
 .tools-intro-actions a,
@@ -4856,7 +4800,6 @@ a {
 
 .hero-community-label,
 .community-back-link,
-.community-price-card a,
 .primary-action,
 .secondary-action,
 .tools-intro-actions a,
@@ -4866,7 +4809,6 @@ a {
 
 .hero-community-label:hover,
 .community-back-link:hover,
-.community-price-card a:hover,
 .primary-action:hover,
 .secondary-action:hover,
 .tools-intro-actions a:hover,
@@ -4886,7 +4828,6 @@ a {
 .hero-community-label:active,
 .hero-project-item:active,
 .community-back-link:active,
-.community-price-card a:active,
 .primary-action:active,
 .secondary-action:active,
 .tools-intro-actions a:active,
@@ -4902,7 +4843,6 @@ a {
 .hero-community-label:focus-visible,
 .hero-project-item:focus-visible,
 .community-back-link:focus-visible,
-.community-price-card a:focus-visible,
 .primary-action:focus-visible,
 .secondary-action:focus-visible,
 .tools-intro-actions a:focus-visible,
@@ -6623,74 +6563,56 @@ body {
   background: var(--editorial-ink);
 }
 
-.editorial-community-page .community-price-card {
+.editorial-community-page .community-contact-card {
   align-self: end;
-  min-height: 370px;
-  padding: 26px 28px 24px;
+  min-height: 300px;
+  padding: 26px 28px;
   color: var(--editorial-ink);
   border: 1px solid var(--editorial-ink);
   border-radius: 0;
   background: var(--editorial-yellow);
   box-shadow: none;
+  display: flex;
+  flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
 }
 
-.editorial-community-page .community-price-card > span,
-.editorial-community-page .community-price-card > p,
-.editorial-community-page .community-price-card > small,
+.editorial-community-page .community-contact-card > span,
+.editorial-community-page .community-contact-card > p,
 .editorial-community-page .community-wechat span {
   font-family: var(--editorial-mono);
 }
 
-.editorial-community-page .community-price-card > span {
+.editorial-community-page .community-contact-card > span {
   color: var(--editorial-accent);
   font-size: 11px;
   letter-spacing: 0.11em;
 }
 
-.editorial-community-page .community-price-card > strong {
-  display: block;
-  margin: 46px 0 2px;
+.editorial-community-page .community-contact-card h2 {
+  margin: 44px 0 0;
   font-family: var(--editorial-display);
-  font-size: clamp(92px, 10vw, 158px);
+  font-size: clamp(42px, 4vw, 62px);
   font-weight: 600;
-  letter-spacing: -0.1em;
-  line-height: 0.7;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
   color: var(--editorial-ink);
   text-shadow: none;
 }
 
-.editorial-community-page .community-price-card > p {
-  margin: 22px 0 4px;
+.editorial-community-page .community-contact-card > p {
+  margin: 22px 0 0;
   font-family: var(--font-cn-serif);
   font-size: 17px;
+  line-height: 1.65;
   color: var(--editorial-ink);
-}
-
-.editorial-community-page .community-price-card > small {
-  color: var(--editorial-muted);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-}
-
-.editorial-community-page .community-price-card > a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  margin-top: 28px;
-  color: var(--editorial-paper);
-  border: 1px solid var(--editorial-ink);
-  background: var(--editorial-ink);
-  font-family: var(--font-cn-serif);
-  font-size: 14px;
 }
 
 .editorial-community-page .community-wechat {
   display: grid;
   gap: 5px;
-  margin-top: 14px;
+  margin-top: auto;
   padding: 12px 14px;
   border: 1px solid var(--editorial-line);
   background: rgba(255, 255, 255, 0.28);
@@ -6715,7 +6637,7 @@ body {
   padding: 84px 0 130px;
 }
 
-.editorial-community-page .community-access-section .community-price-card {
+.editorial-community-page .community-access-section .community-contact-card {
   width: min(100%, 460px);
   justify-self: end;
 }
@@ -7446,15 +7368,15 @@ body {
     font-size: 20px;
   }
 
-  .editorial-community-page .community-price-card {
+  .editorial-community-page .community-contact-card {
     width: 100%;
     min-height: 0;
     padding: 22px 20px;
   }
 
-  .editorial-community-page .community-price-card > strong {
+  .editorial-community-page .community-contact-card h2 {
     margin-top: 40px;
-    font-size: 108px;
+    font-size: clamp(42px, 13vw, 62px);
   }
 
   .editorial-community-page .community-story-card-teal,

@@ -187,7 +187,7 @@ function useEditorialReveal() {
   }, []);
 }
 
-function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "加入社群", actionHref = "/community", inHero = false }) {
+function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "加入社区", actionHref = "/community", inHero = false }) {
   return (
     <header className={`editorial-site-header editorial-reveal ${inHero ? "editorial-site-header-hero" : ""}`}>
       <a className="editorial-site-brand" href="/" aria-label="返回陈硕个人网站首页">
@@ -465,9 +465,9 @@ function PlatformSignalsSection() {
     {
       key: "community",
       label: "COMMUNITY / AI",
-      name: "全国 AI 社群",
+      name: "全国 AI 社区",
       detail: "AI / 内容 / 产品",
-      value: "9.9 元 / 年",
+      value: "开放加入",
       status: "OPEN",
       icon: UserCircle,
       href: "/community",
@@ -778,8 +778,7 @@ function CommunityPage() {
           <article className="community-story-card community-story-card-wide editorial-reveal" data-reveal-delay="60">
             <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
             <h2>我想做一个属于下一代的 AI 共创社群</h2>
-            <p>社群早鸟价暂定为 <strong>9.9 元 / 年</strong>。但这 9.9 元不是课程费，也不是购买人脉和资源的费用，它只是一个很低的门槛。</p>
-            <p>我希望用它筛选出一批愿意认真介绍自己、愿意真正参与、愿意长期使用 AI 做事情的人。这里不追求热闹，更不想成为一个每天刷几百条消息、最后所有人都设置免打扰的微信群。</p>
+            <p>我希望和一批愿意认真介绍自己、愿意真正参与、愿意长期使用 AI 做事情的人一起共创。这里不追求热闹，更不想成为一个每天刷几百条消息、最后所有人都设置免打扰的微信群。</p>
             <p>我更想做一个属于 00 后、10 后，以及未来更多年轻人的 AI 共创空间。我们可以讨论 AI、产品、内容、创业和个人成长，也可以把自己真正遇到的问题拿出来。</p>
           </article>
 
@@ -842,11 +841,11 @@ function CommunityPage() {
         </div>
       </section>
 
-      <section className="community-access-section" id="community-contact" aria-label="社群早鸟价与咨询">
+      <section className="community-access-section" id="community-contact" aria-label="加入社区咨询">
         <div className="community-access-inner editorial-reveal" data-reveal-delay="100">
           <div className="community-copy">
             <p className="section-kicker">CHEN SHUO COMMUNITY</p>
-            <h1>加入社群</h1>
+            <h1>加入社区</h1>
             <p className="community-lede">
               一个围绕 AI、产品、内容与个人商业化的实践型社群。
               <br />
@@ -857,13 +856,11 @@ function CommunityPage() {
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </div>
-          <aside className="community-price-card" aria-label="社群早鸟价">
-            <span>COMMUNITY ACCESS / EARLY BIRD</span>
-            <strong>¥9.9</strong>
-            <p>早鸟价 · 社群准入</p>
-            <small>早鸟阶段开放，先了解，再决定是否加入</small>
-            <a href="/#top">添加微信咨询</a>
-            <div className="community-wechat" aria-label="社群微信号">
+          <aside className="community-contact-card" aria-label="加入社区咨询">
+            <span>COMMUNITY / CONTACT</span>
+            <h2>添加微信咨询</h2>
+            <p>添加微信并备注「社区」，我会发送当前的加入方式和开放信息。</p>
+            <div className="community-wechat" aria-label="社区微信号">
               <span>微信号</span>
               <strong>Chen18005977213</strong>
             </div>
@@ -1477,7 +1474,7 @@ export function App() {
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
               <a href="/community">
-                加入社群
+                加入社区
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
@@ -1594,7 +1591,7 @@ export function App() {
               </span>
               <strong>Chen18005977213</strong>
               <span className="contact-channel-meta">
-                微信咨询 / 加入社群
+                微信咨询 / 加入社区
                 <ArrowRight size={18} weight="regular" aria-hidden="true" />
               </span>
             </a>

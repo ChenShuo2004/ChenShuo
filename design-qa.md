@@ -174,7 +174,7 @@ state: homepage hero rebuilt as a warm editorial layout with the supplied halfto
 **Required Fidelity Surfaces**
 - Warm off-white canvas, thin guide lines, large serif KAI wordmark, coral community kicker, two outline actions, and oversized right-side portrait match the supplied Sac reference composition.
 - Founder positioning remains visible: AI 连续创业者、知识产品空间、工具与方法商业化。
-- `查看内容` scrolls to the product-line section and `加入社群` links to `/community`.
+- `查看内容` scrolls to the product-line section and `加入社区` links to `/community`.
 - `/sales-hub` is no longer handled by a sales page component or route.
 - Desktop screenshot checked at 1816x819; mobile screenshot checked at 390x844.
 - Layout safety: desktop and mobile states report no horizontal overflow; supplied halftone portrait loads successfully.
