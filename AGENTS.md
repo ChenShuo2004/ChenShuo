@@ -12,7 +12,7 @@ For the homepage editorial style, use a warm off-white Sac-inspired layout with 
 
 For the homepage editorial layout, keep the founder copy and two outline actions on the left, with the provided halftone portrait large on the right; keep the first viewport focused on this introduction.
 
-For the product-lines section, position it as “社区的重要组成生态：共建ing”; let this longer heading wrap in a balanced way within the editorial grid instead of forcing a single line.
+For the product-lines section, use the single-line “构建ing” heading at desktop widths, scaling it down before allowing the editorial grid to break.
 
 For the homepage navigation, do not expose a right-side business CTA; keep the hero area focused on the “加入社区” entry.
 

@@ -1494,7 +1494,7 @@ export function App() {
       <section className="editorial-projects-section" id="projects" aria-label="共建中的社区生态">
         <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
           <p className="section-kicker">PRODUCT LINES</p>
-          <h2>社区的重要组成生态：共建ing</h2>
+          <h2>构建ing</h2>
           <p>工具库、阅览室和知识地图，连接成一个持续生长的ai社区。</p>
         </div>
         <div className="hero-system-frame">
