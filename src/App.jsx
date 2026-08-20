@@ -28,8 +28,7 @@ const readingRoomUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const githubProfileUrl = "https://github.com/ChenShuo2004";
 const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
 const githubEventsApiUrl = "https://api.github.com/users/ChenShuo2004/events/public?per_page=10";
-// The X handle was not included in the brief, so keep this single line easy to replace.
-const xProfileUrl = "https://x.com/";
+const xProfileUrl = "https://x.com/ChenshuoAI";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 
 const fallbackGithubStats = {
