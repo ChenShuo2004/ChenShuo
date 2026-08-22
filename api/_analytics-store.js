@@ -3,6 +3,8 @@ import { get, list, put } from "@vercel/blob";
 
 const rangeToDays = { "1d": 1, "7d": 7, "30d": 30, "90d": 90 };
 const shanghaiOffset = "+08:00";
+const analyticsPageSize = 1000;
+const maxAnalyticsEvents = 100000;
 
 export function toDateString(date) {
   return new Intl.DateTimeFormat("en-CA", {
@@ -133,13 +135,59 @@ async function listDayEvents(day) {
   return events;
 }
 
-async function loadEvents(since, until, storage) {
-  if (storage.id === "supabase") {
-    const { data, error } = await storage.supabase.from("analytics_events").select("*").gte("created_at", `${since}T00:00:00${shanghaiOffset}`).lt("created_at", `${addDays(until, 1)}T00:00:00${shanghaiOffset}`).order("created_at", { ascending: true }).limit(50000);
-    if (error) throw error;
-    return data || [];
+export async function loadSupabaseEvents(supabase, since, until) {
+  const lowerBound = `${since}T00:00:00${shanghaiOffset}`;
+  const upperBound = `${addDays(until, 1)}T00:00:00${shanghaiOffset}`;
+  const { count, error: countError } = await supabase
+    .from("analytics_events")
+    .select("id", { count: "exact", head: true })
+    .gte("created_at", lowerBound)
+    .lt("created_at", upperBound);
+
+  if (countError) throw countError;
+  if (typeof count === "number" && count > maxAnalyticsEvents) {
+    throw new Error(`当前时间范围有 ${count.toLocaleString("zh-CN")} 条事件，超过单次汇总上限。请缩短查询区间。`);
   }
-  return (await Promise.all(getDaysBetween(since, Math.max(1, Math.round((Date.parse(`${until}T00:00:00Z`) - Date.parse(`${since}T00:00:00Z`)) / 86400000) + 1)).map(listDayEvents))).flat();
+
+  const events = [];
+  let offset = 0;
+  const expectedCount = typeof count === "number" ? count : null;
+
+  while (expectedCount === null ? events.length < maxAnalyticsEvents : events.length < expectedCount) {
+    const { data, error } = await supabase
+      .from("analytics_events")
+      .select("*")
+      .gte("created_at", lowerBound)
+      .lt("created_at", upperBound)
+      .order("created_at", { ascending: true })
+      .order("id", { ascending: true })
+      .range(offset, offset + analyticsPageSize - 1);
+
+    if (error) throw error;
+    const page = data || [];
+    if (page.length === 0) break;
+
+    events.push(...page);
+    offset += page.length;
+    if (expectedCount === null && page.length < analyticsPageSize) break;
+  }
+
+  if (expectedCount !== null && events.length !== expectedCount) {
+    throw new Error(`分析数据未完整读取：预期 ${expectedCount.toLocaleString("zh-CN")} 条，实际读取 ${events.length.toLocaleString("zh-CN")} 条。请重试。`);
+  }
+
+  if (expectedCount === null && events.length >= maxAnalyticsEvents) {
+    throw new Error("分析数据超过单次汇总上限。请缩短查询区间。");
+  }
+
+  return { events, eventCount: expectedCount ?? events.length };
+}
+
+async function loadEvents(since, until, storage) {
+  if (storage.id === "supabase") return loadSupabaseEvents(storage.supabase, since, until);
+
+  const events = (await Promise.all(getDaysBetween(since, Math.max(1, Math.round((Date.parse(`${until}T00:00:00Z`) - Date.parse(`${since}T00:00:00Z`)) / 86400000) + 1)).map(listDayEvents))).flat();
+  return { events, eventCount: events.length };
 }
 
 function addToMap(map, key, event) {
@@ -159,7 +207,7 @@ export async function getAnalyticsSummary(range, from, to) {
   const { days, since, until } = getDateRange(range, from, to);
   const dayKeys = getDaysBetween(since, days);
   const storage = getAnalyticsStorage();
-  const events = await loadEvents(since, until, storage);
+  const { events, eventCount } = await loadEvents(since, until, storage);
   const pageMap = new Map(), referrerMap = new Map(), sourceMap = new Map(), countryMap = new Map(), deviceMap = new Map(), clickMap = new Map();
   const eventsByDay = new Map(dayKeys.map((day) => [day, []]));
   for (const event of events) {
@@ -201,6 +249,7 @@ export async function getAnalyticsSummary(range, from, to) {
     countries: toRankedRows(countryMap, "country"),
     devices: toRankedRows(deviceMap, "deviceType"),
     storage: { provider: storage.id, label: storage.label, persistent: true, deduplicated: true },
+    retrieval: { eventCount, complete: true },
     lastRecordedAt,
     updatedAt: new Date().toISOString(),
   };

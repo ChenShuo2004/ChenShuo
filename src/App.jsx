@@ -1227,7 +1227,7 @@ function AdminPage() {
                 <p>DATA STORAGE / PERSISTENT</p>
                 <strong>{formatStorageLabel(analytics.storage)}</strong>
               </div>
-              <small>{analytics.lastRecordedAt ? `最近入库：${formatAdminDateTime(analytics.lastRecordedAt)}` : "当前查询区间内尚无入库记录"}</small>
+              <small>{analytics.retrieval?.complete ? `已完整汇总 ${formatNumber(analytics.retrieval.eventCount)} 条事件` : "正在核对汇总完整性"} <i /> {analytics.lastRecordedAt ? `最近入库：${formatAdminDateTime(analytics.lastRecordedAt)}` : "当前查询区间内尚无入库记录"}</small>
             </section>
 
             <div className="admin-metrics-grid">
