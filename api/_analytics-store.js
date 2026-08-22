@@ -67,17 +67,44 @@ export function normalizeSource(value, referrer) {
   return host;
 }
 
-export async function recordPageView(event) {
+function getAnalyticsStorage() {
   const supabase = getSupabaseClient();
   if (supabase) {
-    const { error } = await supabase.from("analytics_events").insert(event);
+    return {
+      id: "supabase",
+      label: "Supabase Postgres",
+      supabase,
+    };
+  }
+
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    return {
+      id: "vercel-blob",
+      label: "Vercel Blob",
+    };
+  }
+
+  const error = new Error("分析数据存储未配置：请设置 SUPABASE_URL 和 SUPABASE_SECRET_KEY。");
+  error.code = "ANALYTICS_STORAGE_NOT_CONFIGURED";
+  throw error;
+}
+
+export async function recordPageView(event) {
+  const storage = getAnalyticsStorage();
+  if (storage.id === "supabase") {
+    const { error } = await storage.supabase
+      .from("analytics_events")
+      .upsert(event, { onConflict: "event_id", ignoreDuplicates: true });
     if (error) throw error;
     return;
   }
-  const now = new Date();
-  const day = toDateString(now);
-  const random = Math.random().toString(36).slice(2, 10);
-  await put(`views/${day}/${now.getTime()}-${random}.json`, JSON.stringify(event), { access: "private", allowOverwrite: false, contentType: "application/json" });
+
+  const day = toDateString(new Date(event.created_at));
+  await put(`views/${day}/${event.event_id}.json`, JSON.stringify(event), {
+    access: "private",
+    allowOverwrite: true,
+    contentType: "application/json",
+  });
 }
 
 export const recordAnalyticsEvent = recordPageView;
@@ -106,10 +133,9 @@ async function listDayEvents(day) {
   return events;
 }
 
-async function loadEvents(since, until) {
-  const supabase = getSupabaseClient();
-  if (supabase) {
-    const { data, error } = await supabase.from("analytics_events").select("*").gte("created_at", `${since}T00:00:00${shanghaiOffset}`).lt("created_at", `${addDays(until, 1)}T00:00:00${shanghaiOffset}`).order("created_at", { ascending: true }).limit(50000);
+async function loadEvents(since, until, storage) {
+  if (storage.id === "supabase") {
+    const { data, error } = await storage.supabase.from("analytics_events").select("*").gte("created_at", `${since}T00:00:00${shanghaiOffset}`).lt("created_at", `${addDays(until, 1)}T00:00:00${shanghaiOffset}`).order("created_at", { ascending: true }).limit(50000);
     if (error) throw error;
     return data || [];
   }
@@ -132,7 +158,8 @@ function toRankedRows(map, fieldName) {
 export async function getAnalyticsSummary(range, from, to) {
   const { days, since, until } = getDateRange(range, from, to);
   const dayKeys = getDaysBetween(since, days);
-  const events = await loadEvents(since, until);
+  const storage = getAnalyticsStorage();
+  const events = await loadEvents(since, until, storage);
   const pageMap = new Map(), referrerMap = new Map(), sourceMap = new Map(), countryMap = new Map(), deviceMap = new Map(), clickMap = new Map();
   const eventsByDay = new Map(dayKeys.map((day) => [day, []]));
   for (const event of events) {
@@ -155,5 +182,26 @@ export async function getAnalyticsSummary(range, from, to) {
   const visitors = new Set(events.map((event) => event.visitor_id || event.visitorId).filter(Boolean)).size;
   const todayKey = toDateString(new Date());
   const today = daily.find((item) => item.timestamp.startsWith(todayKey)) || { pageviews: 0, clicks: 0, visitors: 0 };
-  return { range, days, since, until, totals: { pageviews, clicks, visitors }, today, daily, topPages: toRankedRows(pageMap, "requestPath"), referrers: toRankedRows(referrerMap, "referrerHostname"), sources: toRankedRows(sourceMap, "source"), clickEvents: toRankedRows(clickMap, "eventName"), countries: toRankedRows(countryMap, "country"), devices: toRankedRows(deviceMap, "deviceType"), updatedAt: new Date().toISOString() };
+  const lastRecordedAt = events.reduce((latest, event) => {
+    const value = event.created_at || event.createdAt || "";
+    return value > latest ? value : latest;
+  }, "");
+  return {
+    range,
+    days,
+    since,
+    until,
+    totals: { pageviews, clicks, visitors },
+    today,
+    daily,
+    topPages: toRankedRows(pageMap, "requestPath"),
+    referrers: toRankedRows(referrerMap, "referrerHostname"),
+    sources: toRankedRows(sourceMap, "source"),
+    clickEvents: toRankedRows(clickMap, "eventName"),
+    countries: toRankedRows(countryMap, "country"),
+    devices: toRankedRows(deviceMap, "deviceType"),
+    storage: { provider: storage.id, label: storage.label, persistent: true, deduplicated: true },
+    lastRecordedAt,
+    updatedAt: new Date().toISOString(),
+  };
 }

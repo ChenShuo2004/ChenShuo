@@ -10026,6 +10026,45 @@ body {
   font-size: 11px;
 }
 
+.admin-storage-health {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 52px;
+  padding: 10px 12px;
+  border: 1px solid var(--editorial-line);
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.admin-storage-health .admin-status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--editorial-accent);
+}
+
+.admin-storage-health p,
+.admin-storage-health strong,
+.admin-storage-health small {
+  display: block;
+  margin: 0;
+}
+
+.admin-storage-health p,
+.admin-storage-health small {
+  color: var(--editorial-muted);
+  font-family: var(--editorial-mono);
+  font-size: 9px;
+  letter-spacing: 0.07em;
+}
+
+.admin-storage-health strong {
+  margin-top: 3px;
+  color: var(--editorial-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .admin-metrics-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -10164,21 +10203,20 @@ body {
 
 .admin-bars {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(36px, 1fr);
-  gap: 9px;
+  grid-template-columns: repeat(var(--admin-bar-count), minmax(28px, 1fr));
+  gap: 6px;
   align-items: end;
-  min-width: max(100%, 720px);
+  min-width: max(100%, 680px);
   overflow-x: auto;
-  padding: 4px 2px 5px;
+  padding: 4px 2px 6px;
 }
 
 .admin-bar-item {
   display: grid;
-  grid-template-rows: 174px auto auto auto;
-  gap: 7px;
-  min-width: 36px;
-  padding: 0 3px;
+  grid-template-rows: 132px auto auto;
+  gap: 5px;
+  min-width: 28px;
+  padding: 0 1px;
   border: 0;
   color: var(--editorial-ink);
   background: transparent;
@@ -10203,10 +10241,10 @@ body {
 .admin-bar-track {
   display: flex;
   align-items: end;
-  height: 174px;
+  height: 132px;
   overflow: hidden;
   border-bottom: 1px solid var(--editorial-line);
-  background: linear-gradient(180deg, rgba(235, 228, 216, 0.28), rgba(235, 228, 216, 0.75));
+  background: linear-gradient(180deg, transparent 0%, rgba(235, 228, 216, 0.06) 100%);
 }
 
 .admin-bar-track span {
@@ -10520,6 +10558,14 @@ body {
   .admin-dashboard {
     gap: 16px;
     margin-top: 18px;
+  }
+
+  .admin-storage-health {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .admin-storage-health small {
+    grid-column: 2;
   }
 
   .admin-toolbar-controls {

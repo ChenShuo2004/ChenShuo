@@ -23,6 +23,12 @@ async function readBody(request) {
   }
 }
 
+function normalizeEventId(value) {
+  if (typeof value !== "string") return "";
+  const eventId = value.trim();
+  return /^[A-Za-z0-9_-]{16,120}$/.test(eventId) ? eventId : "";
+}
+
 export default async function handler(request, response) {
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
@@ -33,14 +39,20 @@ export default async function handler(request, response) {
     const body = await readBody(request);
     const userAgent = request.headers["user-agent"] || "";
     const path = normalizePath(body.path);
+    const eventId = normalizeEventId(body.eventId);
 
     if (path === "/admin") {
       return response.status(204).end();
     }
 
+    if (!eventId) {
+      return response.status(400).json({ error: "Invalid analytics event id." });
+    }
+
     const eventType = body.eventType === "click" ? "click" : "pageview";
     const referrer = normalizeReferrer(body.referrer);
     await recordAnalyticsEvent({
+      event_id: eventId,
       event_type: eventType,
       path,
       title: typeof body.title === "string" ? body.title.slice(0, 180) : "",
@@ -59,7 +71,7 @@ export default async function handler(request, response) {
 
     return response.status(204).end();
   } catch (error) {
-    return response.status(202).json({
+    return response.status(503).json({
       error: error.message || "Failed to track page view.",
     });
   }

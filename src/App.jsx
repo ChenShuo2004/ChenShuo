@@ -878,6 +878,14 @@ const adminRangeOptions = [
 ];
 
 const adminPasswordStorageKey = "cs-admin-password";
+const analyticsContextStorageKey = "cs-analytics-context";
+const analyticsVisitorStorageKey = "cs-analytics-visitor";
+const analyticsPendingEventsStorageKey = "cs-analytics-pending-events";
+const analyticsPendingEventsLimit = 50;
+let analyticsPendingEvents = null;
+let analyticsFlushPromise = null;
+let analyticsMemoryContext = null;
+let analyticsMemoryVisitorId = "";
 
 function readAdminPassword() {
   if (typeof window === "undefined") return "";
@@ -938,6 +946,11 @@ function getAdminDateError(from, to) {
 function getDimensionLabel(item, keys, fallback = "Direct / Unknown") {
   const value = keys.map((key) => item[key]).find(Boolean);
   return value || fallback;
+}
+
+function formatStorageLabel(storage) {
+  if (!storage?.persistent) return "存储状态未知";
+  return storage.deduplicated ? `${storage.label} · 已去重保存` : storage.label;
 }
 
 function AdminPage() {
@@ -1074,6 +1087,7 @@ function AdminPage() {
   }
 
   const maxDailyPageviews = Math.max(...(analytics?.daily || []).map((item) => item.pageviews || 0), 1);
+  const hasTrafficData = analytics?.daily?.some((item) => (item.pageviews || 0) > 0 || (item.clicks || 0) > 0);
   const selectedDaily = analytics?.daily?.find((item) => item.timestamp === selectedDayKey) || analytics?.daily?.[analytics.daily.length - 1] || null;
   const retryQuery = () => loadAnalytics(lastQuery.range, password, lastQuery.from, lastQuery.to);
   const metricItems = analytics ? [
@@ -1207,6 +1221,15 @@ function AdminPage() {
               {dateError && <p className="admin-date-error" role="alert">{dateError}</p>}
             </section>
 
+            <section className="admin-storage-health" aria-label="数据存储状态">
+              <span className="admin-status-dot" aria-hidden="true" />
+              <div>
+                <p>DATA STORAGE / PERSISTENT</p>
+                <strong>{formatStorageLabel(analytics.storage)}</strong>
+              </div>
+              <small>{analytics.lastRecordedAt ? `最近入库：${formatAdminDateTime(analytics.lastRecordedAt)}` : "当前查询区间内尚无入库记录"}</small>
+            </section>
+
             <div className="admin-metrics-grid">
               {metricItems.map((item) => <AdminMetricCard key={item.englishLabel} {...item} />)}
             </div>
@@ -1225,8 +1248,8 @@ function AdminPage() {
                   </div>
                 )}
               </div>
-              {analytics.daily?.length > 0 ? (
-                <div className="admin-bars" role="group" aria-label="每日访问量">
+              {hasTrafficData ? (
+                <div className="admin-bars" role="group" aria-label="每日访问量" style={{ "--admin-bar-count": analytics.daily.length }}>
                   {analytics.daily.map((item) => {
                     const isSelected = selectedDaily?.timestamp === item.timestamp;
                     return (
@@ -1241,14 +1264,13 @@ function AdminPage() {
                         <span className="admin-bar-track">
                           <span style={{ height: `${Math.max(((item.pageviews || 0) / maxDailyPageviews) * 100, 4)}%` }} />
                         </span>
-                        <strong>{formatNumber(item.pageviews)}</strong>
-                        <em>{formatNumber(item.clicks)} clicks</em>
+                        <strong>{item.pageviews ? formatNumber(item.pageviews) : "—"}</strong>
                         <small>{formatDay(item.timestamp)}</small>
                       </button>
                     );
                   })}
                 </div>
-              ) : <AdminEmptyState label="当前时间范围内暂无流量数据" detail="有新的访问后，这里会显示每日趋势。" />}
+              ) : <AdminEmptyState label="当前时间范围内暂无流量数据" detail="访问数据会在成功入库后显示在这里。" />}
             </section>
 
             <div className="admin-lists-grid">
@@ -1344,37 +1366,106 @@ function AdminRankList({ title, englishTitle, rows, labelKeys, icon: Icon }) {
   );
 }
 
+function safeReadStorage(key) {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeWriteStorage(key, value) {
+  try {
+    window.localStorage.setItem(key, value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function createAnalyticsEventId() {
+  return globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+}
+
 function getAnalyticsContext() {
   const params = new URLSearchParams(window.location.search);
-  const stored = JSON.parse(localStorage.getItem("cs-analytics-context") || "{}");
+  let stored = analyticsMemoryContext || {};
+  try {
+    stored = JSON.parse(safeReadStorage(analyticsContextStorageKey) || "{}") || {};
+  } catch {
+    // Invalid local data should never stop analytics from being sent.
+  }
   const context = {
     source: params.get("utm_source") || stored.source || "direct",
     medium: params.get("utm_medium") || stored.medium || "",
     campaign: params.get("utm_campaign") || stored.campaign || "",
     content: params.get("utm_content") || stored.content || "",
   };
-  localStorage.setItem("cs-analytics-context", JSON.stringify(context));
-  if (!localStorage.getItem("cs-analytics-visitor")) {
-    const visitorId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    localStorage.setItem("cs-analytics-visitor", visitorId);
+  analyticsMemoryContext = context;
+  safeWriteStorage(analyticsContextStorageKey, JSON.stringify(context));
+  const storedVisitorId = safeReadStorage(analyticsVisitorStorageKey);
+  const visitorId = storedVisitorId || analyticsMemoryVisitorId || createAnalyticsEventId();
+  analyticsMemoryVisitorId = visitorId;
+  if (!storedVisitorId) safeWriteStorage(analyticsVisitorStorageKey, visitorId);
+  return { ...context, visitorId };
+}
+
+function getAnalyticsPendingEvents() {
+  if (analyticsPendingEvents) return analyticsPendingEvents;
+  try {
+    const stored = JSON.parse(safeReadStorage(analyticsPendingEventsStorageKey) || "[]");
+    analyticsPendingEvents = Array.isArray(stored) ? stored.slice(-analyticsPendingEventsLimit) : [];
+  } catch {
+    analyticsPendingEvents = [];
   }
-  return { ...context, visitorId: localStorage.getItem("cs-analytics-visitor") };
+  return analyticsPendingEvents;
+}
+
+function persistAnalyticsPendingEvents() {
+  safeWriteStorage(analyticsPendingEventsStorageKey, JSON.stringify(getAnalyticsPendingEvents()));
+}
+
+async function flushAnalyticsEvents() {
+  if (analyticsFlushPromise) return analyticsFlushPromise;
+  const queue = getAnalyticsPendingEvents();
+  analyticsFlushPromise = (async () => {
+    while (queue.length > 0) {
+      const event = queue[0];
+      try {
+        const response = await fetch("/api/track-view", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(event),
+          keepalive: true,
+        });
+        if (!response.ok) throw new Error(`Analytics request failed: ${response.status}`);
+        queue.shift();
+        persistAnalyticsPendingEvents();
+      } catch {
+        break;
+      }
+    }
+  })().finally(() => {
+    analyticsFlushPromise = null;
+  });
+  return analyticsFlushPromise;
 }
 
 function sendAnalyticsEvent(event) {
-  const payload = JSON.stringify({ ...event, ...getAnalyticsContext() });
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon("/api/track-view", new Blob([payload], { type: "application/json" }));
-    return;
-  }
-  fetch("/api/track-view", { method: "POST", headers: { "Content-Type": "application/json" }, body: payload, keepalive: true }).catch(() => {});
+  const queue = getAnalyticsPendingEvents();
+  queue.push({ eventId: createAnalyticsEventId(), ...event, ...getAnalyticsContext() });
+  if (queue.length > analyticsPendingEventsLimit) queue.splice(0, queue.length - analyticsPendingEventsLimit);
+  persistAnalyticsPendingEvents();
+  void flushAnalyticsEvents();
 }
 
 function usePageViewTracking(pathname) {
   useEffect(() => {
     if (pathname === "/admin") return undefined;
     sendAnalyticsEvent({ eventType: "pageview", path: pathname, title: document.title, referrer: document.referrer });
-    return undefined;
+    const retryPendingAnalytics = () => { void flushAnalyticsEvents(); };
+    window.addEventListener("online", retryPendingAnalytics);
+    return () => window.removeEventListener("online", retryPendingAnalytics);
   }, [pathname]);
 }
 
