@@ -770,85 +770,106 @@ function ReadingRoomPage() {
 function CommunityPage() {
   return (
     <main className="site-shell editorial-page editorial-community-page community-page">
-      <EditorialSiteHeader activeKey="community" sectionLabel="COMMUNITY / PRACTICE / GROWTH" actionLabel="添加微信咨询" actionHref="#community-contact" />
+      <EditorialSiteHeader activeKey="community" sectionLabel="COMMUNITY / DENSITY / GROWTH" actionLabel="添加微信咨询" actionHref="#community-contact" />
 
       <section className="community-intro-section">
-        <div className="community-story-grid">
-          <article className="community-story-card community-story-card-wide editorial-reveal" data-reveal-delay="60">
-            <p className="community-story-kicker">THE NEXT AI CO-CREATION COMMUNITY</p>
-            <h2>我想做一个属于下一代的 AI 共创社群</h2>
-            <p>我希望和一批愿意认真介绍自己、愿意真正参与、愿意长期使用 AI 做事情的人一起共创。这里不追求热闹，更不想成为一个每天刷几百条消息、最后所有人都设置免打扰的微信群。</p>
-            <p>我更想做一个属于 00 后、10 后，以及未来更多年轻人的 AI 共创空间。我们可以讨论 AI、产品、内容、创业和个人成长，也可以把自己真正遇到的问题拿出来。</p>
+        <div className="community-manifesto editorial-reveal" data-reveal-delay="60">
+          <div>
+            <p className="community-story-kicker">TWO COMMUNITIES / ONE STANDARD</p>
+            <h1>不追求规模，<br />先追求密度。</h1>
+          </div>
+          <div className="community-manifesto-copy">
+            <p>我现在做了两个独立社区：WE30 和 X AI 创作者增长群。它们服务不同的人、运行不同的机制，但都相信一件事：真正有价值的社区，不靠人数堆出来。</p>
+            <p>少一点垃圾信息，少一点无效社交，把真正有价值的人、内容、连接和结果留下来。</p>
+          </div>
+        </div>
+
+        <div className="community-program-grid" aria-label="社区选择">
+          <article className="community-program community-program-we30 editorial-reveal" data-reveal-delay="130">
+            <div className="community-program-topline">
+              <p className="community-story-kicker">01 / WE30</p>
+              <span>HIGH-DENSITY NETWORK</span>
+            </div>
+            <h2>先做对的<br />30 个人。</h2>
+            <p className="community-program-lede">WE30 不急着做成 100 人。先把真正对的 30 个人做出来，让每个人都有结果、有影响力，也有可以彼此连接的资源和圈子。</p>
+            <div className="community-program-details">
+              <div>
+                <span>WHAT WE BUILD</span>
+                <p>围绕创作、创业与协作，推动真实项目往前走，让成员的成果持续延伸。</p>
+              </div>
+              <div>
+                <span>WHAT WE VALUE</span>
+                <p>长期参与、真实贡献与彼此匹配。不是每个人都要留下，但每一次连接都要对得起彼此的时间。</p>
+              </div>
+            </div>
+            <div className="community-program-proof" aria-label="WE30 当前进展">
+              <span>NOW IN MOTION</span>
+              <p>增长机制已经在内部跑起来，也开始收到品牌主动对接。</p>
+            </div>
+            <a className="community-program-link" href="#community-contact">
+              了解匹配方式
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
           </article>
 
-          <article className="community-story-card editorial-reveal" data-reveal-delay="130">
-            <p className="community-story-kicker">OPEN PRACTICE</p>
-            <h2>真实复盘</h2>
-            <p>我会公开自己的每月复盘：做了什么、做错了什么、哪些项目失败了、最近在为什么事情焦虑，以及我对产品、内容、团队和创业的新理解。</p>
-          </article>
-
-          <article className="community-story-card editorial-reveal" data-reveal-delay="200">
-            <p className="community-story-kicker">MONTHLY THEME WEEK</p>
-            <h2>主题周，不止聊天</h2>
-            <p>每个月围绕一个主题一起研究 AI 编程、个人软件工厂、自动化工作流、知识库、内容创作、AI 产品或出海实践。</p>
-          </article>
-
-          <article className="community-story-card community-story-card-wide community-story-card-teal editorial-reveal" data-reveal-delay="270">
-            <p className="community-story-kicker">FROM DISCUSSION TO KNOWLEDGE</p>
-            <h2>把讨论沉淀成可以使用的东西</h2>
-            <p>主题不会只停留在聊天。我们会整理资料、提出问题、完成实践任务、分享案例，最后把有价值的内容沉淀进知识库。每一位成员都可以向我提问，具有代表性的问题，我会集中拆解，并整理成其他人也能使用的答案。</p>
-          </article>
-
-          <article className="community-story-card community-story-card-wide editorial-reveal" data-reveal-delay="340">
-            <p className="community-story-kicker">CO-CREATE THE FUTURE</p>
-            <h2>从成员，到共创者</h2>
-            <p>社群成员可以免费使用我面向社群开放的自研产品，优先参加新产品内测，提出功能建议，参与产品共创。未来，真正持续行动、持续分享、愿意承担责任的人，也可能成为项目合作者、主题发起人，或者一起做出新的产品。</p>
-          </article>
-
-          <article className="community-story-card community-story-card-warning editorial-reveal" data-reveal-delay="410">
-            <p className="community-story-kicker">NO EMPTY PROMISES</p>
-            <h2>有些事情，提前说清楚</h2>
-            <ul>
-              <li>不保证你能赚到钱</li>
-              <li>不保证你能拿到资源</li>
-              <li>不保证你能认识所谓的大佬</li>
-              <li>不保证加入之后，人生就会发生变化</li>
-            </ul>
-            <p>我唯一希望保证的，是这里不会只剩下空话。</p>
-          </article>
-
-          <article className="community-story-card community-story-card-apply editorial-reveal" data-reveal-delay="480">
-            <p className="community-story-kicker">APPLICATION &amp; REVIEW</p>
-            <h2>我们看重什么</h2>
-            <p>每一个申请加入的人，都需要填写申请表并经过审核。我们更看重：</p>
-            <ul>
-              <li>你是否真诚</li>
-              <li>你是否正在行动</li>
-              <li>你是否愿意分享</li>
-              <li>你是否尊重其他成员</li>
-              <li>你是否愿意长期参与，而不是只来索取资源</li>
-            </ul>
-          </article>
-
-          <article className="community-story-card community-story-card-wide community-story-card-final editorial-reveal" data-reveal-delay="550">
-            <p className="community-story-kicker">A LONG-TERM COMMUNITY</p>
-            <h2>不是围观时代，而是和这个时代共舞</h2>
-            <p>广告、骚扰、批量加人、卖课引流、搬运内部内容，以及任何诱导未成年人消费或参与高风险项目的行为，都会被直接清退。</p>
-            <p>我最终想做的，是全国最有行动力的年轻人 AI 社群。人数多不应该是它唯一的意义。更重要的是，几年之后回头看，我们能发现一批年轻人在这里认识、成长、合作，一起做出了一些真实存在的东西。</p>
-            <p><strong>我希望能和一群同样相信 AI、相信创造、也相信长期主义的人，一起往前走。</strong></p>
+          <article className="community-program community-program-x editorial-reveal" data-reveal-delay="200">
+            <div className="community-program-topline">
+              <p className="community-story-kicker">02 / X AI CREATOR GROWTH</p>
+              <span>LONG-TERM COLLABORATION</span>
+            </div>
+            <h2>让内容增长，<br />不再只靠一个人硬扛。</h2>
+            <p className="community-program-lede">这是一个面向 X 平台 AI 创作者的长期增长协作网络。不是泛聊天群，而是把发布、协作与复盘放进同一个可持续的系统。</p>
+            <ol className="community-growth-loop" aria-label="增长协作闭环">
+              <li><span>01</span>发出你的内容</li>
+              <li><span>02</span>完成协作互助</li>
+              <li><span>03</span>盯数据，做复盘</li>
+            </ol>
+            <div className="community-program-details">
+              <div>
+                <span>GROUP 01</span>
+                <p>面向 1K 粉以上、愿意持续执行的核心创作者；成员大多处在 1K–2W 粉区间。</p>
+              </div>
+              <div>
+                <span>GROUP 02</span>
+                <p>观察／孵化群，围绕内容基建、OPC（一人公司）交流与行动准备持续成长。</p>
+              </div>
+            </div>
+            <div className="community-program-proof" aria-label="X AI 创作者增长群当前进展">
+              <span>INTERNAL PROOF</span>
+              <p>WE30 已完成 27 人内部测试，验证协作会带来明显的内容流速差异。</p>
+            </div>
+            <a className="community-program-link" href="#community-contact">
+              了解匹配方式
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
           </article>
         </div>
+
+        <section className="community-boundary editorial-reveal" data-reveal-delay="270" aria-label="社区共同边界">
+          <div>
+            <p className="community-story-kicker">ONE STANDARD / REAL WORK</p>
+            <h2>不贩卖信息，<br />沉淀关系。</h2>
+          </div>
+          <div className="community-boundary-copy">
+            <p>我们不承诺赚钱、资源或人脉，也不相信加入一个群就能改变人生。能被留下的，应该是愿意做事的人、被验证过的连接，以及不断累积的结果。</p>
+            <ul>
+              <li>不欢迎广告、骚扰、卖课引流与搬运内部内容。</li>
+              <li>不鼓励只索取、不行动的参与方式。</li>
+              <li>具体规则与协作方式，只在匹配后的社区内部展开。</li>
+            </ul>
+          </div>
+        </section>
       </section>
 
       <section className="community-access-section" id="community-contact" aria-label="加入社区咨询">
         <div className="community-access-inner editorial-reveal" data-reveal-delay="100">
           <div className="community-copy">
-            <p className="section-kicker">CHEN SHUO COMMUNITY</p>
+            <p className="section-kicker">WE30 / X AI CREATOR GROWTH</p>
             <h1>加入社区</h1>
             <p className="community-lede">
-              一个围绕 AI、产品、内容与个人商业化的实践型社群。
+              不用急着判断该加入哪一个。
               <br />
-              不追求热闹，专注于持续推进真实项目。
+              先告诉我你正在做什么，我们一起找到更合适的位置。
             </p>
             <a className="community-back-link" href="/#top">
               回到首页了解我
@@ -858,7 +879,11 @@ function CommunityPage() {
           <aside className="community-contact-card" aria-label="加入社区咨询">
             <span>COMMUNITY / CONTACT</span>
             <h2>添加微信咨询</h2>
-            <p>添加微信并备注「社区」，我会发送当前的加入方式和开放信息。</p>
+            <p>扫码添加微信，备注「WE30」或「增长群」；我会根据你的阶段与目标进行匹配。</p>
+            <figure className="community-qr">
+              <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
+              <figcaption>SCAN TO CONNECT</figcaption>
+            </figure>
             <div className="community-wechat" aria-label="社区微信号">
               <span>微信号</span>
               <strong>Chen18005977213</strong>
