@@ -35,6 +35,7 @@ For the full site, use one shared Sac-inspired editorial system: warm paper canv
 - 社区页不展示价格、付费或早鸟价信息；将“加入社区”与微信咨询入口置于全部社区内容之后，作为最终咨询入口。
 - 社区页将 WE30 与 X AI 创作者增长群作为两个独立社区呈现，不叙述为升级阶梯；共同强调“先追求密度”，通过一个微信二维码人工匹配。对外仅展示 X 增长的“发布、协作、复盘”闭环，具体协作战术保留在内部细则。
 - 阅览室的正式外部入口固定为 FlowUs：https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d；导航、产品卡和“进入阅览室”按钮均指向该地址。
+- 构建ing 区块以「有温度空间」（https://aiyouwendu.com/home）作为主入口，置于工具库、阅览室、知识地图三个入口之上。
 
 ## Durable Motion Preference
 

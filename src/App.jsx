@@ -11,6 +11,7 @@ import {
   CursorClick,
   EnvelopeSimple,
   Eye,
+  Flame,
   GitBranch,
   GithubLogo,
   Network,
@@ -30,6 +31,7 @@ const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
 const githubEventsApiUrl = "https://api.github.com/users/ChenShuo2004/events/public?per_page=10";
 const xProfileUrl = "https://x.com/ChenshuoAI";
 const productLibraryUrl = "https://aiyouwendu.com/products";
+const warmSpaceUrl = "https://aiyouwendu.com/home";
 
 const fallbackGithubStats = {
   value: "11 repos · 6 followers",
@@ -1610,16 +1612,37 @@ export function App() {
         <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
           <p className="section-kicker">PRODUCT LINES</p>
           <h2>构建ing</h2>
-          <p>工具库、阅览室和知识地图，连接成一个持续生长的ai社区。</p>
+          <p>从有温度空间进入。工具库、阅览室和知识地图，连接成一个持续生长的ai社区。</p>
         </div>
         <div className="hero-system-frame">
+          <a
+            className="hero-project-feature editorial-reveal"
+            data-reveal-delay="90"
+            href={warmSpaceUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="hero-project-index">00</span>
+            <div className="hero-project-feature-copy">
+              <strong>
+                <Flame size={20} weight="duotone" aria-hidden="true" />
+                有温度空间
+              </strong>
+              <em>主入口 / 产品空间</em>
+              <p>从一个入口开始，在工具、阅读和知识地图之间慢慢找到自己的路径。</p>
+            </div>
+            <span className="hero-project-feature-cta">
+              进入空间
+              <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+            </span>
+          </a>
           <div className="hero-project-list">
             {projects.map((project, index) => {
               const Icon = project.icon;
               return (
                 <a
                   className="hero-project-item editorial-reveal"
-                  data-reveal-delay={`${index * 80 + 120}`}
+                  data-reveal-delay={`${index * 80 + 180}`}
                   href={project.href}
                   key={project.title}
                   target={project.external ? "_blank" : undefined}
