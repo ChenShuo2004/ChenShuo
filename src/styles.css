@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+SC:wght@500;600;700;900&family=Oswald:wght@300;400;500;600;700&family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+SC:wght@500;600;700;800&family=Noto+Serif+SC:wght@500;600;700;900&family=Oswald:wght@300;400;500;600;700&family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap");
 
 :root {
   color-scheme: dark;
@@ -10916,44 +10916,87 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
 
 .editorial-community-page .community-manifesto {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(300px, 0.62fr);
-  gap: clamp(42px, 8vw, 150px);
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
+  gap: clamp(42px, 6vw, 112px);
   align-items: end;
   padding: 0 0 clamp(58px, 7vw, 112px);
   border-bottom: 1px solid var(--editorial-line);
 }
 
 .editorial-community-page .community-manifesto h1,
-.editorial-community-page .community-boundary h2 {
+.editorial-community-page .community-boundary h2,
+.editorial-community-page .community-program h2 {
   margin: 0;
   color: var(--editorial-ink);
-  font-family: var(--editorial-display);
-  font-weight: 600;
-  letter-spacing: -0.09em;
-  line-height: 0.86;
+  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.075em;
+  line-height: 1.04;
 }
 
 .editorial-community-page .community-manifesto h1 {
-  max-width: 950px;
-  font-size: clamp(72px, 9.2vw, 168px);
+  max-width: none;
+  font-size: clamp(54px, 5.6vw, 102px);
+  white-space: nowrap;
 }
 
 .editorial-community-page .community-manifesto-copy {
-  max-width: 520px;
-  padding-bottom: 6px;
+  max-width: 610px;
+  padding-bottom: 0;
 }
 
-.editorial-community-page .community-manifesto-copy p {
+.editorial-community-page .community-manifesto-lede {
   margin: 0;
-  color: var(--editorial-muted);
-  font-family: var(--font-cn-serif);
-  font-size: clamp(17px, 1.45vw, 22px);
-  line-height: 1.8;
+  color: var(--editorial-ink);
+  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: clamp(19px, 1.55vw, 25px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.55;
 }
 
-.editorial-community-page .community-manifesto-copy p + p {
-  margin-top: 20px;
+.editorial-community-page .community-manifesto-routes {
+  display: grid;
+  margin-top: 28px;
+  border-top: 1px solid var(--editorial-ink);
+}
+
+.editorial-community-page .community-manifesto-routes a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px 20px;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--editorial-line);
+  transition: color 180ms ease, padding 180ms ease;
+}
+
+.editorial-community-page .community-manifesto-routes a:hover,
+.editorial-community-page .community-manifesto-routes a:focus-visible {
+  padding-inline: 10px 0;
+  color: var(--editorial-accent);
+}
+
+.editorial-community-page .community-manifesto-routes span {
+  color: var(--editorial-accent);
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.editorial-community-page .community-manifesto-routes strong {
+  min-width: 0;
   color: var(--editorial-ink);
+  font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.45;
+}
+
+.editorial-community-page .community-manifesto-routes svg {
+  grid-column: 2;
+  grid-row: 1 / span 2;
 }
 
 .editorial-community-page .community-program-grid {
@@ -11007,11 +11050,7 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
 .editorial-community-page .community-program h2 {
   margin: clamp(64px, 8vw, 122px) 0 0;
   color: var(--editorial-ink);
-  font-family: var(--editorial-display);
   font-size: clamp(44px, 4.4vw, 80px);
-  font-weight: 600;
-  letter-spacing: -0.085em;
-  line-height: 0.9;
 }
 
 .editorial-community-page .community-program-lede {
@@ -11224,7 +11263,8 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   }
 
   .editorial-community-page .community-manifesto h1 {
-    font-size: clamp(60px, 18vw, 104px);
+    font-size: clamp(43px, 11vw, 68px);
+    white-space: normal;
   }
 
   .editorial-community-page .community-program {

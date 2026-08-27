@@ -32,6 +32,8 @@ const githubEventsApiUrl = "https://api.github.com/users/ChenShuo2004/events/pub
 const xProfileUrl = "https://x.com/ChenshuoAI";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 const warmSpaceUrl = "https://aiyouwendu.com/home";
+const we30IntroUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
+const growthCommunityIntroUrl = "https://my.feishu.cn/wiki/Ghn1wTeliiqyKzk1bjIcaND2n2c";
 
 const fallbackGithubStats = {
   value: "11 repos · 6 followers",
@@ -778,11 +780,22 @@ function CommunityPage() {
         <div className="community-manifesto editorial-reveal" data-reveal-delay="60">
           <div>
             <p className="community-story-kicker">TWO COMMUNITIES / ONE STANDARD</p>
-            <h1>不追求规模，<br />先追求密度。</h1>
+            <h1>不追求规模，先追求密度。</h1>
           </div>
           <div className="community-manifesto-copy">
-            <p>我现在做了两个独立社区：WE30 和 X AI 创作者增长群。它们服务不同的人、运行不同的机制，但都相信一件事：真正有价值的社区，不靠人数堆出来。</p>
-            <p>少一点垃圾信息，少一点无效社交，把真正有价值的人、内容、连接和结果留下来。</p>
+            <p className="community-manifesto-lede">两个独立社区，为两类正在行动的人，建立更有结果的连接。</p>
+            <div className="community-manifesto-routes" aria-label="社区入口">
+              <a href={we30IntroUrl} target="_blank" rel="noreferrer">
+                <span>01 / WE30</span>
+                <strong>30 个愿意彼此成就的行动者</strong>
+                <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
+              </a>
+              <a href={growthCommunityIntroUrl} target="_blank" rel="noreferrer">
+                <span>02 / X AI 创作者增长群</span>
+                <strong>让发布、协作、复盘成为增长循环</strong>
+                <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
 
@@ -792,7 +805,7 @@ function CommunityPage() {
               <p className="community-story-kicker">01 / WE30</p>
               <span>HIGH-DENSITY NETWORK</span>
             </div>
-            <h2>先做对的<br />30 个人。</h2>
+            <h2>先做对的 30 个人。</h2>
             <p className="community-program-lede">WE30 不急着做成 100 人。先把真正对的 30 个人做出来，让每个人都有结果、有影响力，也有可以彼此连接的资源和圈子。</p>
             <div className="community-program-details">
               <div>
@@ -808,8 +821,8 @@ function CommunityPage() {
               <span>NOW IN MOTION</span>
               <p>增长机制已经在内部跑起来，也开始收到品牌主动对接。</p>
             </div>
-            <a className="community-program-link" href="#community-contact">
-              了解匹配方式
+            <a className="community-program-link" href={we30IntroUrl} target="_blank" rel="noreferrer">
+              了解 WE30
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </article>
@@ -819,8 +832,8 @@ function CommunityPage() {
               <p className="community-story-kicker">02 / X AI CREATOR GROWTH</p>
               <span>LONG-TERM COLLABORATION</span>
             </div>
-            <h2>让内容增长，<br />不再只靠一个人硬扛。</h2>
-            <p className="community-program-lede">这是一个面向 X 平台 AI 创作者的长期增长协作网络。不是泛聊天群，而是把发布、协作与复盘放进同一个可持续的系统。</p>
+            <h2>让内容增长，<br />成为一套协作系统。</h2>
+            <p className="community-program-lede">面向 X 平台 AI 创作者，把发布、协作与复盘连成稳定的增长循环；不是泛聊天，而是持续把内容往前推进。</p>
             <ol className="community-growth-loop" aria-label="增长协作闭环">
               <li><span>01</span>发出你的内容</li>
               <li><span>02</span>完成协作互助</li>
@@ -840,8 +853,8 @@ function CommunityPage() {
               <span>INTERNAL PROOF</span>
               <p>WE30 已完成 27 人内部测试，验证协作会带来明显的内容流速差异。</p>
             </div>
-            <a className="community-program-link" href="#community-contact">
-              了解匹配方式
+            <a className="community-program-link" href={growthCommunityIntroUrl} target="_blank" rel="noreferrer">
+              了解增长群
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </article>

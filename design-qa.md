@@ -34,6 +34,56 @@ final result: passed
 
 ---
 
+## Community page — density intro revision (2026-08-27)
+
+source visual truth paths:
+- `C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-75de8f69-44dc-4331-85d3-5a9daeb170d3.png` — original desktop community hero.
+- `C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-9e23d7a9-8e43-4cba-a99d-6859a26628e0.png` — original two-community programme layout.
+
+implementation screenshot path: `D:/coding/1.个人blog/audit/2026-08-27-community/implementation-desktop.png`
+
+comparison evidence: `D:/coding/1.个人blog/audit/2026-08-27-community/hero-comparison.png`
+
+viewport and state: `/community`, desktop initial render at `1632 × 768` CSS pixels, no interaction state.
+
+pixel dimensions and normalization:
+- Original hero: `1757 × 590`.
+- Original programme board: `1626 × 766`.
+- Browser-rendered implementation: `3264 × 1536` at `2×` density (`1632 × 768` CSS pixels).
+- The comparison image places the original hero, normalized to `1632 × 547`, beside the implementation downsampled to `1632 × 768`; the source's extra vertical space is paper-colored padding only.
+
+**Findings**
+
+- No P0/P1/P2 findings.
+- Intentional design changes: the hero statement is one desktop line; the old right-side paragraphs are replaced by a concise proposition and two direct community routes; Chinese display type is changed from decorative serif to `Noto Sans SC` for readability. These changes directly implement the current feedback and are not fidelity regressions.
+
+**Required Fidelity Surfaces**
+
+- Fonts and typography: the community hero and programme headings use `Noto Sans SC` with system Chinese sans-serif fallbacks. The hero remains a single line at desktop width and wraps safely at mobile width.
+- Spacing and layout rhythm: the hero uses a 1.35 / 0.65 editorial grid. The right-side proposition and routes align to the title baseline without reducing the left-side statement's clarity.
+- Colors and visual tokens: warm paper, ink, coral metadata labels, hairline rules, and the teal programme field remain within the shared editorial system.
+- Image quality and asset fidelity: this section contains no image assets; the supplied screenshots are layout references only.
+- Copy and content: both routes identify the communities plainly, and both the hero routes and programme actions use the supplied Feishu URLs.
+
+**Interaction and responsive checks**
+
+- At `1632 × 768`: no horizontal overflow; both direct hero routes and both programme actions point to their intended Feishu pages and open in a new tab.
+- At `700 × 800`: no horizontal overflow; the hero title has no text overflow; both routes remain present.
+- Browser console: no errors.
+- Production build: `npm run build` passed.
+
+**Focused comparison**
+
+No separate crop was necessary: the comparison image keeps the hero title, right-side information structure, and the start of both programme panels visible at readable scale. The differing copy and type treatment are intentional requirements of this revision.
+
+**Implementation Checklist**
+
+- Keep the desktop preview on `/community` available for review.
+
+final result: passed
+
+---
+
 GitHub Build page QA pass: 2026-08-06
 source visual truth path: C:/Users/ADMINI~1/AppData/Local/Temp/codex-clipboard-d29c774c-4608-4527-9472-537adc3610a7.png
 comparison image path: D:/coding/1.个人blog/audit/2026-08-06-github-build/comparison-source-implementation.jpg
@@ -211,6 +261,12 @@ state: homepage top navigation knowledge CTA now opens the site-hosted knowledge
 - Updated homepage `CardNav` CTA label and href in `src/App.jsx`.
 - Updated the hero knowledge action to point at the site-hosted intro page.
 - Verified production build with `npm.cmd run build`.
+
+final result: passed
+
+---
+
+Latest QA run: Community page — density intro revision (2026-08-27). Full evidence, normalization, responsive checks, and findings are recorded above under that heading.
 
 final result: passed
 
