@@ -10909,7 +10909,7 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   }
 }
 
-/* Community: two independent communities, one shared standard. */
+/* Community: a three-layer WE30 network, one shared standard. */
 .editorial-community-page .community-intro-section {
   padding-top: clamp(72px, 8vw, 132px);
 }
@@ -10999,9 +10999,26 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   grid-row: 1 / span 2;
 }
 
+.editorial-community-page .community-story {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 54px);
+  margin-top: clamp(42px, 5.4vw, 88px);
+  padding-bottom: clamp(42px, 5.4vw, 88px);
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.editorial-community-page .community-story p {
+  margin: 0;
+  color: var(--editorial-ink);
+  font-family: var(--font-cn-serif);
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.85;
+}
+
 .editorial-community-page .community-program-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   margin-top: clamp(42px, 5.4vw, 88px);
   border-top: 1px solid var(--editorial-ink);
@@ -11010,7 +11027,7 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
 .editorial-community-page .community-program {
   display: flex;
   flex-direction: column;
-  min-height: 735px;
+  min-height: 760px;
   padding: 28px clamp(24px, 3.3vw, 58px) 38px;
   color: var(--editorial-ink);
   border-bottom: 1px solid var(--editorial-ink);
@@ -11021,8 +11038,13 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   background: rgba(255, 255, 255, 0.16);
 }
 
-.editorial-community-page .community-program-x {
+.editorial-community-page .community-program-group-one {
+  border-right: 1px solid var(--editorial-ink);
   background: var(--editorial-teal);
+}
+
+.editorial-community-page .community-program-group-two {
+  background: rgba(255, 116, 76, 0.13);
 }
 
 .editorial-community-page .community-program-topline {
@@ -11108,10 +11130,6 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
 .editorial-community-page .community-growth-loop li + li {
   padding-left: 12px;
   border-left: 1px solid var(--editorial-line);
-}
-
-.editorial-community-page .community-program-x .community-program-details {
-  margin-top: 30px;
 }
 
 .editorial-community-page .community-program-proof {
@@ -11234,6 +11252,21 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   margin-top: 0;
 }
 
+@media (max-width: 1280px) {
+  .editorial-community-page .community-manifesto {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .editorial-community-page .community-program-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .editorial-community-page .community-program-group-two {
+    border-right: 1px solid var(--editorial-ink);
+  }
+}
+
 @media (max-width: 980px) {
   .editorial-community-page .community-manifesto,
   .editorial-community-page .community-boundary {
@@ -11241,19 +11274,21 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   }
 
   .editorial-community-page .community-program {
-    min-height: 760px;
+    min-height: 720px;
     padding-inline: 28px;
   }
 
   .editorial-community-page .community-program h2 {
     font-size: clamp(42px, 5vw, 64px);
   }
+
 }
 
 @media (max-width: 700px) {
   .editorial-community-page .community-manifesto,
   .editorial-community-page .community-boundary,
-  .editorial-community-page .community-program-grid {
+  .editorial-community-page .community-program-grid,
+  .editorial-community-page .community-story {
     grid-template-columns: 1fr;
   }
 
@@ -11277,9 +11312,11 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
     background: transparent;
   }
 
-  .editorial-community-page .community-program-x {
+  .editorial-community-page .community-program-group-one,
+  .editorial-community-page .community-program-group-two {
     margin-inline: -20px;
     padding-inline: 20px;
+    border-right: 0;
   }
 
   .editorial-community-page .community-program h2 {

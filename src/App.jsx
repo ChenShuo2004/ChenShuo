@@ -33,7 +33,6 @@ const xProfileUrl = "https://x.com/ChenshuoAI";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 const warmSpaceUrl = "https://aiyouwendu.com/home";
 const we30IntroUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
-const growthCommunityIntroUrl = "https://my.feishu.cn/wiki/Ghn1wTeliiqyKzk1bjIcaND2n2c";
 
 const fallbackGithubStats = {
   value: "11 repos · 6 followers",
@@ -774,52 +773,58 @@ function ReadingRoomPage() {
 function CommunityPage() {
   return (
     <main className="site-shell editorial-page editorial-community-page community-page">
-      <EditorialSiteHeader activeKey="community" sectionLabel="COMMUNITY / DENSITY / GROWTH" actionLabel="添加微信咨询" actionHref="#community-contact" />
+      <EditorialSiteHeader activeKey="community" sectionLabel="WE30 / AI / CREATION" actionLabel="添加微信咨询" actionHref="#community-contact" />
 
       <section className="community-intro-section">
         <div className="community-manifesto editorial-reveal" data-reveal-delay="60">
           <div>
-            <p className="community-story-kicker">TWO COMMUNITIES / ONE STANDARD</p>
-            <h1>不追求规模，先追求密度。</h1>
+            <p className="community-story-kicker">WE30 / AI / CREATION</p>
+            <h1>把想做事的人，聚在一起。</h1>
           </div>
           <div className="community-manifesto-copy">
-            <p className="community-manifesto-lede">两个独立社区，为两类正在行动的人，建立更有结果的连接。</p>
+            <p className="community-manifesto-lede">我是陈硕，00 后，目前在厦门。现在认真做一件事：把真正想做 AI 创作、做产品、做业务的人，聚在一起。</p>
             <div className="community-manifesto-routes" aria-label="社区入口">
               <a href={we30IntroUrl} target="_blank" rel="noreferrer">
-                <span>01 / WE30</span>
-                <strong>30 个愿意彼此成就的行动者</strong>
+                <span>01 / CORE</span>
+                <strong>WE30 核心群：更小、更深的内部连接</strong>
                 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
               </a>
-              <a href={growthCommunityIntroUrl} target="_blank" rel="noreferrer">
-                <span>02 / X AI 创作者增长群</span>
-                <strong>让发布、协作、复盘成为增长循环</strong>
+              <a href="#community-contact">
+                <span>02 / GROUP 01 + 02</span>
+                <strong>一群做实战，二群做开放孵化</strong>
                 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
           </div>
         </div>
 
-        <div className="community-program-grid" aria-label="社区选择">
+        <div className="community-story editorial-reveal" data-reveal-delay="100">
+          <p>不是水群，不是互相吹捧，也不看粉丝数。这里更看重的是创作欲、产品欲，和愿意交流业务、分享认知与踩坑的人。</p>
+          <p>这段时间，我一边做 AI 产品和内容工作流，一边在 X 上持续输出、连接同行。一个月里有 5 条商单找来，我只接了一条 GitHub 的合作，因为现在更想先把社区、内容和 AI 业务的基础盘搭好。</p>
+          <p>上周，WE30 核心群的言溪来厦门找我。他过着旅居生活，准备在厦门住一段时间。我带他来公司转了转，也聊了很多内容、产品和年轻人做事的状态。一个人很多时候不是不够努力，而是缺少一个能让自己持续向上的环境。希望 WE30 能慢慢成为这样的地方。</p>
+        </div>
+
+        <div className="community-program-grid" aria-label="WE30 社区结构">
           <article className="community-program community-program-we30 editorial-reveal" data-reveal-delay="130">
             <div className="community-program-topline">
-              <p className="community-story-kicker">01 / WE30</p>
-              <span>HIGH-DENSITY NETWORK</span>
+              <p className="community-story-kicker">01 / WE30 CORE</p>
+              <span>DEEP CONNECTION</span>
             </div>
-            <h2>先做对的 30 个人。</h2>
-            <p className="community-program-lede">WE30 不急着做成 100 人。先把真正对的 30 个人做出来，让每个人都有结果、有影响力，也有可以彼此连接的资源和圈子。</p>
+            <h2>WE30<br />核心群</h2>
+            <p className="community-program-lede">最早约 30 人，现在留下十几位长期活跃成员。这是一个更小、更深的内部群，后续会逐步扩展到约 500 人，并从一群、二群中挑选第二批核心成员。</p>
             <div className="community-program-details">
               <div>
-                <span>WHAT WE BUILD</span>
-                <p>围绕创作、创业与协作，推动真实项目往前走，让成员的成果持续延伸。</p>
+                <span>WHAT HAPPENS HERE</span>
+                <p>做业务分享、会议复盘与产品讨论，把真正有价值的方法沉淀进知识库、项目库和产品集。</p>
               </div>
               <div>
-                <span>WHAT WE VALUE</span>
-                <p>长期参与、真实贡献与彼此匹配。不是每个人都要留下，但每一次连接都要对得起彼此的时间。</p>
+                <span>HOW I PARTICIPATE</span>
+                <p>本人线下团队事务较多，主要会在核心群活跃；一群、二群由群管理和核心成员共同维护。</p>
               </div>
             </div>
             <div className="community-program-proof" aria-label="WE30 当前进展">
               <span>NOW IN MOTION</span>
-              <p>增长机制已经在内部跑起来，也开始收到品牌主动对接。</p>
+              <p>社区目前约 300 人，基座已经理清，后续会持续迭代。</p>
             </div>
             <a className="community-program-link" href={we30IntroUrl} target="_blank" rel="noreferrer">
               了解 WE30
@@ -827,34 +832,56 @@ function CommunityPage() {
             </a>
           </article>
 
-          <article className="community-program community-program-x editorial-reveal" data-reveal-delay="200">
+          <article className="community-program community-program-group-one editorial-reveal" data-reveal-delay="200">
             <div className="community-program-topline">
-              <p className="community-story-kicker">02 / X AI CREATOR GROWTH</p>
-              <span>LONG-TERM COLLABORATION</span>
+              <p className="community-story-kicker">02 / WE30 GROUP 01</p>
+              <span>BUSINESS + GROWTH</span>
             </div>
-            <h2>让内容增长，<br />成为一套协作系统。</h2>
-            <p className="community-program-lede">面向 X 平台 AI 创作者，把发布、协作与复盘连成稳定的增长循环；不是泛聊天，而是持续把内容往前推进。</p>
-            <ol className="community-growth-loop" aria-label="增长协作闭环">
-              <li><span>01</span>发出你的内容</li>
-              <li><span>02</span>完成协作互助</li>
-              <li><span>03</span>盯数据，做复盘</li>
-            </ol>
+            <h2>WE30<br />一群</h2>
+            <p className="community-program-lede">偏业务与增长的实战群：AI 创作、产品、内容增长、业务合作。欢迎有产品、技能或明确方向的人；技术、创作、运营背景都可以，起步阶段也没关系，但要愿意学习、有自己的思考。</p>
             <div className="community-program-details">
               <div>
-                <span>GROUP 01</span>
-                <p>面向 1K 粉以上、愿意持续执行的核心创作者；成员大多处在 1K–2W 粉区间。</p>
+                <span>WHAT WE RUN</span>
+                <p>已在跑业务会议分享机制。核心群举办过 7 日会议，帮助成员把业务、内容和产品往前推进。</p>
               </div>
               <div>
-                <span>GROUP 02</span>
-                <p>观察／孵化群，围绕内容基建、OPC（一人公司）交流与行动准备持续成长。</p>
+                <span>HOW WE SELECT</span>
+                <p>后续会设置明确门槛筛掉围观者，让愿意创造和互相支持的人留下；相关款项会直接通过红包回给群成员。</p>
               </div>
             </div>
-            <div className="community-program-proof" aria-label="X AI 创作者增长群当前进展">
-              <span>INTERNAL PROOF</span>
-              <p>WE30 已完成 27 人内部测试，验证协作会带来明显的内容流速差异。</p>
+            <div className="community-program-proof" aria-label="WE30 一群参与方式">
+              <span>ONE EXPECTATION</span>
+              <p>不要求每天高强度输出，但希望每个人都能分享真正做过的东西。</p>
             </div>
-            <a className="community-program-link" href={growthCommunityIntroUrl} target="_blank" rel="noreferrer">
-              了解增长群
+            <a className="community-program-link" href="#community-contact">
+              申请加入一群
+              <ArrowRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+          </article>
+
+          <article className="community-program community-program-group-two editorial-reveal" data-reveal-delay="270">
+            <div className="community-program-topline">
+              <p className="community-story-kicker">03 / WE30 GROUP 02</p>
+              <span>OPEN INCUBATION</span>
+            </div>
+            <h2>WE30<br />二群</h2>
+            <p className="community-program-lede">二群目前接近 300 人，更开放，也更适合孵化。适合刚开始做 X、刚接触 AI、仍在找方向，或暂时经验不多但愿意开始的人。</p>
+            <div className="community-program-details">
+              <div>
+                <span>WHAT YOU GET</span>
+                <p>内部已整理近 20 万字知识库，包含内容增长、AI 工具、产品思路与过往复盘；会议分享也会持续归档。</p>
+              </div>
+              <div>
+                <span>WHAT COMES NEXT</span>
+                <p>这里不会一开始就设很高门槛，但会持续筛选更适合进入一群和核心群的成员。</p>
+              </div>
+            </div>
+            <div className="community-program-proof" aria-label="WE30 二群定位">
+              <span>OPEN, BUT NOT EMPTY</span>
+              <p>可以聊天、吹牛、互相链接，也要把文章打磨好，把产品想明白，把业务真正跑起来。</p>
+            </div>
+            <a className="community-program-link" href="#community-contact">
+              申请加入二群
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </article>
@@ -863,10 +890,10 @@ function CommunityPage() {
         <section className="community-boundary editorial-reveal" data-reveal-delay="270" aria-label="社区共同边界">
           <div>
             <p className="community-story-kicker">ONE STANDARD / REAL WORK</p>
-            <h2>不贩卖信息，<br />沉淀关系。</h2>
+            <h2>不是人很多，<br />是一群有创造力的人。</h2>
           </div>
           <div className="community-boundary-copy">
-            <p>我们不承诺赚钱、资源或人脉，也不相信加入一个群就能改变人生。能被留下的，应该是愿意做事的人、被验证过的连接，以及不断累积的结果。</p>
+            <p>不承诺赚钱、资源或人脉，也不相信加入一个群就能改变人生。这里想留下的是愿意做事的人、被验证过的连接，以及不断累积的结果。</p>
             <ul>
               <li>不欢迎广告、骚扰、卖课引流与搬运内部内容。</li>
               <li>不鼓励只索取、不行动的参与方式。</li>
@@ -879,12 +906,12 @@ function CommunityPage() {
       <section className="community-access-section" id="community-contact" aria-label="加入社区咨询">
         <div className="community-access-inner editorial-reveal" data-reveal-delay="100">
           <div className="community-copy">
-            <p className="section-kicker">WE30 / X AI CREATOR GROWTH</p>
+            <p className="section-kicker">WE30 / CORE / GROUP 01 / GROUP 02</p>
             <h1>加入社区</h1>
             <p className="community-lede">
-              不用急着判断该加入哪一个。
+              主页私信我，备注来意。
               <br />
-              先告诉我你正在做什么，我们一起找到更合适的位置。
+              不备注，不通过；我会根据你的阶段与目标进行匹配。
             </p>
             <a className="community-back-link" href="/#top">
               回到首页了解我
@@ -894,7 +921,7 @@ function CommunityPage() {
           <aside className="community-contact-card" aria-label="加入社区咨询">
             <span>COMMUNITY / CONTACT</span>
             <h2>添加微信咨询</h2>
-            <p>扫码添加微信，备注「WE30」或「增长群」；我会根据你的阶段与目标进行匹配。</p>
+            <p>扫码添加微信，备注你想加入 WE30 的原因和正在做的事；不备注不通过。</p>
             <figure className="community-qr">
               <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
               <figcaption>SCAN TO CONNECT</figcaption>
