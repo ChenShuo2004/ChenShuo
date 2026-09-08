@@ -24,10 +24,11 @@ import {
 import { useEffect, useRef, useState } from "react";
 import EvilEye from "./EvilEye.jsx";
 
-const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/ZzFCwIZPNizKTmkZcHucLYcXnPK";
+const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
 const readingRoomUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const githubProfileUrl = "https://github.com/ChenShuo2004";
 const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
+const githubReposApiUrl = "https://api.github.com/users/ChenShuo2004/repos?per_page=100&type=owner";
 const githubEventsApiUrl = "https://api.github.com/users/ChenShuo2004/events/public?per_page=10";
 const xProfileUrl = "https://x.com/ChenshuoAI";
 const productLibraryUrl = "https://aiyouwendu.com/products";
@@ -35,10 +36,10 @@ const warmSpaceUrl = "https://aiyouwendu.com/home";
 const we30IntroUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
 
 const fallbackGithubStats = {
-  value: "11 repos · 6 followers",
-  repos: 11,
-  followers: 6,
-  following: 3,
+  value: "752 Stars",
+  repos: 17,
+  followers: 46,
+  stars: 752,
   bars: [5, 7, 8, 9, 11, 12, 14],
 };
 
@@ -239,15 +240,22 @@ function GithubBuildPage() {
         if (!response.ok) throw new Error("GitHub events unavailable");
         return response.json();
       }),
+      fetch(githubReposApiUrl, { headers: { Accept: "application/vnd.github+json" } }).then((response) => {
+        if (!response.ok) throw new Error("GitHub repositories unavailable");
+        return response.json();
+      }),
     ])
-      .then(([profileResult, eventsResult]) => {
+      .then(([profileResult, eventsResult, reposResult]) => {
         if (!isCurrent) return;
 
         const profile = profileResult.status === "fulfilled" ? profileResult.value : {};
         const events = eventsResult.status === "fulfilled" && Array.isArray(eventsResult.value) ? eventsResult.value : [];
+        const repositories = reposResult.status === "fulfilled" && Array.isArray(reposResult.value) ? reposResult.value : [];
         const repos = Number.isFinite(profile.public_repos) ? profile.public_repos : fallbackGithubStats.repos;
         const followers = Number.isFinite(profile.followers) ? profile.followers : fallbackGithubStats.followers;
-        const following = Number.isFinite(profile.following) ? profile.following : fallbackGithubStats.following;
+        const stars = repositories.length > 0
+          ? repositories.reduce((total, repository) => total + (Number.isFinite(repository.stargazers_count) ? repository.stargazers_count : 0), 0)
+          : fallbackGithubStats.stars;
         const activity = Math.min(16, Math.max(6, Math.round(Math.log10(repos + followers + 1) * 6)));
         const commits = events
           .filter((event) => event.type === "PushEvent")
@@ -261,10 +269,10 @@ function GithubBuildPage() {
           .reverse();
 
         setGithubStats({
-          value: `${repos} repos · ${followers} followers`,
+          value: `${stars} Stars`,
           repos,
           followers,
-          following,
+          stars,
           bars: [5, 7, 8, 9, 11, 12, activity],
         });
 
@@ -386,9 +394,9 @@ function GithubBuildPage() {
           <small>关注者</small>
         </div>
         <div className="github-build-metric">
-          <span>FOLLOWING</span>
-          <strong>{githubStats.following}</strong>
-          <small>正在关注</small>
+          <span>STARS</span>
+          <strong>{githubStats.stars}</strong>
+          <small>公开仓库累计 Star</small>
         </div>
         <a className="github-build-metric github-build-metric-link" href={githubProfileUrl} target="_blank" rel="noreferrer">
           <span>OPEN SOURCE / LOG</span>
@@ -406,19 +414,28 @@ function PlatformSignalsSection() {
   useEffect(() => {
     let isCurrent = true;
 
-    fetch(githubApiUrl, { headers: { Accept: "application/vnd.github+json" } })
-      .then((response) => {
-        if (!response.ok) throw new Error("GitHub stats unavailable");
+    Promise.all([
+      fetch(githubApiUrl, { headers: { Accept: "application/vnd.github+json" } }).then((response) => {
+        if (!response.ok) throw new Error("GitHub profile unavailable");
         return response.json();
-      })
-      .then((profile) => {
+      }),
+      fetch(githubReposApiUrl, { headers: { Accept: "application/vnd.github+json" } }).then((response) => {
+        if (!response.ok) throw new Error("GitHub repositories unavailable");
+        return response.json();
+      }),
+    ])
+      .then(([profile, repositories]) => {
         if (!isCurrent) return;
         const repos = Number.isFinite(profile.public_repos) ? profile.public_repos : 11;
         const followers = Number.isFinite(profile.followers) ? profile.followers : 6;
+        const stars = repositories.reduce((total, repository) => total + (Number.isFinite(repository.stargazers_count) ? repository.stargazers_count : 0), 0);
         const activity = Math.min(16, Math.max(6, Math.round(Math.log10(repos + followers + 1) * 6)));
 
         setGithubStats({
-          value: `${repos} repos · ${followers} followers`,
+          value: `${stars} Stars`,
+          repos,
+          followers,
+          stars,
           bars: [5, 7, 8, 9, 11, 12, activity],
         });
       })
@@ -435,7 +452,7 @@ function PlatformSignalsSection() {
       label: "X / TWITTER",
       name: "X 内容入口",
       detail: "AI / 产品 / build log",
-      value: "持续更新",
+      value: "7.1K 粉丝",
       status: "LIVE",
       icon: XLogo,
       href: xProfileUrl,
@@ -445,8 +462,8 @@ function PlatformSignalsSection() {
       key: "feishu",
       label: "FEISHU / WIKI",
       name: "飞书知识库",
-      detail: "路径 / 模块 / 行动",
-      value: "持续生长",
+      detail: "路径 / 模块 / 行动 / 1W+ 浏览",
+      value: "累计 1W+ 浏览",
       status: "OPEN",
       icon: BookOpenText,
       href: knowledgeBaseUrl,
@@ -456,7 +473,7 @@ function PlatformSignalsSection() {
       key: "github",
       label: "GITHUB / OPEN SOURCE",
       name: "@ChenShuo2004",
-      detail: "公开项目 / 产品实验",
+      detail: "17 公开仓库 / 46 关注者",
       value: githubStats.value,
       status: "LIVE",
       icon: GithubLogo,
