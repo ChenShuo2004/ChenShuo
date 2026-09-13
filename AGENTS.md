@@ -8,6 +8,8 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## Durable Prototype Design Preferences
 
+The homepage uses black, white, and gray for its content system: the hero wordmark is the interactive `DepthText` spelling “陈硕KAI”, six content pillars use a monochrome accordion gallery, and the last public section is a black “联系我” footer with Email, WeChat, X, and WE30 entries. Keep all category imagery grayscale and treat labels, thin rules, and whitespace as the primary hierarchy. The hero alone may use the user-approved dark ceremonial cover direction: near-black crimson atmosphere, restrained warm-metal typography and high-contrast portrait treatment; do not spread this accent palette through the content sections.
+
 For the homepage editorial style, use a warm off-white Sac-inspired layout with a large serif KAI wordmark, restrained typography, thin guide lines, and a coral accent.
 
 For the homepage editorial layout, keep the founder copy and two outline actions on the left, with the provided halftone portrait large on the right; keep the first viewport focused on this introduction.
