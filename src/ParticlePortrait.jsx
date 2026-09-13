@@ -34,12 +34,21 @@ function readImageParticles(image, width, height, targetCount) {
       const nx = x / sourceWidth;
       const ny = y / sourceHeight;
 
+      // The supplied character image contains a checkerboard preview. Ignore its
+      // neutral paper tones and lower-right UI residue, preserving only the
+      // illustrated character when building the particle field.
+      const isCheckerboard = Math.max(red, green, blue) - Math.min(red, green, blue) < 9 && red > 184;
+      if (isCheckerboard || ny > 0.94) continue;
+
+      const luminance = Math.round(red * 0.299 + green * 0.587 + blue * 0.114);
+      const particleTone = Math.round(156 + luminance * 0.38);
+
       particles.push({
         nx,
         ny,
-        red,
-        green,
-        blue,
+        red: particleTone,
+        green: particleTone,
+        blue: particleTone,
         alpha: Math.max(0.5, alpha / 255),
         size: 0.7 + Math.random() * 1.15,
         phase: Math.random() * Math.PI * 2,
@@ -54,7 +63,7 @@ function readImageParticles(image, width, height, targetCount) {
   return particles;
 }
 
-export default function ParticlePortrait({ src, alt }) {
+export default function ParticlePortrait({ src, alt, className = "" }) {
   const rootRef = useRef(null);
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
@@ -91,7 +100,7 @@ export default function ParticlePortrait({ src, alt }) {
 
     function rebuild() {
       if (!metrics.width || !metrics.height || !image.naturalWidth) return;
-      particles = readImageParticles(image, metrics.width, metrics.height, 1450);
+      particles = readImageParticles(image, metrics.width, metrics.height, 3200);
     }
 
     function draw(now) {
@@ -197,7 +206,7 @@ export default function ParticlePortrait({ src, alt }) {
   }, []);
 
   return (
-    <figure className="particle-portrait" ref={rootRef} aria-label={alt}>
+    <figure className={`particle-portrait ${className}`.trim()} ref={rootRef} aria-label={alt}>
       <img ref={imageRef} src={src} alt={alt} draggable="false" />
       <canvas ref={canvasRef} aria-hidden="true" />
     </figure>

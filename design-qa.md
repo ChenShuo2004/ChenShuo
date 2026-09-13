@@ -32,6 +32,13 @@ state: initial hero load with web fonts ready
 
 final result: passed
 
+## Compact Portal Follow-up (2026-09-13)
+
+- Homepage now renders as a single compact hero portal with only 开源工具、知识库、社区 visible in the top navigation and primary actions.
+- The supplied character is rendered through `ParticlePortrait`; checkerboard paper tones and lower-right UI residue are filtered before particle creation, and the source image remains opacity `0`.
+- Local preview verified at `http://127.0.0.1:5173/`; the accessibility tree exposes the three navigation entries, three primary actions, Email, and X while the longer homepage sections are not rendered.
+- `npm run build` and `git diff --check` pass.
+
 ---
 
 ## Community page — density intro revision (2026-08-27)

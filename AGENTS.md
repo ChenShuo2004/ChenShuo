@@ -8,7 +8,7 @@ When implementing from a selected generated mock, treat that image as the source
 
 ## Durable Prototype Design Preferences
 
-The homepage uses black, white, and gray for its content system: the hero wordmark is the interactive `DepthText` spelling “陈硕KAI”, six content pillars use a monochrome accordion gallery, and the last public section is a black “联系我” footer with Email, WeChat, X, and WE30 entries. Keep all category imagery grayscale and treat labels, thin rules, and whitespace as the primary hierarchy. The hero alone may use the user-approved dark ceremonial cover direction: near-black crimson atmosphere, restrained warm-metal typography and high-contrast portrait treatment; do not spread this accent palette through the content sections.
+The homepage is a compact one-screen portal: use black, white, and gray, keep the interactive `DepthText` wordmark “陈硕KAI”, and expose only the three core entries 开源工具、知识库、社区. The hero must use the existing particle portrait effect with the user-provided “陈硕角色” character illustration, with no visible source-image base or realistic human portrait. Keep the inline contact links minimal and preserve the longer category/detail content on its existing routes rather than expanding the homepage into a long landing page.
 
 For the homepage editorial style, use a warm off-white Sac-inspired layout with a large serif KAI wordmark, restrained typography, thin guide lines, and a coral accent.
 
