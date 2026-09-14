@@ -22,8 +22,7 @@ import {
   WarningCircle,
 } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
-import AccordionGallery from "./AccordionGallery.jsx";
-import DepthText from "./DepthText.jsx";
+import EvilEye from "./EvilEye.jsx";
 
 const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
 const readingRoomUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
@@ -52,12 +51,11 @@ const fallbackGithubActivity = [
 ];
 
 const editorialNavItems = [
-  { key: "open-source", label: "开源工具", english: "BUILD", href: "/#open-source" },
-  { key: "knowledge", label: "知识库", english: "KNOWLEDGE", href: "/#knowledge" },
-  { key: "community", label: "社区", english: "COMMUNITY", href: "/#community" },
-  { key: "experience", label: "经历", english: "PRACTICE", href: "/#experience" },
-  { key: "social", label: "社媒", english: "SIGNALS", href: "/#social" },
-  { key: "projects", label: "项目", english: "PROJECTS", href: "/#projects" },
+  { key: "home", label: "首页", english: "ABOUT", href: "/#top" },
+  { key: "tools", label: "工具库", english: "BUILD", href: "/tools" },
+  { key: "reading", label: "阅览室", english: "READ", href: readingRoomUrl },
+  { key: "knowledge", label: "知识地图", english: "WRITE", href: "/knowledge" },
+  { key: "community", label: "社群", english: "COMMUNITY", href: "/community" },
 ];
 
 const knowledgeOriginIntro = [
@@ -150,38 +148,6 @@ const projects = [
     href: "/knowledge",
     description:
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
-  },
-];
-
-const pillarGalleryItems = [
-  { label: "01 / 开源 AI 工具", link: "#open-source", image: "/assets/project-ai-system-generated.jpg", alt: "开源 AI 工具的系统视觉" },
-  { label: "02 / 知识库", link: "#knowledge", image: "/assets/product-line-knowledge.webp", alt: "知识地图视觉" },
-  { label: "03 / 社区", link: "#community", image: "/assets/project-web3-generated.jpg", alt: "社区连接视觉" },
-  { label: "04 / 经历", link: "#experience", image: "/assets/hero-cinematic-reference.jpg", alt: "实践经历视觉" },
-  { label: "05 / 社媒", link: "#social", image: "/assets/project-content-engine-generated.jpg", alt: "内容信号视觉" },
-  { label: "06 / 项目", link: "#projects", image: "/assets/product-line-tools.webp", alt: "AI 产品实验室视觉" },
-];
-
-const experienceItems = [
-  {
-    state: "已验证",
-    title: "YouTube 内容矩阵",
-    description: "围绕创作者收益与音乐商单的账号实践，三个月实现两万美元收入。",
-  },
-  {
-    state: "已落地",
-    title: "AI 跨境电商自动化",
-    description: "为厦门跨境团队搭建 Shopee AI 自动化系统，让重复流程更可复用。",
-  },
-  {
-    state: "推进中",
-    title: "车企服务内容",
-    description: "已与理想汽车建立连接，围绕内容与服务方向持续推进。",
-  },
-  {
-    state: "复盘中",
-    title: "AI 商业化项目",
-    description: "从 AI 漫剧到 AI 接单矩阵，保留真实经验，也持续复盘成本与交付。",
   },
 ];
 
@@ -515,10 +481,22 @@ function PlatformSignalsSection() {
       pageHref: "/github",
       bars: githubStats.bars,
     },
+    {
+      key: "community",
+      label: "COMMUNITY / AI",
+      name: "全国 AI 社区",
+      detail: "AI / 内容 / 产品",
+      value: "开放加入",
+      status: "OPEN",
+      icon: UserCircle,
+      href: "/community",
+      pageHref: "/community",
+      bars: [4, 6, 7, 9, 11, 12, 14],
+    },
   ];
 
   return (
-    <section className="platform-signal-section" id="social" aria-label="陈硕 KAI 的社媒入口">
+    <section className="platform-signal-section" id="platforms" aria-label="全平台信号台">
       <div className="platform-signal-inner">
         <div className="platform-signal-about editorial-reveal" data-reveal-delay="60">
           <p className="platform-signal-about-kicker">ABOUT / AI MEDIA BUILDER</p>
@@ -543,12 +521,12 @@ function PlatformSignalsSection() {
         </div>
         <div className="platform-signal-heading editorial-reveal" data-reveal-delay="100">
           <div className="platform-signal-heading-title">
-            <p className="section-kicker">SOCIAL / SIGNALS</p>
-            <h2>社媒信号台</h2>
+            <p className="section-kicker">NETWORK / SIGNALS</p>
+            <h2>全平台信号台</h2>
           </div>
           <div className="platform-signal-heading-side">
             <span>LIVE / OPEN</span>
-            <p>内容、知识库与开源项目，保持在同一条公开轨道上。</p>
+            <p>内容、知识库、开源项目和 AI 社群，保持在同一条公开轨道上。</p>
           </div>
         </div>
 
@@ -1641,26 +1619,22 @@ export function App() {
 
         <EditorialSiteHeader inHero activeKey="home" sectionLabel="AI / CONTENT / PRODUCT" />
 
+        <div className="editorial-hero-eye" aria-hidden="true">
+          <EvilEye
+            eyeColor="#FF744C"
+            intensity={1.25}
+            glowIntensity={0.28}
+            scale={0.78}
+            noiseScale={1.05}
+            flameSpeed={0.85}
+            backgroundColor="#F4F0E8"
+          />
+        </div>
+
         <div className="editorial-hero-inner">
           <div className="editorial-hero-copy">
-            <h1 className="editorial-reveal editorial-name" data-reveal-delay="140">
-                  <DepthText
-                    text="陈硕KAI"
-                    layers={18}
-                    depth={1.1}
-                    faceColor="#f1cf99"
-                    depthColor="#6f311f"
-                tilt={3.5}
-                pointerTracking
-                smoothing={0.18}
-                perspective={1100}
-                autoOrbit={false}
-                fontSize="clamp(3.65rem, 7.5vw, 9rem)"
-                fontWeight={900}
-                shadow={false}
-              />
-            </h1>
-            <p className="editorial-kicker editorial-reveal" data-reveal-delay="80"><span aria-hidden="true" />打造全国最大的 AI 社区</p>
+            <h1 className="editorial-reveal" data-reveal-delay="140">KAI</h1>
+            <p className="editorial-kicker editorial-reveal" data-reveal-delay="80"><span aria-hidden="true" />打造全国最大的 AI 社群</p>
             <p className="editorial-lede editorial-reveal" data-reveal-delay="220">
               一个持续生长的知识产品空间
               <span>把想法、工具和方法，沉淀成可复用、可商业化的系统。</span>
@@ -1669,8 +1643,8 @@ export function App() {
               我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
             </p>
             <div className="editorial-actions editorial-reveal" data-reveal-delay="360" aria-label="主要入口">
-              <a href="#explore" onClick={(event) => scrollToSection(event, "#explore")}>
-                浏览六大板块
+              <a href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
+                查看内容
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
               <a href="/community">
@@ -1685,101 +1659,17 @@ export function App() {
           </figure>
         </div>
 
-        <a className="editorial-scroll editorial-reveal" data-reveal-delay="440" href="#explore" onClick={(event) => scrollToSection(event, "#explore")}>
+        <a className="editorial-scroll editorial-reveal" data-reveal-delay="440" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
           <span>SCROLL TO EXPLORE</span>
           <ArrowDown size={17} weight="bold" aria-hidden="true" />
         </a>
       </section>
 
-      <section className="pillar-directory" id="explore" aria-label="六大内容分类">
-        <div className="pillar-directory-heading editorial-reveal" data-reveal-delay="60">
-          <p className="section-kicker">SIX PILLARS / ONE SYSTEM</p>
-          <h2>从这里开始</h2>
-          <p>开源工具、知识结构、社区、实践、公开表达与持续构建，放进同一张清晰的地图。</p>
-        </div>
-        <AccordionGallery
-          className="pillar-gallery editorial-reveal"
-          items={pillarGalleryItems}
-          defaultIndex={0}
-          accentColor="#ffffff"
-          overlayColor="#050505"
-          textColor="#ffffff"
-          height={470}
-          gap={8}
-          radius={0}
-          expandRatio={0.42}
-          trigger="hover"
-        />
-        <p className="pillar-directory-note">悬停或聚焦查看分类；再次点击进入对应内容。</p>
-      </section>
-
-      <section className="content-pillar content-pillar-open-source" id="open-source" aria-label="开源 AI 工具">
-        <div className="content-pillar-index editorial-reveal" data-reveal-delay="60">01</div>
-        <div className="content-pillar-copy editorial-reveal" data-reveal-delay="110">
-          <p className="section-kicker">OPEN SOURCE / AI TOOLS</p>
-          <h2>开源 AI 工具</h2>
-          <p>把反复验证过的 AI 工作流、内容工具和构建能力公开出来，让一次经验变成可复用的工具。</p>
-        </div>
-        <div className="content-pillar-actions editorial-reveal" data-reveal-delay="160">
-          <a href="/github">查看公开建造 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-          <a href={githubProfileUrl} target="_blank" rel="noreferrer">打开 GitHub <ArrowUpRight size={18} weight="bold" aria-hidden="true" /></a>
-        </div>
-      </section>
-
-      <section className="content-pillar content-pillar-knowledge" id="knowledge" aria-label="知识库">
-        <div className="content-pillar-index editorial-reveal" data-reveal-delay="60">02</div>
-        <div className="content-pillar-copy editorial-reveal" data-reveal-delay="110">
-          <p className="section-kicker">KNOWLEDGE / PATHS</p>
-          <h2>知识库</h2>
-          <p>不只是收藏内容，而是把信息、理解与下一步行动组织成能持续走下去的路径。</p>
-        </div>
-        <div className="content-pillar-actions editorial-reveal" data-reveal-delay="160">
-          <a href="/knowledge">进入知识地图 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-          <a href={readingRoomUrl} target="_blank" rel="noreferrer">进入阅览室 <ArrowUpRight size={18} weight="bold" aria-hidden="true" /></a>
-          <a href={knowledgeBaseUrl} target="_blank" rel="noreferrer">打开飞书知识库 <ArrowUpRight size={18} weight="bold" aria-hidden="true" /></a>
-        </div>
-      </section>
-
-      <section className="content-pillar content-pillar-community" id="community" aria-label="社区">
-        <div className="content-pillar-index editorial-reveal" data-reveal-delay="60">03</div>
-        <div className="content-pillar-copy editorial-reveal" data-reveal-delay="110">
-          <p className="section-kicker">WE30 / AI COMMUNITY</p>
-          <h2>社区</h2>
-          <p>把真正想做 AI 创作、产品和业务的人聚在一起：核心群连接深度，一群做实战，二群做开放孵化。</p>
-        </div>
-        <div className="content-pillar-actions editorial-reveal" data-reveal-delay="160">
-          <a href="/community">了解 WE30 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-          <a href="/community#community-contact">添加微信咨询 <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-        </div>
-      </section>
-
-      <section className="experience-section" id="experience" aria-label="实践经历">
-        <div className="experience-heading editorial-reveal" data-reveal-delay="60">
-          <p className="section-kicker">PRACTICE / REAL WORK</p>
-          <h2>经历不是履历，<br />是做过的事。</h2>
-          <p>从内容矩阵到 AI 自动化，再到仍在推进的项目，把真实实践和复盘留在这里。</p>
-        </div>
-        <div className="experience-grid">
-          {experienceItems.map((item, index) => (
-            <article className="experience-item editorial-reveal" data-reveal-delay={`${index * 70 + 120}`} key={item.title}>
-              <span>{item.state}</span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </article>
-          ))}
-        </div>
-        <a className="experience-source editorial-reveal" data-reveal-delay="420" href="https://x.com/ChenshuoAI/status/2086710313219727862?s=20" target="_blank" rel="noreferrer">
-          阅读完整个人复盘连帖 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-        </a>
-      </section>
-
-      <PlatformSignalsSection />
-
-      <section className="editorial-projects-section" id="projects" aria-label="正在构建的项目">
+      <section className="editorial-projects-section" id="projects" aria-label="共建中的社区生态">
         <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
-          <p className="section-kicker">PROJECTS / IN MOTION</p>
-          <h2>项目</h2>
-          <p>从有温度空间进入。工具库、阅览室和知识地图，连接成一个持续生长的 AI 社区。</p>
+          <p className="section-kicker">PRODUCT LINES</p>
+          <h2>构建ing</h2>
+          <p>从有温度空间进入。工具库、阅览室和知识地图，连接成一个持续生长的ai社区。</p>
         </div>
         <div className="hero-system-frame">
           <a
@@ -1831,16 +1721,25 @@ export function App() {
         </div>
       </section>
 
+      <PlatformSignalsSection />
+
       <section className="contact-section" id="contact">
         <div className="contact-inner">
           <div className="contact-hero editorial-reveal" data-reveal-delay="60">
             <p className="section-kicker">GET IN TOUCH / 联系</p>
-            <h2>联系我。</h2>
-            <p className="contact-lede">聊聊 AI、内容、产品，或者一起把一件事真正做出来。</p>
+            <h2>Let's talk.</h2>
+            <p className="contact-lede">聊聊 AI、内容，或者一起搞点事情。</p>
             <p className="contact-availability">
               <span aria-hidden="true" />
               当前开放合作 · Available
             </p>
+          </div>
+
+          <div className="contact-marquee editorial-reveal" data-reveal-delay="120" aria-hidden="true">
+            <div className="contact-marquee-track">
+              <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
+              <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
+            </div>
           </div>
 
           <div className="contact-grid" aria-label="联系陈硕">
@@ -1856,38 +1755,38 @@ export function App() {
               </span>
             </a>
 
-            <a href="/community#community-contact" className="contact-channel editorial-reveal" data-reveal-delay="250">
-              <span className="contact-channel-top">
-                <span className="contact-channel-label">WECHAT</span>
-                <UserCircle size={18} weight="regular" aria-hidden="true" />
-              </span>
-              <strong>Chen18005977213</strong>
-              <span className="contact-channel-meta">
-                微信咨询 / 人工匹配
-                <ArrowRight size={18} weight="regular" aria-hidden="true" />
-              </span>
-            </a>
-
-            <a href={xProfileUrl} className="contact-channel editorial-reveal" data-reveal-delay="320" target="_blank" rel="noreferrer">
+            <a href={xProfileUrl} className="contact-channel editorial-reveal" data-reveal-delay="250" target="_blank" rel="noreferrer">
               <span className="contact-channel-top">
                 <span className="contact-channel-label">X / TWITTER</span>
                 <XLogo size={18} weight="regular" aria-hidden="true" />
               </span>
-              <strong>@ChenshuoAI</strong>
+              <strong>通过 X 交流</strong>
               <span className="contact-channel-meta">
                 公开动态 / DM
                 <ArrowRight size={18} weight="regular" aria-hidden="true" />
               </span>
             </a>
 
-            <a href="/community" className="contact-channel editorial-reveal" data-reveal-delay="390">
+            <a href={knowledgeBaseUrl} className="contact-channel editorial-reveal" data-reveal-delay="320" target="_blank" rel="noreferrer">
               <span className="contact-channel-top">
-                <span className="contact-channel-label">WE30 / COMMUNITY</span>
-                <UsersThree size={18} weight="regular" aria-hidden="true" />
+                <span className="contact-channel-label">KNOWLEDGE BASE</span>
+                <Brain size={18} weight="regular" aria-hidden="true" />
               </span>
-              <strong>加入 WE30</strong>
+              <strong>打开知识库</strong>
               <span className="contact-channel-meta">
-                AI / 内容 / 产品
+                Feishu / Structure
+                <ArrowRight size={18} weight="regular" aria-hidden="true" />
+              </span>
+            </a>
+
+            <a href="/community#community-contact" className="contact-channel editorial-reveal" data-reveal-delay="390">
+              <span className="contact-channel-top">
+                <span className="contact-channel-label">WECHAT / 社群</span>
+                <UserCircle size={18} weight="regular" aria-hidden="true" />
+              </span>
+              <strong>Chen18005977213</strong>
+              <span className="contact-channel-meta">
+                微信咨询 / 加入社区
                 <ArrowRight size={18} weight="regular" aria-hidden="true" />
               </span>
             </a>
@@ -1896,7 +1795,7 @@ export function App() {
           <div className="contact-footer-line editorial-reveal" data-reveal-delay="460">
             <span>CHEN SHUO / KAI</span>
             <a href="#top" onClick={(event) => scrollToSection(event, "#top")}>回到顶部 ↑</a>
-            <span>AI · CONTENT · PRODUCT · COMMUNITY</span>
+            <span>AI · CONTENT · PRODUCT</span>
           </div>
         </div>
       </section>
