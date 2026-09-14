@@ -24,7 +24,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import AccordionGallery from "./AccordionGallery.jsx";
 import DepthText from "./DepthText.jsx";
-import ParticlePortrait from "./ParticlePortrait.jsx";
 
 const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
 const readingRoomUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
@@ -53,9 +52,12 @@ const fallbackGithubActivity = [
 ];
 
 const editorialNavItems = [
-  { key: "open-source", label: "开源工具", english: "BUILD", href: "/github" },
-  { key: "knowledge", label: "知识库", english: "KNOWLEDGE", href: "/knowledge" },
-  { key: "community", label: "社区", english: "COMMUNITY", href: "/community" },
+  { key: "open-source", label: "开源工具", english: "BUILD", href: "/#open-source" },
+  { key: "knowledge", label: "知识库", english: "KNOWLEDGE", href: "/#knowledge" },
+  { key: "community", label: "社区", english: "COMMUNITY", href: "/#community" },
+  { key: "experience", label: "经历", english: "PRACTICE", href: "/#experience" },
+  { key: "social", label: "社媒", english: "SIGNALS", href: "/#social" },
+  { key: "projects", label: "项目", english: "PROJECTS", href: "/#projects" },
 ];
 
 const knowledgeOriginIntro = [
@@ -1629,7 +1631,7 @@ export function App() {
   }
 
   return (
-    <main className="site-shell home-shell">
+    <main className="site-shell">
       <section className="hero editorial-hero" id="top" aria-label="陈硕个人介绍">
         <div className="editorial-hero-guides" aria-hidden="true">
           <span className="editorial-guide editorial-guide-left" />
@@ -1646,8 +1648,8 @@ export function App() {
                     text="陈硕KAI"
                     layers={18}
                     depth={1.1}
-                    faceColor="#f2f2f2"
-                    depthColor="#5f5f5f"
+                    faceColor="#f1cf99"
+                    depthColor="#6f311f"
                 tilt={3.5}
                 pointerTracking
                 smoothing={0.18}
@@ -1658,38 +1660,35 @@ export function App() {
                 shadow={false}
               />
             </h1>
-            <p className="editorial-kicker editorial-reveal" data-reveal-delay="80"><span aria-hidden="true" />AI / CONTENT / COMMUNITY</p>
+            <p className="editorial-kicker editorial-reveal" data-reveal-delay="80"><span aria-hidden="true" />打造全国最大的 AI 社区</p>
             <p className="editorial-lede editorial-reveal" data-reveal-delay="220">
-              AI 连续创业者
-              <span>把工具、知识和人与人之间的协作，做成能持续生长的系统。</span>
+              一个持续生长的知识产品空间
+              <span>把想法、工具和方法，沉淀成可复用、可商业化的系统。</span>
+            </p>
+            <p className="editorial-bio editorial-reveal" data-reveal-delay="290">
+              我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
             </p>
             <div className="editorial-actions editorial-reveal" data-reveal-delay="360" aria-label="主要入口">
-              <a href="/github">
-                开源 AI 工具
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a href="/knowledge">
-                知识库
+              <a href="#explore" onClick={(event) => scrollToSection(event, "#explore")}>
+                浏览六大板块
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
               <a href="/community">
-                加入 WE30
+                加入社区
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
           </div>
 
-          <ParticlePortrait
-            className="hero-character-particles editorial-reveal"
-            src="/assets/chen-shuo-character.png"
-            alt="陈硕 KAI 角色插画，手持画笔"
-          />
+          <figure className="editorial-portrait editorial-reveal" data-reveal-delay="200">
+            <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" fetchPriority="high" decoding="async" />
+          </figure>
         </div>
 
-        <p className="hero-contact editorial-reveal" data-reveal-delay="440">
-          <a href="mailto:pdqqqylqxx00321@gmail.com">EMAIL</a>
-          <a href={xProfileUrl} target="_blank" rel="noreferrer">X / @CHENSHUOAI</a>
-        </p>
+        <a className="editorial-scroll editorial-reveal" data-reveal-delay="440" href="#explore" onClick={(event) => scrollToSection(event, "#explore")}>
+          <span>SCROLL TO EXPLORE</span>
+          <ArrowDown size={17} weight="bold" aria-hidden="true" />
+        </a>
       </section>
 
       <section className="pillar-directory" id="explore" aria-label="六大内容分类">
