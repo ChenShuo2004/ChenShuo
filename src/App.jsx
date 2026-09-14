@@ -51,11 +51,11 @@ const fallbackGithubActivity = [
 ];
 
 const editorialNavItems = [
-  { key: "home", label: "首页", english: "ABOUT", href: "/#top" },
-  { key: "tools", label: "工具库", english: "BUILD", href: "/tools" },
-  { key: "reading", label: "阅览室", english: "READ", href: readingRoomUrl },
-  { key: "knowledge", label: "知识地图", english: "WRITE", href: "/knowledge" },
-  { key: "community", label: "社群", english: "COMMUNITY", href: "/community" },
+  { key: "work", label: "在做的事情", english: "WORK", href: "/work" },
+  { key: "media", label: "自媒体", english: "MEDIA", href: "/media" },
+  { key: "about", label: "自我介绍", english: "ABOUT", href: "/about" },
+  { key: "community", label: "我的社区", english: "COMMUNITY", href: "/community" },
+  { key: "contact", label: "联系我", english: "CONTACT", href: "/#contact" },
 ];
 
 const knowledgeOriginIntro = [
@@ -149,6 +149,131 @@ const projects = [
     description:
       "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
   },
+  {
+    title: "企业培训",
+    tag: "企业服务",
+    icon: UsersThree,
+    metric: "AI 内训 / 培训 / 分享",
+    href: "/#contact",
+    description:
+      "为企业和团队提供 AI 落地培训与内训分享，把实战经验变成可复用的能力。",
+  },
+  {
+    title: "商单 / 企业合作",
+    tag: "商业合作",
+    icon: ChartLineUp,
+    metric: "商单 / 企业服务 / 联创",
+    href: "/#contact",
+    description:
+      "承接 AI 内容、产品与自动化相关的商业合作与企业服务，从需求到交付一起推进。",
+  },
+  {
+    title: "1 对 1 咨询",
+    tag: "咨询服务",
+    icon: CalendarBlank,
+    metric: "999 元 / 小时",
+    href: "/#contact",
+    description:
+      "针对 AI 变现、内容增长、产品与知识库的一对一咨询，报价 999 元 / 小时，先聊清楚需求再开始。",
+  },
+];
+
+const aboutIntro = [
+  "我是陈硕（KAI），AI 连续创业者，也是“国家一级写作专家”（自封）。目前在厦门带着团队，探寻 AI 时代下属于普通人的财富自由之路。",
+  "主线聚焦 AI 产品、内容与知识库；支线延伸到跨境、YouTube（数亿播放）与 Crypto，本人也是忠实的 BTC / ETH 持有者。",
+  "现在以「一个持续生长的知识产品空间」为核心重新起航：把工具库、阅览室和知识地图连接起来，沉淀可复用、可商业化的系统，并组建 WE30，把真正想做事的人聚在一起。",
+];
+
+const personalReviewLede = [
+  "上一篇关于我在 YouTube 上做橘猫账号矩阵、跑创作者收益和音乐商单，三个月两万刀的帖子爆了，说实话我自己也挺意外的。",
+  "我参与过的 AI 变现项目还有：AI 漫剧红果打通（已成型，外包给别的团队）、AI 绘本 / 毕业设计 / 接单服务的矩阵账号打法（已停止，人工成本高）、帮厦门一家跨境电商做虾皮的 AI 自动化系统（已落地）、车企服务内容（已与理想汽车建连，仍在推进）、以及 web3 撸毛项目（我本人是忠实的 BTC / ETH 持有者）。",
+  "所以我干脆写一篇真正全面的复盘，给在 X 上和我一样努力追赶 AI 时代的同行者们。",
+];
+
+const personalReviewChapters = [
+  {
+    index: "01",
+    title: "从做推特说起",
+    paragraphs: [
+      "我做推特有 20 天了，但本身还有业务在跑，没花太多时间。之前更多是零碎地追热点，看到什么火就用 AI 修饰一下发出去。",
+      "但我发现效果并不好——X 上同质化内容太严重，一个热点出来，大量人抄、推广、输出。我不是一个喜欢不断追热点尝试的人，25 年刚接触 AI 时我就吃过这种亏：天天玩不同玩法，却没有任何产出。",
+    ],
+  },
+  {
+    index: "02",
+    title: "最早的接触：从孙哥的播客开始",
+    paragraphs: [
+      "我第一次了解推特，是初中时听孙哥的《90 后财富自由之路》，迷茫的时候我到现在还会翻出来听。",
+      "印象最深的几点：30 岁之前不急着买房、买车、结婚，积极探索 web3，多接收海外信息。那时年纪小、本金有限，很多潮流没赶上，但我确实认真听完了大部分播客。",
+    ],
+    image: "/assets/review/review-podcast.jpg",
+    imageCaption: "孙宇晨《财富自由革命之路》—— 至今仍存在网盘里，迷茫时会翻出来重听的播客合集。",
+  },
+  {
+    index: "03",
+    title: "梦想的开始：高中的创业之路",
+    paragraphs: [
+      "高中之后我真正从学校里脱离出来，一开始去了 web3 领域。",
+      "帮着做撸毛——发账号矩阵、加上算法动作去撸代币，当时做的是 Farcaster，拿到了一些结果。这部分放到现在已经比较过时了。",
+    ],
+  },
+  {
+    index: "04",
+    title: "AI 旅途第一站：AI 绘本",
+    paragraphs: [
+      "我做的第一个 AI 变现项目是 AI 绘本，打法还是老路子：账号矩阵，客服统一导到同一个微信私域，然后输出 AI 绘本。",
+      "但闲鱼上买家认知其实特别高，很挑。我们 24 页一份报价 700-800，实际普遍 300 左右成交。哪怕堆了 20 多个账号，收益也不高，因为需要多次审稿，人工费用高。",
+    ],
+    image: "/assets/review/review-xianyu.jpg",
+    imageCaption: "闲鱼 AI 绘本 / 代画店铺：账号矩阵陆续成交，店铺累计显示「赚了 95,626 元」。",
+  },
+  {
+    index: "05",
+    title: "第二站：YouTube 橘猫账号矩阵",
+    paragraphs: [
+      "于是转到下一个赛道——YPP，也就是 YouTube Partner Program，这就是我上一篇写的油管账号矩阵打法，三个月做到两万刀。",
+      "当时做的 YouTube 直播推流工具现在已经开源，认真去弄月入百刀还是可以的（缺点是比较累、耗时间，我就没继续做）。",
+    ],
+    image: "/assets/review/review-youtube.jpg",
+    imageCaption: "YouTube「potato」橘猫频道：6.49 万订阅、134 条视频，跑创作者收益与音乐商单。",
+  },
+  {
+    index: "06",
+    title: "补充：token 生意与代充服务的判断",
+    paragraphs: [
+      "再往后考虑过 token 生意和代充服务，但和我的愿景价值观不太符合，没有好背书体量也起不来，而且更多是和企业合作。",
+      "AI 中转站本质上就是挖矿，个人玩启动成本高、还要考虑分销和封号补号；代充更多是打信息差。想在 AI 时代拿大结果，没必要在这上面浪费太多时间。",
+    ],
+    image: "/assets/review/review-okx.jpg",
+    imageCaption: "早期接触过的交易所 VIP / 代充信息差生意——研究过，但没作为主线去做。",
+  },
+  {
+    index: "07",
+    title: "关于推特运营的反思",
+    paragraphs: [
+      "我 24 年高中毕业就注册了推特，但那时更多是看客。现在 26 年，我有强烈预感——今年可能是推特、或者说个人 IP 创作真正的元年。",
+      "这个愿景驱动着我，让我必须做一个真实的推特账号，分享真正的阅历和经验。",
+    ],
+  },
+  {
+    index: "08",
+    title: "个人习惯：复盘、第二大脑与健康",
+    paragraphs: [
+      "我看到一些人用 Obsidian 做第二大脑，更好地进行内容输出，有了 AI 之后很多想法和思路可以更好地推进。",
+      "这一年创业干得太猛，体重从 140 飙到 170 斤，所以我准备用 Whoop 搭一套个人健康系统——身体才是革命的本钱。我现在尽量每天做日复盘，还有周复盘、月复盘，后面会考虑用飞书知识库或 GitHub 仓库公开出来。",
+    ],
+    image: "/assets/review/review-knowledge.jpg",
+    imageCaption: "抬光 · Everlight AI 团队知识库：把日常待办、会议记录、团队 SOP 与复盘沉淀成结构。",
+  },
+  {
+    index: "09",
+    title: "结语",
+    paragraphs: [
+      "2026 年，我觉得是陈硕 X 之路的元年。我会继续在推特上分享过去做出来的结果，以及现在业务的一些支线展开。",
+      "慢慢来，一切都会更好。祝你我在 AI 这个波澜壮阔的时代，都能得到自己想要的结果。",
+    ],
+    isSummary: true,
+  },
 ];
 
 function scrollToSection(event, href) {
@@ -174,6 +299,21 @@ function useEditorialReveal() {
       return undefined;
     }
 
+    // Reveal any element that already sits within (or near) the viewport right now.
+    // The async IntersectionObserver callback can be dropped or mistimed during initial
+    // load (font/image/WebGL layout shifts, StrictMode re-mounts), which previously left
+    // above-the-fold content — including the hero — permanently stuck at opacity 0.
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const revealIfInView = (element) => {
+      const rect = element.getBoundingClientRect();
+      if (rect.top < viewportHeight * 0.92 && rect.bottom > 0) {
+        element.classList.add("is-visible");
+        return true;
+      }
+      return false;
+    };
+    revealElements.forEach(revealIfInView);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -182,11 +322,26 @@ function useEditorialReveal() {
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.12, rootMargin: "0px" },
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
 
-    revealElements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    revealElements.forEach((element) => {
+      if (!element.classList.contains("is-visible")) observer.observe(element);
+    });
+
+    // Safety net: never let an element stay hidden if its reveal was somehow missed.
+    const fallbackTimer = window.setTimeout(() => {
+      revealElements.forEach((element) => {
+        if (!element.classList.contains("is-visible") && revealIfInView(element)) {
+          observer.unobserve(element);
+        }
+      });
+    }, 1200);
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
 }
 
@@ -496,33 +651,12 @@ function PlatformSignalsSection() {
   ];
 
   return (
-    <section className="platform-signal-section" id="platforms" aria-label="全平台信号台">
-      <div className="platform-signal-inner">
-        <div className="platform-signal-about editorial-reveal" data-reveal-delay="60">
-          <p className="platform-signal-about-kicker">ABOUT / AI MEDIA BUILDER</p>
-          <h2>About me</h2>
-          <div className="platform-signal-about-copy">
-            <p>我是陈硕，AI 连续创业者，也是“国家一级写作专家”（自封）。</p>
-            <p>现在以「一个持续生长的知识产品空间」为核心，重新起航。</p>
-            <p>把工具库、阅览室和知识地图连接起来，沉淀可复用、可商业化的系统。</p>
-          </div>
-
-          <figure className="platform-signal-about-portrait">
-            <span className="platform-about-mark platform-about-mark-top-left">AI MEDIA / BUILDER</span>
-            <span className="platform-about-mark platform-about-mark-top-right">ID // KAI</span>
-            <span className="platform-about-mark platform-about-mark-bottom-left">FOCUS / CONTENT · PRODUCT · KNOWLEDGE</span>
-            <span className="platform-about-mark platform-about-mark-bottom-right">EST. 2023</span>
-            <span className="platform-about-cross platform-about-cross-top-left" aria-hidden="true" />
-            <span className="platform-about-cross platform-about-cross-top-right" aria-hidden="true" />
-            <span className="platform-about-cross platform-about-cross-bottom-left" aria-hidden="true" />
-            <span className="platform-about-cross platform-about-cross-bottom-right" aria-hidden="true" />
-            <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" loading="lazy" decoding="async" />
-          </figure>
-        </div>
+    <section className="platform-signal-section" id="platforms" aria-label="自媒体">
+      <div className="platform-signal-inner platform-signal-inner-solo">
         <div className="platform-signal-heading editorial-reveal" data-reveal-delay="100">
           <div className="platform-signal-heading-title">
-            <p className="section-kicker">NETWORK / SIGNALS</p>
-            <h2>全平台信号台</h2>
+            <p className="section-kicker">MEDIA / SIGNALS</p>
+            <h2>自媒体</h2>
           </div>
           <div className="platform-signal-heading-side">
             <span>LIVE / OPEN</span>
@@ -567,6 +701,162 @@ function PlatformSignalsSection() {
         <p className="platform-signal-note">DATA // GITHUB PUBLIC API · X / FEISHU // OPEN ENTRY</p>
       </div>
     </section>
+  );
+}
+
+function WorkPage() {
+  return (
+    <main className="site-shell editorial-page editorial-work-page">
+      <EditorialSiteHeader activeKey="work" sectionLabel="WORK / 在做的事情" actionLabel="联系我" actionHref="/#contact" />
+      <section className="editorial-projects-section editorial-page-section" id="work" aria-label="在做的事情">
+        <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
+          <p className="section-kicker">WHAT I'M DOING / 在做的事情</p>
+          <h2>在做的事情</h2>
+          <p>产品、内容与社区，还有企业培训和商单合作。工具库、阅览室、知识地图从有温度空间进入，连成一个持续生长的 AI 空间。</p>
+        </div>
+        <div className="hero-system-frame">
+          <a
+            className="hero-project-feature editorial-reveal"
+            data-reveal-delay="90"
+            href={warmSpaceUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="hero-project-index">00</span>
+            <div className="hero-project-feature-copy">
+              <strong>
+                <Flame size={20} weight="duotone" aria-hidden="true" />
+                有温度空间
+              </strong>
+              <em>主入口 / 产品空间</em>
+              <p>从一个入口开始，在工具、阅读和知识地图之间慢慢找到自己的路径。</p>
+            </div>
+            <span className="hero-project-feature-cta">
+              进入空间
+              <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+            </span>
+          </a>
+          <div className="hero-project-list">
+            {projects.map((project, index) => {
+              const Icon = project.icon;
+              return (
+                <a
+                  className="hero-project-item editorial-reveal"
+                  data-reveal-delay={`${index * 80 + 180}`}
+                  href={project.href}
+                  key={project.title}
+                  target={project.external ? "_blank" : undefined}
+                  rel={project.external ? "noreferrer" : undefined}
+                >
+                  <span className="hero-project-index">0{index + 1}</span>
+                  <div>
+                    <strong>
+                      <Icon size={18} weight="duotone" aria-hidden="true" />
+                      {project.title}
+                    </strong>
+                    <em>{project.metric}</em>
+                    <p>{project.description}</p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function MediaPage() {
+  return (
+    <main className="site-shell editorial-page editorial-media-page">
+      <EditorialSiteHeader activeKey="media" sectionLabel="MEDIA / SIGNALS" actionLabel="联系我" actionHref="/#contact" />
+      <PlatformSignalsSection />
+    </main>
+  );
+}
+
+function AboutPage() {
+  return (
+    <main className="site-shell editorial-page editorial-about-page">
+      <EditorialSiteHeader activeKey="about" sectionLabel="ABOUT / 自我介绍" actionLabel="联系我" actionHref="/#contact" />
+
+      <section className="editorial-detail-hero editorial-about-hero" id="top" aria-label="自我介绍">
+        <div className="editorial-detail-copy editorial-reveal" data-reveal-delay="80">
+          <p className="editorial-page-kicker"><span>01</span> ABOUT / AI MEDIA BUILDER</p>
+          <h1>自我介绍</h1>
+          <div className="editorial-detail-description about-intro-copy">
+            {aboutIntro.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <div className="editorial-detail-actions">
+            <a className="editorial-outline-action editorial-outline-action-fill" href={xProfileUrl} target="_blank" rel="noreferrer">
+              在 X 上关注我
+              <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+            <a className="editorial-outline-action" href="/#contact">联系我</a>
+          </div>
+        </div>
+
+        <figure className="platform-signal-about-portrait editorial-about-portrait editorial-reveal" data-reveal-delay="180">
+          <span className="platform-about-mark platform-about-mark-top-left">AI MEDIA / BUILDER</span>
+          <span className="platform-about-mark platform-about-mark-top-right">ID // KAI</span>
+          <span className="platform-about-mark platform-about-mark-bottom-left">FOCUS / CONTENT · PRODUCT · KNOWLEDGE</span>
+          <span className="platform-about-mark platform-about-mark-bottom-right">EST. 2023</span>
+          <span className="platform-about-cross platform-about-cross-top-left" aria-hidden="true" />
+          <span className="platform-about-cross platform-about-cross-top-right" aria-hidden="true" />
+          <span className="platform-about-cross platform-about-cross-bottom-left" aria-hidden="true" />
+          <span className="platform-about-cross platform-about-cross-bottom-right" aria-hidden="true" />
+          <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" loading="lazy" decoding="async" />
+        </figure>
+      </section>
+
+      <section className="knowledge-section editorial-article-section" id="review" aria-label="个人复盘">
+        <div className="knowledge-inner">
+          <div className="knowledge-title-frame editorial-reveal" data-reveal-delay="80">
+            <span className="editorial-index-stamp">REVIEW / 复盘</span>
+            <p className="section-kicker">PERSONAL REVIEW / 个人复盘</p>
+            <h2>《个人复盘连帖》</h2>
+            <div className="knowledge-title-copy">
+              {personalReviewLede.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+              <figure className="review-figure review-figure-portrait">
+                <img src="/assets/review/review-ideal.jpg" alt="理想汽车用户运营组主动建联的微信记录" loading="lazy" decoding="async" />
+                <figcaption>与理想汽车建联：理想总部用户运营组主动私信，期待长期合作（仍在推进）。</figcaption>
+              </figure>
+            </div>
+            <a className="knowledge-title-link" href="https://x.com/ChenshuoAI/status/2086710313219727862" target="_blank" rel="noreferrer">
+              阅读 X 原帖
+              <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+          </div>
+
+          <div className="knowledge-origin-grid">
+            {personalReviewChapters.map((chapter) => (
+              <article
+                className={`knowledge-origin-card editorial-reveal ${chapter.isSummary ? "knowledge-origin-card-summary" : ""}`}
+                data-reveal-delay={`${Math.min(Number(chapter.index) * 70, 420)}`}
+                key={chapter.index}
+              >
+                <span>{chapter.index}</span>
+                <h3>{chapter.title}</h3>
+                {chapter.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+                {chapter.image && (
+                  <figure className="review-figure">
+                    <img src={chapter.image} alt={chapter.imageCaption || chapter.title} loading="lazy" decoding="async" />
+                    {chapter.imageCaption && <figcaption>{chapter.imageCaption}</figcaption>}
+                  </figure>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
@@ -1579,9 +1869,24 @@ export function App() {
   const isToolsPage = normalizedPath === "/tools";
   const isReadingPage = normalizedPath === "/reading";
   const isCommunityPage = normalizedPath === "/community";
+  const isWorkPage = normalizedPath === "/work";
+  const isMediaPage = normalizedPath === "/media";
+  const isAboutPage = normalizedPath === "/about";
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
     return <AdminPage />;
+  }
+
+  if (isWorkPage) {
+    return <WorkPage />;
+  }
+
+  if (isMediaPage) {
+    return <MediaPage />;
+  }
+
+  if (isAboutPage) {
+    return <AboutPage />;
   }
 
   if (isKnowledgeBasePage) {
@@ -1643,12 +1948,24 @@ export function App() {
               我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
             </p>
             <div className="editorial-actions editorial-reveal" data-reveal-delay="360" aria-label="主要入口">
-              <a href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
-                查看内容
+              <a href="/work">
+                在做的事情
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
               <a href="/community">
-                加入社区
+                我的社区
+                <ArrowRight size={18} weight="bold" aria-hidden="true" />
+              </a>
+              <a href="/media">
+                自媒体
+                <ArrowRight size={18} weight="bold" aria-hidden="true" />
+              </a>
+              <a href="/about">
+                自我介绍
+                <ArrowRight size={18} weight="bold" aria-hidden="true" />
+              </a>
+              <a href="#contact" onClick={(event) => scrollToSection(event, "#contact")}>
+                联系我
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
@@ -1659,69 +1976,11 @@ export function App() {
           </figure>
         </div>
 
-        <a className="editorial-scroll editorial-reveal" data-reveal-delay="440" href="#projects" onClick={(event) => scrollToSection(event, "#projects")}>
+        <a className="editorial-scroll editorial-reveal" data-reveal-delay="440" href="#contact" onClick={(event) => scrollToSection(event, "#contact")}>
           <span>SCROLL TO EXPLORE</span>
           <ArrowDown size={17} weight="bold" aria-hidden="true" />
         </a>
       </section>
-
-      <section className="editorial-projects-section" id="projects" aria-label="共建中的社区生态">
-        <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
-          <p className="section-kicker">PRODUCT LINES</p>
-          <h2>构建ing</h2>
-          <p>从有温度空间进入。工具库、阅览室和知识地图，连接成一个持续生长的ai社区。</p>
-        </div>
-        <div className="hero-system-frame">
-          <a
-            className="hero-project-feature editorial-reveal"
-            data-reveal-delay="90"
-            href={warmSpaceUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="hero-project-index">00</span>
-            <div className="hero-project-feature-copy">
-              <strong>
-                <Flame size={20} weight="duotone" aria-hidden="true" />
-                有温度空间
-              </strong>
-              <em>主入口 / 产品空间</em>
-              <p>从一个入口开始，在工具、阅读和知识地图之间慢慢找到自己的路径。</p>
-            </div>
-            <span className="hero-project-feature-cta">
-              进入空间
-              <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
-            </span>
-          </a>
-          <div className="hero-project-list">
-            {projects.map((project, index) => {
-              const Icon = project.icon;
-              return (
-                <a
-                  className="hero-project-item editorial-reveal"
-                  data-reveal-delay={`${index * 80 + 180}`}
-                  href={project.href}
-                  key={project.title}
-                  target={project.external ? "_blank" : undefined}
-                  rel={project.external ? "noreferrer" : undefined}
-                >
-                  <span className="hero-project-index">0{index + 1}</span>
-                  <div>
-                    <strong>
-                      <Icon size={18} weight="duotone" aria-hidden="true" />
-                      {project.title}
-                    </strong>
-                    <em>{project.metric}</em>
-                    <p>{project.description}</p>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <PlatformSignalsSection />
 
       <section className="contact-section" id="contact">
         <div className="contact-inner">
@@ -1787,6 +2046,18 @@ export function App() {
               <strong>Chen18005977213</strong>
               <span className="contact-channel-meta">
                 微信咨询 / 加入社区
+                <ArrowRight size={18} weight="regular" aria-hidden="true" />
+              </span>
+            </a>
+
+            <a href="/about" className="contact-channel editorial-reveal" data-reveal-delay="450">
+              <span className="contact-channel-top">
+                <span className="contact-channel-label">ABOUT / 复盘</span>
+                <BookOpenText size={18} weight="regular" aria-hidden="true" />
+              </span>
+              <strong>读我的自我介绍与复盘</strong>
+              <span className="contact-channel-meta">
+                我是谁 / 做过什么
                 <ArrowRight size={18} weight="regular" aria-hidden="true" />
               </span>
             </a>

@@ -9058,6 +9058,69 @@ body {
   margin-left: auto;
 }
 
+/* Media page: signals stand alone as a single full-width column. */
+.platform-signal-inner.platform-signal-inner-solo {
+  display: block;
+  width: min(100%, 1320px);
+  margin-inline: auto;
+}
+
+/* The old two-column center divider no longer applies when signals stand alone. */
+.editorial-media-page .platform-signal-section::before {
+  display: none;
+}
+
+/* About page: intro copy + portrait inside the shared detail hero. */
+.about-intro-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.about-intro-copy p {
+  margin: 0;
+}
+
+.about-intro-copy p:first-child {
+  color: var(--editorial-ink);
+}
+
+.editorial-about-hero .editorial-about-portrait {
+  width: 100%;
+  min-height: 420px;
+  margin: 0;
+  align-self: end;
+}
+
+/* Proof screenshots pulled from the X review thread, embedded inside each review chapter. */
+.editorial-about-page .review-figure {
+  margin: 20px 0 4px;
+  border: 1px solid var(--editorial-line);
+  background: #fff;
+}
+
+.editorial-about-page .review-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.editorial-about-page .review-figure figcaption {
+  padding: 9px 13px 10px;
+  color: var(--editorial-muted);
+  border-top: 1px solid var(--editorial-line-soft);
+  font-family: var(--editorial-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  line-height: 1.55;
+}
+
+/* Tall phone-screenshot proof (e.g. the 理想 WeChat record) is capped so it never dominates the lede. */
+.editorial-about-page .review-figure-portrait img {
+  max-height: 440px;
+  object-fit: cover;
+  object-position: top;
+}
+
 .platform-signal-heading,
 .platform-signal-grid,
 .platform-signal-note {
@@ -11376,5 +11439,68 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   .editorial-community-page .community-growth-loop li {
     min-height: 94px;
     font-size: 13px;
+  }
+}
+
+/* ── Restructured pages: five contact channels stay balanced, and the /about + /work pages read cleanly on phones. ── */
+
+/* The fifth contact channel (自我介绍与复盘) becomes a full-width feature row so 4 + 1 never leaves empty cells. */
+@media (min-width: 701px) {
+  .site-shell > .contact-section .contact-channel:last-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(24px, 4vw, 64px);
+    min-height: 0;
+    padding-block: 30px;
+  }
+
+  .site-shell > .contact-section .contact-channel:last-child .contact-channel-top {
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .site-shell > .contact-section .contact-channel:last-child strong {
+    flex: 1 1 auto;
+    margin: 0;
+    font-size: clamp(20px, 1.6vw, 26px);
+  }
+
+  .site-shell > .contact-section .contact-channel:last-child .contact-channel-meta {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+}
+
+/* /work: 6 service cards form a clean 3 × 2 grid with tidy dividers. */
+@media (min-width: 701px) {
+  .editorial-work-page .editorial-projects-section .hero-project-item {
+    border-bottom: 1px solid var(--editorial-ink);
+  }
+
+  .editorial-work-page .editorial-projects-section .hero-project-item:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .editorial-work-page .editorial-projects-section .hero-project-item:nth-last-child(-n+3) {
+    border-bottom: 0;
+  }
+}
+
+/* /about + phones: stack the hero, review columns, and shrink the portrait. */
+@media (max-width: 700px) {
+  .editorial-about-page .editorial-about-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .editorial-about-page .editorial-about-hero .editorial-about-portrait {
+    min-height: 300px;
+    margin-top: 22px;
+  }
+
+  .editorial-about-page .editorial-article-section .knowledge-title-frame,
+  .editorial-about-page .editorial-article-section .knowledge-origin-grid {
+    grid-template-columns: 1fr;
   }
 }
