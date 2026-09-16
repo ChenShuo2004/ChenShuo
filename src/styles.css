@@ -5758,6 +5758,23 @@ a {
   line-height: 1.75;
 }
 
+.editorial-projects-section .hero-project-feature-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.editorial-projects-section .hero-project-feature-links span {
+  padding: 5px 8px;
+  color: var(--editorial-ink);
+  border: 1px solid var(--editorial-line);
+  background: rgba(255, 255, 255, 0.34);
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
 .editorial-projects-section .hero-project-feature-cta {
   align-self: end;
   display: inline-flex;
@@ -5790,6 +5807,13 @@ a {
   color: rgba(244, 240, 232, 0.72);
 }
 
+.editorial-projects-section .hero-project-feature:hover .hero-project-feature-links span,
+.editorial-projects-section .hero-project-feature:focus-visible .hero-project-feature-links span {
+  color: var(--editorial-paper);
+  border-color: rgba(244, 240, 232, 0.42);
+  background: transparent;
+}
+
 .editorial-projects-section .hero-project-feature:hover em,
 .editorial-projects-section .hero-project-feature:focus-visible em {
   color: var(--editorial-accent);
@@ -5817,6 +5841,13 @@ a {
   background: transparent;
   box-shadow: none;
   transform: none;
+}
+
+.editorial-projects-section button.hero-project-item {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
 }
 
 .editorial-projects-section .hero-project-item:last-child {
@@ -11473,7 +11504,7 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   }
 }
 
-/* /work: 6 service cards form a clean 3 × 2 grid with tidy dividers. */
+/* /work: one product entry followed by three equal consultation cards. */
 @media (min-width: 701px) {
   .editorial-work-page .editorial-projects-section .hero-project-item {
     border-bottom: 1px solid var(--editorial-ink);
@@ -11485,6 +11516,106 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
 
   .editorial-work-page .editorial-projects-section .hero-project-item:nth-last-child(-n+3) {
     border-bottom: 0;
+  }
+}
+
+/* /work consultation QR */
+.wechat-consult-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.wechat-consult-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: rgba(25, 24, 23, 0.7);
+  cursor: default;
+}
+
+.wechat-consult-modal-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  width: min(100%, 390px);
+  padding: 38px 34px 32px;
+  color: var(--editorial-ink);
+  border: 1px solid var(--editorial-ink);
+  background: var(--editorial-paper);
+  box-shadow: 10px 10px 0 rgba(25, 24, 23, 0.24);
+  text-align: center;
+}
+
+.wechat-consult-modal-card > p,
+.wechat-consult-modal-card > span {
+  margin: 0;
+  color: var(--editorial-muted);
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.wechat-consult-modal-card h2 {
+  margin: 16px 0 24px;
+  font-family: var(--font-cn-serif);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.wechat-consult-modal-card img {
+  display: block;
+  width: min(100%, 242px);
+  border: 1px solid var(--editorial-line);
+  background: #fff;
+}
+
+.wechat-consult-modal-card strong {
+  margin-top: 18px;
+  font-family: var(--editorial-mono);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+}
+
+.wechat-consult-modal-card > span {
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.wechat-consult-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 8px;
+  color: var(--editorial-ink);
+  border: 1px solid var(--editorial-line);
+  background: transparent;
+  font-family: var(--editorial-mono);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.wechat-consult-modal-close:hover,
+.wechat-consult-modal-close:focus-visible {
+  color: var(--editorial-paper);
+  border-color: var(--editorial-ink);
+  background: var(--editorial-ink);
+}
+
+@media (max-width: 700px) {
+  .wechat-consult-modal {
+    padding: 16px;
+  }
+
+  .wechat-consult-modal-card {
+    padding: 40px 22px 26px;
   }
 }
 

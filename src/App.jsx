@@ -116,65 +116,31 @@ const knowledgeOriginChapters = [
 
 const projects = [
   {
-    title: "工具库",
-    tag: "产品实验室",
-    image: "/assets/product-line-tools.webp",
-    visualClass: "project-visual-tools",
-    icon: CubeFocus,
-    metric: "AI 工具 / 产品库",
-    href: "/tools",
-    description:
-      "集中展示正在验证、已经上线和持续迭代的 AI 工具、训练器与知识产品。",
-  },
-  {
-    title: "阅览室",
-    tag: "个人成长系统",
-    image: "/assets/product-line-reading.webp",
-    visualClass: "project-visual-reading",
-    icon: Brain,
-    metric: "阅读 / 认知 / 行动",
-    href: readingRoomUrl,
-    external: true,
-    description:
-      "把心理、认知和行动方法整理成入口，帮助把“知道”缩短到“做到”。",
-  },
-  {
-    title: "知识地图",
-    tag: "知识结构入口",
-    image: "/assets/product-line-knowledge.webp",
-    visualClass: "project-visual-knowledge",
-    icon: Network,
-    metric: "知识库 / 信息结构",
-    href: "/knowledge",
-    description:
-      "解释知识库的起点、结构和使用路径，让信息从散点变成可持续推进的系统。",
-  },
-  {
     title: "企业培训",
     tag: "企业服务",
     icon: UsersThree,
     metric: "AI 内训 / 培训 / 分享",
-    href: "/#contact",
+    action: "wechat",
     description:
-      "为企业和团队提供 AI 落地培训与内训分享，把实战经验变成可复用的能力。",
+      "为企业和团队提供 AI 落地培训与内训分享；扫码添加微信，聊清楚具体需求。",
   },
   {
     title: "商单 / 企业合作",
     tag: "商业合作",
     icon: ChartLineUp,
     metric: "商单 / 企业服务 / 联创",
-    href: "/#contact",
+    action: "wechat",
     description:
-      "承接 AI 内容、产品与自动化相关的商业合作与企业服务，从需求到交付一起推进。",
+      "承接 AI 内容、产品与自动化相关的商业合作与企业服务；扫码添加微信沟通。",
   },
   {
     title: "1 对 1 咨询",
     tag: "咨询服务",
     icon: CalendarBlank,
     metric: "999 元 / 小时",
-    href: "/#contact",
+    action: "wechat",
     description:
-      "针对 AI 变现、内容增长、产品与知识库的一对一咨询，报价 999 元 / 小时，先聊清楚需求再开始。",
+      "针对 AI 变现、内容增长、产品与知识库的一对一咨询，999 元 / 小时；扫码添加微信预约。",
   },
 ];
 
@@ -705,6 +671,8 @@ function PlatformSignalsSection() {
 }
 
 function WorkPage() {
+  const [isWechatConsultationOpen, setIsWechatConsultationOpen] = useState(false);
+
   return (
     <main className="site-shell editorial-page editorial-work-page">
       <EditorialSiteHeader activeKey="work" sectionLabel="WORK / 在做的事情" actionLabel="联系我" actionHref="/#contact" />
@@ -729,7 +697,12 @@ function WorkPage() {
                 有温度空间
               </strong>
               <em>主入口 / 产品空间</em>
-              <p>从一个入口开始，在工具、阅读和知识地图之间慢慢找到自己的路径。</p>
+              <p>工具库、阅览室、知识地图都从这里进入，在产品、阅读与信息结构之间慢慢找到自己的路径。</p>
+              <span className="hero-project-feature-links" aria-label="有温度空间包含的内容">
+                <span>工具库</span>
+                <span>阅览室</span>
+                <span>知识地图</span>
+              </span>
             </div>
             <span className="hero-project-feature-cta">
               进入空间
@@ -740,13 +713,12 @@ function WorkPage() {
             {projects.map((project, index) => {
               const Icon = project.icon;
               return (
-                <a
+                <button
                   className="hero-project-item editorial-reveal"
                   data-reveal-delay={`${index * 80 + 180}`}
-                  href={project.href}
                   key={project.title}
-                  target={project.external ? "_blank" : undefined}
-                  rel={project.external ? "noreferrer" : undefined}
+                  type="button"
+                  onClick={() => setIsWechatConsultationOpen(true)}
                 >
                   <span className="hero-project-index">0{index + 1}</span>
                   <div>
@@ -757,12 +729,26 @@ function WorkPage() {
                     <em>{project.metric}</em>
                     <p>{project.description}</p>
                   </div>
-                </a>
+                </button>
               );
             })}
           </div>
         </div>
       </section>
+
+      {isWechatConsultationOpen && (
+        <div className="wechat-consult-modal" role="dialog" aria-modal="true" aria-labelledby="wechat-consult-title">
+          <button className="wechat-consult-modal-backdrop" type="button" aria-label="关闭微信咨询二维码" onClick={() => setIsWechatConsultationOpen(false)} />
+          <section className="wechat-consult-modal-card">
+            <button className="wechat-consult-modal-close" type="button" onClick={() => setIsWechatConsultationOpen(false)}>关闭</button>
+            <p>WECHAT / CONSULT</p>
+            <h2 id="wechat-consult-title">扫码添加微信咨询</h2>
+            <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
+            <strong>Chen18005977213</strong>
+            <span>备注你的需求，方便我更快回复。</span>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
