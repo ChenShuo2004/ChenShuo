@@ -10,11 +10,11 @@ When implementing from a selected generated mock, treat that image as the source
 
 For the homepage editorial style, use a warm off-white Sac-inspired layout with a large serif KAI wordmark, restrained typography, thin guide lines, and a coral accent.
 
-首页保持极简：只保留 Hero（大号 KAI 字标 + 定位文案 + 四个主入口按钮）和最底部的「Let's talk / 联系我」区块。四个按钮之外的内容（在做的事情、自媒体、自我介绍等）全部放到二级页面，首页中间不再堆叠长内容板块。入口要一眼看清“我在干嘛”。
+首页保持极简：只保留 Hero（大号 KAI 字标 + 定位文案 + 主入口按钮）和最底部的「Let's talk / 联系我」区块。主入口之外的内容（在做的事情、自媒体、自我介绍、开源工具等）全部放到二级页面，首页中间不再堆叠长内容板块。入口要一眼看清“我在干嘛”。
 
-首页主入口按钮为 5 个：在做的事情 → `/work`、我的社区 → `/community`、自媒体 → `/media`、自我介绍 → `/about`、联系我 → 首页 `#contact`；按钮网格换行为 3 + 2，「自我介绍」落在左下角。左侧保留创始人文案与个人介绍，右侧保留 halftone 肖像。
+首页主入口按钮为 6 个：在做的事情 → `/work`、我的社区 → `/community`、自媒体 → `/media`、自我介绍 → `/about`、开源工具 → `/github`、联系我 → 首页 `#contact`；按钮网格换行为 3 + 3。左侧保留创始人文案与个人介绍，右侧保留 halftone 肖像。
 
-站点导航（共享头部）与四个主入口对齐：在做的事情 `/work`、自媒体 `/media`、自我介绍 `/about`、我的社区 `/community`、联系我 `/#contact`。
+站点导航（共享头部）与首页主入口对齐：在做的事情 `/work`、我的社区 `/community`、自媒体 `/media`、自我介绍 `/about`、开源工具 `/github`、联系我 `/#contact`。
 
 「Let's talk / 联系我」联系卡固定为 5 个入口：桌面/平板端前 4 个（邮箱、X、知识库、微信/社群）保持等宽网格，第 5 个「读我的自我介绍与复盘」→ `/about` 作为整行横向 feature 卡，避免出现空缺格；手机端全部单列堆叠。
 
@@ -35,7 +35,8 @@ Do not position Chen Shuo as "04 大学生", "04 年生", or "大学休学" on t
 工具库、阅览室和知识地图是社区共建生态的组成部分，连接成一个持续生长的ai社区。
 
 For the full site, use one shared Sac-inspired editorial system: warm paper canvas, black serif display type, coral metadata labels, thin rules, numbered specs, square outline actions, and one shared header. Detail pages should keep the same system while adding a clear reading hierarchy: title, metadata, long-form content grid, and return path.
-- 自媒体（原「全平台信号台」）独立成 `/media` 二级页面，作为单栏满宽的薄线信号列表；优先呈现 X 1W+ 粉丝、YouTube 30万+ 订阅、飞书知识库、GitHub 开源产品资产、全国 AI 社区，使用清晰可见的平台图标；不再与 About me 拼在同一区块，也不再出现两栏中缝分割线。
+- 自媒体（原「全平台信号台」）独立成 `/media` 二级页面，作为单栏满宽的薄线信号列表；优先呈现 X 1W+ 粉丝、YouTube 30万+ 订阅、飞书知识库、开源工具库、全国 AI 社区，使用清晰可见的平台图标；不再与 About me 拼在同一区块，也不再出现两栏中缝分割线。
+- `/github` 是「开源工具」入口页，复用现有路由，不另建 `/open-source`。页面主叙事展示 `cs-board`（本地 AI 白板视频工具，Python，v1.0.0）、`cs-skills`（陈硕的 Codex Skills 与 AI 工作流手册）和 `cs-xiaohuang-skill`（小黄统一 Skill，用于品牌 IP 延展、中文轻手绘 PPT、文章封面与正文配图）；GitHub 公开仓库、Followers、Stars 数据只作为辅助证明。
 - 自我介绍独立成 `/about` 二级页面：顶部沿用参考稿的大号中文标题、当前定位文案与带技术规格标记的肖像框，其下放个人复盘全文（按章节卡片呈现，来源为 X 复盘连帖 2086710313219727862）。复盘同时从首页「Let's talk / 联系我」区块与首页左下角「自我介绍」按钮提供入口。
 - `/about` 自我介绍文案以真实 X 资料为准（陈硕 KAI、AI 连续创业者、厦门带团队、AI 产品/内容/知识库主线，跨境/YouTube 数亿播放/Crypto 支线、BTC·ETH 持有者、组建 WE30）。复盘章节内嵌从 X 连帖（2086710313219727862）提取的证据截图：复盘引言处放理想汽车建联的微信截图（顶部对齐裁切，`review-figure-portrait`），孙哥播客网盘（02）、闲鱼 AI 绘本店铺 ¥95,626（04）、YouTube「potato」橘猫频道（05）、欧易 VIP / 代充信息差（06）、抬光·Everlight 团队知识库（08）。图片存放于 `public/assets/review/`。
 - `/work` 的「有温度空间」(https://aiyouwendu.com/home) 是工具库、阅览室、知识地图的唯一聚合入口；企业培训、商单 / 企业合作、1 对 1 咨询均通过站内微信二维码承接，其中 1 对 1 咨询明确报价 999 元/小时。

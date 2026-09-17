@@ -12,10 +12,8 @@ import {
   EnvelopeSimple,
   Eye,
   Flame,
-  GitBranch,
   GithubLogo,
   Network,
-  Plus,
   UsersThree,
   XLogo,
   UserCircle,
@@ -30,11 +28,13 @@ const readingRoomUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
 const githubProfileUrl = "https://github.com/ChenShuo2004";
 const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
 const githubReposApiUrl = "https://api.github.com/users/ChenShuo2004/repos?per_page=100&type=owner";
-const githubEventsApiUrl = "https://api.github.com/users/ChenShuo2004/events/public?per_page=10";
 const xProfileUrl = "https://x.com/ChenshuoAI";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 const warmSpaceUrl = "https://aiyouwendu.com/home";
 const we30IntroUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
+const csBoardRepoUrl = "https://github.com/ChenShuo2004/cs-board";
+const csSkillsRepoUrl = "https://github.com/ChenShuo2004/cs-skills";
+const csXiaohuangRepoUrl = "https://github.com/ChenShuo2004/cs-xiaohuang-skill";
 
 const fallbackGithubStats = {
   value: "750+ Stars",
@@ -44,18 +44,48 @@ const fallbackGithubStats = {
   bars: [5, 7, 8, 9, 11, 12, 14],
 };
 
-const fallbackGithubActivity = [
-  { sha: "a1b2c3d", message: "feat: init product system" },
-  { sha: "d4e5f6a", message: "feat: knowledge graph" },
-  { sha: "f7a8b9c", message: "feat: content model" },
-  { sha: "HEAD", message: "build: in public", current: true },
+const openSourceTools = [
+  {
+    name: "cs-board",
+    label: "LOCAL AI VIDEO TOOL",
+    title: "本地 AI 白板视频工具",
+    description:
+      "可用参考声音和中文文案生成白板动画视频，把口播脚本、TTS 与白板画面整合成本地可交付的视频工作流。",
+    meta: ["Python", "v1.0.0", "Whiteboard Video"],
+    proof: "621 Stars · 最新 Release v1.0.0",
+    href: csBoardRepoUrl,
+    icon: CubeFocus,
+  },
+  {
+    name: "cs-skills",
+    label: "CODEX SKILLS / WORKFLOW",
+    title: "我的 CS Skill 工具库",
+    description:
+      "陈硕的 Codex Skills 与 AI 工作流手册，把产品、内容、调研与交付沉淀为可复用的智能工作流。",
+    meta: ["Codex Skills", "AI Workflow", "144 Stars"],
+    proof: "产品 / 内容 / 调研 / 交付",
+    href: csSkillsRepoUrl,
+    icon: Brain,
+  },
+  {
+    name: "cs-xiaohuang-skill",
+    label: "BRAND IP / VISUAL SKILL",
+    title: "小黄统一 Skill",
+    description:
+      "用于品牌 IP 延展、中文轻手绘 PPT、文章封面与正文配图；先规划，再生成可交付的视觉资产。",
+    meta: ["Brand IP", "PPT", "Illustration"],
+    proof: "小黄 / 有温度 IP / 中文视觉工作流",
+    href: csXiaohuangRepoUrl,
+    icon: Flame,
+  },
 ];
 
 const editorialNavItems = [
   { key: "work", label: "在做的事情", english: "WORK", href: "/work" },
+  { key: "community", label: "我的社区", english: "COMMUNITY", href: "/community" },
   { key: "media", label: "自媒体", english: "MEDIA", href: "/media" },
   { key: "about", label: "自我介绍", english: "ABOUT", href: "/about" },
-  { key: "community", label: "我的社区", english: "COMMUNITY", href: "/community" },
+  { key: "opensource", label: "开源工具", english: "OPEN SOURCE", href: "/github" },
   { key: "contact", label: "联系我", english: "CONTACT", href: "/#contact" },
 ];
 
@@ -348,7 +378,6 @@ function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT 
 
 function GithubBuildPage() {
   const [githubStats, setGithubStats] = useState(fallbackGithubStats);
-  const [githubActivity, setGithubActivity] = useState(fallbackGithubActivity);
 
   useEffect(() => {
     let isCurrent = true;
@@ -358,20 +387,15 @@ function GithubBuildPage() {
         if (!response.ok) throw new Error("GitHub profile unavailable");
         return response.json();
       }),
-      fetch(githubEventsApiUrl, { headers: { Accept: "application/vnd.github+json" } }).then((response) => {
-        if (!response.ok) throw new Error("GitHub events unavailable");
-        return response.json();
-      }),
       fetch(githubReposApiUrl, { headers: { Accept: "application/vnd.github+json" } }).then((response) => {
         if (!response.ok) throw new Error("GitHub repositories unavailable");
         return response.json();
       }),
     ])
-      .then(([profileResult, eventsResult, reposResult]) => {
+      .then(([profileResult, reposResult]) => {
         if (!isCurrent) return;
 
         const profile = profileResult.status === "fulfilled" ? profileResult.value : {};
-        const events = eventsResult.status === "fulfilled" && Array.isArray(eventsResult.value) ? eventsResult.value : [];
         const repositories = reposResult.status === "fulfilled" && Array.isArray(reposResult.value) ? reposResult.value : [];
         const repos = Number.isFinite(profile.public_repos) ? profile.public_repos : fallbackGithubStats.repos;
         const followers = Number.isFinite(profile.followers) ? profile.followers : fallbackGithubStats.followers;
@@ -379,16 +403,6 @@ function GithubBuildPage() {
           ? repositories.reduce((total, repository) => total + (Number.isFinite(repository.stargazers_count) ? repository.stargazers_count : 0), 0)
           : fallbackGithubStats.stars;
         const activity = Math.min(16, Math.max(6, Math.round(Math.log10(repos + followers + 1) * 6)));
-        const commits = events
-          .filter((event) => event.type === "PushEvent")
-          .flatMap((event) => event.payload?.commits || [])
-          .filter((commit) => commit?.sha && commit?.message)
-          .slice(0, 3)
-          .map((commit) => ({
-            sha: commit.sha.slice(0, 7),
-            message: commit.message.split("\n")[0],
-          }))
-          .reverse();
 
         setGithubStats({
           value: `${stars} Stars`,
@@ -397,10 +411,6 @@ function GithubBuildPage() {
           stars,
           bars: [5, 7, 8, 9, 11, 12, activity],
         });
-
-        if (commits.length > 0) {
-          setGithubActivity([...commits, { sha: "HEAD", message: "build: in public", current: true }]);
-        }
       });
 
     return () => {
@@ -410,9 +420,9 @@ function GithubBuildPage() {
 
   return (
     <main className="site-shell editorial-page editorial-github-page">
-      <EditorialSiteHeader activeKey="home" sectionLabel="GITHUB / OPEN SOURCE" actionLabel="打开 GitHub" actionHref={githubProfileUrl} />
+      <EditorialSiteHeader activeKey="opensource" sectionLabel="OPEN SOURCE / TOOLS" actionLabel="打开 GitHub" actionHref={githubProfileUrl} />
 
-      <section className="github-build-hero" id="top" aria-label="GitHub 公开建造页面">
+      <section className="github-build-hero" id="top" aria-label="开源工具页面">
         <div className="github-build-guides" aria-hidden="true">
           <span className="github-build-guide github-build-guide-left" />
           <span className="github-build-guide github-build-guide-center" />
@@ -422,85 +432,48 @@ function GithubBuildPage() {
         </div>
 
         <div className="github-build-copy editorial-reveal" data-reveal-delay="80">
-          <p className="github-build-kicker"><span>创</span> — BUILD</p>
-          <h1>Build</h1>
-          <p className="github-build-status"><span />公开建造中 <b>·</b> 持续开源</p>
+          <p className="github-build-kicker"><span>开</span> — OPEN SOURCE</p>
+          <h1>开源工具</h1>
+          <p className="github-build-lede">
+            这里展示我公开沉淀的 AI 工具、CS Skills 和品牌 IP 工作流。不是做 GitHub 动态墙，而是把能复用、能交付、能继续生长的工具放在一起。
+          </p>
+          <p className="github-build-status"><span />AI 工具 <b>·</b> CS Skills <b>·</b> 品牌 IP 工作流</p>
           <a className="github-build-link" href={githubProfileUrl} target="_blank" rel="noreferrer">
-            关注我的 GitHub
+            查看完整 GitHub
             <GithubLogo size={20} weight="fill" aria-hidden="true" />
             <ArrowRight size={18} weight="bold" aria-hidden="true" />
           </a>
         </div>
 
-        <div className="github-build-stage editorial-reveal" data-reveal-delay="160" aria-label="GitHub build activity">
-          <div className="github-build-commit-rail">
-            <div className="github-build-branch-label"><GitBranch size={15} weight="regular" aria-hidden="true" /> main ——</div>
-            <div className="github-build-commit-list">
-              {githubActivity.map((commit) => (
-                <div className={`github-build-commit ${commit.current ? "is-current" : ""}`} key={`${commit.sha}-${commit.message}`}>
-                  <span className="github-build-commit-node" />
-                  <code>{commit.sha}</code>
-                  <span>{commit.message}</span>
+        <div className="github-tool-grid editorial-reveal" data-reveal-delay="160" aria-label="开源工具项目">
+          {openSourceTools.map((tool, index) => {
+            const Icon = tool.icon;
+
+            return (
+              <article className="github-tool-card" key={tool.name}>
+                <div className="github-tool-number">0{index + 1}</div>
+                <div className="github-tool-icon" aria-hidden="true">
+                  <Icon size={26} weight="regular" />
                 </div>
-              ))}
-              <span className="github-build-commit-ghost" />
-              <span className="github-build-commit-ghost github-build-commit-ghost-last" />
-            </div>
-          </div>
-
-          <Plus className="github-build-plus" size={22} weight="regular" aria-hidden="true" />
-
-          <div className="github-build-terminal" aria-label="Build terminal">
-            <div className="github-build-terminal-bar" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="github-build-terminal-body">
-              <p className="github-build-terminal-command">$ sac build --in-public</p>
-              <p><time>10:12:01</time> checking workspace</p>
-              <p><time>10:12:02</time> loading modules</p>
-              <p><time>10:12:03</time> resolving dependencies</p>
-              <p><time>10:12:05</time> generating</p>
-              <span className="github-build-terminal-caret" aria-hidden="true" />
-              <div className="github-build-terminal-progress">
-                <span>v0.1.0&nbsp; · &nbsp;compiling...</span>
-                <div><i /></div>
-                <strong>55%</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className="github-build-queue">
-            <span className="github-build-queue-label">queued</span>
-            <div className="github-build-queue-list">
-              <GitBranch size={29} weight="regular" aria-hidden="true" />
-              <div>
-                <span><i />Sac skill</span>
-                <span><i />HyperFrames</span>
-                <span><i />crosspost</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="github-build-axis" aria-hidden="true">
-            <div className="github-build-axis-caption">
-              <span>build area</span>
-              <strong>960 × 540</strong>
-            </div>
-            <div className="github-build-axis-line">
-              {[0, 240, 480, 720, 960].map((mark) => (
-                <span key={mark} style={{ "--axis-position": `${(mark / 960) * 100}%` }}>
-                  <i />
-                  <b>{mark}</b>
-                </span>
-              ))}
-            </div>
-            <div className="github-build-axis-progress">
-              <span>progress</span>
-              <strong>55%</strong>
-            </div>
-          </div>
+                <div className="github-tool-body">
+                  <p>{tool.label}</p>
+                  <h2>{tool.name}</h2>
+                  <strong>{tool.title}</strong>
+                  <span>{tool.description}</span>
+                  <div className="github-tool-meta" aria-label={`${tool.name} 技术信息`}>
+                    {tool.meta.map((item) => (
+                      <small key={item}>{item}</small>
+                    ))}
+                  </div>
+                  <em>{tool.proof}</em>
+                </div>
+                <a className="github-tool-action" href={tool.href} target="_blank" rel="noreferrer" aria-label={`打开 ${tool.name} GitHub 仓库`}>
+                  打开 GitHub
+                  <ArrowUpRight size={17} weight="bold" aria-hidden="true" />
+                </a>
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -604,9 +577,9 @@ function PlatformSignalsSection() {
     },
     {
       key: "github",
-      label: "GITHUB / OPEN SOURCE",
-      name: "开源产品资产",
-      detail: `${githubStats.repos} 公开仓库 / ${githubStats.followers} followers`,
+      label: "OPEN SOURCE / TOOLS",
+      name: "开源工具库",
+      detail: "cs-board / cs-skills / cs-xiaohuang-skill",
       value: githubStats.value,
       status: "LIVE",
       icon: GithubLogo,
@@ -1955,6 +1928,10 @@ export function App() {
               </a>
               <a href="/about">
                 自我介绍
+                <ArrowRight size={18} weight="bold" aria-hidden="true" />
+              </a>
+              <a href="/github">
+                开源工具
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
               <a href="#contact" onClick={(event) => scrollToSection(event, "#contact")}>
