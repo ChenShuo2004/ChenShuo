@@ -695,44 +695,39 @@ function WorkPage() {
           <p>产品、内容与社区，还有企业培训和商单合作。工具库、阅览室、知识地图从有温度空间进入，连成一个持续生长的 AI 空间。</p>
         </div>
         <div className="hero-system-frame">
-          <a
-            className="hero-project-feature editorial-reveal"
-            data-reveal-delay="90"
-            href={warmSpaceUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="hero-project-index">00</span>
-            <div className="hero-project-feature-copy">
-              <strong>
-                <Flame size={20} weight="duotone" aria-hidden="true" />
-                有温度空间
-              </strong>
-              <em>主入口 / 产品空间</em>
-              <p>工具库、阅览室、知识地图都从这里进入，在产品、阅读与信息结构之间慢慢找到自己的路径。</p>
-              <span className="hero-project-feature-links" aria-label="有温度空间包含的内容">
-                <span>工具库</span>
-                <span>阅览室</span>
-                <span>知识地图</span>
-              </span>
-            </div>
-            <span className="hero-project-feature-cta">
-              进入空间
-              <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
-            </span>
-          </a>
           <div className="hero-project-list">
+            <a
+              className="hero-project-item editorial-reveal"
+              data-reveal-delay="90"
+              href={warmSpaceUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="hero-project-index">01</span>
+              <div>
+                <strong>
+                  <Flame size={18} weight="duotone" aria-hidden="true" />
+                  有温度空间
+                </strong>
+                <em>工具库 / 阅览室 / 知识地图</em>
+                <p>产品、阅读和信息结构的统一入口，从这里进入有温度空间。</p>
+              </div>
+              <span className="hero-project-item-cta">
+                进入空间
+                <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+              </span>
+            </a>
             {projects.map((project, index) => {
               const Icon = project.icon;
               return (
                 <button
                   className="hero-project-item editorial-reveal"
-                  data-reveal-delay={`${index * 80 + 180}`}
+                  data-reveal-delay={`${index * 80 + 170}`}
                   key={project.title}
                   type="button"
                   onClick={() => setIsWechatConsultationOpen(true)}
                 >
-                  <span className="hero-project-index">0{index + 1}</span>
+                  <span className="hero-project-index">0{index + 2}</span>
                   <div>
                     <strong>
                       <Icon size={18} weight="duotone" aria-hidden="true" />
@@ -741,6 +736,10 @@ function WorkPage() {
                     <em>{project.metric}</em>
                     <p>{project.description}</p>
                   </div>
+                  <span className="hero-project-item-cta">
+                    添加微信
+                    <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
+                  </span>
                 </button>
               );
             })}
@@ -757,7 +756,7 @@ function WorkPage() {
             <h2 id="wechat-consult-title">扫码添加微信咨询</h2>
             <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
             <strong>Chen18005977213</strong>
-            <span>备注你的需求，方便我更快回复。</span>
+            <span>添加时请备注：姓名 + 需求类型 + 具体问题。例如：企业培训 / 商单合作 / 1 对 1 咨询。</span>
           </section>
         </div>
       )}
