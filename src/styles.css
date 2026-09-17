@@ -9241,6 +9241,10 @@ body {
   background: #47a9dc;
 }
 
+.platform-signal-row-youtube .platform-signal-icon {
+  background: #ff4f38;
+}
+
 .platform-signal-row-github .platform-signal-icon {
   background: #77736b;
 }

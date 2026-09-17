@@ -20,6 +20,7 @@ import {
   XLogo,
   UserCircle,
   WarningCircle,
+  YoutubeLogo,
 } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import EvilEye from "./EvilEye.jsx";
@@ -36,7 +37,7 @@ const warmSpaceUrl = "https://aiyouwendu.com/home";
 const we30IntroUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
 
 const fallbackGithubStats = {
-  value: "752 Stars",
+  value: "750+ Stars",
   repos: 17,
   followers: 46,
   stars: 752,
@@ -553,7 +554,7 @@ function PlatformSignalsSection() {
         const activity = Math.min(16, Math.max(6, Math.round(Math.log10(repos + followers + 1) * 6)));
 
         setGithubStats({
-          value: `${stars} Stars`,
+          value: stars >= 1000 ? `${(stars / 1000).toFixed(1)}K Stars` : `${stars || fallbackGithubStats.stars} Stars`,
           repos,
           followers,
           stars,
@@ -572,12 +573,23 @@ function PlatformSignalsSection() {
       key: "x",
       label: "X / TWITTER",
       name: "X 内容入口",
-      detail: "AI / 产品 / build log",
-      value: "7.1K 粉丝",
+      detail: "AI / 产品 / 商业复盘 / build in public",
+      value: "1W+ 粉丝",
       status: "LIVE",
       icon: XLogo,
       href: xProfileUrl,
-      bars: [5, 7, 8, 10, 12, 13, 15],
+      bars: [7, 9, 11, 13, 15, 16, 18],
+    },
+    {
+      key: "youtube",
+      label: "YOUTUBE / CHANNEL MATRIX",
+      name: "YouTube 频道矩阵",
+      detail: "跨境内容 / 短视频资产 / 30万+ 订阅",
+      value: "30万+ 订阅",
+      status: "PROOF",
+      icon: YoutubeLogo,
+      pageHref: "/about#review",
+      bars: [10, 12, 14, 16, 18, 20, 22],
     },
     {
       key: "feishu",
@@ -593,8 +605,8 @@ function PlatformSignalsSection() {
     {
       key: "github",
       label: "GITHUB / OPEN SOURCE",
-      name: "@ChenShuo2004",
-      detail: "17 公开仓库 / 46 关注者",
+      name: "开源产品资产",
+      detail: `${githubStats.repos} 公开仓库 / ${githubStats.followers} followers`,
       value: githubStats.value,
       status: "LIVE",
       icon: GithubLogo,
@@ -626,7 +638,7 @@ function PlatformSignalsSection() {
           </div>
           <div className="platform-signal-heading-side">
             <span>LIVE / OPEN</span>
-            <p>内容、知识库、开源项目和 AI 社群，保持在同一条公开轨道上。</p>
+            <p>X、YouTube、知识库、开源项目和 AI 社群，构成同一条公开增长轨道。</p>
           </div>
         </div>
 
@@ -664,7 +676,7 @@ function PlatformSignalsSection() {
           })}
         </div>
 
-        <p className="platform-signal-note">DATA // GITHUB PUBLIC API · X / FEISHU // OPEN ENTRY</p>
+        <p className="platform-signal-note">DATA // X 1W+ · YOUTUBE 30W+ · GITHUB PUBLIC PROFILE/API · FEISHU // OPEN ENTRY</p>
       </div>
     </section>
   );
