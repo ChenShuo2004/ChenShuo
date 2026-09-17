@@ -1926,10 +1926,6 @@ export function App() {
           <div className="editorial-hero-copy">
             <h1 className="editorial-reveal" data-reveal-delay="140">KAI</h1>
             <p className="editorial-kicker editorial-reveal" data-reveal-delay="80"><span aria-hidden="true" />打造全国最大的 AI 社群</p>
-            <p className="editorial-lede editorial-reveal" data-reveal-delay="220">
-              一个持续生长的知识产品空间
-              <span>把想法、工具和方法，沉淀成可复用、可商业化的系统。</span>
-            </p>
             <p className="editorial-bio editorial-reveal" data-reveal-delay="290">
               我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
             </p>
