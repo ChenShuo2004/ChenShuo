@@ -31,7 +31,6 @@ const githubReposApiUrl = "https://api.github.com/users/ChenShuo2004/repos?per_p
 const xProfileUrl = "https://x.com/ChenshuoAI";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 const warmSpaceUrl = "https://aiyouwendu.com/home";
-const we30IntroUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
 const csBoardRepoUrl = "https://github.com/ChenShuo2004/cs-board";
 const csSkillsRepoUrl = "https://github.com/ChenShuo2004/cs-skills";
 const csXiaohuangRepoUrl = "https://github.com/ChenShuo2004/cs-xiaohuang-skill";
@@ -1061,14 +1060,14 @@ function CommunityPage() {
           <div className="community-manifesto-copy">
             <p className="community-manifesto-lede">我是陈硕，00 后，目前在厦门。现在认真做一件事：把真正想做 AI 创作、做产品、做业务的人，聚在一起。</p>
             <div className="community-manifesto-routes" aria-label="社区入口">
-              <a href={we30IntroUrl} target="_blank" rel="noreferrer">
+              <a href="#community-contact">
                 <span>01 / CORE</span>
-                <strong>WE30 核心群：更小、更深的内部连接</strong>
+                <strong>核心群：299 元门槛费，同时验资 100 万元</strong>
                 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
               </a>
               <a href="#community-contact">
-                <span>02 / GROUP 01 + 02</span>
-                <strong>一群做实战，二群做开放孵化</strong>
+                <span>02 / MAIN GROUP</span>
+                <strong>大群：全平台自媒体粉丝 1 万以上，或有特长</strong>
                 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
@@ -1076,7 +1075,7 @@ function CommunityPage() {
         </div>
 
         <div className="community-story editorial-reveal" data-reveal-delay="100">
-          <p>不是水群，不是互相吹捧，也不看粉丝数。这里更看重的是创作欲、产品欲，和愿意交流业务、分享认知与踩坑的人。</p>
+          <p>WE30 只设核心群和大群。核心群有费用与验资门槛；大群面向有自媒体积累或明确特长的人。两个群都希望成员愿意交流业务、分享认知与真实经验。</p>
           <p>这段时间，我一边做 AI 产品和内容工作流，一边在 X 上持续输出、连接同行。一个月里有 5 条商单找来，我只接了一条 GitHub 的合作，因为现在更想先把社区、内容和 AI 业务的基础盘搭好。</p>
           <p>上周，WE30 核心群的言溪来厦门找我。他过着旅居生活，准备在厦门住一段时间。我带他来公司转了转，也聊了很多内容、产品和年轻人做事的状态。一个人很多时候不是不够努力，而是缺少一个能让自己持续向上的环境。希望 WE30 能慢慢成为这样的地方。</p>
         </div>
@@ -1088,77 +1087,50 @@ function CommunityPage() {
               <span>DEEP CONNECTION</span>
             </div>
             <h2>WE30<br />核心群</h2>
-            <p className="community-program-lede">最早约 30 人，现在留下十几位长期活跃成员。这是一个更小、更深的内部群，后续会逐步扩展到约 500 人，并从一群、二群中挑选第二批核心成员。</p>
+            <p className="community-program-lede">更小、更深的内部连接，围绕业务、产品和内容持续交流。申请核心群需要同时满足两项门槛：支付 299 元门槛费，并完成 100 万元验资。</p>
             <div className="community-program-details">
               <div>
-                <span>WHAT HAPPENS HERE</span>
-                <p>做业务分享、会议复盘与产品讨论，把真正有价值的方法沉淀进知识库、项目库和产品集。</p>
+                <span>ENTRY REQUIREMENT / 01</span>
+                <p>门槛费：299 元。</p>
               </div>
               <div>
-                <span>HOW I PARTICIPATE</span>
-                <p>本人线下团队事务较多，主要会在核心群活跃；一群、二群由群管理和核心成员共同维护。</p>
+                <span>ENTRY REQUIREMENT / 02</span>
+                <p>验资：100 万元。两项条件需同时满足。</p>
               </div>
             </div>
-            <div className="community-program-proof" aria-label="WE30 当前进展">
-              <span>NOW IN MOTION</span>
-              <p>社区目前约 300 人，基座已经理清，后续会持续迭代。</p>
+            <div className="community-program-proof" aria-label="WE30 核心群内容">
+              <span>WHAT HAPPENS HERE</span>
+              <p>做业务分享、会议复盘与产品讨论，把有价值的方法沉淀下来。</p>
             </div>
-            <a className="community-program-link" href={we30IntroUrl} target="_blank" rel="noreferrer">
-              了解 WE30
+            <a className="community-program-link" href="#community-contact">
+              申请加入核心群
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </article>
 
-          <article className="community-program community-program-group-one editorial-reveal" data-reveal-delay="200">
+          <article className="community-program community-program-main editorial-reveal" data-reveal-delay="200">
             <div className="community-program-topline">
-              <p className="community-story-kicker">02 / WE30 GROUP 01</p>
-              <span>BUSINESS + GROWTH</span>
+              <p className="community-story-kicker">02 / WE30 MAIN GROUP</p>
+              <span>CREATORS + TALENT</span>
             </div>
-            <h2>WE30<br />一群</h2>
-            <p className="community-program-lede">偏业务与增长的实战群：AI 创作、产品、内容增长、业务合作。欢迎有产品、技能或明确方向的人；技术、创作、运营背景都可以，起步阶段也没关系，但要愿意学习、有自己的思考。</p>
+            <h2>WE30<br />大群</h2>
+            <p className="community-program-lede">面向有自媒体积累或有特长的创作者、实践者。满足以下任一条件即可申请：全平台自媒体粉丝达到 1 万以上，或有能够说明的特长。</p>
             <div className="community-program-details">
               <div>
-                <span>WHAT WE RUN</span>
-                <p>已在跑业务会议分享机制。核心群举办过 7 日会议，帮助成员把业务、内容和产品往前推进。</p>
+                <span>ENTRY OPTION / 01</span>
+                <p>全平台自媒体粉丝达到 1 万以上；申请时提供账号与粉丝情况。</p>
               </div>
               <div>
-                <span>HOW WE SELECT</span>
-                <p>后续会设置明确门槛筛掉围观者，让愿意创造和互相支持的人留下；相关款项会直接通过红包回给群成员。</p>
+                <span>ENTRY OPTION / 02</span>
+                <p>有明确特长；申请时说明擅长什么，以及相关经历或作品。</p>
               </div>
             </div>
-            <div className="community-program-proof" aria-label="WE30 一群参与方式">
-              <span>ONE EXPECTATION</span>
-              <p>不要求每天高强度输出，但希望每个人都能分享真正做过的东西。</p>
+            <div className="community-program-proof" aria-label="WE30 大群申请条件">
+              <span>EITHER ONE IS ENOUGH</span>
+              <p>粉丝条件与特长条件二选一；加微信时请注明申请大群和对应情况。</p>
             </div>
             <a className="community-program-link" href="#community-contact">
-              申请加入一群
-              <ArrowRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-          </article>
-
-          <article className="community-program community-program-group-two editorial-reveal" data-reveal-delay="270">
-            <div className="community-program-topline">
-              <p className="community-story-kicker">03 / WE30 GROUP 02</p>
-              <span>OPEN INCUBATION</span>
-            </div>
-            <h2>WE30<br />二群</h2>
-            <p className="community-program-lede">二群目前接近 300 人，更开放，也更适合孵化。适合刚开始做 X、刚接触 AI、仍在找方向，或暂时经验不多但愿意开始的人。</p>
-            <div className="community-program-details">
-              <div>
-                <span>WHAT YOU GET</span>
-                <p>内部已整理近 20 万字知识库，包含内容增长、AI 工具、产品思路与过往复盘；会议分享也会持续归档。</p>
-              </div>
-              <div>
-                <span>WHAT COMES NEXT</span>
-                <p>这里不会一开始就设很高门槛，但会持续筛选更适合进入一群和核心群的成员。</p>
-              </div>
-            </div>
-            <div className="community-program-proof" aria-label="WE30 二群定位">
-              <span>OPEN, BUT NOT EMPTY</span>
-              <p>可以聊天、吹牛、互相链接，也要把文章打磨好，把产品想明白，把业务真正跑起来。</p>
-            </div>
-            <a className="community-program-link" href="#community-contact">
-              申请加入二群
+              申请加入大群
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </article>
@@ -1183,12 +1155,12 @@ function CommunityPage() {
       <section className="community-access-section" id="community-contact" aria-label="加入社区咨询">
         <div className="community-access-inner editorial-reveal" data-reveal-delay="100">
           <div className="community-copy">
-            <p className="section-kicker">WE30 / CORE / GROUP 01 / GROUP 02</p>
+            <p className="section-kicker">WE30 / CORE / MAIN GROUP</p>
             <h1>加入社区</h1>
             <p className="community-lede">
-              主页私信我，备注来意。
+              加我微信，备注姓名、申请核心群或大群，以及对应的申请条件。
               <br />
-              不备注，不通过；我会根据你的阶段与目标进行匹配。
+              未备注清楚，无法判断申请；不备注，不通过。
             </p>
             <a className="community-back-link" href="/#top">
               回到首页了解我
@@ -1198,7 +1170,7 @@ function CommunityPage() {
           <aside className="community-contact-card" aria-label="加入社区咨询">
             <span>COMMUNITY / CONTACT</span>
             <h2>添加微信咨询</h2>
-            <p>扫码添加微信，备注你想加入 WE30 的原因和正在做的事；不备注不通过。</p>
+            <p>扫码加微信请备注：姓名 + 申请群（核心群 / 大群）+ 对应情况。核心群说明 299 元门槛费与 100 万元验资；大群提供自媒体账号及粉丝数，或说明特长与相关经历。不备注不通过。</p>
             <figure className="community-qr">
               <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
               <figcaption>SCAN TO CONNECT</figcaption>
