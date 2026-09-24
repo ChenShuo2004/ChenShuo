@@ -1062,7 +1062,7 @@ function CommunityPage() {
             <div className="community-manifesto-routes" aria-label="社区入口">
               <a href="#community-contact">
                 <span>01 / CORE</span>
-                <strong>核心群：299 元门槛费，同时验资 100 万元</strong>
+                <strong>核心群：299 元门槛费，并有一技之长</strong>
                 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
               </a>
               <a href="#community-contact">
@@ -1075,7 +1075,7 @@ function CommunityPage() {
         </div>
 
         <div className="community-story editorial-reveal" data-reveal-delay="100">
-          <p>WE30 只设核心群和大群。核心群有费用与验资门槛；大群面向有自媒体积累或明确特长的人。两个群都希望成员愿意交流业务、分享认知与真实经验。</p>
+          <p>WE30 只设核心群和大群。核心群需要支付门槛费，并有一技之长；大群面向有自媒体积累或明确特长的人。两个群都希望成员愿意交流业务、分享认知与真实经验。</p>
           <p>这段时间，我一边做 AI 产品和内容工作流，一边在 X 上持续输出、连接同行。一个月里有 5 条商单找来，我只接了一条 GitHub 的合作，因为现在更想先把社区、内容和 AI 业务的基础盘搭好。</p>
           <p>上周，WE30 核心群的言溪来厦门找我。他过着旅居生活，准备在厦门住一段时间。我带他来公司转了转，也聊了很多内容、产品和年轻人做事的状态。一个人很多时候不是不够努力，而是缺少一个能让自己持续向上的环境。希望 WE30 能慢慢成为这样的地方。</p>
         </div>
@@ -1087,7 +1087,7 @@ function CommunityPage() {
               <span>DEEP CONNECTION</span>
             </div>
             <h2>WE30<br />核心群</h2>
-            <p className="community-program-lede">更小、更深的内部连接，围绕业务、产品和内容持续交流。申请核心群需要同时满足两项门槛：支付 299 元门槛费，并完成 100 万元验资。</p>
+            <p className="community-program-lede">更小、更深的内部连接，围绕业务、产品和内容持续交流。申请核心群需要同时满足两项条件：支付 299 元门槛费，并有一技之长。</p>
             <div className="community-program-details">
               <div>
                 <span>ENTRY REQUIREMENT / 01</span>
@@ -1095,7 +1095,7 @@ function CommunityPage() {
               </div>
               <div>
                 <span>ENTRY REQUIREMENT / 02</span>
-                <p>验资：100 万元。两项条件需同时满足。</p>
+                <p>有一技之长；申请时说明擅长什么，以及相关经历或作品。两项条件需同时满足。</p>
               </div>
             </div>
             <div className="community-program-proof" aria-label="WE30 核心群内容">
@@ -1170,7 +1170,7 @@ function CommunityPage() {
           <aside className="community-contact-card" aria-label="加入社区咨询">
             <span>COMMUNITY / CONTACT</span>
             <h2>添加微信咨询</h2>
-            <p>扫码加微信请备注：姓名 + 申请群（核心群 / 大群）+ 对应情况。核心群说明 299 元门槛费与 100 万元验资；大群提供自媒体账号及粉丝数，或说明特长与相关经历。不备注不通过。</p>
+            <p>扫码加微信请备注：姓名 + 申请群（核心群 / 大群）+ 对应情况。申请核心群请说明自己的一技之长和相关经历或作品；申请大群请提供自媒体账号及粉丝数，或说明特长与相关经历。不备注不通过。</p>
             <figure className="community-qr">
               <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
               <figcaption>SCAN TO CONNECT</figcaption>
