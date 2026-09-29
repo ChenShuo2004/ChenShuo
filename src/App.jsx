@@ -20,8 +20,11 @@ import {
   WarningCircle,
   YoutubeLogo,
 } from "@phosphor-icons/react";
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import blogArchive from "./data/blogArchive.json";
 import EvilEye from "./EvilEye.jsx";
+
+const BlogMarkdown = lazy(() => import("./BlogMarkdown.jsx"));
 
 const knowledgeBaseUrl = "https://ji2s5x6u9ag.feishu.cn/wiki/FyDGwZUldiPstLk2xQBc3b3znUg";
 const readingRoomUrl = "https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d";
@@ -82,11 +85,86 @@ const openSourceTools = [
 const editorialNavItems = [
   { key: "work", label: "在做的事情", english: "WORK", href: "/work" },
   { key: "community", label: "我的社区", english: "COMMUNITY", href: "/community" },
+  { key: "blog", label: "博客", english: "BLOG", href: "/blog" },
   { key: "media", label: "自媒体", english: "MEDIA", href: "/media" },
   { key: "about", label: "自我介绍", english: "ABOUT", href: "/about" },
   { key: "opensource", label: "开源工具", english: "OPEN SOURCE", href: "/github" },
   { key: "contact", label: "联系我", english: "CONTACT", href: "/#contact" },
 ];
+
+const blogPosts = [
+  {
+    category: "工具实践",
+    date: "2026.09.23",
+    title: "妈妈再也不用担心我没有 Claude 用了：使用环境与踩坑整理",
+    excerpt: "连续遇到账号问题后，我把网络分流、DNS、邮箱与日常使用习惯重新梳理了一遍。这篇记录当时的实际配置思路，也提醒自己：两周稳定运行只是一次阶段性观察。",
+    href: "/blog/claude-environment",
+    originalUrl: "https://x.com/ChenshuoAI/article/2102737711052537966",
+    source: "X 长文导读",
+    sections: [
+      { heading: "先把环境看成一整套", paragraphs: ["过去一段时间，我前后遇到过 4 次 Claude 账号问题。重新梳理后，我更关注网络出口、DNS、邮箱、支付和日常使用习惯之间是否一致，而不是只找一个能打开网页的节点。", "这是一份我当时的经验记录，不是服务商封号规则的确定解释。"] },
+      { heading: "分流之后，还要检查真实出口", paragraphs: ["我倾向于让 Claude 相关服务固定走同一条线路，同时检查浏览器与终端的实际出口。IPv4、IPv6、DNS、WebRTC、系统代理，以及 Git、npm 和 Claude Code 的历史代理设置，都可能让不同应用走向不同路径。", "配置写好只是第一步。发起真实请求并查看连接记录，才能知道规则是否按预期生效。"] },
+      { heading: "账号与邮箱也要长期可控", paragraphs: ["邮箱方面，我更愿意使用自己长期正常使用、来源清楚的账号。对我来说，真实、长期、自己能控制，比一套看起来复杂的注册技巧更重要。", "写原文时，新账号只稳定运行了两周。这个观察值得记录，但不足以保证以后不会再遇到限制。"] },
+    ],
+  },
+  {
+    category: "增长实践",
+    date: "2026.08.28",
+    title: "小红书高手教你：从内容、钩子到渠道，搭一套真正能跑通的获客系统",
+    excerpt: "这篇文章从一个具体问题出发：有阅读、有点赞，为什么没有咨询？我把目标人群、内容、行动理由和承接渠道放在同一条获客路径里讨论。",
+    href: "/blog/xiaohongshu-leads",
+    originalUrl: "https://x.com/ChenshuoAI/article/2093319723031380005",
+    source: "X 长文导读",
+    sections: [
+      { heading: "先看用户带着什么问题来", paragraphs: ["过去两年，我在线下分享过小红书和抖音引流。重新整理时，我发现很多账号有阅读和点赞，却没有咨询。问题往往出在内容之后：用户为什么要进一步联系你，以及联系之后由谁承接。", "在搜索场景中，用户已经把需求写进关键词。比起追求泛流量，更值得研究的是让真正需要解决方案的人找到你。"] },
+      { heading: "内容、钩子、渠道要连在一起", paragraphs: ["内容负责吸引对的人，钩子给出值得行动的具体价值，渠道负责稳妥承接。例如工具、清单、案例或解决方案，只有对应目标用户眼前的问题，才有可能促成下一步。", "我在原文里把它概括为“引流 = 内容 + 钩子 + 渠道”。拆开其中任何一环，阅读量都很难自动变成客户。"] },
+      { heading: "用有效咨询检验内容", paragraphs: ["爆款数据很显眼，但做业务时，我更想知道一篇内容带来了多少有效咨询，以及最终获客成本是多少。先用自然流量测试内容和转化，再考虑投放放大已经验证的素材。", "承接方式优先使用平台允许的官方渠道；具体功能和规则会变化，执行时仍需看平台当期规则。"] },
+    ],
+  },
+  {
+    category: "创业复盘",
+    date: "2026.08.10",
+    title: "我的 AI 创业复盘：从 AI 绘本到 YouTube，再到知识产品",
+    excerpt: "把做过的项目、停掉的尝试和下一阶段的判断放到一起。站内整理了完整章节与相关截图，也保留了 X 原帖入口。",
+    href: "/about#review",
+    originalUrl: "https://x.com/ChenshuoAI/status/2086710313219727862",
+    source: "站内全文 · X 连帖整理",
+  },
+  ...blogArchive,
+].sort((a, b) => b.date.localeCompare(a.date));
+
+function usePublicReadership() {
+  const [state, setState] = useState({ data: null, error: false });
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/public-stats", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Readership unavailable");
+        return response.json();
+      })
+      .then((data) => setState({ data, error: false }))
+      .catch((error) => {
+        if (error.name !== "AbortError") setState({ data: null, error: true });
+      });
+    return () => controller.abort();
+  }, []);
+  return state;
+}
+
+function formatReadershipStart(value) {
+  return value ? new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(value)) : "";
+}
+
+function SiteReadership() {
+  const { data, error } = usePublicReadership();
+  return (
+    <div className="site-readership editorial-reveal" aria-live="polite">
+      <span>VISITORS / 站内记录</span>
+      <strong>{data ? formatNumber(data.visitors) : "—"}</strong>
+      <small>{data ? `位独立浏览器访客 · 自 ${formatReadershipStart(data.firstRecordedAt)} 起` : error ? "统计暂不可用" : "正在读取统计"}</small>
+    </div>
+  );
+}
 
 const knowledgeOriginIntro = [
   "这个知识库的诞生，并不是来自“我想做一个整理工具”，而是来自一个更真实、也更长期存在的问题：",
@@ -654,6 +732,144 @@ function PlatformSignalsSection() {
   );
 }
 
+function BlogArticlePage({ post }) {
+  const isArchive = Boolean(post.markdown);
+  const isFullText = post.source === "全文归档";
+  const { data: readership } = usePublicReadership();
+  return (
+    <main className="site-shell editorial-page editorial-blog-page">
+      <EditorialSiteHeader activeKey="blog" sectionLabel="BLOG / 写作与复盘" actionLabel="加入社区" actionHref="/community" />
+      <article className="blog-article">
+        <a className="blog-back-link" href="/blog">← 返回博客</a>
+        <header className="blog-article-header editorial-reveal">
+          <div className="blog-post-meta">
+            <span>{post.category}</span>
+            <time dateTime={post.date.replaceAll(".", "-")}>{post.date}</time>
+            <span>{post.source}</span>
+            {readership && <span>{formatNumber(readership.articles[post.href] || 0)} 次站内阅读</span>}
+          </div>
+          <h1>{post.title}</h1>
+          <p>{post.excerpt}</p>
+          <a href={post.originalUrl} target="_blank" rel="noreferrer">查看 X 原帖 <ArrowUpRight size={17} weight="bold" aria-hidden="true" /></a>
+        </header>
+        {isArchive ? (
+          <div className="blog-markdown editorial-reveal">
+            <Suspense fallback={<p>正在加载正文…</p>}>
+              <BlogMarkdown markdown={post.markdown} />
+            </Suspense>
+          </div>
+        ) : (
+          <div className="blog-article-body">
+          {post.sections.map((section, index) => (
+            <section className="editorial-reveal" key={section.heading}>
+              <span>0{index + 1}</span>
+              <div>
+                <h2>{section.heading}</h2>
+                {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              </div>
+            </section>
+          ))}
+          </div>
+        )}
+        <footer className="blog-article-footer">
+          <p>{isFullText ? "本文取自已发布文章的本地正文归档。发布后的修改与讨论请以 X 原帖为准。" : post.source === "公开镜像归档" ? "本文依据公开镜像可见内容归档；原帖内容与后续更新请以 X 为准。" : "这是根据已发布内容整理的站内版本，完整细节与后续更新请以 X 原帖为准。"}</p>
+          {post.href === "/blog/personal-review-2026-07" && <p>这篇历史复盘保留了写作时的个人信息；当前定位请看<a href="/about">自我介绍</a>。</p>}
+          <div>
+            <a href={post.originalUrl} target="_blank" rel="noreferrer">打开 X 原帖 <ArrowUpRight size={17} weight="bold" aria-hidden="true" /></a>
+            <a href="/work">看我正在做的事 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
+            <a href="/community">了解 WE30 社区 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
+          </div>
+        </footer>
+      </article>
+    </main>
+  );
+}
+
+function BlogPage() {
+  const [activeCategory, setActiveCategory] = useState("全部");
+  const { data: readership, error: readershipError } = usePublicReadership();
+  const categories = ["全部", ...new Set(blogPosts.map((post) => post.category))];
+  const visiblePosts = activeCategory === "全部" ? blogPosts : blogPosts.filter((post) => post.category === activeCategory);
+
+  return (
+    <main className="site-shell editorial-page editorial-blog-page">
+      <EditorialSiteHeader activeKey="blog" sectionLabel="BLOG / 写作与复盘" actionLabel="加入社区" actionHref="/community" />
+      <div className="blog-shell">
+        <section className="blog-intro editorial-reveal" aria-labelledby="blog-title">
+          <div>
+            <p className="section-kicker">FIELD NOTES / 陈硕 KAI</p>
+            <h1 id="blog-title">写下做过的事。<br /><em>Blog & Notes.</em></h1>
+            <div className="blog-readership" aria-live="polite">
+              {readership ? <><strong>{formatNumber(readership.visitors)}</strong> 位站内记录访客 <span>/</span> {formatNumber(readership.pageviews)} 次全站浏览 <small>自 {formatReadershipStart(readership.firstRecordedAt)} 起</small></> : readershipError ? "阅读统计暂不可用" : "正在读取站内统计…"}
+            </div>
+          </div>
+          <p>AI 产品、内容增长和创业路上的真实尝试。这里收录已找到来源的 @ChenshuoAI 长文；全文归档、整理版和公开镜像分别标注。读完可以继续看看正在做的产品，或加入 WE30 交流。</p>
+        </section>
+
+        <div className="blog-layout">
+          <section className="blog-feed" aria-label="博客文章">
+            <div className="blog-feed-heading">
+              <div>
+                <span>01 / WRITING</span>
+                <h2>最近的文章</h2>
+              </div>
+              <small>{String(visiblePosts.length).padStart(2, "0")} ENTRIES</small>
+            </div>
+
+            <div className="blog-filters" aria-label="按主题筛选文章">
+              {categories.map((category) => (
+                <button
+                  type="button"
+                  key={category}
+                  aria-pressed={activeCategory === category}
+                  onClick={() => setActiveCategory(category)}
+                >{category}</button>
+              ))}
+            </div>
+
+            <div className="blog-post-list">
+              {visiblePosts.map((post) => (
+                <article className="blog-post" key={post.href}>
+                  <div className="blog-post-meta">
+                    <span>{post.category}</span>
+                    <time dateTime={post.date.replaceAll(".", "-")}>{post.date}</time>
+                    <span>{post.source}</span>
+                    {readership && post.href.startsWith("/blog/") && <span>{formatNumber(readership.articles[post.href] || 0)} 次站内阅读</span>}
+                  </div>
+                  <h3><a href={post.href}>{post.title}</a></h3>
+                  <p>{post.excerpt}</p>
+                  <a className="blog-post-link" href={post.href}>
+                    {post.source === "全文归档" || !post.sections && !post.markdown ? "在站内阅读全文" : "阅读站内整理"}
+                    <ArrowRight size={18} weight="bold" aria-hidden="true" />
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <aside className="blog-aside" aria-label="关于作者与更多入口">
+            <div className="blog-aside-card blog-author-card">
+              <span>02 / AUTHOR</span>
+              <strong>陈硕 KAI</strong>
+              <p>AI 连续创业者。现在主要做 AI 产品、内容、知识库与社区，喜欢把做过的事和踩过的坑公开写出来。</p>
+              <a href="/about">了解我 <ArrowRight size={16} weight="bold" aria-hidden="true" /></a>
+            </div>
+            <div className="blog-aside-card blog-next-card">
+              <span>03 / KEEP EXPLORING</span>
+              <h2>读完以后，<br />来看看我在做什么。</h2>
+              <a href="/work">在做的事情 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
+              <a href="/community">加入 WE30 社区 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
+              <a href="/#contact">联系我 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
+            </div>
+            <p className="blog-source-note">仅收录 @ChenshuoAI 长文。来源与完整度在每篇文章上方标注，原帖以 X 页面为准。</p>
+            <p className="blog-source-note">访客按浏览器标识去重，统计从站内采集启用后开始；文章阅读次数只计算本站页面浏览。</p>
+          </aside>
+        </div>
+      </div>
+    </main>
+  );
+}
+
 function WorkPage() {
   const [isWechatConsultationOpen, setIsWechatConsultationOpen] = useState(false);
 
@@ -1194,7 +1410,7 @@ const adminRangeOptions = [
 ];
 
 const adminPasswordStorageKey = "cs-admin-password";
-const analyticsContextStorageKey = "cs-analytics-context";
+const analyticsContextStorageKey = "cs-analytics-session-context-v2";
 const analyticsVisitorStorageKey = "cs-analytics-visitor";
 const analyticsPendingEventsStorageKey = "cs-analytics-pending-events";
 const analyticsPendingEventsLimit = 50;
@@ -1270,7 +1486,7 @@ function formatStorageLabel(storage) {
 }
 
 function AdminPage() {
-  const [range, setRange] = useState("7d");
+  const [range, setRange] = useState("30d");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [password, setPassword] = useState(readAdminPassword);
@@ -1281,7 +1497,7 @@ function AdminPage() {
   const [statusMessage, setStatusMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDayKey, setSelectedDayKey] = useState("");
-  const [lastQuery, setLastQuery] = useState({ range: "7d", from: "", to: "" });
+  const [lastQuery, setLastQuery] = useState({ range: "30d", from: "", to: "" });
   const requestIdRef = useRef(0);
 
   async function loadAnalytics(nextRange = range, nextPassword = password, nextFrom = from, nextTo = to) {
@@ -1355,7 +1571,7 @@ function AdminPage() {
   }
 
   useEffect(() => {
-    if (password) loadAnalytics("7d", password, "", "");
+    if (password) loadAnalytics("30d", password, "", "");
     // Only restore an existing session once. Range changes are handled explicitly below.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -1365,7 +1581,7 @@ function AdminPage() {
     const nextPassword = inputPassword.trim();
     if (!nextPassword || isLoading) return;
     setPassword(nextPassword);
-    loadAnalytics("7d", nextPassword, "", "");
+    loadAnalytics("30d", nextPassword, "", "");
   }
 
   function handleRangeChange(nextRange) {
@@ -1404,13 +1620,15 @@ function AdminPage() {
 
   const maxDailyPageviews = Math.max(...(analytics?.daily || []).map((item) => item.pageviews || 0), 1);
   const hasTrafficData = analytics?.daily?.some((item) => (item.pageviews || 0) > 0 || (item.clicks || 0) > 0);
+  const latestRecordedAt = analytics?.tracking?.latestRecordedAt;
+  const isTrackingStale = ["supabase", "cloudflare-d1"].includes(analytics?.storage?.provider) && (!latestRecordedAt || Date.now() - Date.parse(latestRecordedAt) > 48 * 60 * 60 * 1000);
   const selectedDaily = analytics?.daily?.find((item) => item.timestamp === selectedDayKey) || analytics?.daily?.[analytics.daily.length - 1] || null;
   const retryQuery = () => loadAnalytics(lastQuery.range, password, lastQuery.from, lastQuery.to);
   const metricItems = analytics ? [
-    { label: "今日访问", englishLabel: "TODAY / PAGEVIEWS", value: analytics.today?.pageviews, icon: Eye, tone: "accent" },
-    { label: "今日访客", englishLabel: "TODAY / VISITORS", value: analytics.today?.visitors, icon: UsersThree },
+    { label: "区间访客", englishLabel: "RANGE / SITE UV", value: analytics.totals?.visitors, icon: UserCircle, tone: "accent" },
     { label: "区间访问", englishLabel: "RANGE / PAGEVIEWS", value: analytics.totals?.pageviews, icon: ChartLineUp },
-    { label: "区间访客", englishLabel: "RANGE / VISITORS", value: analytics.totals?.visitors, icon: UserCircle },
+    { label: "今日访客", englishLabel: "TODAY / VISITORS", value: analytics.today?.visitors, icon: UsersThree },
+    { label: "今日访问", englishLabel: "TODAY / PAGEVIEWS", value: analytics.today?.pageviews, icon: Eye },
     { label: "区间点击", englishLabel: "RANGE / CLICKS", value: analytics.totals?.clicks, icon: CursorClick },
   ] : [];
 
@@ -1427,7 +1645,7 @@ function AdminPage() {
             {analytics && (
               <div className={`admin-session-status ${isLoading ? "is-loading" : ""}`} aria-live="polite">
                 <span className="admin-status-dot" />
-                {isLoading ? "正在同步" : "已连接"}
+                {isLoading ? "正在同步" : "数据库已连接"}
               </div>
             )}
             <a href="/" className="admin-home-link">
@@ -1540,11 +1758,22 @@ function AdminPage() {
             <section className="admin-storage-health" aria-label="数据存储状态">
               <span className="admin-status-dot" aria-hidden="true" />
               <div>
-                <p>DATA STORAGE / PERSISTENT</p>
-                <strong>{formatStorageLabel(analytics.storage)}</strong>
+                <p>DATA SOURCE / SITE EVENTS</p>
+                <strong>{formatStorageLabel(analytics.storage)} · 本站自建埋点</strong>
+                <small>{analytics.retrieval?.complete ? `区间内 ${formatNumber(analytics.retrieval.eventCount)} 条事件` : "正在核对汇总完整性"} <i /> 最近一条入库：{latestRecordedAt ? formatAdminDateTime(latestRecordedAt) : "暂无"} <i /> 访客按本站浏览器标识去重，与 Vercel Analytics UV 分开统计</small>
               </div>
-              <small>{analytics.retrieval?.complete ? `已完整汇总 ${formatNumber(analytics.retrieval.eventCount)} 条事件` : "正在核对汇总完整性"} <i /> {analytics.lastRecordedAt ? `最近入库：${formatAdminDateTime(analytics.lastRecordedAt)}` : "当前查询区间内尚无入库记录"}</small>
             </section>
+
+            {(isTrackingStale || analytics.tracking?.eventIdReady === false) && (
+              <div className="admin-error admin-tracking-warning" role="status">
+                <WarningCircle size={19} weight="duotone" aria-hidden="true" />
+                <span>
+                  <strong>自建统计需要检查。</strong>{" "}
+                  {isTrackingStale ? "最近 48 小时没有新事件入库；区间为 0 只代表这套埋点没有记录。" : ""}{" "}
+                  {analytics.tracking?.eventIdReady === false ? "数据库缺少 event_id，当前版本使用旧表兼容写入，暂不支持事件去重。" : ""}
+                </span>
+              </div>
+            )}
 
             <div className="admin-metrics-grid">
               {metricItems.map((item) => <AdminMetricCard key={item.englishLabel} {...item} />)}
@@ -1586,7 +1815,7 @@ function AdminPage() {
                     );
                   })}
                 </div>
-              ) : <AdminEmptyState label="当前时间范围内暂无流量数据" detail="访问数据会在成功入库后显示在这里。" />}
+              ) : <AdminEmptyState label="当前时间范围内暂无自建埋点数据" detail={isTrackingStale ? "采集已超过 48 小时没有新记录，请检查写入链路。" : "访问数据会在成功入库后显示在这里。"} />}
             </section>
 
             <div className="admin-lists-grid">
@@ -1699,6 +1928,14 @@ function safeWriteStorage(key, value) {
   }
 }
 
+function safeReadSessionStorage(key) {
+  try { return window.sessionStorage.getItem(key); } catch { return null; }
+}
+
+function safeWriteSessionStorage(key, value) {
+  try { window.sessionStorage.setItem(key, value); } catch { /* 仍可使用当前页面内存 */ }
+}
+
 function createAnalyticsEventId() {
   return globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
 }
@@ -1707,18 +1944,19 @@ function getAnalyticsContext() {
   const params = new URLSearchParams(window.location.search);
   let stored = analyticsMemoryContext || {};
   try {
-    stored = JSON.parse(safeReadStorage(analyticsContextStorageKey) || "{}") || {};
+    const savedContext = safeReadSessionStorage(analyticsContextStorageKey);
+    if (savedContext) stored = JSON.parse(savedContext) || stored;
   } catch {
     // Invalid local data should never stop analytics from being sent.
   }
   const context = {
-    source: params.get("utm_source") || stored.source || "direct",
+    source: params.get("utm_source") || stored.source || "",
     medium: params.get("utm_medium") || stored.medium || "",
     campaign: params.get("utm_campaign") || stored.campaign || "",
     content: params.get("utm_content") || stored.content || "",
   };
   analyticsMemoryContext = context;
-  safeWriteStorage(analyticsContextStorageKey, JSON.stringify(context));
+  safeWriteSessionStorage(analyticsContextStorageKey, JSON.stringify(context));
   const storedVisitorId = safeReadStorage(analyticsVisitorStorageKey);
   const visitorId = storedVisitorId || analyticsMemoryVisitorId || createAnalyticsEventId();
   analyticsMemoryVisitorId = visitorId;
@@ -1801,6 +2039,17 @@ function useClickTracking() {
 
 export function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "") || "/";
+  const blogArticle = blogPosts.find((post) => (post.sections || post.markdown) && post.href === normalizedPath);
+  useEffect(() => {
+    if (normalizedPath !== "/blog" && !blogArticle) return;
+    document.title = blogArticle ? `${blogArticle.title}｜陈硕 KAI 的博客` : "博客与复盘｜陈硕 KAI";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", blogArticle?.excerpt || "陈硕 KAI 的博客：AI 产品、内容增长与创业复盘。阅读来自 X 的真实文章，并了解正在做的项目与 WE30 社区。");
+  }, [normalizedPath, blogArticle]);
+  useEffect(() => {
+    if (normalizedPath !== "/about" || window.location.hash !== "#review") return;
+    const frame = window.requestAnimationFrame(() => document.getElementById("review")?.scrollIntoView());
+    return () => window.cancelAnimationFrame(frame);
+  }, [normalizedPath]);
   usePageViewTracking(normalizedPath);
   useClickTracking();
   useEditorialReveal();
@@ -1813,6 +2062,7 @@ export function App() {
   const isCommunityPage = normalizedPath === "/community";
   const isWorkPage = normalizedPath === "/work";
   const isMediaPage = normalizedPath === "/media";
+  const isBlogPage = normalizedPath === "/blog";
   const isAboutPage = normalizedPath === "/about";
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
@@ -1825,6 +2075,14 @@ export function App() {
 
   if (isMediaPage) {
     return <MediaPage />;
+  }
+
+  if (isBlogPage) {
+    return <BlogPage />;
+  }
+
+  if (blogArticle) {
+    return <BlogArticlePage post={blogArticle} />;
   }
 
   if (isAboutPage) {
@@ -1911,6 +2169,12 @@ export function App() {
                 <ArrowRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
+            <a className="editorial-blog-link editorial-reveal" data-reveal-delay="420" href="/blog">
+              <span>新开了一页写作档案 / BLOG</span>
+              <strong>读我的博客</strong>
+              <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
+            </a>
+            <SiteReadership />
           </div>
 
           <figure className="editorial-portrait editorial-reveal" data-reveal-delay="200">
