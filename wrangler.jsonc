@@ -1,0 +1,19 @@
+{
+  "name": "chenshuo-personal-site",
+  "main": "cloudflare/worker.js",
+  "compatibility_date": "2026-09-29",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "chenshuo-site-analytics",
+      "database_id": "264fb3a0-74ad-490f-8e36-97be8c99a24f",
+      "migrations_dir": "cloudflare/migrations"
+    }
+  ]
+}

@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/api/track-view",
+      "destination": "https://chenshuo-personal-site.httpsdashcloudflarecomf83eaa1f2a15f06a8f638a0a39468409wo.workers.dev/api/track-view?via=vercel"
+    },
+    {
+      "source": "/api/admin-analytics",
+      "destination": "https://chenshuo-personal-site.httpsdashcloudflarecomf83eaa1f2a15f06a8f638a0a39468409wo.workers.dev/api/admin-analytics?via=vercel"
+    },
+    {
+      "source": "/api/public-stats",
+      "destination": "https://chenshuo-personal-site.httpsdashcloudflarecomf83eaa1f2a15f06a8f638a0a39468409wo.workers.dev/api/public-stats?via=vercel"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
