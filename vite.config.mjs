@@ -10,5 +10,19 @@ export default defineConfig({
       clientFiles: ["./src/main.jsx"],
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: "nonblocking-startup-styles",
+      apply: "build",
+      transformIndexHtml: {
+        order: "post",
+        handler(html) {
+          // Inline loader can paint even while the main stylesheet / font imports download.
+          return html.replace(/<link\b[^>]*rel="stylesheet"[^>]*>/g, (link) =>
+            link.replace(/>$/, ' media="print" data-boot-style onload="this.media=\'all\'">'));
+        },
+      },
+    },
+  ],
 });

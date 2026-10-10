@@ -1,0 +1,175 @@
+/* Shared public-page theme; the analytics admin keeps its own interface. */
+.site-shell.editorial-page {
+  --editorial-paper: #164a9c;
+  --editorial-paper-deep: #123d7c;
+  --editorial-ink: #f2eee2;
+  --editorial-muted: #c7d2e3;
+  --editorial-accent: #e96550;
+  --editorial-line: rgba(242, 238, 226, .3);
+  --editorial-line-soft: rgba(242, 238, 226, .16);
+  --editorial-yellow: rgba(5, 27, 66, .18);
+  --editorial-teal: #c7d2e3;
+  --editorial-display: "Noto Sans SC", "PingFang SC", sans-serif;
+  --detail-width: 1150px;
+  --detail-gutter: 48px;
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  color-scheme: dark;
+  color: var(--editorial-ink);
+  background: var(--editorial-paper);
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+}
+.site-shell.editorial-page::before {
+  display: block;
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(rgba(10, 29, 65, .16), rgba(10, 29, 65, .3)), url("/assets/portal-cobalt-v1.webp") center / cover;
+  pointer-events: none;
+}
+.site-shell.editorial-page::after { display: none; }
+.site-shell.editorial-page :is(.editorial-site-header, .editorial-detail-hero, .editorial-projects-section, .platform-signal-section, .github-build-hero, .github-build-metrics, .community-intro-section, .community-access-section, .blog-shell, .blog-article, .knowledge-inner) {
+  width: min(calc(100% - var(--detail-gutter) * 2), var(--detail-width));
+  margin-inline: auto;
+  background: transparent;
+  background-image: none;
+}
+.site-shell.editorial-page :is(.editorial-projects-section, .platform-signal-section, .github-build-hero, .community-intro-section, .blog-shell) {
+  min-height: 0;
+  padding: 64px 0 80px;
+  border-top: 0;
+}
+.site-shell.editorial-page .editorial-site-header { min-height: 88px; grid-template-columns: auto 1fr auto; gap: 24px; }
+.site-shell.editorial-page .editorial-site-nav { gap: 16px; flex-wrap: wrap; }
+.site-shell.editorial-page .editorial-site-nav a { min-height: 40px; align-items: center; gap: 5px; font-family: inherit; font-size: 11px; }
+.site-shell.editorial-page .editorial-site-nav a small { display: none; }
+.site-shell.editorial-page :is(.editorial-site-action, .editorial-outline-action, .community-back-link) { color: var(--editorial-ink); border-color: var(--editorial-line); font-family: inherit; font-size: 12px; background: transparent; }
+.site-shell.editorial-page :is(.editorial-site-action, .editorial-outline-action, .community-back-link):hover { color: var(--editorial-ink); background: rgba(5, 27, 66, .22); transform: none; }
+.site-shell.editorial-page :is(a, button):focus-visible { outline: 2px solid var(--editorial-ink); outline-offset: 4px; }
+
+/* A consistent title and a short reading hierarchy on every detail page. */
+.site-shell.editorial-page :is(.editorial-detail-copy h1, .editorial-projects-heading h2, .platform-signal-heading h2, .github-build-copy h1, .community-manifesto h1, .community-copy h1, .blog-intro h1) {
+  margin: 18px 0 24px; font-family: var(--editorial-display); font-size: 52px;
+  font-weight: 500; line-height: 1.25; letter-spacing: -.045em; text-shadow: none;
+}
+.site-shell.editorial-page :is(.editorial-detail-description, .editorial-projects-heading > p:last-child, .github-build-lede, .community-manifesto-lede, .community-lede, .blog-intro > p) {
+  max-width: 720px; margin: 20px 0 0; color: var(--editorial-muted); font-family: inherit; font-size: 15px; line-height: 1.9;
+}
+.site-shell.editorial-page :is(.editorial-page-kicker, .section-kicker, .github-build-kicker, .community-story-kicker) { color: var(--editorial-muted); font-size: 10px; letter-spacing: .12em; }
+.site-shell.editorial-page .github-build-guides,
+.site-shell.editorial-page .editorial-detail-hero::before,
+.site-shell.editorial-page .editorial-detail-hero::after,
+.site-shell.editorial-page .platform-signal-section::before,
+.site-shell.editorial-page .platform-signal-section::after { display: none; }
+.site-shell.editorial-page .editorial-detail-hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); min-height: 0; align-items: start; gap: 64px; padding: 64px 0 80px; }
+.site-shell.editorial-page .editorial-detail-copy h1 span + span { margin-top: 16px; font-size: 24px; line-height: 1.5; letter-spacing: 0; }
+.site-shell.editorial-page .editorial-detail-copy h1 small { font-size: 12px; }
+.site-shell.editorial-page .editorial-spec-sheet { min-height: 0; justify-content: start; padding: 24px 0 0 28px; }
+.site-shell.editorial-page .editorial-spec-foot { display: none; }
+
+/* Existing actions stay in place; large panels become thin-rule lists. */
+.site-shell.editorial-page :is(.hero-system-frame, .github-tool-grid, .github-tool-card, .blog-aside-card, .knowledge-title-frame, .knowledge-origin-card, .community-program, .community-contact-card) { background: transparent; box-shadow: none; border-radius: 0; }
+.site-shell.editorial-page .hero-project-list { display: grid; grid-template-columns: 1fr; gap: 0; }
+.site-shell.editorial-page .hero-system-frame { margin-top: 40px; padding: 0; border: 0; }
+.site-shell.editorial-page .hero-project-item { min-height: 132px; padding: 24px 0; border-bottom: 1px solid var(--editorial-line); }
+.site-shell.editorial-page .hero-project-item:hover { color: var(--editorial-ink); background: rgba(5, 27, 66, .16); }
+.site-shell.editorial-page .hero-project-item strong { font-size: 22px; font-family: inherit; font-weight: 500; }
+.site-shell.editorial-page .hero-project-item-cta { border-color: var(--editorial-line); }
+.site-shell.editorial-page .github-build-hero { display: block; }
+.site-shell.editorial-page .github-build-copy { padding: 0; }
+.site-shell.editorial-page .github-build-kicker { margin-bottom: 20px; }
+.site-shell.editorial-page .github-build-status { margin-top: 24px; font-size: 12px; color: var(--editorial-muted); }
+.site-shell.editorial-page .github-tool-grid { width: 100%; margin-top: 44px; border: 0; border-top: 1px solid var(--editorial-line); }
+.site-shell.editorial-page .github-tool-card { grid-template-columns: 28px 36px minmax(0, 1fr) auto; min-height: 0; padding: 28px 0; gap: 18px; }
+.site-shell.editorial-page .github-tool-body h2 { font-size: 28px; letter-spacing: -.03em; }
+.site-shell.editorial-page .github-tool-body strong { margin-top: 12px; font-size: 15px; }
+.site-shell.editorial-page .github-tool-body em { color: var(--editorial-muted); }
+.site-shell.editorial-page .github-build-metrics { padding: 28px 0 60px; }
+.site-shell.editorial-page .github-build-metric { min-height: 0; background: transparent; }
+.site-shell.editorial-page .github-build-metric strong { font-size: 28px; }
+.site-shell.editorial-page .platform-signal-inner { width: 100%; }
+.site-shell.editorial-page .platform-signal-bars { display: none; }
+.site-shell.editorial-page .platform-signal-row { grid-template-columns: 44px minmax(0, 1fr) auto 48px 18px; border-color: var(--editorial-line); min-height: 100px; }
+.site-shell.editorial-page .platform-signal-icon { color: var(--editorial-ink); background: transparent; border: 1px solid var(--editorial-line); border-radius: 0; }
+.site-shell.editorial-page .platform-signal-status { grid-column: 4; }
+.site-shell.editorial-page .platform-signal-arrow { grid-column: 5; }
+.site-shell.editorial-page .platform-signal-row:hover { background: rgba(5, 27, 66, .16); color: var(--editorial-ink); }
+.site-shell.editorial-page .platform-signal-note { display: none; }
+
+/* Community: membership, one group, then the contact block. */
+.site-shell.editorial-page .community-manifesto { gap: 48px; padding: 0; }
+.site-shell.editorial-page .community-member-count { margin: 20px 0 0; color: var(--editorial-muted); font-size: 13px; }
+.site-shell.editorial-page .community-member-count strong { margin-right: 8px; color: var(--editorial-ink); font-family: var(--font-editorial-serif); font-size: 48px; font-weight: 500; }
+.site-shell.editorial-page .community-story { grid-template-columns: 1fr; margin: 36px 0; padding: 0 0 24px; color: var(--editorial-muted); }
+.site-shell.editorial-page .community-story p { max-width: 800px; color: var(--editorial-muted); font-family: inherit; font-size: 14px; }
+.site-shell.editorial-page .community-program-grid { grid-template-columns: 1fr; gap: 0; margin-top: 32px; border: 0; }
+.site-shell.editorial-page .community-program { min-height: 0; padding: 28px 0; border: 0; border-top: 1px solid var(--editorial-line); }
+.site-shell.editorial-page .community-program h2 { margin: 20px 0; font-family: inherit; font-size: 30px; font-weight: 500; line-height: 1.4; }
+.site-shell.editorial-page .community-program h2 br { display: none; }
+.site-shell.editorial-page :is(.community-program-lede, .community-program-details p, .community-program-proof p) { color: var(--editorial-muted); font-family: inherit; font-size: 14px; line-height: 1.9; }
+.site-shell.editorial-page :is(.community-program-topline > span, .community-program-proof) { display: none; }
+.site-shell.editorial-page .community-boundary { margin-top: 24px; padding: 28px 0; border: 0; border-top: 1px solid var(--editorial-line); background: transparent; }
+.site-shell.editorial-page .community-boundary h2 { font-family: inherit; font-size: 24px; line-height: 1.5; }
+.site-shell.editorial-page .community-boundary-copy { font-size: 14px; color: var(--editorial-muted); }
+.site-shell.editorial-page .community-boundary-copy > p { color: var(--editorial-muted); font-family: inherit; font-size: 14px; }
+.site-shell.editorial-page .community-access-section { padding: 48px 0 80px; border-top: 1px solid var(--editorial-line); }
+.site-shell.editorial-page .community-access-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 64px; }
+.site-shell.editorial-page .community-contact-card { min-height: 0; padding: 28px; border: 1px solid var(--editorial-line); background: rgba(5, 27, 66, .16); }
+.site-shell.editorial-page .community-contact-card h2 { margin-top: 24px; font-family: inherit; font-size: 28px; line-height: 1.5; }
+.site-shell.editorial-page .community-contact-card > p { color: var(--editorial-muted); font-size: 14px; line-height: 1.9; }
+.site-shell.editorial-page .community-qr { margin-block: 24px; }
+.site-shell.editorial-page .community-qr img { max-width: 200px; }
+.site-shell.editorial-page .community-qr figcaption { color: #123d7c; }
+.site-shell.editorial-page .community-wechat { background: transparent; }
+.site-shell.editorial-page .wechat-consult-modal-card { color: var(--editorial-ink); background: #123d7c; border: 1px solid var(--editorial-line); box-shadow: none; }
+.site-shell.editorial-page .wechat-consult-modal-close { color: var(--editorial-ink); border-color: var(--editorial-line); }
+
+/* Long-form text stays readable without a new page layout. */
+.site-shell.editorial-page .blog-intro { padding-bottom: 40px; align-items: start; gap: 48px; }
+.site-shell.editorial-page .blog-intro h1 em { font-size: 32px; color: var(--editorial-muted); }
+.site-shell.editorial-page .blog-layout { padding-top: 40px; gap: 48px; }
+.site-shell.editorial-page .blog-aside-card { border-color: var(--editorial-line); }
+.site-shell.editorial-page .blog-post h3 { font-size: 27px; line-height: 1.5; letter-spacing: -.025em; }
+.site-shell.editorial-page .blog-article-header h1 { font-size: 42px; line-height: 1.45; letter-spacing: -.035em; }
+.site-shell.editorial-page :is(.blog-markdown, .blog-article-body p) { font-family: inherit; font-size: 16px; line-height: 2; }
+.site-shell.editorial-page .editorial-article-section { padding: 48px 0 80px; background: transparent; }
+.site-shell.editorial-page .knowledge-origin-grid { grid-template-columns: 1fr; }
+.site-shell.editorial-page .knowledge-origin-card { min-height: 0; }
+
+@media (max-width: 1100px) {
+  .site-shell.editorial-page { --detail-gutter: 32px; }
+  .site-shell.editorial-page .editorial-site-header { grid-template-columns: 1fr auto; padding-block: 16px; row-gap: 12px; }
+  .site-shell.editorial-page .editorial-site-nav { grid-row: 2; grid-column: 1 / -1; justify-content: flex-start; }
+  .site-shell.editorial-page .editorial-site-action { grid-row: 1; grid-column: 2; }
+  .site-shell.editorial-page .blog-layout { grid-template-columns: 1fr; }
+  .site-shell.editorial-page .blog-aside { display: none; }
+}
+@media (max-width: 700px) {
+  .site-shell.editorial-page { --detail-gutter: 24px; }
+  .site-shell.editorial-page :is(.editorial-projects-section, .platform-signal-section, .github-build-hero, .community-intro-section, .blog-shell, .editorial-detail-hero) { padding: 40px 0 56px; }
+  .site-shell.editorial-page .editorial-site-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 8px; width: 100%; }
+  .site-shell.editorial-page :is(.editorial-detail-hero, .community-manifesto, .community-program-grid, .community-boundary, .community-access-inner, .blog-intro) { grid-template-columns: 1fr; gap: 28px; }
+  .site-shell.editorial-page :is(.editorial-detail-copy h1, .editorial-projects-heading h2, .platform-signal-heading h2, .github-build-copy h1, .community-manifesto h1, .community-copy h1, .blog-intro h1) { font-size: 34px; white-space: normal; }
+  .site-shell.editorial-page .editorial-detail-copy h1 span + span { font-size: 20px; }
+  .site-shell.editorial-page .editorial-spec-sheet { border-left: 0; border-top: 1px solid var(--editorial-line); padding: 24px 0 0; }
+  .site-shell.editorial-page .hero-project-item { grid-template-columns: 22px minmax(0, 1fr); gap: 14px; }
+  .site-shell.editorial-page .hero-project-item-cta { grid-column: 2; justify-self: start; }
+  .site-shell.editorial-page .github-tool-card { grid-template-columns: 24px minmax(0, 1fr); gap: 12px; }
+  .site-shell.editorial-page .github-tool-icon { display: none; }
+  .site-shell.editorial-page .github-tool-body { grid-column: 2; }
+  .site-shell.editorial-page .github-tool-body h2 { font-size: 24px; overflow-wrap: anywhere; }
+  .site-shell.editorial-page .github-tool-action { grid-column: 2; justify-self: start; }
+  .site-shell.editorial-page .github-build-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-shell.editorial-page .github-build-metric { padding: 16px 8px; }
+  .site-shell.editorial-page .github-build-metric strong { font-size: 22px; overflow-wrap: anywhere; }
+  .site-shell.editorial-page .platform-signal-row { grid-template-columns: 40px minmax(0, 1fr) 18px; }
+  .site-shell.editorial-page .platform-signal-arrow { grid-column: 3; }
+  .site-shell.editorial-page .platform-signal-identity small { display: block; }
+  .site-shell.editorial-page .platform-signal-heading-side { display: none; }
+  .site-shell.editorial-page .community-contact-card { padding: 24px; }
+  .site-shell.editorial-page .blog-article-header { padding: 40px 0; }
+  .site-shell.editorial-page .blog-article-header h1 { font-size: 30px; }
+  .site-shell.editorial-page .blog-article-header > p { font-size: 15px; }
+}

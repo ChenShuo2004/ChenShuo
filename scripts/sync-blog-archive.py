@@ -85,7 +85,7 @@ for relative, slug, category, date, status_id, quality in ARTICLES:
     title = metadata.get("title") or re.search(r"(?m)^#\s+(.+)$", body).group(1)
     excerpt = excerpt_from(body)
     if slug == "personal-review-2026-07":
-        excerpt = "一篇写于 2026 年 7 月的阶段复盘，记录当时的产品尝试、项目起伏与对长期创造的判断。文中个人信息为历史原文，当前介绍以自我介绍页为准。"
+        excerpt = "一篇写于 2026 年 7 月的阶段复盘，记录当时的产品尝试、项目起伏与对长期创造的判断。文中个人信息为历史原文，项目与合作入口请看「业务合作」。"
     archive.append({
         "category": category,
         "date": date.replace("-", "."),

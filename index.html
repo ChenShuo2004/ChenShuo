@@ -6,9 +6,129 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content="陈硕个人介绍网站，AI 连续创业者，关注写作、产品、知识库与信息结构，用信息差和知识整理搭建个人商业系统。" />
     <title>陈硕｜AI 连续创业者｜写作、产品与知识库</title>
+    <!-- Keep the startup screen independent of the app bundle, fonts and images. -->
+    <style>
+      html.site-booting { background: #164a9c; overflow: hidden; }
+      .site-booting #root { visibility: hidden; }
+      .site-loader { position: fixed; inset: 0; z-index: 2147483647; display: flex; height: 100%; height: 100dvh; padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; background: #164a9c; color: #f2eee2; font-family: "PingFang SC", system-ui, sans-serif; transition: opacity 240ms ease; }
+      html[data-site-theme="forest"].site-booting, html[data-site-theme="forest"] .site-loader { background: #244c43; }
+      html[data-site-theme="ink"].site-booting, html[data-site-theme="ink"] .site-loader { background: #252a32; }
+      .site-loader[hidden] { display: none; }
+      .site-loader.is-leaving { opacity: 0; pointer-events: none; }
+      .site-loader-inner { width: min(240px, 100%); flex-shrink: 0; margin: auto; text-align: center; }
+      .site-loader-brand { font-family: Georgia, "Times New Roman", serif; font-size: 72px; line-height: 1; letter-spacing: -.075em; }
+      .site-loader-brand span { color: #e96550; }
+      .site-loader-track { position: relative; height: 1px; margin: 30px 0 20px; overflow: hidden; background: rgba(242, 238, 226, .25); }
+      .site-loader-track::after { position: absolute; inset: 0; content: ""; background: #f2eee2; transform: translateX(-100%); animation: site-loading 1.6s ease-in-out infinite; }
+      .site-loader-message { margin: 0; color: #c7d2e3; font-size: 12px; line-height: 1.8; letter-spacing: .06em; }
+      .site-loader-retry { margin-top: 20px; min-height: 44px; padding: 0 20px; border: 1px solid rgba(242, 238, 226, .4); background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+      .site-loader-retry:focus-visible { outline: 2px solid #f2eee2; outline-offset: 4px; }
+      .site-loader-retry[hidden] { display: none; }
+      .site-loader.is-error .site-loader-track::after { animation: none; transform: none; background: #e96550; }
+      @keyframes site-loading { to { transform: translateX(100%); } }
+      @media (max-width: 480px) { .site-loader-inner { width: min(200px, 100%); } .site-loader-brand { font-size: 64px; } .site-loader-track { margin-top: 24px; } }
+      @media (prefers-reduced-motion: reduce) { .site-loader { transition: none; } .site-loader-track::after { animation: none; transform: none; opacity: .65; } }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="site-loader" class="site-loader" hidden>
+      <div class="site-loader-inner">
+        <div class="site-loader-brand" aria-hidden="true">KAI<span>.</span></div>
+        <div class="site-loader-track" aria-hidden="true"></div>
+        <p id="site-loader-message" class="site-loader-message" role="status" aria-live="polite">正在加载，请稍候</p>
+        <button id="site-loader-retry" class="site-loader-retry" type="button" hidden>重新加载</button>
+      </div>
+    </div>
+    <div id="root" inert aria-busy="true"></div>
+    <script>
+      (() => {
+        const isPublicPage = !window.location.pathname.startsWith("/admin");
+        let english = false;
+        if (isPublicPage) {
+          try {
+            const saved = JSON.parse(localStorage.getItem("kai-site-preferences") || "null");
+            if (["cobalt", "forest", "ink"].includes(saved?.theme)) document.documentElement.dataset.siteTheme = saved.theme;
+            english = saved?.language === "en";
+            document.documentElement.lang = english ? "en" : "zh-CN";
+          } catch (_) { /* Preferences are optional. */ }
+        }
+        const loaderCopy = (chinese, translated) => english ? translated : chinese;
+        document.documentElement.classList.add("site-booting");
+        const loader = document.getElementById("site-loader");
+        const message = document.getElementById("site-loader-message");
+        const retry = document.getElementById("site-loader-retry");
+        let finished = false;
+        let preparing = false;
+        const sessionKey = "kai-site-opened";
+        message.textContent = loaderCopy("正在加载，请稍候", "Loading, please wait");
+        retry.textContent = loaderCopy("重新加载", "Reload");
+        let firstOpen = true;
+        try { firstOpen = sessionStorage.getItem(sessionKey) !== "1"; } catch (_) { /* Storage may be disabled. */ }
+        // Fast visits never flash the loader; subsequent pages in this tab skip it.
+        const showTimer = firstOpen && isPublicPage ? setTimeout(() => {
+          if (!finished) loader.hidden = false;
+        }, 600) : undefined;
+        const slowTimer = setTimeout(() => {
+          message.textContent = loaderCopy("加载较慢，请稍候…", "Still loading, please wait…");
+        }, 8000);
+        const retryTimer = setTimeout(() => {
+          if (loader.hidden) loader.classList.add("is-error");
+          loader.hidden = false;
+          message.textContent = loaderCopy("加载时间较长，可以重试", "Loading is taking longer. You can retry.");
+          retry.hidden = false;
+        }, 20000);
+        retry.addEventListener("click", () => window.location.reload());
+        function fail() {
+          if (finished) return;
+          clearTimeout(showTimer);
+          clearTimeout(slowTimer);
+          clearTimeout(retryTimer);
+          loader.hidden = false;
+          loader.classList.add("is-error");
+          message.textContent = navigator.onLine ? loaderCopy("页面加载失败，请重试", "The page could not load. Please retry.") : loaderCopy("网络已断开，请连接后重试", "You are offline. Reconnect and retry.");
+          retry.hidden = false;
+        }
+        function onResourceError(event) {
+          const target = event.target;
+          if (target instanceof HTMLScriptElement && target.type === "module" ||
+              target instanceof HTMLLinkElement && target.hasAttribute("data-boot-style")) fail();
+        }
+        window.addEventListener("error", onResourceError, true);
+        window.addEventListener("offline", fail);
+        window.__siteBoot = {
+          fail,
+          async ready() {
+            if (finished || preparing) return;
+            preparing = true;
+            // Production CSS loads without blocking the inline startup screen.
+            await Promise.all(Array.from(document.querySelectorAll("link[data-boot-style]"), (link) => {
+              if (link.sheet) return Promise.resolve();
+              return new Promise((resolve) => link.addEventListener("load", resolve, { once: true }));
+            }));
+            // Content is ready now; decorative images must not prolong startup.
+            finished = true;
+            if (isPublicPage) {
+              try { sessionStorage.setItem(sessionKey, "1"); } catch (_) { /* Continue without persistence. */ }
+            }
+            clearTimeout(showTimer);
+            clearTimeout(slowTimer);
+            clearTimeout(retryTimer);
+            window.removeEventListener("error", onResourceError, true);
+            window.removeEventListener("offline", fail);
+            const root = document.getElementById("root");
+            root.removeAttribute("inert");
+            root.removeAttribute("aria-busy");
+            document.documentElement.classList.remove("site-booting");
+            if (loader.hidden) { loader.remove(); return; }
+            loader.setAttribute("aria-hidden", "true");
+            loader.inert = true;
+            loader.classList.add("is-leaving");
+            setTimeout(() => loader.remove(), 260);
+          },
+        };
+      })();
+    </script>
+    <noscript><style>#site-loader { display: none; }</style><p style="color:#f2eee2;background:#164a9c;padding:24px">请启用 JavaScript 后重新打开页面。</p></noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
