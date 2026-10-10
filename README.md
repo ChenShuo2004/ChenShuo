@@ -124,8 +124,8 @@ SUPABASE_SECRET_KEY=
 
 ## 联系我
 
-- Email: [pdqqqylqxx00321@gmail.com](mailto:pdqqqylqxx00321@gmail.com)
-- 微信: `Chen18005977213`
+- Email: [800354@gmail.com](mailto:800354@gmail.com)
+- 微信: `chenshuo8886669`
 - 知识库: [FlowUs 知识库](https://flowus.cn/c712040f-ef98-44b9-b37d-dd187d92fc4d)
 - 产品库: [aiyouwendu.com/products](https://aiyouwendu.com/products)
 

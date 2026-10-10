@@ -1,0 +1,11 @@
+{
+  "asset": "portal-cobalt-v1.webp",
+  "created": "2026-10-10",
+  "method": "Codex built-in imagegen",
+  "usage": "Homepage background",
+  "reference_role": "User-supplied painting used only for palette and atmosphere",
+  "content": "Original cobalt oil-paint texture with smoke, no characters or text",
+  "sha256": "750f45aac13db2cfe247f48bcdcb15aac4db3d8234203bd10751d4db41096ef5",
+  "source_png": "exec-cf51db67-2f21-416f-93dd-58b48029b061.png",
+  "conversion": "cwebp quality 86"
+}

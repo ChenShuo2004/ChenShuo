@@ -1,5 +1,4 @@
 import {
-  ArrowDown,
   ArrowClockwise,
   ArrowRight,
   ArrowUpRight,
@@ -9,12 +8,14 @@ import {
   ChartLineUp,
   CubeFocus,
   CursorClick,
-  EnvelopeSimple,
   Eye,
+  EnvelopeSimple,
   Flame,
   GithubLogo,
   Network,
+  TiktokLogo,
   UsersThree,
+  WechatLogo,
   XLogo,
   UserCircle,
   WarningCircle,
@@ -22,7 +23,9 @@ import {
 } from "@phosphor-icons/react";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import blogArchive from "./data/blogArchive.json";
-import EvilEye from "./EvilEye.jsx";
+import HomePage from "./HomePage.jsx";
+import BrandSignature from "./BrandSignature.jsx";
+import { contactEmail, wechatId } from "./data/contactDetails.js";
 
 const BlogMarkdown = lazy(() => import("./BlogMarkdown.jsx"));
 
@@ -32,6 +35,8 @@ const githubProfileUrl = "https://github.com/ChenShuo2004";
 const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
 const githubReposApiUrl = "https://api.github.com/users/ChenShuo2004/repos?per_page=100&type=owner";
 const xProfileUrl = "https://x.com/ChenshuoAI";
+const communityFee = "499 元 / 人";
+const douyinProfileUrl = "https://www.douyin.com/user/MS4wLjABAAAAUXlQ1xsLrrjEWb3v_k-0orHhnmz0HV-l0KfvqT9SaMtyti9DdR4mMAoIxb4tQi4I";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 const warmSpaceUrl = "https://aiyouwendu.com/home";
 const csBoardRepoUrl = "https://github.com/ChenShuo2004/cs-board";
@@ -83,13 +88,27 @@ const openSourceTools = [
 ];
 
 const editorialNavItems = [
-  { key: "work", label: "在做的事情", english: "WORK", href: "/work" },
+  { key: "work", label: "业务合作", english: "BUSINESS", href: "/work" },
   { key: "community", label: "我的社区", english: "COMMUNITY", href: "/community" },
   { key: "blog", label: "博客", english: "BLOG", href: "/blog" },
   { key: "media", label: "自媒体", english: "MEDIA", href: "/media" },
-  { key: "about", label: "自我介绍", english: "ABOUT", href: "/about" },
   { key: "opensource", label: "开源工具", english: "OPEN SOURCE", href: "/github" },
   { key: "contact", label: "联系我", english: "CONTACT", href: "/#contact" },
+];
+
+const homeEntries = [
+  { href: "/work", label: "业务合作", description: "企业培训 / 商单 / 咨询 / GEO" },
+  { href: "/community", label: "我的社区", description: "WE30 · 500 位成员" },
+  { href: "/media", label: "自媒体", description: "各平台的公开实践" },
+  { href: "/github", label: "开源工具", description: "带走能用的工作流" },
+  { href: "#contact", label: "联系我", description: "交流与业务合作" },
+];
+
+const socialChannels = [
+  { key: "douyin", label: "抖音", detail: "陈硕 KAI · 22802710799", href: douyinProfileUrl, icon: TiktokLogo },
+  { key: "x", label: "X", detail: "@ChenshuoAI", href: xProfileUrl, icon: XLogo },
+  { key: "wechat", label: "微信", detail: wechatId, href: "/community#community-contact", icon: WechatLogo },
+  { key: "email", label: "邮箱", detail: contactEmail, href: `mailto:${contactEmail}`, icon: EnvelopeSimple },
 ];
 
 const blogPosts = [
@@ -121,15 +140,6 @@ const blogPosts = [
       { heading: "用有效咨询检验内容", paragraphs: ["爆款数据很显眼，但做业务时，我更想知道一篇内容带来了多少有效咨询，以及最终获客成本是多少。先用自然流量测试内容和转化，再考虑投放放大已经验证的素材。", "承接方式优先使用平台允许的官方渠道；具体功能和规则会变化，执行时仍需看平台当期规则。"] },
     ],
   },
-  {
-    category: "创业复盘",
-    date: "2026.08.10",
-    title: "我的 AI 创业复盘：从 AI 绘本到 YouTube，再到知识产品",
-    excerpt: "把做过的项目、停掉的尝试和下一阶段的判断放到一起。站内整理了完整章节与相关截图，也保留了 X 原帖入口。",
-    href: "/about#review",
-    originalUrl: "https://x.com/ChenshuoAI/status/2086710313219727862",
-    source: "站内全文 · X 连帖整理",
-  },
   ...blogArchive,
 ].sort((a, b) => b.date.localeCompare(a.date));
 
@@ -153,17 +163,6 @@ function usePublicReadership() {
 
 function formatReadershipStart(value) {
   return value ? new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(value)) : "";
-}
-
-function SiteReadership() {
-  const { data, error } = usePublicReadership();
-  return (
-    <div className="site-readership editorial-reveal" aria-live="polite">
-      <span>VISITORS / 站内记录</span>
-      <strong>{data ? formatNumber(data.visitors) : "—"}</strong>
-      <small>{data ? `位独立浏览器访客 · 自 ${formatReadershipStart(data.firstRecordedAt)} 起` : error ? "统计暂不可用" : "正在读取统计"}</small>
-    </div>
-  );
 }
 
 const knowledgeOriginIntro = [
@@ -243,117 +242,23 @@ const projects = [
   },
   {
     title: "1 对 1 咨询",
-    tag: "咨询服务",
+    tag: "个人 / 企业咨询",
     icon: CalendarBlank,
     metric: "999 元 / 小时",
     action: "wechat",
     description:
-      "针对 AI 变现、内容增长、产品与知识库的一对一咨询，999 元 / 小时；扫码添加微信预约。",
+      "面向个人与企业，围绕 AI 落地、商业变现、内容增长、产品与知识库提供一对一咨询，999 元 / 小时；添加微信预约。",
+  },
+  {
+    title: "GEO 服务",
+    tag: "AI 搜索优化",
+    icon: Network,
+    metric: "品牌诊断 / 内容优化 / 可见性跟踪",
+    action: "wechat",
+    description:
+      "面向企业与品牌，提供 AI 搜索内容诊断、网站与知识内容优化、可见性跟踪；添加微信沟通需求与合作方案。",
   },
 ];
-
-const aboutIntro = [
-  "我是陈硕（KAI），AI 连续创业者，也是“国家一级写作专家”（自封）。目前在厦门带着团队，探寻 AI 时代下属于普通人的财富自由之路。",
-  "主线聚焦 AI 产品、内容与知识库；支线延伸到跨境、YouTube（数亿播放）与 Crypto，本人也是忠实的 BTC / ETH 持有者。",
-  "现在以「一个持续生长的知识产品空间」为核心重新起航：把工具库、阅览室和知识地图连接起来，沉淀可复用、可商业化的系统，并组建 WE30，把真正想做事的人聚在一起。",
-];
-
-const personalReviewLede = [
-  "上一篇关于我在 YouTube 上做橘猫账号矩阵、跑创作者收益和音乐商单，三个月两万刀的帖子爆了，说实话我自己也挺意外的。",
-  "我参与过的 AI 变现项目还有：AI 漫剧红果打通（已成型，外包给别的团队）、AI 绘本 / 毕业设计 / 接单服务的矩阵账号打法（已停止，人工成本高）、帮厦门一家跨境电商做虾皮的 AI 自动化系统（已落地）、车企服务内容（已与理想汽车建连，仍在推进）、以及 web3 撸毛项目（我本人是忠实的 BTC / ETH 持有者）。",
-  "所以我干脆写一篇真正全面的复盘，给在 X 上和我一样努力追赶 AI 时代的同行者们。",
-];
-
-const personalReviewChapters = [
-  {
-    index: "01",
-    title: "从做推特说起",
-    paragraphs: [
-      "我做推特有 20 天了，但本身还有业务在跑，没花太多时间。之前更多是零碎地追热点，看到什么火就用 AI 修饰一下发出去。",
-      "但我发现效果并不好——X 上同质化内容太严重，一个热点出来，大量人抄、推广、输出。我不是一个喜欢不断追热点尝试的人，25 年刚接触 AI 时我就吃过这种亏：天天玩不同玩法，却没有任何产出。",
-    ],
-  },
-  {
-    index: "02",
-    title: "最早的接触：从孙哥的播客开始",
-    paragraphs: [
-      "我第一次了解推特，是初中时听孙哥的《90 后财富自由之路》，迷茫的时候我到现在还会翻出来听。",
-      "印象最深的几点：30 岁之前不急着买房、买车、结婚，积极探索 web3，多接收海外信息。那时年纪小、本金有限，很多潮流没赶上，但我确实认真听完了大部分播客。",
-    ],
-    image: "/assets/review/review-podcast.jpg",
-    imageCaption: "孙宇晨《财富自由革命之路》—— 至今仍存在网盘里，迷茫时会翻出来重听的播客合集。",
-  },
-  {
-    index: "03",
-    title: "梦想的开始：高中的创业之路",
-    paragraphs: [
-      "高中之后我真正从学校里脱离出来，一开始去了 web3 领域。",
-      "帮着做撸毛——发账号矩阵、加上算法动作去撸代币，当时做的是 Farcaster，拿到了一些结果。这部分放到现在已经比较过时了。",
-    ],
-  },
-  {
-    index: "04",
-    title: "AI 旅途第一站：AI 绘本",
-    paragraphs: [
-      "我做的第一个 AI 变现项目是 AI 绘本，打法还是老路子：账号矩阵，客服统一导到同一个微信私域，然后输出 AI 绘本。",
-      "但闲鱼上买家认知其实特别高，很挑。我们 24 页一份报价 700-800，实际普遍 300 左右成交。哪怕堆了 20 多个账号，收益也不高，因为需要多次审稿，人工费用高。",
-    ],
-    image: "/assets/review/review-xianyu.jpg",
-    imageCaption: "闲鱼 AI 绘本 / 代画店铺：账号矩阵陆续成交，店铺累计显示「赚了 95,626 元」。",
-  },
-  {
-    index: "05",
-    title: "第二站：YouTube 橘猫账号矩阵",
-    paragraphs: [
-      "于是转到下一个赛道——YPP，也就是 YouTube Partner Program，这就是我上一篇写的油管账号矩阵打法，三个月做到两万刀。",
-      "当时做的 YouTube 直播推流工具现在已经开源，认真去弄月入百刀还是可以的（缺点是比较累、耗时间，我就没继续做）。",
-    ],
-    image: "/assets/review/review-youtube.jpg",
-    imageCaption: "YouTube「potato」橘猫频道：6.49 万订阅、134 条视频，跑创作者收益与音乐商单。",
-  },
-  {
-    index: "06",
-    title: "补充：token 生意与代充服务的判断",
-    paragraphs: [
-      "再往后考虑过 token 生意和代充服务，但和我的愿景价值观不太符合，没有好背书体量也起不来，而且更多是和企业合作。",
-      "AI 中转站本质上就是挖矿，个人玩启动成本高、还要考虑分销和封号补号；代充更多是打信息差。想在 AI 时代拿大结果，没必要在这上面浪费太多时间。",
-    ],
-    image: "/assets/review/review-okx.jpg",
-    imageCaption: "早期接触过的交易所 VIP / 代充信息差生意——研究过，但没作为主线去做。",
-  },
-  {
-    index: "07",
-    title: "关于推特运营的反思",
-    paragraphs: [
-      "我 24 年高中毕业就注册了推特，但那时更多是看客。现在 26 年，我有强烈预感——今年可能是推特、或者说个人 IP 创作真正的元年。",
-      "这个愿景驱动着我，让我必须做一个真实的推特账号，分享真正的阅历和经验。",
-    ],
-  },
-  {
-    index: "08",
-    title: "个人习惯：复盘、第二大脑与健康",
-    paragraphs: [
-      "我看到一些人用 Obsidian 做第二大脑，更好地进行内容输出，有了 AI 之后很多想法和思路可以更好地推进。",
-      "这一年创业干得太猛，体重从 140 飙到 170 斤，所以我准备用 Whoop 搭一套个人健康系统——身体才是革命的本钱。我现在尽量每天做日复盘，还有周复盘、月复盘，后面会考虑用飞书知识库或 GitHub 仓库公开出来。",
-    ],
-    image: "/assets/review/review-knowledge.jpg",
-    imageCaption: "抬光 · Everlight AI 团队知识库：把日常待办、会议记录、团队 SOP 与复盘沉淀成结构。",
-  },
-  {
-    index: "09",
-    title: "结语",
-    paragraphs: [
-      "2026 年，我觉得是陈硕 X 之路的元年。我会继续在推特上分享过去做出来的结果，以及现在业务的一些支线展开。",
-      "慢慢来，一切都会更好。祝你我在 AI 这个波澜壮阔的时代，都能得到自己想要的结果。",
-    ],
-    isSummary: true,
-  },
-];
-
-function scrollToSection(event, href) {
-  event.preventDefault();
-  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-}
 
 function useEditorialReveal() {
   useEffect(() => {
@@ -422,13 +327,7 @@ function useEditorialReveal() {
 function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "加入社区", actionHref = "/community", inHero = false }) {
   return (
     <header className={`editorial-site-header editorial-reveal ${inHero ? "editorial-site-header-hero" : ""}`}>
-      <a className="editorial-site-brand" href="/" aria-label="返回陈硕个人网站首页">
-        <span className="editorial-site-brand-mark">CS</span>
-        <span className="editorial-site-brand-copy">
-          <strong>CHEN SHUO</strong>
-          <small>{sectionLabel}</small>
-        </span>
-      </a>
+      <BrandSignature caption={sectionLabel} />
 
       <nav className="editorial-site-nav" aria-label="站点导航">
         {editorialNavItems.map((item) => (
@@ -631,6 +530,17 @@ function PlatformSignalsSection() {
       bars: [7, 9, 11, 13, 15, 16, 18],
     },
     {
+      key: "douyin",
+      label: "DOUYIN / KAI",
+      name: "陈硕 KAI（30w 粉速通版）",
+      detail: "抖音号 22802710799 · AI 实践 / 代码动画",
+      value: "公开创作",
+      status: "LIVE",
+      icon: TiktokLogo,
+      href: douyinProfileUrl,
+      bars: [5, 8, 10, 12, 14, 16, 18],
+    },
+    {
       key: "youtube",
       label: "YOUTUBE / CHANNEL MATRIX",
       name: "YouTube 频道矩阵",
@@ -638,7 +548,7 @@ function PlatformSignalsSection() {
       value: "30万+ 订阅",
       status: "PROOF",
       icon: YoutubeLogo,
-      pageHref: "/about#review",
+      pageHref: "/blog/personal-review-2026-07",
       bars: [10, 12, 14, 16, 18, 20, 22],
     },
     {
@@ -669,7 +579,7 @@ function PlatformSignalsSection() {
       label: "COMMUNITY / AI",
       name: "全国 AI 社区",
       detail: "AI / 内容 / 产品",
-      value: "开放加入",
+      value: "500 位成员",
       status: "OPEN",
       icon: UserCircle,
       href: "/community",
@@ -688,7 +598,7 @@ function PlatformSignalsSection() {
           </div>
           <div className="platform-signal-heading-side">
             <span>LIVE / OPEN</span>
-            <p>X、YouTube、知识库、开源项目和 AI 社群，构成同一条公开增长轨道。</p>
+            <p>X、抖音、YouTube、知识库、开源项目和 AI 社群，构成同一条公开增长轨道。</p>
           </div>
         </div>
 
@@ -773,10 +683,10 @@ function BlogArticlePage({ post }) {
         )}
         <footer className="blog-article-footer">
           <p>{isFullText ? "本文取自已发布文章的本地正文归档。发布后的修改与讨论请以 X 原帖为准。" : post.source === "公开镜像归档" ? "本文依据公开镜像可见内容归档；原帖内容与后续更新请以 X 为准。" : "这是根据已发布内容整理的站内版本，完整细节与后续更新请以 X 原帖为准。"}</p>
-          {post.href === "/blog/personal-review-2026-07" && <p>这篇历史复盘保留了写作时的个人信息；当前定位请看<a href="/about">自我介绍</a>。</p>}
+          {post.href === "/blog/personal-review-2026-07" && <p>这篇历史复盘保留了写作时的个人信息；项目与合作入口请看<a href="/work">业务合作</a>。</p>}
           <div>
             <a href={post.originalUrl} target="_blank" rel="noreferrer">打开 X 原帖 <ArrowUpRight size={17} weight="bold" aria-hidden="true" /></a>
-            <a href="/work">看我正在做的事 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
+            <a href="/work">了解业务合作 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
             <a href="/community">了解 WE30 社区 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
           </div>
         </footer>
@@ -852,12 +762,12 @@ function BlogPage() {
               <span>02 / AUTHOR</span>
               <strong>陈硕 KAI</strong>
               <p>AI 连续创业者。现在主要做 AI 产品、内容、知识库与社区，喜欢把做过的事和踩过的坑公开写出来。</p>
-              <a href="/about">了解我 <ArrowRight size={16} weight="bold" aria-hidden="true" /></a>
+              <a href={xProfileUrl} target="_blank" rel="noreferrer">在 X 上关注我 <ArrowUpRight size={16} aria-hidden="true" /></a>
             </div>
             <div className="blog-aside-card blog-next-card">
               <span>03 / KEEP EXPLORING</span>
               <h2>读完以后，<br />来看看我在做什么。</h2>
-              <a href="/work">在做的事情 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
+              <a href="/work">业务合作 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
               <a href="/community">加入 WE30 社区 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
               <a href="/#contact">联系我 <ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
             </div>
@@ -875,12 +785,12 @@ function WorkPage() {
 
   return (
     <main className="site-shell editorial-page editorial-work-page">
-      <EditorialSiteHeader activeKey="work" sectionLabel="WORK / 在做的事情" actionLabel="联系我" actionHref="/#contact" />
-      <section className="editorial-projects-section editorial-page-section" id="work" aria-label="在做的事情">
+      <EditorialSiteHeader activeKey="work" sectionLabel="BUSINESS / 业务合作" actionLabel="联系我" actionHref="/#contact" />
+      <section className="editorial-projects-section editorial-page-section" id="work" aria-label="业务合作">
         <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
-          <p className="section-kicker">WHAT I'M DOING / 在做的事情</p>
-          <h2>在做的事情</h2>
-          <p>产品、内容与社区，还有企业培训和商单合作。工具库、阅览室、知识地图从有温度空间进入，连成一个持续生长的 AI 空间。</p>
+          <p className="section-kicker">BUSINESS / 业务合作</p>
+          <h2>业务合作</h2>
+          <p>面向个人与企业，提供企业培训、内容商单、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，具体合作形式可添加微信沟通。</p>
         </div>
         <div className="hero-system-frame">
           <div className="hero-project-list">
@@ -943,8 +853,8 @@ function WorkPage() {
             <p>WECHAT / CONSULT</p>
             <h2 id="wechat-consult-title">扫码添加微信咨询</h2>
             <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
-            <strong>Chen18005977213</strong>
-            <span>添加时请备注：姓名 + 需求类型 + 具体问题。例如：企业培训 / 商单合作 / 1 对 1 咨询。</span>
+            <strong>{wechatId}</strong>
+            <span>添加时请备注：姓名 + 需求类型 + 具体问题。例如：企业培训 / 商单合作 / 1 对 1 咨询 / GEO 服务。</span>
           </section>
         </div>
       )}
@@ -957,90 +867,6 @@ function MediaPage() {
     <main className="site-shell editorial-page editorial-media-page">
       <EditorialSiteHeader activeKey="media" sectionLabel="MEDIA / SIGNALS" actionLabel="联系我" actionHref="/#contact" />
       <PlatformSignalsSection />
-    </main>
-  );
-}
-
-function AboutPage() {
-  return (
-    <main className="site-shell editorial-page editorial-about-page">
-      <EditorialSiteHeader activeKey="about" sectionLabel="ABOUT / 自我介绍" actionLabel="联系我" actionHref="/#contact" />
-
-      <section className="editorial-detail-hero editorial-about-hero" id="top" aria-label="自我介绍">
-        <div className="editorial-detail-copy editorial-reveal" data-reveal-delay="80">
-          <p className="editorial-page-kicker"><span>01</span> ABOUT / AI MEDIA BUILDER</p>
-          <h1>自我介绍</h1>
-          <div className="editorial-detail-description about-intro-copy">
-            {aboutIntro.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <div className="editorial-detail-actions">
-            <a className="editorial-outline-action editorial-outline-action-fill" href={xProfileUrl} target="_blank" rel="noreferrer">
-              在 X 上关注我
-              <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-            <a className="editorial-outline-action" href="/#contact">联系我</a>
-          </div>
-        </div>
-
-        <figure className="platform-signal-about-portrait editorial-about-portrait editorial-reveal" data-reveal-delay="180">
-          <span className="platform-about-mark platform-about-mark-top-left">AI MEDIA / BUILDER</span>
-          <span className="platform-about-mark platform-about-mark-top-right">ID // KAI</span>
-          <span className="platform-about-mark platform-about-mark-bottom-left">FOCUS / CONTENT · PRODUCT · KNOWLEDGE</span>
-          <span className="platform-about-mark platform-about-mark-bottom-right">EST. 2023</span>
-          <span className="platform-about-cross platform-about-cross-top-left" aria-hidden="true" />
-          <span className="platform-about-cross platform-about-cross-top-right" aria-hidden="true" />
-          <span className="platform-about-cross platform-about-cross-bottom-left" aria-hidden="true" />
-          <span className="platform-about-cross platform-about-cross-bottom-right" aria-hidden="true" />
-          <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" loading="lazy" decoding="async" />
-        </figure>
-      </section>
-
-      <section className="knowledge-section editorial-article-section" id="review" aria-label="个人复盘">
-        <div className="knowledge-inner">
-          <div className="knowledge-title-frame editorial-reveal" data-reveal-delay="80">
-            <span className="editorial-index-stamp">REVIEW / 复盘</span>
-            <p className="section-kicker">PERSONAL REVIEW / 个人复盘</p>
-            <h2>《个人复盘连帖》</h2>
-            <div className="knowledge-title-copy">
-              {personalReviewLede.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-              <figure className="review-figure review-figure-portrait">
-                <img src="/assets/review/review-ideal.jpg" alt="理想汽车用户运营组主动建联的微信记录" loading="lazy" decoding="async" />
-                <figcaption>与理想汽车建联：理想总部用户运营组主动私信，期待长期合作（仍在推进）。</figcaption>
-              </figure>
-            </div>
-            <a className="knowledge-title-link" href="https://x.com/ChenshuoAI/status/2086710313219727862" target="_blank" rel="noreferrer">
-              阅读 X 原帖
-              <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-          </div>
-
-          <div className="knowledge-origin-grid">
-            {personalReviewChapters.map((chapter) => (
-              <article
-                className={`knowledge-origin-card editorial-reveal ${chapter.isSummary ? "knowledge-origin-card-summary" : ""}`}
-                data-reveal-delay={`${Math.min(Number(chapter.index) * 70, 420)}`}
-                key={chapter.index}
-              >
-                <span>{chapter.index}</span>
-                <h3>{chapter.title}</h3>
-                {chapter.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                {chapter.image && (
-                  <figure className="review-figure">
-                    <img src={chapter.image} alt={chapter.imageCaption || chapter.title} loading="lazy" decoding="async" />
-                    {chapter.imageCaption && <figcaption>{chapter.imageCaption}</figcaption>}
-                  </figure>
-                )}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
@@ -1196,7 +1022,7 @@ function EditorialCollectionPage({
               {actionLabel}
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
-            <a className="editorial-outline-action" href="/#projects">返回产品空间</a>
+            <a className="editorial-outline-action" href="/work">返回业务合作</a>
           </div>
         </div>
         <aside className="editorial-spec-sheet editorial-reveal" data-reveal-delay="180" aria-label={`${title}页面规格信息`}>
@@ -1271,19 +1097,15 @@ function CommunityPage() {
         <div className="community-manifesto editorial-reveal" data-reveal-delay="60">
           <div>
             <p className="community-story-kicker">WE30 / AI / CREATION</p>
+            <p className="community-member-count"><strong>500</strong> 位成员，一起做事。</p>
             <h1>把想做事的人，聚在一起。</h1>
           </div>
           <div className="community-manifesto-copy">
-            <p className="community-manifesto-lede">我是陈硕，00 后，目前在厦门。现在认真做一件事：把真正想做 AI 创作、做产品、做业务的人，聚在一起。</p>
+            <p className="community-manifesto-lede">WE30 现在有 500 位成员，面向已跑通商业闭环并拿到结果的 00 后，以及有认知、有思考、已拿到一定结果的人群。围绕 AI 创作、产品与业务交流，分享实践与真实经验。</p>
             <div className="community-manifesto-routes" aria-label="社区入口">
               <a href="#community-contact">
-                <span>01 / CORE</span>
-                <strong>核心群：299 元门槛费，并有一技之长</strong>
-                <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a href="#community-contact">
-                <span>02 / MAIN GROUP</span>
-                <strong>大群：全平台自媒体粉丝 1 万以上，或有特长</strong>
+                <span>WE30 / COMMUNITY</span>
+                <strong>加入 WE30：{communityFee}，需满足入群门槛</strong>
                 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </div>
@@ -1291,65 +1113,38 @@ function CommunityPage() {
         </div>
 
         <div className="community-story editorial-reveal" data-reveal-delay="100">
-          <p>WE30 只设核心群和大群。核心群需要支付门槛费，并有一技之长；大群面向有自媒体积累或明确特长的人。两个群都希望成员愿意交流业务、分享认知与真实经验。</p>
-          <p>这段时间，我一边做 AI 产品和内容工作流，一边在 X 上持续输出、连接同行。一个月里有 5 条商单找来，我只接了一条 GitHub 的合作，因为现在更想先把社区、内容和 AI 业务的基础盘搭好。</p>
-          <p>上周，WE30 核心群的言溪来厦门找我。他过着旅居生活，准备在厦门住一段时间。我带他来公司转了转，也聊了很多内容、产品和年轻人做事的状态。一个人很多时候不是不够努力，而是缺少一个能让自己持续向上的环境。希望 WE30 能慢慢成为这样的地方。</p>
+          <p>在同一个社群里交流业务、分享认知与实践，把有价值的方法沉淀下来。</p>
         </div>
 
         <div className="community-program-grid" aria-label="WE30 社区结构">
           <article className="community-program community-program-we30 editorial-reveal" data-reveal-delay="130">
             <div className="community-program-topline">
-              <p className="community-story-kicker">01 / WE30 CORE</p>
+              <p className="community-story-kicker">WE30 / COMMUNITY</p>
               <span>DEEP CONNECTION</span>
             </div>
-            <h2>WE30<br />核心群</h2>
-            <p className="community-program-lede">更小、更深的内部连接，围绕业务、产品和内容持续交流。申请核心群需要同时满足两项条件：支付 299 元门槛费，并有一技之长。</p>
+            <h2>WE30 社群</h2>
+            <p className="community-program-lede">围绕业务、产品和内容持续交流。入群费用为 {communityFee}；同时需满足以下两类人群中的任意一类。</p>
             <div className="community-program-details">
               <div>
-                <span>ENTRY REQUIREMENT / 01</span>
-                <p>门槛费：299 元。</p>
+                <span>入群费用</span>
+                <p>入群费用：{communityFee}。</p>
               </div>
               <div>
-                <span>ENTRY REQUIREMENT / 02</span>
-                <p>有一技之长；申请时说明擅长什么，以及相关经历或作品。两项条件需同时满足。</p>
+                <span>入群门槛 / 二选一</span>
+                <p><strong>00 后商业实践者</strong>：已经跑通商业闭环，并拿到实际结果。</p>
+                <p><strong>有认知、有思考的人群</strong>：有自己的判断，愿意独立思考、深入交流，并已拿到一定的实际结果。</p>
               </div>
             </div>
-            <div className="community-program-proof" aria-label="WE30 核心群内容">
+            <div className="community-program-proof" aria-label="WE30 社群内容">
               <span>WHAT HAPPENS HERE</span>
               <p>做业务分享、会议复盘与产品讨论，把有价值的方法沉淀下来。</p>
             </div>
             <a className="community-program-link" href="#community-contact">
-              申请加入核心群
+              申请加入 WE30
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </article>
 
-          <article className="community-program community-program-main editorial-reveal" data-reveal-delay="200">
-            <div className="community-program-topline">
-              <p className="community-story-kicker">02 / WE30 MAIN GROUP</p>
-              <span>CREATORS + TALENT</span>
-            </div>
-            <h2>WE30<br />大群</h2>
-            <p className="community-program-lede">面向有自媒体积累或有特长的创作者、实践者。满足以下任一条件即可申请：全平台自媒体粉丝达到 1 万以上，或有能够说明的特长。</p>
-            <div className="community-program-details">
-              <div>
-                <span>ENTRY OPTION / 01</span>
-                <p>全平台自媒体粉丝达到 1 万以上；申请时提供账号与粉丝情况。</p>
-              </div>
-              <div>
-                <span>ENTRY OPTION / 02</span>
-                <p>有明确特长；申请时说明擅长什么，以及相关经历或作品。</p>
-              </div>
-            </div>
-            <div className="community-program-proof" aria-label="WE30 大群申请条件">
-              <span>EITHER ONE IS ENOUGH</span>
-              <p>粉丝条件与特长条件二选一；加微信时请注明申请大群和对应情况。</p>
-            </div>
-            <a className="community-program-link" href="#community-contact">
-              申请加入大群
-              <ArrowRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-          </article>
         </div>
 
         <section className="community-boundary editorial-reveal" data-reveal-delay="270" aria-label="社区共同边界">
@@ -1371,29 +1166,29 @@ function CommunityPage() {
       <section className="community-access-section" id="community-contact" aria-label="加入社区咨询">
         <div className="community-access-inner editorial-reveal" data-reveal-delay="100">
           <div className="community-copy">
-            <p className="section-kicker">WE30 / CORE / MAIN GROUP</p>
+            <p className="section-kicker">WE30 / COMMUNITY</p>
             <h1>加入社区</h1>
             <p className="community-lede">
-              加我微信，备注姓名、申请核心群或大群，以及对应的申请条件。
+              加我微信，备注姓名、申请加入 WE30、符合哪类门槛，以及你的思考与实际成果。
               <br />
               未备注清楚，无法判断申请；不备注，不通过。
             </p>
             <a className="community-back-link" href="/#top">
-              回到首页了解我
+              回到首页
               <ArrowRight size={18} weight="bold" aria-hidden="true" />
             </a>
           </div>
           <aside className="community-contact-card" aria-label="加入社区咨询">
             <span>COMMUNITY / CONTACT</span>
             <h2>添加微信咨询</h2>
-            <p>扫码加微信请备注：姓名 + 申请群（核心群 / 大群）+ 对应情况。申请核心群请说明自己的一技之长和相关经历或作品；申请大群请提供自媒体账号及粉丝数，或说明特长与相关经历。不备注不通过。</p>
+            <p>入群费用为 {communityFee}。扫码加微信请备注：姓名 + 申请加入 WE30 + 符合哪类门槛 + 思考与实际成果。00 后商业实践者请说明已跑通的商业闭环和实际结果；认知与思考类申请者请分享自己的判断、思考，以及已经拿到的实际结果。不备注不通过。</p>
             <figure className="community-qr">
               <img src="/assets/community-wechat-qr.jpg" alt="陈硕 KAI 的微信咨询二维码" />
               <figcaption>SCAN TO CONNECT</figcaption>
             </figure>
             <div className="community-wechat" aria-label="社区微信号">
               <span>微信号</span>
-              <strong>Chen18005977213</strong>
+              <strong>{wechatId}</strong>
             </div>
           </aside>
         </div>
@@ -2046,9 +1841,7 @@ export function App() {
     document.querySelector('meta[name="description"]')?.setAttribute("content", blogArticle?.excerpt || "陈硕 KAI 的博客：AI 产品、内容增长与创业复盘。阅读来自 X 的真实文章，并了解正在做的项目与 WE30 社区。");
   }, [normalizedPath, blogArticle]);
   useEffect(() => {
-    if (normalizedPath !== "/about" || window.location.hash !== "#review") return;
-    const frame = window.requestAnimationFrame(() => document.getElementById("review")?.scrollIntoView());
-    return () => window.cancelAnimationFrame(frame);
+    if (normalizedPath === "/about") window.history.replaceState(null, "", "/");
   }, [normalizedPath]);
   usePageViewTracking(normalizedPath);
   useClickTracking();
@@ -2063,7 +1856,6 @@ export function App() {
   const isWorkPage = normalizedPath === "/work";
   const isMediaPage = normalizedPath === "/media";
   const isBlogPage = normalizedPath === "/blog";
-  const isAboutPage = normalizedPath === "/about";
   const isAdminPage = normalizedPath === "/admin";
   if (isAdminPage) {
     return <AdminPage />;
@@ -2083,10 +1875,6 @@ export function App() {
 
   if (blogArticle) {
     return <BlogArticlePage post={blogArticle} />;
-  }
-
-  if (isAboutPage) {
-    return <AboutPage />;
   }
 
   if (isKnowledgeBasePage) {
@@ -2113,169 +1901,5 @@ export function App() {
     return <CommunityPage />;
   }
 
-  return (
-    <main className="site-shell">
-      <section className="hero editorial-hero" id="top" aria-label="陈硕个人介绍">
-        <div className="editorial-hero-guides" aria-hidden="true">
-          <span className="editorial-guide editorial-guide-left" />
-          <span className="editorial-guide editorial-guide-center" />
-          <span className="editorial-guide editorial-guide-right" />
-        </div>
-
-        <EditorialSiteHeader inHero activeKey="home" sectionLabel="AI / CONTENT / PRODUCT" />
-
-        <div className="editorial-hero-eye" aria-hidden="true">
-          <EvilEye
-            eyeColor="#FF744C"
-            intensity={1.25}
-            glowIntensity={0.28}
-            scale={0.78}
-            noiseScale={1.05}
-            flameSpeed={0.85}
-            backgroundColor="#F4F0E8"
-          />
-        </div>
-
-        <div className="editorial-hero-inner">
-          <div className="editorial-hero-copy">
-            <h1 className="editorial-reveal" data-reveal-delay="140">KAI</h1>
-            <p className="editorial-kicker editorial-reveal" data-reveal-delay="80"><span aria-hidden="true" />打造全国最大的 AI 社群</p>
-            <p className="editorial-bio editorial-reveal" data-reveal-delay="290">
-              我是陈硕，AI 连续创业者，YouTube 斩获过数十亿流量，Web3 早期项目曾突破 8 位数收入。
-            </p>
-            <div className="editorial-actions editorial-reveal" data-reveal-delay="360" aria-label="主要入口">
-              <a href="/work">
-                在做的事情
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a href="/community">
-                我的社区
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a href="/media">
-                自媒体
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a href="/about">
-                自我介绍
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a href="/github">
-                开源工具
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-              <a href="#contact" onClick={(event) => scrollToSection(event, "#contact")}>
-                联系我
-                <ArrowRight size={18} weight="bold" aria-hidden="true" />
-              </a>
-            </div>
-            <a className="editorial-blog-link editorial-reveal" data-reveal-delay="420" href="/blog">
-              <span>新开了一页写作档案 / BLOG</span>
-              <strong>读我的博客</strong>
-              <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-            <SiteReadership />
-          </div>
-
-          <figure className="editorial-portrait editorial-reveal" data-reveal-delay="200">
-            <img src="/assets/chen-shuo-halftone.png" alt="陈硕半色调肖像" fetchPriority="high" decoding="async" />
-          </figure>
-        </div>
-
-        <a className="editorial-scroll editorial-reveal" data-reveal-delay="440" href="#contact" onClick={(event) => scrollToSection(event, "#contact")}>
-          <span>SCROLL TO EXPLORE</span>
-          <ArrowDown size={17} weight="bold" aria-hidden="true" />
-        </a>
-      </section>
-
-      <section className="contact-section" id="contact">
-        <div className="contact-inner">
-          <div className="contact-hero editorial-reveal" data-reveal-delay="60">
-            <p className="section-kicker">GET IN TOUCH / 联系</p>
-            <h2>Let's talk.</h2>
-            <p className="contact-lede">聊聊 AI、内容，或者一起搞点事情。</p>
-            <p className="contact-availability">
-              <span aria-hidden="true" />
-              当前开放合作 · Available
-            </p>
-          </div>
-
-          <div className="contact-marquee editorial-reveal" data-reveal-delay="120" aria-hidden="true">
-            <div className="contact-marquee-track">
-              <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
-              <span>一个持续生长的知识产品空间 · AI 社群 · 内容资产 · build in public · </span>
-            </div>
-          </div>
-
-          <div className="contact-grid" aria-label="联系陈硕">
-            <a href="mailto:pdqqqylqxx00321@gmail.com" className="contact-channel editorial-reveal" data-reveal-delay="180">
-              <span className="contact-channel-top">
-                <span className="contact-channel-label">EMAIL</span>
-                <EnvelopeSimple size={18} weight="regular" aria-hidden="true" />
-              </span>
-              <strong>pdqqqylqxx00321@gmail.com</strong>
-              <span className="contact-channel-meta">
-                直接邮件联系
-                <ArrowRight size={18} weight="regular" aria-hidden="true" />
-              </span>
-            </a>
-
-            <a href={xProfileUrl} className="contact-channel editorial-reveal" data-reveal-delay="250" target="_blank" rel="noreferrer">
-              <span className="contact-channel-top">
-                <span className="contact-channel-label">X / TWITTER</span>
-                <XLogo size={18} weight="regular" aria-hidden="true" />
-              </span>
-              <strong>通过 X 交流</strong>
-              <span className="contact-channel-meta">
-                公开动态 / DM
-                <ArrowRight size={18} weight="regular" aria-hidden="true" />
-              </span>
-            </a>
-
-            <a href={knowledgeBaseUrl} className="contact-channel editorial-reveal" data-reveal-delay="320" target="_blank" rel="noreferrer">
-              <span className="contact-channel-top">
-                <span className="contact-channel-label">KNOWLEDGE BASE</span>
-                <Brain size={18} weight="regular" aria-hidden="true" />
-              </span>
-              <strong>打开知识库</strong>
-              <span className="contact-channel-meta">
-                Feishu / Structure
-                <ArrowRight size={18} weight="regular" aria-hidden="true" />
-              </span>
-            </a>
-
-            <a href="/community#community-contact" className="contact-channel editorial-reveal" data-reveal-delay="390">
-              <span className="contact-channel-top">
-                <span className="contact-channel-label">WECHAT / 社群</span>
-                <UserCircle size={18} weight="regular" aria-hidden="true" />
-              </span>
-              <strong>Chen18005977213</strong>
-              <span className="contact-channel-meta">
-                微信咨询 / 加入社区
-                <ArrowRight size={18} weight="regular" aria-hidden="true" />
-              </span>
-            </a>
-
-            <a href="/about" className="contact-channel editorial-reveal" data-reveal-delay="450">
-              <span className="contact-channel-top">
-                <span className="contact-channel-label">ABOUT / 复盘</span>
-                <BookOpenText size={18} weight="regular" aria-hidden="true" />
-              </span>
-              <strong>读我的自我介绍与复盘</strong>
-              <span className="contact-channel-meta">
-                我是谁 / 做过什么
-                <ArrowRight size={18} weight="regular" aria-hidden="true" />
-              </span>
-            </a>
-          </div>
-
-          <div className="contact-footer-line editorial-reveal" data-reveal-delay="460">
-            <span>CHEN SHUO / KAI</span>
-            <a href="#top" onClick={(event) => scrollToSection(event, "#top")}>回到顶部 ↑</a>
-            <span>AI · CONTENT · PRODUCT</span>
-          </div>
-        </div>
-      </section>
-    </main>
-  );
+  return <HomePage entries={homeEntries} channels={socialChannels} knowledgeBaseUrl={knowledgeBaseUrl} xProfileUrl={xProfileUrl} />;
 }

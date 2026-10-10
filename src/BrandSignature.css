@@ -1,0 +1,37 @@
+.brand-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  min-height: 44px;
+  width: fit-content;
+  color: #f2eee2;
+  text-decoration: none;
+}
+.brand-wordmark {
+  flex-shrink: 0;
+  font-family: var(--font-editorial-serif);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.065em;
+}
+.brand-wordmark > span { color: #e96550; }
+.brand-copy {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding-left: 16px;
+  border-left: 1px solid rgba(242, 238, 226, .25);
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+}
+.brand-copy strong { font-size: 10px; font-weight: 500; line-height: 1.2; letter-spacing: .2em; white-space: nowrap; }
+.brand-copy small { color: #c7d2e3; font-size: 8px; font-weight: 400; line-height: 1.5; letter-spacing: .08em; }
+.brand-signature:hover .brand-copy strong { color: #fff; }
+@media (max-width: 600px) {
+  .brand-signature { gap: 11px; }
+  .brand-wordmark { font-size: 30px; }
+  .brand-copy { gap: 5px; padding-left: 11px; }
+  .brand-copy strong { font-size: 9px; letter-spacing: .14em; }
+  .brand-copy small { font-size: 7px; }
+}
