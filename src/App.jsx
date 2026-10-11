@@ -99,7 +99,7 @@ const editorialNavItems = [
 ];
 
 const homeEntries = [
-  { href: "/work", label: "业务合作", description: "企业培训 / 商单 / 咨询 / GEO" },
+  { href: "/work", label: "业务合作", description: "企业培训 / 商务 / 咨询 / GEO" },
   { href: "/community", label: "我的社区", description: "WE30 · 500 位成员" },
   { href: "/media", label: "自媒体", description: "各平台的公开实践" },
   { href: "/github", label: "开源工具", description: "带走能用的工作流" },
@@ -234,10 +234,10 @@ const projects = [
       "为企业和团队提供 AI 落地培训与内训分享；扫码添加微信，聊清楚具体需求。",
   },
   {
-    title: "商单 / 企业合作",
+    title: "商务 / 企业合作",
     tag: "商业合作",
     icon: ChartLineUp,
-    metric: "商单 / 企业服务 / 联创",
+    metric: "商务 / 企业服务 / 联创",
     action: "wechat",
     description:
       "承接 AI 内容、产品与自动化相关的商业合作与企业服务；扫码添加微信沟通。",
@@ -797,7 +797,7 @@ function WorkPage() {
         <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
           <p className="section-kicker">{t("BUSINESS / 业务合作")}</p>
           <h2>{t("业务合作")}</h2>
-          <p>{t("面向个人与企业，提供企业培训、内容商单、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，具体合作形式可添加微信沟通。")}</p>
+          <p>{t("面向个人与企业，提供企业培训、商务合作、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，具体合作形式可添加微信沟通。")}</p>
         </div>
         <div className="hero-system-frame">
           <div className="hero-project-list">
@@ -855,7 +855,7 @@ function WorkPage() {
             <h2 id="wechat-consult-title">{t("扫码添加微信咨询")}</h2>
             <img src="/assets/community-wechat-qr.jpg" alt={t("陈硕 KAI 的微信咨询二维码")} />
             <strong>{t(wechatId)}</strong>
-            <span>{t("添加时请备注：姓名 + 需求类型 + 具体问题。例如：企业培训 / 商单合作 / 1 对 1 咨询 / GEO 服务。")}</span>
+            <span>{t("添加时请备注：姓名 + 需求类型 + 具体问题。例如：企业培训 / 商务合作 / 1 对 1 咨询 / GEO 服务。")}</span>
           </section>
         </div>
       )}
