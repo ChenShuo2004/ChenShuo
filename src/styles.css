@@ -12159,3 +12159,19 @@ html.editorial-motion-ready .editorial-reveal.is-visible {
   .blog-markdown h3 { font-size: 20px; }
   .blog-article-footer > div a { width: 100%; }
 }
+
+/* The blog landing page is a directory of Chen Shuo's own channels. */
+.site-shell.editorial-page .blog-channels { padding-top: 42px; border-top: 1px solid var(--editorial-ink); }
+.site-shell.editorial-page .blog-channel-list { margin-top: 26px; }
+.site-shell.editorial-page .blog-channel-open { display: inline-flex; align-items: center; gap: 9px; color: var(--editorial-muted); font-family: var(--font-editorial-serif); font-size: 13px; white-space: nowrap; }
+.site-shell.editorial-page .blog-contact-links { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 26px; margin-top: 48px; padding: 20px 0; border-top: 1px solid var(--editorial-line); color: var(--editorial-muted); font-family: var(--font-cn-serif); font-size: 13px; }
+.site-shell.editorial-page .blog-contact-links a { color: var(--editorial-ink); text-decoration: underline; text-underline-offset: 4px; }
+.site-shell.editorial-page .blog-contact-links a:hover,
+.site-shell.editorial-page .blog-contact-links a:focus-visible { color: var(--editorial-accent); }
+
+@media (max-width: 700px) {
+  .site-shell.editorial-page .blog-channels { padding-top: 32px; }
+  .site-shell.editorial-page .blog-channel-open { font-size: 0; gap: 0; }
+  .site-shell.editorial-page .blog-channel-open svg { width: 20px; height: 20px; }
+  .site-shell.editorial-page .blog-contact-links { gap: 12px 18px; margin-top: 34px; }
+}

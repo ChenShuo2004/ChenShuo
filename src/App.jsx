@@ -701,85 +701,56 @@ function BlogArticlePage({ post }) {
 
 function BlogPage() {
   const { t, language } = useSitePreferences();
-  const [activeCategory, setActiveCategory] = useState("全部");
-  const { data: readership, error: readershipError } = usePublicReadership();
-  const categories = ["全部", ...new Set(blogPosts.map((post) => post.category))];
-  const visiblePosts = activeCategory === "全部" ? blogPosts : blogPosts.filter((post) => post.category === activeCategory);
+  const channels = [
+    { key: "x", label: "X", detail: "@ChenshuoAI · AI / 产品 / 商业复盘 / build in public", href: xProfileUrl, icon: XLogo },
+    { key: "douyin", label: "抖音", detail: "陈硕 KAI · 抖音号 22802710799", href: douyinProfileUrl, icon: TiktokLogo },
+    { key: "feishu", label: "飞书知识库", detail: "知识路径、产品实践与长期内容整理", href: knowledgeBaseUrl, icon: BookOpenText },
+    { key: "github", label: "开源工具", detail: "cs-board / cs-skills / cs-xiaohuang-skill", href: githubProfileUrl, icon: GithubLogo },
+    { key: "community", label: "WE30 AI 社区", detail: "与 500 位成员一起交流 AI、内容与产品", href: "/community", icon: UsersThree, internal: true },
+  ];
 
   return (
     <main className="site-shell editorial-page editorial-blog-page">
-      <EditorialSiteHeader activeKey="blog" sectionLabel={t("BLOG / 写作与复盘")} actionLabel={t("加入社区")} actionHref="/community" />
+      <EditorialSiteHeader activeKey="blog" sectionLabel={t("BLOG / 我的内容入口")} actionLabel={t("加入社区")} actionHref="/community" />
       <div className="blog-shell">
         <section className="blog-intro editorial-reveal" aria-labelledby="blog-title">
           <div>
-            <p className="section-kicker">{t("FIELD NOTES / 陈硕 KAI")}</p>
-            <h1 id="blog-title">{t("写下做过的事。")}<br /><em>Blog & Notes.</em></h1>
-            <div className="blog-readership" aria-live="polite">
-              {readership ? <><strong>{formatNumber(readership.visitors)}</strong>{t(" 位站内记录访客 ")}<span>/</span> {formatNumber(readership.pageviews)}{t(" 次全站浏览 ")}<small>{t("自 ")}{formatReadershipStart(readership.firstRecordedAt)}{t(" 起")}</small></> : readershipError ? t("阅读统计暂不可用") : t("正在读取站内统计…")}
-            </div>
+            <p className="section-kicker">{t("MY CHANNELS / 陈硕 KAI")}</p>
+            <h1 id="blog-title">{t("在这些地方，")}<br /><em>{t("继续认识我。")}</em></h1>
           </div>
-          <p>{t("AI 产品、内容增长和创业路上的真实尝试。这里收录已找到来源的 @ChenshuoAI 长文；全文归档、整理版和公开镜像分别标注。读完可以继续看看正在做的产品，或加入 WE30 交流。")}</p>
+          <p>{t("这里汇总我的自媒体账号、知识内容和公开项目。想看日常实践，去 X 和抖音；想系统阅读，打开飞书知识库；想看我做的工具，访问 GitHub。")}</p>
         </section>
 
-        {language === "en" && <p className="blog-language-note">Published articles are available in their original Chinese.</p>}
-        <div className="blog-layout">
-          <section className="blog-feed" aria-label={t("博客文章")}>
-            <div className="blog-feed-heading">
-              <div>
-                <span>01 / WRITING</span>
-                <h2>{t("最近的文章")}</h2>
-              </div>
-              <small>{String(visiblePosts.length).padStart(2, "0")} ENTRIES</small>
+        {language === "en" && <p className="blog-language-note">{t("各平台内容以中文为主。")}</p>}
+        <div className="blog-channels" aria-label={t("我的自媒体与公开内容入口")}>
+          <div className="blog-feed-heading">
+            <div>
+              <span>01 / MY CHANNELS</span>
+              <h2>{t("我的内容入口")}</h2>
             </div>
-
-            <div className="blog-filters" aria-label={t("按主题筛选文章")}>
-              {categories.map((category) => (
-                <button
-                  type="button"
-                  key={category}
-                  aria-pressed={activeCategory === category}
-                  onClick={() => setActiveCategory(category)}
-                >{t(category)}</button>
-              ))}
-            </div>
-
-            <div className="blog-post-list">
-              {visiblePosts.map((post) => (
-                <article className="blog-post" key={post.href}>
-                  <div className="blog-post-meta">
-                    <span>{t(post.category)}</span>
-                    <time dateTime={post.date.replaceAll(".", "-")}>{t(post.date)}</time>
-                    <span>{t(post.source)}</span>
-                    {readership && post.href.startsWith("/blog/") && <span>{formatNumber(readership.articles[post.href] || 0)}{t(" 次站内阅读")}</span>}
+            <small>{String(channels.length).padStart(2, "0")} LINKS</small>
+          </div>
+          <nav className="platform-signal-grid blog-channel-list" aria-label={t("自媒体和内容平台")}>
+            {channels.map(({ key, label, detail, href, icon: Icon, internal }) => (
+              <a className={`platform-signal-row platform-signal-row-${key}`} href={href} key={key}
+                target={internal ? undefined : "_blank"} rel={internal ? undefined : "noreferrer"}>
+                <div className="platform-signal-identity">
+                  <span className="platform-signal-icon"><Icon size={28} weight="regular" aria-hidden="true" /></span>
+                  <div>
+                    <p>{key.toUpperCase()} / CHEN SHUO KAI</p>
+                    <strong>{t(label)}</strong>
+                    <small>{t(detail)}</small>
                   </div>
-                  <h3 lang="zh-CN"><a href={post.href}>{post.title}</a></h3>
-                  <p lang="zh-CN">{post.excerpt}</p>
-                  <a className="blog-post-link" href={post.href}>
-                    {t(post.source === "全文归档" || !post.sections && !post.markdown ? "在站内阅读全文" : "阅读站内整理")}
-                    <ArrowRight size={18} weight="bold" aria-hidden="true" />
-                  </a>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <aside className="blog-aside" aria-label={t("关于作者与更多入口")}>
-            <div className="blog-aside-card blog-author-card">
-              <span>02 / AUTHOR</span>
-              <strong>{t("陈硕 KAI")}</strong>
-              <p>{t("AI 连续创业者。现在主要做 AI 产品、内容、知识库与社区，喜欢把做过的事和踩过的坑公开写出来。")}</p>
-              <a href={xProfileUrl} target="_blank" rel="noreferrer">{t("在 X 上关注我 ")}<ArrowUpRight size={16} aria-hidden="true" /></a>
-            </div>
-            <div className="blog-aside-card blog-next-card">
-              <span>03 / KEEP EXPLORING</span>
-              <h2>{t("读完以后，")}<br />{t("来看看我在做什么。")}</h2>
-              <a href="/work">{t("业务合作 ")}<ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
-              <a href="/community">{t("加入 WE30 社区 ")}<ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
-              <a href="/#contact">{t("联系我 ")}<ArrowRight size={17} weight="bold" aria-hidden="true" /></a>
-            </div>
-            <p className="blog-source-note">{t("仅收录 @ChenshuoAI 长文。来源与完整度在每篇文章上方标注，原帖以 X 页面为准。")}</p>
-            <p className="blog-source-note">{t("访客按浏览器标识去重，统计从站内采集启用后开始；文章阅读次数只计算本站页面浏览。")}</p>
-          </aside>
+                </div>
+                <span className="blog-channel-open">{t(internal ? "站内了解" : "打开入口")} <ArrowUpRight size={19} aria-hidden="true" /></span>
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div className="blog-contact-links">
+          <span>{t("商务与交流")}</span>
+          <a href="/#contact">{t("联系我")}</a>
+          <a href="/media">{t("查看自媒体主页")}</a>
         </div>
       </div>
     </main>
@@ -1829,7 +1800,7 @@ export function App() {
     const pageTitles = {
       "/work": ["业务合作", "Business"], "/community": ["我的社区", "Community"],
       "/media": ["自媒体", "Media"], "/github": ["开源工具", "Open Source"],
-      "/blog": ["博客与复盘", "Blog & Notes"], "/knowledge": ["知识地图", "Knowledge Map"],
+      "/blog": ["我的内容入口", "My Channels"], "/knowledge": ["知识地图", "Knowledge Map"],
       "/knowledge-base": ["知识库", "Knowledge Base"], "/tools": ["工具库", "Tool Library"],
       "/reading": ["有温度阅览室", "Reading Room"],
     };
@@ -1837,7 +1808,7 @@ export function App() {
     document.title = title ? `${title} | ${english ? "Chen Shuo KAI" : "陈硕 KAI"}` : english ? "Chen Shuo KAI | AI serial entrepreneur" : "陈硕｜AI 连续创业者｜写作、产品与知识库";
     const description = blogArticle?.excerpt || (english
       ? "Chen Shuo KAI: AI products, content, knowledge and community. Explore partnerships, WE30, open-source tools and writing."
-      : "陈硕 KAI：AI 产品、内容、知识库与社区。了解业务合作、WE30 社群、开源工具与博客复盘。");
+      : "陈硕 KAI 的自媒体与内容入口：X、抖音、飞书知识库、开源工具和 WE30 AI 社区。");
     document.querySelector('meta[name="description"]')?.setAttribute("content", description);
   }, [normalizedPath, blogArticle, language]);
   useEffect(() => {
