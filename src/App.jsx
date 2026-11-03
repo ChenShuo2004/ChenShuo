@@ -14,6 +14,7 @@ import {
   Flame,
   GithubLogo,
   Network,
+  Storefront,
   TiktokLogo,
   UsersThree,
   WechatLogo,
@@ -37,7 +38,6 @@ const githubProfileUrl = "https://github.com/ChenShuo2004";
 const githubApiUrl = "https://api.github.com/users/ChenShuo2004";
 const githubReposApiUrl = "https://api.github.com/users/ChenShuo2004/repos?per_page=100&type=owner";
 const xProfileUrl = "https://x.com/ChenshuoAI";
-const communityFee = "499 元 / 人";
 const douyinProfileUrl = "https://www.douyin.com/user/MS4wLjABAAAAUXlQ1xsLrrjEWb3v_k-0orHhnmz0HV-l0KfvqT9SaMtyti9DdR4mMAoIxb4tQi4I";
 const productLibraryUrl = "https://aiyouwendu.com/products";
 const warmSpaceUrl = "https://aiyouwendu.com/home";
@@ -99,8 +99,8 @@ const editorialNavItems = [
 ];
 
 const homeEntries = [
-  { href: "/work", label: "业务合作", description: "企业培训 / 商务 / 咨询 / GEO" },
-  { href: "/community", label: "我的社区", description: "WE30 · 500 位成员" },
+  { href: "/work", label: "业务合作", description: "AIGC 商家合作 / 企业培训 / 咨询 / GEO" },
+  { href: "/community", label: "我的社区", description: "WE30 · 500 位成员 · 暂停招募" },
   { href: "/media", label: "自媒体", description: "各平台的公开实践" },
   { href: "/github", label: "开源工具", description: "带走能用的工作流" },
   { href: "#contact", label: "联系我", description: "交流与业务合作" },
@@ -109,7 +109,7 @@ const homeEntries = [
 const socialChannels = [
   { key: "douyin", label: "抖音", detail: "陈硕 KAI · 22802710799", href: douyinProfileUrl, icon: TiktokLogo },
   { key: "x", label: "X", detail: "@ChenshuoAI", href: xProfileUrl, icon: XLogo },
-  { key: "wechat", label: "微信", detail: wechatId, href: "/community#community-contact", icon: WechatLogo },
+  { key: "wechat", label: "微信", detail: wechatId, href: "/#contact", icon: WechatLogo },
   { key: "email", label: "邮箱", detail: contactEmail, href: `mailto:${contactEmail}`, icon: EnvelopeSimple },
 ];
 
@@ -225,6 +225,15 @@ const knowledgeOriginChapters = [
 
 const projects = [
   {
+    title: "AIGC 商家合作",
+    tag: "品牌合作",
+    icon: Storefront,
+    metric: "品牌合作 / 产品体验 / 内容共创",
+    action: "wechat",
+    description:
+      "当前主要承接 AIGC 商家合作，围绕品牌产品体验、内容共创、商业推广与 AI 产品落地沟通合作。",
+  },
+  {
     title: "企业培训",
     tag: "企业服务",
     icon: UsersThree,
@@ -232,15 +241,6 @@ const projects = [
     action: "wechat",
     description:
       "为企业和团队提供 AI 落地培训与内训分享；扫码添加微信，聊清楚具体需求。",
-  },
-  {
-    title: "商务 / 企业合作",
-    tag: "商业合作",
-    icon: ChartLineUp,
-    metric: "商务 / 企业服务 / 联创",
-    action: "wechat",
-    description:
-      "承接 AI 内容、产品与自动化相关的商业合作与企业服务；扫码添加微信沟通。",
   },
   {
     title: "1 对 1 咨询",
@@ -326,7 +326,7 @@ function useEditorialReveal() {
   }, []);
 }
 
-function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "加入社区", actionHref = "/community", inHero = false }) {
+function EditorialSiteHeader({ activeKey = "home", sectionLabel = "AI / CONTENT / PRODUCT", actionLabel = "了解社区", actionHref = "/community", inHero = false }) {
   const { t } = useSitePreferences();
   return (
     <header className={`editorial-site-header editorial-reveal ${inHero ? "editorial-site-header-hero" : ""}`}>
@@ -651,7 +651,7 @@ function BlogArticlePage({ post }) {
   const { data: readership } = usePublicReadership();
   return (
     <main className="site-shell editorial-page editorial-blog-page">
-      <EditorialSiteHeader activeKey="blog" sectionLabel={t("BLOG / 写作与复盘")} actionLabel={t("加入社区")} actionHref="/community" />
+      <EditorialSiteHeader activeKey="blog" sectionLabel={t("BLOG / 写作与复盘")} actionLabel={t("了解社区")} actionHref="/community" />
       <article className="blog-article">
         {language === "en" && <p className="blog-language-note">Published articles are available in their original Chinese.</p>}
         <a className="blog-back-link" href="/blog">{t("← 返回博客")}</a>
@@ -711,7 +711,7 @@ function BlogPage() {
 
   return (
     <main className="site-shell editorial-page editorial-blog-page">
-      <EditorialSiteHeader activeKey="blog" sectionLabel={t("BLOG / 我的内容入口")} actionLabel={t("加入社区")} actionHref="/community" />
+      <EditorialSiteHeader activeKey="blog" sectionLabel={t("BLOG / 我的内容入口")} actionLabel={t("了解社区")} actionHref="/community" />
       <div className="blog-shell">
         <section className="blog-intro editorial-reveal" aria-labelledby="blog-title">
           <div>
@@ -768,7 +768,7 @@ function WorkPage() {
         <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
           <p className="section-kicker">{t("BUSINESS / 业务合作")}</p>
           <h2>{t("业务合作")}</h2>
-          <p>{t("面向个人与企业，提供企业培训、商务合作、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，具体合作形式可添加微信沟通。")}</p>
+          <p>{t("当前业务以 AIGC 商家合作为主，涵盖品牌产品体验、内容共创、商业推广与 AI 产品落地；也承接企业培训、商务合作、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，欢迎添加微信沟通。")}</p>
         </div>
         <div className="hero-system-frame">
           <div className="hero-project-list">
@@ -826,7 +826,7 @@ function WorkPage() {
             <h2 id="wechat-consult-title">{t("扫码添加微信咨询")}</h2>
             <img src="/assets/community-wechat-qr.jpg" alt={t("陈硕 KAI 的微信咨询二维码")} />
             <strong>{t(wechatId)}</strong>
-            <span>{t("添加时请备注：姓名 + 需求类型 + 具体问题。例如：企业培训 / 商务合作 / 1 对 1 咨询 / GEO 服务。")}</span>
+            <span>{t("添加时请备注：姓名 + 需求类型 + 具体问题。例如：AIGC 商家合作 / 企业培训 / 1 对 1 咨询 / GEO 服务。")}</span>
           </section>
         </div>
       )}
@@ -1057,99 +1057,36 @@ function CommunityPage() {
   const { t } = useSitePreferences();
   return (
     <main className="site-shell editorial-page editorial-community-page community-page">
-      <EditorialSiteHeader activeKey="community" sectionLabel="WE30 / AI / CREATION" actionLabel={t("添加微信咨询")} actionHref="#community-contact" />
+      <EditorialSiteHeader activeKey="community" sectionLabel="WE30 / AI / CREATION" actionLabel={t("查看业务合作")} actionHref="/work" />
 
       <section className="community-intro-section">
         <div className="community-manifesto editorial-reveal" data-reveal-delay="60">
           <div>
             <p className="community-story-kicker">WE30 / AI / CREATION</p>
-            <p className="community-member-count"><strong>500</strong>{t(" 位成员，一起做事。")}</p>
-            <h1>{t("把想做事的人，聚在一起。")}</h1>
+            <p className="community-member-count"><strong>500</strong>{t(" 位成员")}</p>
+            <h1>{t("WE30 社群")}</h1>
           </div>
           <div className="community-manifesto-copy">
-            <p className="community-manifesto-lede">{t("WE30 现在有 500 位成员，面向已跑通商业闭环并拿到结果的 00 后，以及有认知、有思考、已拿到一定结果的人群。围绕 AI 创作、产品与业务交流，分享实践与真实经验。")}</p>
-            <div className="community-manifesto-routes" aria-label={t("社区入口")}>
-              <a href="#community-contact">
-                <span>WE30 / COMMUNITY</span>
-                <strong>{t("加入 WE30：")}{t(communityFee)}{t("，需满足入群门槛")}</strong>
-                <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
-              </a>
+            <p className="community-manifesto-lede">{t("WE30 是围绕 AI、内容、产品与业务交流的社群，目前有 500 位成员。")}</p>
+            <div className="community-recruitment-status" role="status">
+              <span>COMMUNITY STATUS</span>
+              <strong>{t("目前暂停招募新成员，暂不开放入群申请。")}</strong>
             </div>
           </div>
         </div>
 
         <div className="community-story editorial-reveal" data-reveal-delay="100">
-          <p>{t("在同一个社群里交流业务、分享认知与实践，把有价值的方法沉淀下来。")}</p>
+          <p>{t("社群现有成员继续围绕 AI 创作、产品和业务交流，分享实践经验并沉淀有价值的方法。")}</p>
         </div>
-
-        <div className="community-program-grid" aria-label={t("WE30 社区结构")}>
-          <article className="community-program community-program-we30 editorial-reveal" data-reveal-delay="130">
-            <div className="community-program-topline">
-              <p className="community-story-kicker">WE30 / COMMUNITY</p>
-              <span>DEEP CONNECTION</span>
-            </div>
-            <h2>{t("WE30 社群")}</h2>
-            <p className="community-program-lede">{t("围绕业务、产品和内容持续交流。入群费用为 ")}{t(communityFee)}{t("；同时需满足以下两类人群中的任意一类。")}</p>
-            <div className="community-program-details">
-              <div>
-                <span>{t("入群费用")}</span>
-                <p>{t("入群费用：")}{t(communityFee)}。</p>
-              </div>
-              <div>
-                <span>{t("入群门槛 / 二选一")}</span>
-                <p><strong>{t("00 后商业实践者")}</strong>{t("：已经跑通商业闭环，并拿到实际结果。")}</p>
-                <p><strong>{t("有认知、有思考的人群")}</strong>{t("：有自己的判断，愿意独立思考、深入交流，并已拿到一定的实际结果。")}</p>
-              </div>
-            </div>
-            <div className="community-program-proof" aria-label={t("WE30 社群内容")}>
-              <span>WHAT HAPPENS HERE</span>
-              <p>{t("做业务分享、会议复盘与产品讨论，把有价值的方法沉淀下来。")}</p>
-            </div>
-            <a className="community-program-link" href="#community-contact">{t("申请加入 WE30")}<ArrowRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-          </article>
-
-        </div>
-
-        <section className="community-boundary editorial-reveal" data-reveal-delay="270" aria-label={t("社区共同边界")}>
-          <div>
-            <p className="community-story-kicker">ONE STANDARD / REAL WORK</p>
-            <h2>{t("不是人很多，")}<br />{t("是一群有创造力的人。")}</h2>
-          </div>
-          <div className="community-boundary-copy">
-            <p>{t("不承诺赚钱、资源或人脉，也不相信加入一个群就能改变人生。这里想留下的是愿意做事的人、被验证过的连接，以及不断累积的结果。")}</p>
-            <ul>
-              <li>{t("不欢迎广告、骚扰、卖课引流与搬运内部内容。")}</li>
-              <li>{t("不鼓励只索取、不行动的参与方式。")}</li>
-              <li>{t("具体规则与协作方式，只在匹配后的社区内部展开。")}</li>
-            </ul>
-          </div>
-        </section>
       </section>
 
-      <section className="community-access-section" id="community-contact" aria-label={t("加入社区咨询")}>
-        <div className="community-access-inner editorial-reveal" data-reveal-delay="100">
-          <div className="community-copy">
-            <p className="section-kicker">WE30 / COMMUNITY</p>
-            <h1>{t("加入社区")}</h1>
-            <p className="community-lede">{t("加我微信，备注姓名、申请加入 WE30、符合哪类门槛，以及你的思考与实际成果。")}<br />{t("未备注清楚，无法判断申请；不备注，不通过。")}</p>
-            <a className="community-back-link" href="/#top">{t("回到首页")}<ArrowRight size={18} weight="bold" aria-hidden="true" />
-            </a>
-          </div>
-          <aside className="community-contact-card" aria-label={t("加入社区咨询")}>
-            <span>COMMUNITY / CONTACT</span>
-            <h2>{t("添加微信咨询")}</h2>
-            <p>{t("入群费用为 ")}{t(communityFee)}{t("。扫码加微信请备注：姓名 + 申请加入 WE30 + 符合哪类门槛 + 思考与实际成果。00 后商业实践者请说明已跑通的商业闭环和实际结果；认知与思考类申请者请分享自己的判断、思考，以及已经拿到的实际结果。不备注不通过。")}</p>
-            <figure className="community-qr">
-              <img src="/assets/community-wechat-qr.jpg" alt={t("陈硕 KAI 的微信咨询二维码")} />
-              <figcaption>SCAN TO CONNECT</figcaption>
-            </figure>
-            <div className="community-wechat" aria-label={t("社区微信号")}>
-              <span>{t("微信号")}</span>
-              <strong>{t(wechatId)}</strong>
-            </div>
-          </aside>
+      <section className="community-business-note editorial-reveal" data-reveal-delay="180">
+        <div>
+          <p className="section-kicker">CURRENT FOCUS / BUSINESS</p>
+          <h2>{t("当前业务以 AIGC 商家合作为主")}</h2>
+          <p>{t("面向 AIGC 品牌与商家开展产品体验、内容共创、商业推广和 AI 产品落地合作。")}</p>
         </div>
+        <a className="community-program-link" href="/work">{t("查看业务合作")}<ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
       </section>
     </main>
   );

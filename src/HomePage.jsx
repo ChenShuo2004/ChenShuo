@@ -34,7 +34,7 @@ export default function HomePage({ entries, channels, knowledgeBaseUrl, xProfile
     { label: "邮箱", detail: contactEmail, href: `mailto:${contactEmail}` },
     { label: "X / Twitter", detail: "@ChenshuoAI", href: xProfileUrl },
     { label: "知识库", detail: "我的笔记与方法", href: knowledgeBaseUrl },
-    { label: "微信 / 社区", detail: wechatId, href: "/community#community-contact" },
+    { label: "微信 / 社区", detail: wechatId, href: "/#contact" },
   ];
 
   return (
