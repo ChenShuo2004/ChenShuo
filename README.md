@@ -1,3 +1,5 @@
+> **English:** A personal website connecting real-world experience, content, tools, and knowledge in a reusable product space.
+
 # Chen Shuo · Personal Site
 
 > 一个持续生长的个人商业系统：把经历、内容、工具和知识，连接成可以被看见、理解并持续复用的产品空间。
