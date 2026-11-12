@@ -25,13 +25,13 @@
   border-left: 1px solid rgba(242, 238, 226, .25);
   font-family: "Noto Sans SC", "PingFang SC", sans-serif;
 }
-.brand-copy strong { font-size: 10px; font-weight: 500; line-height: 1.2; letter-spacing: .2em; white-space: nowrap; }
-.brand-copy small { color: #c7d2e3; font-size: 8px; font-weight: 400; line-height: 1.5; letter-spacing: .08em; }
+.brand-copy strong { font-size: 11px; font-weight: 500; line-height: 1.2; letter-spacing: .22em; white-space: nowrap; }
+.brand-copy small { color: #c7d2e3; font-size: 10px; font-weight: 400; line-height: 1.5; letter-spacing: .1em; }
 .brand-signature:hover .brand-copy strong { color: #fff; }
 @media (max-width: 600px) {
   .brand-signature { gap: 11px; }
   .brand-wordmark { font-size: 30px; }
   .brand-copy { gap: 5px; padding-left: 11px; }
-  .brand-copy strong { font-size: 9px; letter-spacing: .14em; }
-  .brand-copy small { font-size: 7px; }
+  .brand-copy strong { font-size: 10px; letter-spacing: .14em; }
+  .brand-copy small { font-size: 9px; letter-spacing: .06em; }
 }

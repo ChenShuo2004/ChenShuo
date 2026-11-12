@@ -26,7 +26,7 @@
   z-index: -1;
   inset: 0;
   content: "";
-  background: linear-gradient(rgba(10, 29, 65, .16), rgba(10, 29, 65, .3)), url("/assets/portal-cobalt-v1.webp") center / cover;
+  background: linear-gradient(180deg, rgba(8, 24, 58, .46), rgba(8, 24, 58, 0) 240px), linear-gradient(rgba(10, 29, 65, .16), rgba(10, 29, 65, .3)), url("/assets/portal-cobalt-v1.webp") center / cover;
   pointer-events: none;
 }
 .site-shell.editorial-page::after { display: none; }
@@ -43,7 +43,7 @@
 }
 .site-shell.editorial-page .editorial-site-header { min-height: 88px; grid-template-columns: auto 1fr auto; gap: 24px; }
 .site-shell.editorial-page .editorial-site-nav { gap: 16px; flex-wrap: wrap; }
-.site-shell.editorial-page .editorial-site-nav a { min-height: 40px; align-items: center; gap: 5px; font-family: inherit; font-size: 11px; }
+.site-shell.editorial-page .editorial-site-nav a { min-height: 40px; align-items: center; gap: 5px; font-family: inherit; font-size: 12px; }
 .site-shell.editorial-page .editorial-site-nav a small { display: none; }
 .site-shell.editorial-page :is(.editorial-site-action, .editorial-outline-action, .community-back-link) { color: var(--editorial-ink); border-color: var(--editorial-line); font-family: inherit; font-size: 12px; background: transparent; }
 .site-shell.editorial-page :is(.editorial-site-action, .editorial-outline-action, .community-back-link):hover { color: var(--editorial-ink); background: rgba(5, 27, 66, .22); transform: none; }
@@ -57,7 +57,7 @@
 .site-shell.editorial-page :is(.editorial-detail-description, .editorial-projects-heading > p:last-child, .github-build-lede, .community-manifesto-lede, .community-lede, .blog-intro > p) {
   max-width: 720px; margin: 20px 0 0; color: var(--editorial-muted); font-family: inherit; font-size: 15px; line-height: 1.9;
 }
-.site-shell.editorial-page :is(.editorial-page-kicker, .section-kicker, .github-build-kicker, .community-story-kicker) { color: var(--editorial-muted); font-size: 10px; letter-spacing: .12em; }
+.site-shell.editorial-page :is(.editorial-page-kicker, .section-kicker, .github-build-kicker, .community-story-kicker) { color: var(--editorial-muted); font-size: 11px; letter-spacing: .14em; }
 .site-shell.editorial-page .github-build-guides,
 .site-shell.editorial-page .editorial-detail-hero::before,
 .site-shell.editorial-page .editorial-detail-hero::after,

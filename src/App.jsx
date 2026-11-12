@@ -1,3 +1,4 @@
+import { Cpu } from "@phosphor-icons/react";
 import { useSitePreferences } from "./SitePreferences.jsx";
 import {
   ArrowClockwise,
@@ -99,7 +100,7 @@ const editorialNavItems = [
 ];
 
 const homeEntries = [
-  { href: "/work", label: "业务合作", description: "AIGC 商家合作 / 企业培训 / 咨询 / GEO" },
+  { href: "/work", label: "业务合作", description: "AI 定制 / 企业培训 / 咨询 / GEO" },
   { href: "/community", label: "我的社区", description: "WE30 · 500 位成员 · 暂停招募" },
   { href: "/media", label: "自媒体", description: "各平台的公开实践" },
   { href: "/github", label: "开源工具", description: "带走能用的工作流" },
@@ -225,13 +226,13 @@ const knowledgeOriginChapters = [
 
 const projects = [
   {
-    title: "AIGC 商家合作",
-    tag: "品牌合作",
-    icon: Storefront,
-    metric: "品牌合作 / 产品体验 / 内容共创",
+    title: "AI 定制",
+    tag: "定制开发",
+    icon: Cpu,
+    metric: "智能体 / 工作流 / 知识库 / 品牌共创",
     action: "wechat",
     description:
-      "当前主要承接 AIGC 商家合作，围绕品牌产品体验、内容共创、商业推广与 AI 产品落地沟通合作。",
+      "按业务场景定制 AI 智能体、工作流与知识库，也承接 AIGC 品牌的产品体验与内容共创；添加微信沟通。",
   },
   {
     title: "企业培训",
@@ -768,7 +769,7 @@ function WorkPage() {
         <div className="editorial-projects-heading editorial-reveal" data-reveal-delay="60">
           <p className="section-kicker">{t("BUSINESS / 业务合作")}</p>
           <h2>{t("业务合作")}</h2>
-          <p>{t("当前业务以 AIGC 商家合作为主，涵盖品牌产品体验、内容共创、商业推广与 AI 产品落地；也承接企业培训、商务合作、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，欢迎添加微信沟通。")}</p>
+          <p>{t("当前业务以 AI 定制为主，按业务场景定制智能体、自动化工作流与知识库系统，并与 AIGC 品牌做产品体验和内容共创；也承接企业培训、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，欢迎添加微信沟通。")}</p>
         </div>
         <div className="hero-system-frame">
           <div className="hero-project-list">
@@ -826,7 +827,7 @@ function WorkPage() {
             <h2 id="wechat-consult-title">{t("扫码添加微信咨询")}</h2>
             <img src="/assets/community-wechat-qr.jpg" alt={t("陈硕 KAI 的微信咨询二维码")} />
             <strong>{t(wechatId)}</strong>
-            <span>{t("添加时请备注：姓名 + 需求类型 + 具体问题。例如：AIGC 商家合作 / 企业培训 / 1 对 1 咨询 / GEO 服务。")}</span>
+            <span>{t("添加时请备注：姓名 + 需求类型 + 具体问题。例如：AI 定制 / 企业培训 / 1 对 1 咨询 / GEO 服务。")}</span>
           </section>
         </div>
       )}
@@ -1083,8 +1084,8 @@ function CommunityPage() {
       <section className="community-business-note editorial-reveal" data-reveal-delay="180">
         <div>
           <p className="section-kicker">CURRENT FOCUS / BUSINESS</p>
-          <h2>{t("当前业务以 AIGC 商家合作为主")}</h2>
-          <p>{t("面向 AIGC 品牌与商家开展产品体验、内容共创、商业推广和 AI 产品落地合作。")}</p>
+          <h2>{t("当前业务以 AI 定制为主")}</h2>
+          <p>{t("面向企业与个人，按业务场景定制 AI 智能体、自动化工作流与知识库系统。")}</p>
         </div>
         <a className="community-program-link" href="/work">{t("查看业务合作")}<ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
       </section>

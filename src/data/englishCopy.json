@@ -120,7 +120,6 @@
   "继续认识我。": "across these channels.",
   "这里汇总我的自媒体账号、知识内容和公开项目。想看日常实践，去 X 和抖音；想系统阅读，打开飞书知识库；想看我做的工具，访问 GitHub。": "My social accounts, knowledge work and public projects live here. Follow X and Douyin for ongoing practice, Feishu for structured reading, and GitHub for tools I've built.",
   "我的内容入口": "My channels",
-  "飞书知识库": "Feishu Knowledge Base",
   "知识路径、产品实践与长期内容整理": "Knowledge paths, product practice and long-form notes",
   "cs-board / cs-skills / cs-xiaohuang-skill": "cs-board / cs-skills / cs-xiaohuang-skill",
   "WE30 AI 社区": "WE30 AI Community",
@@ -299,5 +298,18 @@
   "打开": "Open",
   "GitHub 仓库": "GitHub repository",
   "页面介绍": "introduction",
-  "页面规格信息": "details"
+  "页面规格信息": "details",
+  "AI 定制 / 企业培训 / 咨询 / GEO": "Custom AI / Training / Consulting / GEO",
+  "AI 定制": "Custom AI",
+  "定制开发": "Custom build",
+  "智能体 / 工作流 / 知识库": "Agents / Workflows / Knowledge bases",
+  "按业务场景定制 AI 智能体、自动化工作流与知识库系统；添加微信沟通需求与方案。": "Custom AI agents, automated workflows and knowledge-base systems for businesses and individuals, built around your specific use case from scoping to delivery. Connect on WeChat to discuss your needs.",
+  "面向 AIGC 品牌与商家，围绕品牌产品体验、内容共创、商业推广与 AI 产品落地沟通合作。": "Partnerships with AIGC brands and merchants across product experiences, content co-creation, commercial promotion and AI product implementation.",
+  "当前业务以 AI 定制为主，按业务场景定制智能体、自动化工作流与知识库系统；也承接 AIGC 商家合作、企业培训、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，欢迎添加微信沟通。": "The current focus is custom AI: agents, automated workflows and knowledge-base systems built around your use case. AIGC merchant partnerships, corporate training, 1:1 consulting and GEO services are also available. Based mainly in Shenzhen, Xiamen and Hong Kong. Connect on WeChat to discuss.",
+  "添加时请备注：姓名 + 需求类型 + 具体问题。例如：AI 定制 / 企业培训 / 1 对 1 咨询 / GEO 服务。": "Include your name, request type and specific question when adding me. For example: custom AI, corporate training, 1:1 consulting or GEO services.",
+  "当前业务以 AI 定制为主": "The current business focus is custom AI",
+  "面向企业与个人，按业务场景定制 AI 智能体、自动化工作流与知识库系统。": "Custom AI agents, automated workflows and knowledge-base systems for businesses and individuals.",
+  "智能体 / 工作流 / 知识库 / 品牌共创": "Agents / Workflows / Knowledge bases / Brand co-creation",
+  "按业务场景定制 AI 智能体、工作流与知识库，也承接 AIGC 品牌的产品体验与内容共创；添加微信沟通。": "Custom AI agents, workflows and knowledge bases built around your use case, plus product experiences and content co-creation with AIGC brands. Connect on WeChat to discuss.",
+  "当前业务以 AI 定制为主，按业务场景定制智能体、自动化工作流与知识库系统，并与 AIGC 品牌做产品体验和内容共创；也承接企业培训、1 对 1 咨询与 GEO 服务。本人主要活跃于深圳、厦门、香港，欢迎添加微信沟通。": "The current focus is custom AI: agents, automated workflows and knowledge-base systems built around your use case, plus product experiences and content co-creation with AIGC brands. Corporate training, 1:1 consulting and GEO services are also available. Based mainly in Shenzhen, Xiamen and Hong Kong. Connect on WeChat to discuss."
 }
