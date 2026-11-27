@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build",
+    "build": "rm -rf dist && mkdir -p dist && echo ok > dist/.everlight-proxy",
+    "build:legacy": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "cf:dev": "npx --yes wrangler@4.143.0 dev --local --ip 127.0.0.1 --port 8787",
     "cf:migrate:local": "npx --yes wrangler@4.143.0 d1 migrations apply DB --local"

@@ -1,20 +1,35 @@
 {
+  "buildCommand": "rm -rf dist && mkdir -p dist && echo ok > dist/.everlight-proxy",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/work", "destination": "/", "permanent": false },
+    { "source": "/work/:path*", "destination": "/", "permanent": false },
+    { "source": "/community", "destination": "/", "permanent": false },
+    { "source": "/media", "destination": "/", "permanent": false },
+    { "source": "/github", "destination": "/products/", "permanent": false },
+    { "source": "/blog", "destination": "/guides/", "permanent": false },
+    { "source": "/blog/:path*", "destination": "/guides/", "permanent": false },
+    { "source": "/:lang(en|ja|ko)", "destination": "/:lang/", "permanent": true },
+    { "source": "/cases", "destination": "/cases/", "permanent": true },
+    { "source": "/guides", "destination": "/guides/", "permanent": true },
+    { "source": "/guides/:slug([^/.]+)", "destination": "/guides/:slug/", "permanent": true },
+    { "source": "/services/:slug([^/.]+)", "destination": "/services/:slug/", "permanent": true },
+    { "source": "/products", "destination": "/products/", "permanent": true },
+    { "source": "/products/:slug([^/.]+)", "destination": "/products/:slug/", "permanent": true },
+    { "source": "/aigc-customization", "destination": "/aigc-customization/", "permanent": true },
+    { "source": "/aigc-customization/:slug([^/.]+)", "destination": "/aigc-customization/:slug/", "permanent": true },
+    { "source": "/privacy", "destination": "/privacy/", "permanent": true },
+    { "source": "/terms", "destination": "/terms/", "permanent": true },
+    { "source": "/admin", "destination": "/admin/", "permanent": true },
+    { "source": "/:lang(en|ja|ko)/:section(cases|guides|products|aigc-customization|privacy|terms)", "destination": "/:lang/:section/", "permanent": true },
+    { "source": "/:lang(en|ja|ko)/:section(services|guides|products|aigc-customization)/:slug([^/.]+)", "destination": "/:lang/:section/:slug/", "permanent": true }
+  ],
   "rewrites": [
-    {
-      "source": "/api/track-view",
-      "destination": "https://chenshuo-personal-site.httpsdashcloudflarecomf83eaa1f2a15f06a8f638a0a39468409wo.workers.dev/api/track-view?via=vercel"
-    },
-    {
-      "source": "/api/admin-analytics",
-      "destination": "https://chenshuo-personal-site.httpsdashcloudflarecomf83eaa1f2a15f06a8f638a0a39468409wo.workers.dev/api/admin-analytics?via=vercel"
-    },
-    {
-      "source": "/api/public-stats",
-      "destination": "https://chenshuo-personal-site.httpsdashcloudflarecomf83eaa1f2a15f06a8f638a0a39468409wo.workers.dev/api/public-stats?via=vercel"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/analytics-api/:path*", "destination": "https://page.aiyouwendu.com/analytics-api/:path*" },
+    { "source": "/showcase-config.json", "destination": "https://page.aiyouwendu.com/showcase-config.json" },
+    { "source": "/samples/:path*", "destination": "https://page.aiyouwendu.com/samples/:path*" },
+    { "source": "/", "destination": "https://page.aiyouwendu.com/_everlight/index.html" },
+    { "source": "/:path(.+)/", "destination": "https://page.aiyouwendu.com/_everlight/:path/index.html" },
+    { "source": "/:path*", "destination": "https://page.aiyouwendu.com/_everlight/:path*" }
   ]
 }
